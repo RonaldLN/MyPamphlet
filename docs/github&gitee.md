@@ -25,3 +25,15 @@ git push -u origin [ master / main ]
 gitee pages 更细需要手动点击更新，
 
 github pages 可以自动更新
+
+## 4
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+![github_linux_ssh](images/github_linux_ssh.png)
+
+```bash
+ssh-keygen -t ed25519 -C "xxx@example.com"
+```
+
+第二行填写文件要保存的位置（直接复制给的就好了），然后`passphrase`可以不设置，之后把`~/.ssh/id_ed25519.pub`中的全部复制粘贴到github设置ssh中就行了
