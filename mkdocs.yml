@@ -1,0 +1,60 @@
+site_name: My Pamphlet
+
+theme:
+  name: material # 固定
+  # logo: assets/logo.jpg # 页面中顶部栏左侧图标
+  # favicon: assets/favicon.jpg # 浏览器页面标签图标
+  features:
+    - navigation.expand # 目录自动展开子目录
+    # - toc.integrate # 右边的toc融合到左侧的目录中
+    - toc.follow # 右侧toc随着页面滑动自动滑动
+    - navigation.top # 有回到页面最上方top的按键
+    - search.suggest # 搜索建议
+    - navigation.footer # 页面底部有下一页的链接(按目录上的顺序)
+    # - navigation.tabs # 一级目录融合至顶栏，并且只展示二级目录
+    - content.code.copy # 代码块复制按键
+  palette: 
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night # 图标(可改，下同)
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - pymdownx.superfences: # mermaid画图
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list # 矩形按钮/按键
+  - def_list # a 无序/有序/任务 列表
+  - pymdownx.tasklist: # a
+      custom_checkbox: true
+  - pymdownx.critic # b Formatting 含 高亮/删除线/下划线/上下角标 [等]
+  - pymdownx.caret # b
+  - pymdownx.keys # b
+  - pymdownx.mark # b
+  - pymdownx.tilde # b
+  - toc: # 修改页面右侧 Table of contents 文字
+      title: 目录
+  - footnotes # 脚注
+  - pymdownx.highlight: # c 代码块配置
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite # c
+  - pymdownx.snippets # c
+  - pymdownx.superfences # c
+
+repo_url: https://github.com/RonaldLN/MyPamphlet
+repo_name: RonaldLN/MyPamphlet
+  
