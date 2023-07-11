@@ -12,21 +12,25 @@
 
 ubuntu 安装 cuda
 
-https://blog.csdn.net/Sihang_Xie/article/details/127347139
+[(8条消息) 【CUDA】Ubuntu系统如何安装CUDA保姆级教程(2022年最新)_ubuntu cuda安装教程_自牧君的博客-CSDN博客](https://blog.csdn.net/Sihang_Xie/article/details/127347139)
 
-> https://blog.csdn.net/JulyLi2019/article/details/125102098
+> [(8条消息) Ubuntu安装cuda与cudnn，亲测可用_ubuntu安装cuda和cudnn_JulyLi2019的博客-CSDN博客](https://blog.csdn.net/JulyLi2019/article/details/125102098)
 
 ## 3
 
 Existing package manager installation of the driver found. It is strongly recommended that you remove this before continuing.
 
-https://tabbas97.medium.com/get-cuda-the-right-way-c68d533bed3e
+![install_cuda](images/install_cuda.png)
+
+>   Upon starting, we may be greeted with a warning stating that an existing package manager installation of the graphics driver was found. Unless you have a version of the graphics driver lower than required from this [page](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html), you can choose to continue.
+
+ [Get CUDA the right way.. (One that won’t break anything when you… | by Thameem Abbas | Medium](https://tabbas97.medium.com/get-cuda-the-right-way-c68d533bed3e)
 
 ## 4
 
 解决安装cuda后，nvcc找不到命令
 
-https://blog.csdn.net/rtygbwwwerr/article/details/73656876
+[(8条消息) 解决nvcc找不到的问题（Ubuntu16.04 CUDA 8.0）_rtygbwwwerr的博客-CSDN博客](https://blog.csdn.net/rtygbwwwerr/article/details/73656876)
 
 修改`~/.bashrc`文件后，更新系统环境：
 
@@ -39,9 +43,9 @@ sudo ldconfig
 
 安装 cudnn
 
-https://blog.csdn.net/u011304078/article/details/120955441
+[(8条消息) 基于ubuntu安装cuda,cuDNN_ubuntu安装cuda和cudnn_xyzxyz576的博客-CSDN博客](https://blog.csdn.net/u011304078/article/details/120955441)
 
-https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
+[Installation Guide - NVIDIA Docs](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
 
 ## 6
 
@@ -49,7 +53,7 @@ https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
 dpkg-deb: 错误: 'cudnn-local-repo-ubuntu1804-8.9.2.26_1.0-1_amd64.deb' is not a Debian format archive
 ```
 
-https://blog.csdn.net/sun007700/article/details/123090917
+[(8条消息) 错误: ‘containerd.io_1.4.9-1_amd64.deb‘ is not a Debian format archive_sun007700的博客-CSDN博客](https://blog.csdn.net/sun007700/article/details/123090917)
 
 安装包没下载好
 
@@ -59,7 +63,7 @@ https://blog.csdn.net/sun007700/article/details/123090917
 E: 未找到“libcudnn8”的“8.9.2.26-1+cuda11.3”版本
 ```
 
-https://forums.developer.nvidia.com/t/e-version-8-3-1-22-1-cuda10-2-for-libcudnn8-was-not-found/200801/8
+[E: Version '8.3.1.22-1+cuda10.2' for 'libcudnn8' was not found - Deep Learning (Training & Inference) / cuDNN - NVIDIA Developer Forums](https://forums.developer.nvidia.com/t/e-version-8-3-1-22-1-cuda10-2-for-libcudnn8-was-not-found/200801/8)
 
 ```txt
 chrysophyt
@@ -91,7 +95,7 @@ which will install cudnn. ;)
 
 旧版本是runtime，dev，sample，三个分开
 
-> 如这个：https://blog.csdn.net/JulyLi2019/article/details/125102098
+> 如这个：[(8条消息) Ubuntu安装cuda与cudnn，亲测可用_ubuntu安装cuda和cudnn_JulyLi2019的博客-CSDN博客](https://blog.csdn.net/JulyLi2019/article/details/125102098)
 
 ## 8
 
@@ -121,7 +125,7 @@ make clean && make
    ./mnistCUDNN        
    ```
 
-If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:              ​                                    
+If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:
 
 ```bash
 Test passed!

@@ -162,10 +162,17 @@
 
 磁盘扩容：
 
-https://zhuanlan.zhihu.com/p/571501575
+[Ubuntu空间不足，如何扩容 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/571501575)
 
 ## 8
 
 安装并使用 `clash for windows` linux 端
 
-。。。
+[Linux/ubuntu下实现科学上网使用 clash for windows 详细步骤|翻墙|vpn|v2ray (cfmem.com)](https://www.cfmem.com/2021/09/linux-clash-for-windows-vpnv2ray.html?m=1)
+
+(Linux端没有 `System proxy`选项)
+
+设置，`网络`，`网络代理`，`手动`，填写`HTTP代理`和`HTTPS代理`(左`127.0.0.1`，右`7890`)
+
+>   可设置开机启动 `start with linux` 和静默开启(不应用界面，只后台运行) `silent start`
+
