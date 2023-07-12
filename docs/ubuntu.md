@@ -174,5 +174,7 @@
 
 设置，`网络`，`网络代理`，`手动`，填写`HTTP代理`和`HTTPS代理`(左`127.0.0.1`，右`7890`)
 
+![ubnutu_clash](images/ubnutu_clash.png)
+
 >   可设置开机启动 `start with linux` 和静默开启(不应用界面，只后台运行) `silent start`
 

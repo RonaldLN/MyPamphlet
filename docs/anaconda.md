@@ -49,29 +49,31 @@ conda env list
 
 [Conda使用指南 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/44398592)
 
--   ```bash
-    conda create [ -n / --name ] xxx python=3.x
-    ```
+创建conda环境，`python=3.x`指定python版本
 
-    创建conda环境，`python=3.x`指定python版本
+```bash
+conda create [ -n / --name ] xxx python=3.x
+```
 
--   ```bash
-    conda create -n xxx --clone env
-    ```
+从已有环境克隆一个新的环境
 
-    从已有环境克隆一个新的环境
+```bash
+conda create -n xxx --clone env
+```
 
--   ```bash
-    activate env # 激活env环境
-    
-    conda deactivate # 退出env环境
-    ```
-    
--   ```bash
-    conda remove -n env --all
-    ```
 
-    删除已有环境
+
+```bash
+activate env # 激活env环境
+
+conda deactivate # 退出env环境
+```
+
+删除已有环境
+
+```bash
+conda remove -n env --all
+```
 
 ## 4
 
