@@ -9,3 +9,14 @@ Copilot激活方式
 2. 跳转后点击Get access to GitHub Copilot就好啦。
 
 3. 跳转后的页面选择Allow。 
+
+## 2
+
+pycharm、clion等ide安装github copilot插件后，无法登陆，可以在设置中设置ide的网络代理
+
+![pycharm_proxy](images/pycharm_proxy.png)
+
+>clash:
+>
+>-   主机：127.0.0.1
+>-   端口：7890
