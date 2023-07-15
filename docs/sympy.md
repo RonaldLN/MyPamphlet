@@ -1,5 +1,9 @@
 ## 1
 
+[Quick examples · sympy/sympy Wiki (github.com)](https://github.com/sympy/sympy/wiki/Quick-examples)
+
+## 2
+
 `diff()`函数用来求导，用法 `diff(func, x, n)` ，func是要求导的函数，x是要对其求导的变量，n是可选的，表示求n阶导数，默认为1阶导数。(或 `diff(func, x, x, x, ...)`)
 
 ```python
@@ -30,7 +34,7 @@ f(x).diff(x, 3)
 f(x).diff(x, x, x)
 ```
 
-## 2
+## 3
 
 `Derivative`类构造方法与 `diff()`函数较为类似，使用方法也为 `Derivative(func, x, n)` 或 `Derivative(func, x, x, x, ...)`，但如果函数 `func` 为一个具体的函数时，前者不输出求导的结果，而输出求导的表达式，后者输出导函数，如
 
@@ -52,7 +56,7 @@ $$
 $$
 而使用 `.doit()` 方法像后者一样可以输出导函数
 
-## 3
+## 4
 
 使用 `Rational` 类可以表示分数，如
 
@@ -75,7 +79,7 @@ $$
 1.5\pi
 $$
 
-## 4
+## 5
 
 `symbols.()` 
 
