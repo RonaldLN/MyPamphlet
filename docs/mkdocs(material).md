@@ -109,3 +109,35 @@ mkdocs gh-deploy --force
 ```
 
 (该命令只上传site文件夹至gh-pages分支，若是github仓库，会自动选择gh-pages分支生成github pages页面)
+
+## 8
+
+添加 KaTeX 公式书写
+
+`docs/javascripts/katex.js`:
+
+```js
+document$.subscribe(({ body }) => { 
+  renderMathInElement(body, {
+    delimiters: [
+      { left: "$$",  right: "$$",  display: true },
+      { left: "$",   right: "$",   display: false },
+      { left: "\\(", right: "\\)", display: false },
+      { left: "\\[", right: "\\]", display: true }
+    ],
+  })
+})
+```
+
+`mkdocs.yml`:
+
+```yaml
+extra_javascript:
+  - javascripts/katex.js 
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+```
+

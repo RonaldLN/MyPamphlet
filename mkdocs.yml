@@ -54,7 +54,17 @@ markdown_extensions:
   - pymdownx.inlinehilite # c
   - pymdownx.snippets # c
   - pymdownx.superfences # c
+  - admonition # d 标注
+  - pymdownx.details # d
+  - pymdownx.superfences # d
 
 repo_url: https://github.com/RonaldLN/MyPamphlet
 repo_name: RonaldLN/MyPamphlet
-  
+
+extra_javascript:
+  - javascripts/katex.js 
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
