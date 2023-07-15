@@ -30,6 +30,9 @@ markdown_extensions:
   - pymdownx.inlinehilite # c
   - pymdownx.snippets # c
   - pymdownx.superfences # c
+  - admonition # d 标注
+  - pymdownx.details # d
+  - pymdownx.superfences # d
 ```
 
 ## 3
