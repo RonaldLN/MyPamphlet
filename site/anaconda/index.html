@@ -349,6 +349,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../github%20copilot/" class="md-nav__link">
+        Github copilot
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../github%26gitee/" class="md-nav__link">
         Github&gitee
       </a>
@@ -411,6 +426,21 @@
     <li class="md-nav__item">
       <a href="../ubuntu/" class="md-nav__link">
         Ubuntu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yolov5/" class="md-nav__link">
+        Yolov5
       </a>
     </li>
   
@@ -561,29 +591,19 @@
 </span></code></pre></div>
 <h2 id="3">3</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/44398592">Conda使用指南 - 知乎 (zhihu.com)</a></p>
-<ul>
-<li>
-<p><code>bash
-    conda create [ -n / --name ] xxx python=3.x</code></p>
 <p>创建conda环境，<code>python=3.x</code>指定python版本</p>
-</li>
-<li>
-<p><code>bash
-    conda create -n xxx --clone env</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>conda<span class="w"> </span>create<span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span>/<span class="w"> </span>--name<span class="w"> </span><span class="o">]</span><span class="w"> </span>xxx<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.x
+</span></code></pre></div>
 <p>从已有环境克隆一个新的环境</p>
-</li>
-<li>
-<p>```bash
-    activate env # 激活env环境</p>
-<p>conda deactivate # 退出env环境
-```</p>
-</li>
-<li>
-<p><code>bash
-    conda remove -n env --all</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>xxx<span class="w"> </span>--clone<span class="w"> </span>env
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>activate<span class="w"> </span>env<span class="w"> </span><span class="c1"># 激活env环境</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>conda<span class="w"> </span>deactivate<span class="w"> </span><span class="c1"># 退出env环境</span>
+</span></code></pre></div>
 <p>删除已有环境</p>
-</li>
-</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>conda<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>env<span class="w"> </span>--all
+</span></code></pre></div>
 <h2 id="4">4</h2>
 <p>pycharm 找不到 conda 可执行文件：</p>
 <ol>
