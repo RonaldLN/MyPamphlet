@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../pip%E6%8D%A2%E6%BA%90/">
+        <link rel="prev" href="../scipy/">
       
       
         <link rel="next" href="../ubuntu/">
@@ -351,8 +351,38 @@
   
   
     <li class="md-nav__item">
+      <a href="../numpy/" class="md-nav__link">
+        Numpy
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../pip%E6%8D%A2%E6%BA%90/" class="md-nav__link">
         Pip换源
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scipy/" class="md-nav__link">
+        Scipy
       </a>
     </li>
   
@@ -428,6 +458,13 @@
         <li class="md-nav__item">
   <a href="#5" class="md-nav__link">
     5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6
   </a>
   
 </li>
@@ -561,6 +598,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -654,149 +698,153 @@ $$</p>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">symbols</span><span class="p">((</span><span class="s1">&#39;x5:10&#39;</span><span class="p">,</span> <span class="s1">&#39;y:5&#39;</span><span class="p">))</span>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">((</span><span class="n">x5</span><span class="p">,</span> <span class="n">x6</span><span class="p">,</span> <span class="n">x7</span><span class="p">,</span> <span class="n">x8</span><span class="p">,</span> <span class="n">x9</span><span class="p">),</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">y4</span><span class="p">))</span>
 </span></code></pre></div>
+<h2 id="6">6</h2>
+<p>要让sympy显示图像，需要安装matplotlib包</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+</span></code></pre></div>
 <hr />
 <details class="example">
 <summary>chat log</summary>
-<p><strong>user</strong>: 
-sympy怎么使用?</p>
+<p><strong>user</strong>: </p>
+<p>sympy怎么使用?</p>
 <p><strong>bing</strong>: </p>
 <p>SymPy 是一款用于符号计算的 Python 库，可以进行符号计算、符号代数、微积分、方程式求解、数值计算等操作。以下是 SymPy 库的基本使用方法： </p>
 <ol>
 <li>安装 SymPy 库; 在命令行中输入 pip install sympy，即可安装 SymPy 库。如果已经安装了 Anaconda，可以直接使用 conda install sympy 命令安装。 </li>
 <li>导入 SymPy 库; 在 Python 代码中导入 SymPy 库，如下所示：
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
 </span></code></pre></div></li>
 <li>使用 SymPy 库; 例如，要求解方程式 x^2 + 2x + 1 = 0，可以使用以下代码：
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </span></code></pre></div>
 这将返回 [-1]，即方程式的解为 -1。</li>
 </ol>
 <p>希望这能帮到你！</p>
-<p><strong>user</strong>: 
-Rational函数有什么作用？</p>
+<p><strong>user</strong>: </p>
+<p>Rational函数有什么作用？</p>
 <p><strong>bing</strong>: </p>
 <p>有理函数是任何可以由有理分式定义的函数，其中有理分式是一种代数分式，其分子和分母都是多项式。多项式的系数不必是有理数；它们可以在任何域K中取值<a href="https://www.cnblogs.com/zyg123/p/10549354.html" title="5.5Python数据处理篇之Sympy系列(五)---解方程 - 梦并不遥远 - 博客园"><sup>1</sup></a>。</p>
 <p>有理函数在数学中有广泛的应用，例如在微积分中，有理函数是一类可以被积分的函数。在代数几何中，有理函数是一类可以被定义在代数簇上的函数。<a href="https://www.cnblogs.com/zyg123/p/10549354.html" title="5.5Python数据处理篇之Sympy系列(五)---解方程 - 梦并不遥远 - 博客园"><sup>1</sup></a></p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-sympy中的 rational有什么作用？</p>
+<p><strong>user</strong>: </p>
+<p>sympy中的 rational有什么作用？</p>
 <p><strong>bing</strong>: </p>
 <p>在SymPy中，Rational函数是用于处理有理数的函数。有理数是可以表示为两个整数（分子p和非零分母q）的商或分数p/q的任何数字。Rational函数可以将浮点数转换为有理数形式，也可以检查元素是否为有理数，返回布尔值True或False<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a> <a href="https://www.cnblogs.com/zyg123/p/10549354.html" title="5.5Python数据处理篇之Sympy系列(五)---解方程 - 梦并不遥远 - 博客园"><sup>2</sup></a> <a href="https://zhuanlan.zhihu.com/p/599865732" title="「SymPy」符号运算(3) (非)线性方程(组)求解、数列求和、连乘、求极限 - 知乎"><sup>3</sup></a>.</p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-如何在py文件中调用某个软件打开某个文件？</p>
+<p><strong>user</strong>: </p>
+<p>如何在py文件中调用某个软件打开某个文件？</p>
 <p><strong>bing</strong>: </p>
 <p>你可以使用Python的subprocess模块来调用其他软件。例如，如果你想在Windows上使用记事本打开一个文件，你可以使用以下代码：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span> <span class="nn">subprocess</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;notepad.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">subprocess</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;notepad.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">])</span>
 </span></code></pre></div>
 <p>这将打开记事本并打开名为file.txt的文件。<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a> <a href="https://www.cnblogs.com/zyg123/p/10549354.html" title="5.5Python数据处理篇之Sympy系列(五)---解方程 - 梦并不遥远 - 博客园"><sup>2</sup></a> <a href="https://zhuanlan.zhihu.com/p/599865732" title="「SymPy」符号运算(3) (非)线性方程(组)求解、数列求和、连乘、求极限 - 知乎"><sup>3</sup></a></p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-如果我想使用其他软件呢，比如vs code</p>
+<p><strong>user</strong>: </p>
+<p>如果我想使用其他软件呢，比如vs code</p>
 <p><strong>bing</strong>: </p>
 <p>你可以使用Python的subprocess模块来调用其他软件。例如，如果你想在Windows上使用VS Code打开一个文件，你可以使用以下代码：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">subprocess</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span> <span class="nn">subprocess</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">])</span>
 </span></code></pre></div>
 <p>这将打开VS Code并打开名为file.txt的文件。<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a> <a href="https://www.cnblogs.com/zyg123/p/10549354.html" title="5.5Python数据处理篇之Sympy系列(五)---解方程 - 梦并不遥远 - 博客园"><sup>2</sup></a> <a href="https://zhuanlan.zhihu.com/p/599865732" title="「SymPy」符号运算(3) (非)线性方程(组)求解、数列求和、连乘、求极限 - 知乎"><sup>3</sup></a></p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-diff函数怎么用？</p>
+<p><strong>user</strong>: </p>
+<p>diff函数怎么用？</p>
 <p><strong>bing</strong>: </p>
 <p>在Python中，diff函数可以有不同的含义，具体取决于你使用的库。例如，如果你使用的是Python的set库，那么difference()方法可以用于返回集合的差集，即返回的集合元素包含在第一个集合中，但不包含在第二个集合中。</p>
-<p><strong>user</strong>: 
-sympy的diff函数怎么用？</p>
+<p><strong>user</strong>: </p>
+<p>sympy的diff函数怎么用？</p>
 <p><strong>bing</strong>: </p>
 <p>在Python中，你可以使用sympy库中的diff()函数来求导数。diff()函数的基本用法是：diff(func,x,n)，其中，func是要求导的函数，x是要对其求导的变量，n是可选的，表示求n阶导数，默认为1阶导数。<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a> <a href="https://zhuanlan.zhihu.com/p/599865732" title="「SymPy」符号运算(3) (非)线性方程(组)求解、数列求和、连乘、求极限 - 知乎"><sup>2</sup></a> <a href="https://zhuanlan.zhihu.com/p/111573239" title="SymPy 符号计算基本教程 - 知乎 - 知乎专栏"><sup>3</sup></a></p>
 <p>例如，如果你想对一个二元函数求偏导数，你可以使用以下代码：<a href="https://blog.csdn.net/Jarrodche/article/details/99546070" title="Sympy符号计算（使用python求导，解方程组） - CSDN博客"><sup>4</sup></a></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">diff</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># 定义二元函数</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># 对x求偏导数</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">df_dx</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对x求偏导数：&quot;</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1"># 对y求偏导数</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="n">df_dy</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对y求偏导数：&quot;</span><span class="p">,</span> <span class="n">df_dy</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">diff</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># 定义二元函数</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># 对x求偏导数</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">df_dx</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对x求偏导数：&quot;</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># 对y求偏导数</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="n">df_dy</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对y求偏导数：&quot;</span><span class="p">,</span> <span class="n">df_dy</span><span class="p">)</span>
 </span></code></pre></div>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<p><strong>user</strong>: </p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </span></code></pre></div>
 是什么意思</p>
-<p><strong>bing</strong>: 
-这段代码的意思是：定义一个函数f(x)，然后对这个函数连续求两次导数。</p>
+<p><strong>bing</strong>: </p>
+<p>这段代码的意思是：定义一个函数f(x)，然后对这个函数连续求两次导数。</p>
 <p>其中，f(x).diff(x, x)表示对f(x)这个函数进行两次求导，即求二阶导数。</p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-那么如果求f(x)三阶导，应该如何写？</p>
-<p><strong>bing</strong>: 
-如果要求f(x)的三阶导数，你可以使用以下代码：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<p><strong>user</strong>: </p>
+<p>那么如果求f(x)三阶导，应该如何写？</p>
+<p><strong>bing</strong>: </p>
+<p>如果要求f(x)的三阶导数，你可以使用以下代码：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </span></code></pre></div>
 <p>其中，diff()函数的第二个参数表示要求的导数阶数，这里是3，即求三阶导数。</p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-那么二阶导数为什么是f(x).diff(x,x)</p>
-<p><strong>bing</strong>: 
-在Python中，你可以使用sympy库中的diff()函数来求导数。diff()函数的基本用法是：diff(func,x,n)，其中，func是要求导的函数，x是要对其求导的变量，n是可选的，表示求n阶导数，默认为1阶导数。</p>
+<p><strong>user</strong>: </p>
+<p>那么二阶导数为什么是f(x).diff(x,x)</p>
+<p><strong>bing</strong>: </p>
+<p>在Python中，你可以使用sympy库中的diff()函数来求导数。diff()函数的基本用法是：diff(func,x,n)，其中，func是要求导的函数，x是要对其求导的变量，n是可选的，表示求n阶导数，默认为1阶导数。</p>
 <p>因此，f(x).diff(x,x)表示对f(x)这个函数进行两次求导，即求二阶导数。</p>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-那么 sympy Derivative函数是什么意思？</p>
+<p><strong>user</strong>: </p>
+<p>那么 sympy Derivative函数是什么意思？</p>
 <p><strong>bing</strong>: </p>
 <p>在Python中，你可以使用sympy库中的Derivative()函数来求导数。Derivative()函数的基本用法是：Derivative(func,x)，其中，func是要求导的函数，x是要对其求导的变量。</p>
 <p>与diff()函数不同的是，Derivative()函数返回一个未评估的导数，而不是已经计算出来的导数。如果要计算这个导数，你可以使用doit()方法。</p>
 <p>例如，如果你想对一个函数f(x)求一阶导数，你可以使用以下代码：<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Derivative</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># 定义函数</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 对x求一阶导数</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">df_dx</span> <span class="o">=</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对x求一阶导数：&quot;</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
-</span></code></pre></div>
-<p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-如何使用sympy求解微分方程组？</p>
-<p><strong>bing</strong>: </p>
-<p>在Python中，你可以使用sympy库中的dsolve()函数来求解微分方程组。dsolve()函数的基本用法是：dsolve(equations)，其中，equations是微分方程组。</p>
-<p>例如，如果你想求解一个二阶微分方程组y'' + y = 0，你可以使用以下代码：<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">dsolve</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Derivative</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># 定义函数</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">y</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># 求解微分方程组</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="n">dsolve</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># 对x求一阶导数</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="n">df_dx</span> <span class="o">=</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对x求一阶导数：&quot;</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
 </span></code></pre></div>
 <p>希望这能回答你的问题！</p>
-<p><strong>user</strong>: 
-如何使用 sympy 求解 二元二阶线性微分方程组</p>
-<p><strong>bing</strong>: 
-在Python中，你可以使用sympy库中的dsolve()函数来求解微分方程组。dsolve()函数的基本用法是：dsolve(equations)，其中，equations是微分方程组。</p>
-<p>例如，如果你想求解一个二元二阶线性微分方程组，你可以使用以下代码：</p>
+<p><strong>user</strong>: </p>
+<p>如何使用sympy求解微分方程组？</p>
+<p><strong>bing</strong>: </p>
+<p>在Python中，你可以使用sympy库中的dsolve()函数来求解微分方程组。dsolve()函数的基本用法是：dsolve(equations)，其中，equations是微分方程组。</p>
+<p>例如，如果你想求解一个二阶微分方程组y'' + y = 0，你可以使用以下代码：<a href="https://blog.csdn.net/linshen1213/article/details/99433348" title="Python解微分方程_python求解微分方程_林重言的博客-CSDN博客"><sup>1</sup></a></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">dsolve</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># 定义函数</span>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="n">y1</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="n">y2</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># 求解微分方程组</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="n">dsolve</span><span class="p">((</span><span class="n">y1</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">))</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="n">y</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># 求解微分方程组</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="n">dsolve</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></code></pre></div>
+<p>希望这能回答你的问题！</p>
+<p><strong>user</strong>: </p>
+<p>如何使用 sympy 求解 二元二阶线性微分方程组</p>
+<p><strong>bing</strong>: </p>
+<p>在Python中，你可以使用sympy库中的dsolve()函数来求解微分方程组。dsolve()函数的基本用法是：dsolve(equations)，其中，equations是微分方程组。</p>
+<p>例如，如果你想求解一个二元二阶线性微分方程组，你可以使用以下代码：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">dsolve</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># 定义函数</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">y1</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">y2</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># 求解微分方程组</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="n">dsolve</span><span class="p">((</span><span class="n">y1</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">))</span>
 </span></code></pre></div>
 <p>希望这能回答你的问题！</p>
 </details>
@@ -826,7 +874,7 @@ sympy的diff函数怎么用？</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../pip%E6%8D%A2%E6%BA%90/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Pip换源" rel="prev">
+          <a href="../scipy/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scipy" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -835,7 +883,7 @@ sympy的diff函数怎么用？</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Pip换源
+                Scipy
               </div>
             </div>
           </a>
