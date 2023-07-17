@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../mkdocs%28material%29/">
       
       
-        <link rel="next" href="../cuda%20cudnn%E5%AE%89%E8%A3%85/">
+        <link rel="next" href="../pip%E6%8D%A2%E6%BA%90/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
-        <title>Anaconda - My Pamphlet</title>
+        <title>Numpy - My Pamphlet</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Anaconda
+              Numpy
             
           </span>
         </div>
@@ -259,71 +259,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Anaconda
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../anaconda/" class="md-nav__link">
         Anaconda
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    1
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    3
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    4
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -409,11 +349,50 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../numpy/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Numpy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Numpy
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -556,27 +535,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    3
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    4
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -595,68 +553,10 @@
   
 
 
-  <h1>Anaconda</h1>
+  <h1>Numpy</h1>
 
 <h2 id="1">1</h2>
-<p>Anaconda 换源</p>
-<p>换源北外</p>
-<ul>
-<li>
-<p>Windows 在用户主目录执行 <code>conda config --set show_channel_urls yes</code> 生成 <code>.condarc</code> 文件</p>
-</li>
-<li>
-<p>linux 主目录下已有 <code>.condarc</code> 文件</p>
-</li>
-</ul>
-<p>修改 <code>.condarc</code> 文件：</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">channels</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">show_channel_urls</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">default_channels</span><span class="p">:</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/pkgs/main</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/pkgs/r</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/pkgs/msys2</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">custom_channels</span><span class="p">:</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">conda-forge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">msys2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">bioconda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="nt">menpo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="nt">pytorch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="nt">pytorch-lts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="nt">simpleitk</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="nt">deepmodeling</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.bfsu.edu.cn/anaconda/cloud/</span>
-</span></code></pre></div>
-<blockquote>
-<p><a href="https://mirrors.bfsu.edu.cn/help/anaconda/">anaconda | 镜像站使用帮助 | 北京外国语大学开源软件镜像站 | BFSU Open Source Mirror</a></p>
-</blockquote>
-<h2 id="2">2</h2>
-<p>查看已有环境</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>conda<span class="w"> </span>info<span class="w"> </span>-e
-</span></code></pre></div>
-<p>或</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>conda<span class="w"> </span>env<span class="w"> </span>list
-</span></code></pre></div>
-<h2 id="3">3</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/44398592">Conda使用指南 - 知乎 (zhihu.com)</a></p>
-<p>创建conda环境，<code>python=3.x</code>指定python版本</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>conda<span class="w"> </span>create<span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span>/<span class="w"> </span>--name<span class="w"> </span><span class="o">]</span><span class="w"> </span>xxx<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.x
-</span></code></pre></div>
-<p>从已有环境克隆一个新的环境</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>xxx<span class="w"> </span>--clone<span class="w"> </span>env
-</span></code></pre></div>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>activate<span class="w"> </span>env<span class="w"> </span><span class="c1"># 激活env环境</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>conda<span class="w"> </span>deactivate<span class="w"> </span><span class="c1"># 退出env环境</span>
-</span></code></pre></div>
-<p>删除已有环境</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>conda<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>env<span class="w"> </span>--all
-</span></code></pre></div>
-<h2 id="4">4</h2>
-<p>pycharm 找不到 conda 可执行文件：</p>
-<ol>
-<li>Conda 可执行文件：<code>...\Anaconda3\Scripts\conda.exe</code></li>
-<li>加载环境</li>
-</ol>
+<p><a href="https://www.bilibili.com/video/BV1Wy4y1h7ii">一个10分钟的numpy入门教程_哔哩哔哩_bilibili</a></p>
 
 
 
@@ -683,7 +583,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Welcome to My Pamphlet" rel="prev">
+          <a href="../mkdocs%28material%29/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Mkdocs(material)" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -692,20 +592,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Welcome to My Pamphlet
+                Mkdocs(material)
               </div>
             </div>
           </a>
         
         
           
-          <a href="../cuda%20cudnn%E5%AE%89%E8%A3%85/" class="md-footer__link md-footer__link--next" aria-label="Next: Cuda cudnn安装" rel="next">
+          <a href="../pip%E6%8D%A2%E6%BA%90/" class="md-footer__link md-footer__link--next" aria-label="Next: Pip换源" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cuda cudnn安装
+                Pip换源
               </div>
             </div>
             <div class="md-footer__button md-icon">
