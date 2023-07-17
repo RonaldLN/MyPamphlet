@@ -4,10 +4,8 @@
 
 ```python
 import numpy as np
-from scipy import *
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
-from math import *
 
 m1 = 4.866
 m2 = 2433
