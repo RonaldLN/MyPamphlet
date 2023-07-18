@@ -931,28 +931,28 @@
 </blockquote>
 <h2 id="8">8</h2>
 <p>To verify that cuDNN is installed and is running properly, compile the <code>mnistCUDNN</code> sample located in the <code>/usr/src/cudnn_samples_v8</code> directory in the Debian file.</p>
-<ol>
-<li>Copy the cuDNN samples to a writable path.</li>
-</ol>
+<ul>
+<li>1  Copy the cuDNN samples to a writable path.</li>
+</ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cp<span class="w"> </span>-r<span class="w"> </span>/usr/src/cudnn_samples_v8/<span class="w"> </span><span class="nv">$HOME</span>
 </span></code></pre></div>
-<ol>
-<li>Go to the writable path.</li>
-</ol>
+<ul>
+<li>2  Go to the writable path.</li>
+</ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w">  </span><span class="nv">$HOME</span>/cudnn_samples_v8/mnistCUDNN
 </span></code></pre></div>
-<ol>
-<li>Compile the <code>mnistCUDNN</code>sample.</li>
-</ol>
-<p><code>bash
-make clean &amp;&amp; make</code></p>
-<ol>
-<li>Run the <code>mnistCUDNN</code> sample.</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>./mnistCUDNN<span class="w">        </span>
+<ul>
+<li>3  Compile the <code>mnistCUDNN</code>sample.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</span></code></pre></div>
+<ul>
+<li>4  Run the <code>mnistCUDNN</code> sample.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./mnistCUDNN<span class="w">  </span>
 </span></code></pre></div>
 <p>If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Test<span class="w"> </span>passed!
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Test<span class="w"> </span>passed!
 </span></code></pre></div>
 
 
