@@ -147,3 +147,15 @@ extra_css:
 ## 9
 
 放在 `/doc`内子文件夹里的md文件会根据该子文件夹名自动生成一级目录（如果没有自定义目录）
+
+## 10
+
+添加谷歌分析
+
+```yaml
+extra:
+  analytics:
+    provider: google
+    property: G-xxxxxxxxxx
+```
+

@@ -696,6 +696,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -744,6 +751,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -775,9 +789,82 @@
 <p><strong>普通模式</strong>进入<strong>输入模式</strong>，按 <code>i</code> 键，从<strong>输入模式</strong>退出，按 <code>Esc</code> 键</p>
 <p><strong>普通模式</strong>进入<strong>命令行模式</strong>，按 <code>:</code> 键，退出<strong>命令行模式</strong>，按 <code>Esc</code> 键</p>
 <p>命令行模式常用命令：</p>
+<ul>
+<li><strong>正常退出：</strong></li>
+</ul>
 <blockquote>
-<p>**</p>
+<ul>
+<li><code>:q</code></li>
+</ul>
+<p>或</p>
+<ul>
+<li><code>:quit</code></li>
+</ul>
+<p>( <code>q</code> 为 <code>quit</code> 的缩写)</p>
 </blockquote>
+<ul>
+<li><strong>保存：</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li><code>:w</code></li>
+</ul>
+<p>保存并退出：</p>
+<ul>
+<li><code>:wq</code></li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>查看帮助：</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li><code>:h</code></li>
+</ul>
+<p>或</p>
+<ul>
+<li><code>:help</code></li>
+</ul>
+<p>例如，查看退出的选项：</p>
+<p><code>:h :q</code></p>
+</blockquote>
+<p>普通模式常用操作：</p>
+<ul>
+<li><strong>移动</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li>输入 数字键 + <span class="keys"><kbd class="key-h">H</kbd></span> <span class="keys"><kbd class="key-j">J</kbd></span> <span class="keys"><kbd class="key-k">K</kbd></span> <span class="keys"><kbd class="key-l">L</kbd></span>，向对应方向移动x格/行，如 <span class="keys"><kbd class="key-4">4</kbd><span>+</span><kbd class="key-j">J</kbd></span> 向下移动4行</li>
+<li><span class="keys"><kbd class="key-w">W</kbd></span> (对应word) 移动到下一个单词的首字母，<span class="keys"><kbd class="key-b">B</kbd></span> (beginning) 移动到本单词(或上一个单词)的首字母</li>
+<li><span class="keys"><kbd class="key-f">F</kbd></span> (find)  + 一个字母，跳转到下一个最近的对应字母，如 <span class="keys"><kbd class="key-f">F</kbd><span>+</span><kbd class="key-t">T</kbd></span> 跳转到下一个最近的 <code>t</code> </li>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-u">U</kbd></span> (PgUp) <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span> (PgDn)，向上向下翻页</li>
+<li><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-g">G</kbd></span> 移动到文本开头，<span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-g">G</kbd></span> 移动到文本末尾</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>编辑</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li>按 <span class="keys"><kbd class="key-y">Y</kbd></span> 键复制(yank，拉)，可和其他组合，如：<ul>
+<li><span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-a">A</kbd><span>+</span><kbd class="key-w">W</kbd></span> (yank + all + word)复制光标所在的整个单词</li>
+<li><span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-w">W</kbd></span> 或 <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-b">B</kbd></span> (含当前光标字母)复制到当前单词的尾/首字母</li>
+<li><span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-5">5</kbd><span>+</span><kbd class="key-h">H</kbd></span> 或 <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-5">5</kbd><span>+</span><kbd class="key-l">L</kbd></span> (含当前光标字母)向左/右复制5格的文本，如果不输数字键则只复制当前格的字母</li>
+<li><span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-3">3</kbd><span>+</span><kbd class="key-j">J</kbd></span> 或 <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-3">3</kbd><span>+</span><kbd class="key-k">K</kbd></span> (含当前行)向下/上复制3行的文本，如果不输数字键则只复制当前行</li>
+<li><span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-f">F</kbd><span>+</span><kbd class="key-h">H</kbd></span> 复制到下一个最近的 <code>h</code> 之间的文本</li>
+</ul>
+</li>
+<li>按 <span class="keys"><kbd class="key-p">P</kbd></span> 键(paste)在光标右侧粘贴</li>
+<li><span class="keys"><kbd class="key-u">U</kbd></span> 键(undo)撤销</li>
+<li><span class="keys"><kbd class="key-c">C</kbd></span> 键(change)修改，选中部分内容删除(剪切)并进入输入模式，选中方法与 <strong><em><mark>复制</mark></em></strong> 操作类似：<ul>
+<li><span class="keys"><kbd class="key-c">C</kbd><span>+</span><kbd class="key-a">A</kbd><span>+</span><kbd class="key-w">W</kbd></span> (change all word) 删除当前单词并进入输入模式，......</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2">2</h2>
+<p>可参考的使用手册</p>
+<p><a href="https://github.com/overmind1980/oeasy-vim-tutorial/blob/main/markdown/01-49420-存活下来.sy.md">oeasy-vim-tutorial/markdown/01-49420-存活下来.sy.md at main · overmind1980/oeasy-vim-tutorial (github.com)</a></p>
 
 
   
