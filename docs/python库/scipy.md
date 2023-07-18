@@ -7,7 +7,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
-m1 = 4.866
+m1 = 4866
 m2 = 2433
 k1 = 31557.298
 k2 = 80000
