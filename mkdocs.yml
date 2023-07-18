@@ -68,3 +68,8 @@ extra_javascript:
 
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+
+extra:
+  analytics:
+    provider: google
+    property: G-H7SV12D750

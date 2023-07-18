@@ -101,29 +101,29 @@ which will install cudnn. ;)
 
 To verify that cuDNN is installed and is running properly, compile the `mnistCUDNN` sample located in the `/usr/src/cudnn_samples_v8` directory in the Debian file.
 
-1. Copy the cuDNN samples to a writable path.
+-   1  Copy the cuDNN samples to a writable path.
 
-   ```bash
-   cp -r /usr/src/cudnn_samples_v8/ $HOME
-   ```
+```bash
+cp -r /usr/src/cudnn_samples_v8/ $HOME
+```
 
-2. Go to the writable path.
+-   2  Go to the writable path.
 
-   ```bash
-   cd  $HOME/cudnn_samples_v8/mnistCUDNN
-   ```
+```bash
+cd  $HOME/cudnn_samples_v8/mnistCUDNN
+```
 
-3. Compile the `mnistCUDNN`sample.
+-   3  Compile the `mnistCUDNN`sample.
 
-   ```bash
-make clean && make        
-   ```
+```bash
+make clean && make
+```
 
-4. Run the `mnistCUDNN` sample.
+-   4  Run the `mnistCUDNN` sample.
 
-   ```bash
-   ./mnistCUDNN        
-   ```
+```bash
+./mnistCUDNN  
+```
 
 If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:
 

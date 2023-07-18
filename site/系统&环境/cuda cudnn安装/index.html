@@ -47,6 +47,18 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-H7SV12D750"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-H7SV12D750",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-H7SV12D750",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -919,30 +931,32 @@
 </blockquote>
 <h2 id="8">8</h2>
 <p>To verify that cuDNN is installed and is running properly, compile the <code>mnistCUDNN</code> sample located in the <code>/usr/src/cudnn_samples_v8</code> directory in the Debian file.</p>
-<ol>
-<li>Copy the cuDNN samples to a writable path.</li>
-</ol>
+<ul>
+<li>1  Copy the cuDNN samples to a writable path.</li>
+</ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cp<span class="w"> </span>-r<span class="w"> </span>/usr/src/cudnn_samples_v8/<span class="w"> </span><span class="nv">$HOME</span>
 </span></code></pre></div>
-<ol>
-<li>Go to the writable path.</li>
-</ol>
+<ul>
+<li>2  Go to the writable path.</li>
+</ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w">  </span><span class="nv">$HOME</span>/cudnn_samples_v8/mnistCUDNN
 </span></code></pre></div>
-<ol>
-<li>Compile the <code>mnistCUDNN</code>sample.</li>
-</ol>
-<p><code>bash
-make clean &amp;&amp; make</code></p>
-<ol>
-<li>Run the <code>mnistCUDNN</code> sample.</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>./mnistCUDNN<span class="w">        </span>
+<ul>
+<li>3  Compile the <code>mnistCUDNN</code>sample.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</span></code></pre></div>
+<ul>
+<li>4  Run the <code>mnistCUDNN</code> sample.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./mnistCUDNN<span class="w">  </span>
 </span></code></pre></div>
 <p>If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Test<span class="w"> </span>passed!
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Test<span class="w"> </span>passed!
 </span></code></pre></div>
 
+
+  
 
 
 
