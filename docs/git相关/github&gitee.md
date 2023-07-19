@@ -22,7 +22,7 @@ git push -u origin [ master / main ]
 
 ## 3
 
-gitee pages 更细需要手动点击更新，
+gitee pages 更新需要手动点击更新，
 
 github pages 可以自动更新
 
