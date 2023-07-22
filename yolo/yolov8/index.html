@@ -975,6 +975,8 @@
 </span></code></pre></div>
 <p>新建文件 <code>fixNvPe.py</code></p>
 <p><a href="https://gist.github.com/cobryan05/7d1fe28dd370e110a372c4d268dcb2e5">Python Script to disable ASLR and make nv fatbins read-only to reduce memory commit (github.com)</a></p>
+<details class="quote">
+<summary>fixNvPe.py</summary>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Simple script to disable ASLR and make .nv_fatb sections read-only</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Requires: pefile  ( python -m pip install pefile )</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Usage:  fixNvPe.py --input path/to/*.dll</span>
@@ -1062,6 +1064,7 @@
 <p>运行命令行</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>fixNvPe.py<span class="w"> </span>--input<span class="o">=</span>E:<span class="se">\P</span>rograms<span class="se">\A</span>naconda3<span class="se">\e</span>nvs<span class="se">\y</span>olov7<span class="se">\l</span>ib<span class="se">\s</span>ite-packages<span class="se">\t</span>orch<span class="se">\l</span>ib<span class="se">\*</span>.dll
 </span></code></pre></div>
+</details>
 <h2 id="6">6<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <p>用命令行检测</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>yolo<span class="w"> </span>predict<span class="w"> </span><span class="nv">model</span><span class="o">=</span>yolov8n.pt<span class="w"> </span><span class="nv">source</span><span class="o">=</span><span class="s1">&#39;bus.jpg&#39;</span>

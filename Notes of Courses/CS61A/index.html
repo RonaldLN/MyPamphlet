@@ -388,6 +388,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lecture-2-qa" class="md-nav__link">
+    Lecture 2 Q&amp;A
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 2 Q&A">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lecture-10-containers" class="md-nav__link">
     Lecture 10 Containers
   </a>
@@ -396,7 +416,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#1_3" class="md-nav__link">
     1
   </a>
   
@@ -451,7 +471,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
+  <a href="#1_4" class="md-nav__link">
     1
   </a>
   
@@ -471,7 +491,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_4" class="md-nav__link">
+  <a href="#1_5" class="md-nav__link">
     1
   </a>
   
@@ -512,7 +532,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_5" class="md-nav__link">
+  <a href="#1_6" class="md-nav__link">
     1
   </a>
   
@@ -1035,6 +1055,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lecture-2-qa" class="md-nav__link">
+    Lecture 2 Q&amp;A
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 2 Q&A">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lecture-10-containers" class="md-nav__link">
     Lecture 10 Containers
   </a>
@@ -1043,7 +1083,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#1_3" class="md-nav__link">
     1
   </a>
   
@@ -1098,7 +1138,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
+  <a href="#1_4" class="md-nav__link">
     1
   </a>
   
@@ -1118,7 +1158,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_4" class="md-nav__link">
+  <a href="#1_5" class="md-nav__link">
     1
   </a>
   
@@ -1159,7 +1199,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_5" class="md-nav__link">
+  <a href="#1_6" class="md-nav__link">
     1
   </a>
   
@@ -1224,8 +1264,14 @@
 <p><img alt="cs61a_11" src="../../images/cs61a_11.png" /></p>
 <p>即如果用某个变量指向了函数，在用变量调用函数的时，创建的frame名字仍为原函数名</p>
 <p><img alt="cs61a_12" src="../../images/cs61a_12.png" /></p>
-<h2 id="lecture-10-containers">Lecture 10 Containers<a class="headerlink" href="#lecture-10-containers" title="Permanent link">&para;</a></h2>
+<h2 id="lecture-2-qa">Lecture 2 Q&amp;A<a class="headerlink" href="#lecture-2-qa" title="Permanent link">&para;</a></h2>
 <h3 id="1_2">1<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p><img alt="cs61a_14" src="../../images/cs61a_14.png" /></p>
+<p>在哪个frame中定义(define)的函数，其parent就是哪个frame，除了Global frame其他都有parent，</p>
+<p>在frame中使用变量时，都会先在所在的frame中查找其对应的值，如果没有，则在上级parent中查找，如果还没有，则在parent的parent中查找(如果有parent)...</p>
+<p>如上图中f函数要打印z的值，z在f1 frame中没有，则来到f1的parent在Global frame中查找z的值，于是获得z的值(此时)为7，则打印7</p>
+<h2 id="lecture-10-containers">Lecture 10 Containers<a class="headerlink" href="#lecture-10-containers" title="Permanent link">&para;</a></h2>
+<h3 id="1_3">1<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
 <p><code>exec()</code> 函数可以执行字符串中的语句，如</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">exec</span><span class="p">(</span><span class="s2">&quot;curry = lambda f: lambda x: lambda y: f(x, y)&quot;</span><span class="p">)</span>
 </span></code></pre></div>
@@ -1263,7 +1309,7 @@
 <p>如果列表有子列表，且元素个数都固定，那么 <code>for</code> 可以直接获取子列表的元素/unpack子列表，如子列表都含两个元素：</p>
 <p><img alt="cs61a_3" src="../../images/cs61a_3.png" /></p>
 <h2 id="lecture-10-qa">Lecture 10 Q&amp;A<a class="headerlink" href="#lecture-10-qa" title="Permanent link">&para;</a></h2>
-<h3 id="1_3">1<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<h3 id="1_4">1<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h3>
 <p>递增的递归写阶乘：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">return</span> <span class="n">fact_helper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -1310,7 +1356,7 @@
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">return</span> <span class="n">helper</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="lecture-11-data-abstraction">Lecture 11 Data Abstraction<a class="headerlink" href="#lecture-11-data-abstraction" title="Permanent link">&para;</a></h2>
-<h3 id="1_4">1<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h3>
+<h3 id="1_5">1<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h3>
 <p><strong>"Unpacking" a list</strong></p>
 <p><img alt="cs61a_5" src="../../images/cs61a_5.png" /></p>
 <h3 id="2_2">2<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
@@ -1329,7 +1375,7 @@
 <p>字典也有推导式</p>
 <p><img alt="cs61a_9" src="../../images/cs61a_9.png" /></p>
 <h2 id="lecture-11-qa">Lecture 11 Q&amp;A<a class="headerlink" href="#lecture-11-qa" title="Permanent link">&para;</a></h2>
-<h3 id="1_5">1<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h3>
+<h3 id="1_6">1<a class="headerlink" href="#1_6" title="Permanent link">&para;</a></h3>
 <p>抽象可以使得修改某一层(layer)代码时带来的冲击/影响被隔离(isolate the impact)，有时可以使得修改所产生的影响只在这一层上。</p>
 <p>冲击被隔离的例子：python dictionary的底层代码经常改变，但并不影响python中的使用</p>
 <h3 id="2_3">2<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
