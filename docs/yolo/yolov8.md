@@ -218,3 +218,37 @@ results = model.predict(source=[im1, im2])
 ## 7
 
 `.yaml`文件里面的标签要与`labels.txt`里面的顺序一致
+
+## 8
+
+v8 `.yaml` 文件示例：
+
+```yaml
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../datasets/coco8  # dataset root dir
+train: images/train  # train images (relative to 'path') 4 images
+val: images/val  # val images (relative to 'path') 4 images
+test:  # test images (optional)
+
+# Classes (80 COCO classes)
+names:
+  0: person
+  1: bicycle
+  2: car
+  ...
+  77: teddy bear
+  78: hair drier
+  79: toothbrush
+```
+
+>   [Object Detection Datasets Overview - Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/datasets/detect/)
+
+其中 `train:` `val:` 之后的内容有三种写法，
+
+1.   文件夹路径
+2.   txt文件路径，txt文件内为各个图片的路径
+3.   列表形式的图片路径
+
+## 9
+
+如果detect时使用某个pt模型报错，有可能是因为 训练该模型时使用的ultralytics版本 比 本机安装的版本 新，使用了旧版本 `requirements.txt` 中未安装的包，因此更新ultralytics包即可

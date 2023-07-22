@@ -1,5 +1,7 @@
 ## 1
 
+pip换源北外
+
 [pypi | 镜像站使用帮助 | 北京外国语大学开源软件镜像站 | BFSU Open Source Mirror](https://mirrors.bfsu.edu.cn/help/pypi/)
 
 **临时使用**
@@ -18,3 +20,14 @@ pip install -i https://mirrors.bfsu.edu.cn/pypi/web/simple some-package
 python -m pip install --upgrade pip
 pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple
 ```
+
+## 2
+
+pip 升级某个包
+
+```bash
+pip install [-U / --updrade] xxx
+```
+
+
+
