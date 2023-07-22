@@ -887,9 +887,9 @@
 
   <h1>Sympy</h1>
 
-<h2 id="1">1</h2>
+<h2 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/sympy/sympy/wiki/Quick-examples">Quick examples · sympy/sympy Wiki (github.com)</a></p>
-<h2 id="2">2</h2>
+<h2 id="2">2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p><code>diff()</code>函数用来求导，用法 <code>diff(func, x, n)</code> ，func是要求导的函数，x是要对其求导的变量，n是可选的，表示求n阶导数，默认为1阶导数。(或 <code>diff(func, x, x, x, ...)</code>)</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">diff</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -911,7 +911,7 @@
 <p>或</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </span></code></pre></div>
-<h2 id="3">3</h2>
+<h2 id="3">3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p><code>Derivative</code>类构造方法与 <code>diff()</code>函数较为类似，使用方法也为 <code>Derivative(func, x, n)</code> 或 <code>Derivative(func, x, x, x, ...)</code>，但如果函数 <code>func</code> 为一个具体的函数时，前者不输出求导的结果，而输出求导的表达式，后者输出导函数，如</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">g</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">write_latex_md</span><span class="p">(</span><span class="n">latex</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
@@ -926,7 +926,7 @@ $$</p>
 2
 $$
 而使用 <code>.doit()</code> 方法像后者一样可以输出导函数</p>
-<h2 id="4">4</h2>
+<h2 id="4">4<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>使用 <code>Rational</code> 类可以表示分数，如</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span>
 </span></code></pre></div>
@@ -941,7 +941,7 @@ $$
 $$
 1.5\pi
 $$</p>
-<h2 id="5">5</h2>
+<h2 id="5">5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p><code>symbols.()</code> </p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x,y,z&#39;</span><span class="p">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b c&#39;</span><span class="p">)</span>
@@ -960,7 +960,7 @@ $$</p>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">symbols</span><span class="p">((</span><span class="s1">&#39;x5:10&#39;</span><span class="p">,</span> <span class="s1">&#39;y:5&#39;</span><span class="p">))</span>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">((</span><span class="n">x5</span><span class="p">,</span> <span class="n">x6</span><span class="p">,</span> <span class="n">x7</span><span class="p">,</span> <span class="n">x8</span><span class="p">,</span> <span class="n">x9</span><span class="p">),</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">y4</span><span class="p">))</span>
 </span></code></pre></div>
-<h2 id="6">6</h2>
+<h2 id="6">6<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <p>要让sympy显示图像，需要安装matplotlib包</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
 </span></code></pre></div>
