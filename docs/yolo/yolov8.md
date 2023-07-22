@@ -159,18 +159,18 @@ OSError: [WinError 1455] The paging file is too small for this operation to comp
         args = parseArgs()
         main( args )
     ```
-    
-    无依赖安装依赖
-    
-    ```bash
-    python -m pip install pefile
-    ```
-    
-    运行命令行
-    
-    ```bash
-    python fixNvPe.py --input=E:\Programs\Anaconda3\envs\yolov7\lib\site-packages\torch\lib\*.dll
-    ```
+
+无依赖安装依赖
+
+```bash
+python -m pip install pefile
+```
+
+运行命令行
+
+```bash
+python fixNvPe.py --input=E:\Programs\Anaconda3\envs\yolov7\lib\site-packages\torch\lib\*.dll
+```
 
 ## 6
 
