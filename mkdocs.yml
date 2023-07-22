@@ -44,7 +44,7 @@ markdown_extensions:
   - pymdownx.keys # b
   - pymdownx.mark # b
   - pymdownx.tilde # b
-  - toc: # e 目录相关
+  - toc: # 目录相关
       permalink: true # 每个页面内，各标题会生成各自的链接
       title: 目录 # 修改页面右侧 Table of contents 文字
   - footnotes # 脚注
