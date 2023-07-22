@@ -1,4 +1,10 @@
+yolov8官方github仓库
+
 [ultralytics/README.zh-CN.md at main · ultralytics/ultralytics · GitHub](https://github.com/ultralytics/ultralytics/blob/main/README.zh-CN.md)
+
+yolov8官方使用文档
+
+[Home - Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/)
 
 ## 1
 
@@ -252,3 +258,4 @@ names:
 ## 9
 
 如果detect时使用某个pt模型报错，有可能是因为 训练该模型时使用的ultralytics版本 比 本机安装的版本 新，使用了旧版本 `requirements.txt` 中未安装的包，因此更新ultralytics包即可
+
