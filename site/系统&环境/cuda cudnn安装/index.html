@@ -915,41 +915,41 @@
 
   <h1>Cuda cudnn安装</h1>
 
-<h2 id="1">1</h2>
+<h2 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p><a href="https://blog.csdn.net/weixin_55749226/article/details/128479694?spm=1001.2014.3001.5502">(7条消息) YOLOv7保姆级教程！（个人踩坑无数）----环境配置_yolov7环境搭建_AmbitionToFree的博客-CSDN博客</a></p>
 <p>第一次安装时，未知原因黑屏，强制关机重启之后，再次安装成功</p>
 <p><a href="https://blog.csdn.net/XieRuily/article/details/123670141">(7条消息) CUDA安装和检测【全】（nvcc命令找不到的解决办法）_windows nvcc -v 提示未找到命令_可靠的豆包蟹同志的博客-CSDN博客</a></p>
 <p>安装后重新开启新的cmd，才有nvcc命令</p>
-<h2 id="2">2</h2>
+<h2 id="2">2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>ubuntu 安装 cuda</p>
 <p><a href="https://blog.csdn.net/Sihang_Xie/article/details/127347139">(8条消息) 【CUDA】Ubuntu系统如何安装CUDA保姆级教程(2022年最新)_ubuntu cuda安装教程_自牧君的博客-CSDN博客</a></p>
 <blockquote>
 <p><a href="https://blog.csdn.net/JulyLi2019/article/details/125102098">(8条消息) Ubuntu安装cuda与cudnn，亲测可用_ubuntu安装cuda和cudnn_JulyLi2019的博客-CSDN博客</a></p>
 </blockquote>
-<h2 id="3">3</h2>
+<h2 id="3">3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>Existing package manager installation of the driver found. It is strongly recommended that you remove this before continuing.</p>
 <p><img alt="install_cuda" src="../../images/install_cuda.png" /></p>
 <blockquote>
 <p>Upon starting, we may be greeted with a warning stating that an existing package manager installation of the graphics driver was found. Unless you have a version of the graphics driver lower than required from this <a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">page</a>, you can choose to continue.</p>
 </blockquote>
 <p><a href="https://tabbas97.medium.com/get-cuda-the-right-way-c68d533bed3e">Get CUDA the right way.. (One that won’t break anything when you… | by Thameem Abbas | Medium</a></p>
-<h2 id="4">4</h2>
+<h2 id="4">4<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>解决安装cuda后，nvcc找不到命令</p>
 <p><a href="https://blog.csdn.net/rtygbwwwerr/article/details/73656876">(8条消息) 解决nvcc找不到的问题（Ubuntu16.04 CUDA 8.0）_rtygbwwwerr的博客-CSDN博客</a></p>
 <p>修改<code>~/.bashrc</code>文件后，更新系统环境：</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>ldconfig
 </span></code></pre></div>
-<h2 id="5">5</h2>
+<h2 id="5">5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p>安装 cudnn</p>
 <p><a href="https://blog.csdn.net/u011304078/article/details/120955441">(8条消息) 基于ubuntu安装cuda,cuDNN_ubuntu安装cuda和cudnn_xyzxyz576的博客-CSDN博客</a></p>
 <p><a href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html">Installation Guide - NVIDIA Docs</a></p>
-<h2 id="6">6</h2>
+<h2 id="6">6<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>dpkg-deb:<span class="w"> </span>错误:<span class="w"> </span><span class="s1">&#39;cudnn-local-repo-ubuntu1804-8.9.2.26_1.0-1_amd64.deb&#39;</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>a<span class="w"> </span>Debian<span class="w"> </span>format<span class="w"> </span>archive
 </span></code></pre></div>
 <p><a href="https://blog.csdn.net/sun007700/article/details/123090917">(8条消息) 错误: ‘containerd.io_1.4.9-1_amd64.deb‘ is not a Debian format archive_sun007700的博客-CSDN博客</a></p>
 <p>安装包没下载好</p>
-<h2 id="7">7</h2>
+<h2 id="7">7<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>E:<span class="w"> </span>未找到“libcudnn8”的“8.9.2.26-1+cuda11.3”版本
 </span></code></pre></div>
 <p><a href="https://forums.developer.nvidia.com/t/e-version-8-3-1-22-1-cuda10-2-for-libcudnn8-was-not-found/200801/8">E: Version '8.3.1.22-1+cuda10.2' for 'libcudnn8' was not found - Deep Learning (Training &amp; Inference) / cuDNN - NVIDIA Developer Forums</a></p>
@@ -980,7 +980,7 @@
 <blockquote>
 <p>如这个：<a href="https://blog.csdn.net/JulyLi2019/article/details/125102098">(8条消息) Ubuntu安装cuda与cudnn，亲测可用_ubuntu安装cuda和cudnn_JulyLi2019的博客-CSDN博客</a></p>
 </blockquote>
-<h2 id="8">8</h2>
+<h2 id="8">8<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
 <p>To verify that cuDNN is installed and is running properly, compile the <code>mnistCUDNN</code> sample located in the <code>/usr/src/cudnn_samples_v8</code> directory in the Debian file.</p>
 <ul>
 <li>1  Copy the cuDNN samples to a writable path.</li>

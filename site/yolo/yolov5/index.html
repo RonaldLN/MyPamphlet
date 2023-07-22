@@ -859,7 +859,7 @@
 
   <h1>Yolov5</h1>
 
-<h2 id="1">1</h2>
+<h2 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>安装gpu版本的torch和torchvision</p>
 <p><a href="https://pytorch.org/get-started/previous-versions/">Previous PyTorch Versions | PyTorch</a></p>
 <p>找 <code>Wheel</code></p>
@@ -885,7 +885,7 @@
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.12.1+cpu<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.13.1+cpu<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">0</span>.12.1<span class="w"> </span>--extra-index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
 </span></code></pre></div>
 </blockquote>
-<h2 id="2">2</h2>
+<h2 id="2">2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ImportError:<span class="w"> </span>urllib3<span class="w"> </span>v2.0<span class="w"> </span>only<span class="w"> </span>supports<span class="w"> </span>OpenSSL<span class="w"> </span><span class="m">1</span>.1.1+,<span class="w"> </span>currently<span class="w"> </span>the<span class="w"> </span><span class="s1">&#39;ssl&#39;</span><span class="w"> </span>module<span class="w"> </span>is<span class="w"> </span>compiled<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;OpenSSL 1.0.2u  20 Dec 2019&#39;</span>.<span class="w"> </span>See:<span class="w"> </span>https://github.com/urllib3/urllib3/issues/2168
 </span></code></pre></div>
 <p>yolov5不要求<code>urllib3</code> 版本，则降低 <code>urllib3</code> 的版本</p>
@@ -900,7 +900,7 @@
 <p><a href="https://blog.csdn.net/qq_42699580/article/details/105037325">(8条消息) openssl 默认版本问题（Anaconda相关）_anaconda openssl_wjh_test的博客-CSDN博客</a></p>
 <p>尝试更改 <code>openssl</code> 但没用</p>
 </blockquote>
-<h2 id="3">3</h2>
+<h2 id="3">3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.ultralytics.com/yolov5/quickstart_tutorial/#install">Quickstart - Ultralytics YOLOv8 Docs</a></p>
 <p>主目录下创建 <code>test.py</code> 文件：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span> <span class="nn">torch</span>
@@ -949,7 +949,7 @@
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>https://github.com/ultralytics/yolov5/releases/download/vx.x/yolov5x.pt
 </span></code></pre></div>
-<h2 id="4">4</h2>
+<h2 id="4">4<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>coco 数据集的图片可以在<a href="https://docs.ultralytics.com/datasets/detect/coco/#dataset-yaml">COCO - Ultralytics YOLOv8 Docs</a>里找到</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Download data</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">urls = [&#39;http://images.cocodataset.org/zips/train2017.zip&#39;,</span><span class="w">  </span><span class="c1"># 19G, 118k images</span>

@@ -930,10 +930,10 @@
   <h1>Yolov8</h1>
 
 <p><a href="https://github.com/ultralytics/ultralytics/blob/main/README.zh-CN.md">ultralytics/README.zh-CN.md at main · ultralytics/ultralytics · GitHub</a></p>
-<h2 id="1">1</h2>
+<h2 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>(Windows)RuntimeError解决方案</p>
 <p><a href="https://zhuanlan.zhihu.com/p/590817058">Windows使用PyTorch遇到RuntimeError: Unable to find a valid cuDNN algorithm to run convolution的解决方案 - 知乎 (zhihu.com)</a></p>
-<h2 id="2">2</h2>
+<h2 id="2">2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>RuntimeError:<span class="w"> </span>Dataset<span class="w"> </span><span class="s1">&#39;data\Helmet.yaml&#39;</span><span class="w"> </span>error<span class="w">  </span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Dataset<span class="w"> </span><span class="s1">&#39;data\Helmet.yaml&#39;</span><span class="w"> </span>images<span class="w"> </span>not<span class="w"> </span>found<span class="w"> </span>,<span class="w"> </span>missing<span class="w"> </span>paths<span class="w"> </span><span class="o">[</span><span class="s1">&#39;C:\\Users\\Administrator\\datasets\\data\\datasets\\Helmet\\val_list.txt&#39;</span><span class="o">]</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Note<span class="w"> </span>dataset<span class="w"> </span>download<span class="w"> </span>directory<span class="w"> </span>is<span class="w"> </span><span class="s1">&#39;C:\Users\Administrator\datasets&#39;</span>.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>update<span class="w"> </span>this<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s1">&#39;C:\Users\Administrator\AppData\Roaming\Ultralytics\settings.yaml&#39;</span>
@@ -942,7 +942,7 @@
 <p>可以改成相对路径</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">datasets_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">..\</span>
 </span></code></pre></div>
-<h2 id="3">3</h2>
+<h2 id="3">3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>RuntimeError:<span class="w"> </span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">            </span>Attempt<span class="w"> </span>to<span class="w"> </span>start<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>process<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>process
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">            </span>has<span class="w"> </span>finished<span class="w"> </span>its<span class="w"> </span>bootstrapping<span class="w"> </span>phase.
@@ -962,10 +962,10 @@
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;data/Helmet.yaml&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">2</span><span class="p">[,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Name&quot;</span><span class="p">])</span>  <span class="c1"># 训练模型</span>
 </span></code></pre></div>
 <p><a href="https://stackoverflow.com/questions/75111196/yolov8-runtimeerror-an-attempt-has-been-made-to-start-a-new-process-before-th">python - YOLOv8 : RuntimeError: An attempt has been made to start a new process before the current process has finished its bootstrapping phase - Stack Overflow</a></p>
-<h2 id="4">4</h2>
+<h2 id="4">4<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>MemoryError 调整 <code>batch=</code></p>
 <p><a href="https://github.com/ultralytics/ultralytics/issues/2916">About Memory Error while Training yolov8x-seg · Issue #2916 · ultralytics/ultralytics (github.com)</a></p>
-<h2 id="5">5</h2>
+<h2 id="5">5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p>页面大小不够：</p>
 <p><a href="https://stackoverflow.com/questions/64837376/how-to-efficiently-run-multiple-pytorch-processes-models-at-once-traceback">python - How to efficiently run multiple Pytorch Processes / Models at once ? Traceback: The paging file is too small for this operation to complete - Stack Overflow</a></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>OSError:<span class="w"> </span><span class="o">[</span>WinError<span class="w"> </span><span class="m">1455</span><span class="o">]</span><span class="w"> </span>The<span class="w"> </span>paging<span class="w"> </span>file<span class="w"> </span>is<span class="w"> </span>too<span class="w"> </span>small<span class="w"> </span><span class="k">for</span><span class="w"> </span>this<span class="w"> </span>operation<span class="w"> </span>to<span class="w"> </span>complete.<span class="w"> </span>Error<span class="w"> </span>loading<span class="w"> </span><span class="s2">&quot;...\cusolver64_xx.dll    ...\cudnn_adv_infer64_8.dll&quot;</span><span class="w"> </span>or<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>its<span class="w"> </span>dependencies.
@@ -1059,7 +1059,7 @@
 <p>运行命令行</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>fixNvPe.py<span class="w"> </span>--input<span class="o">=</span>E:<span class="se">\P</span>rograms<span class="se">\A</span>naconda3<span class="se">\e</span>nvs<span class="se">\y</span>olov7<span class="se">\l</span>ib<span class="se">\s</span>ite-packages<span class="se">\t</span>orch<span class="se">\l</span>ib<span class="se">\*</span>.dll
 </span></code></pre></div>
-<h2 id="6">6</h2>
+<h2 id="6">6<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <p>用命令行检测</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>yolo<span class="w"> </span>predict<span class="w"> </span><span class="nv">model</span><span class="o">=</span>yolov8n.pt<span class="w"> </span><span class="nv">source</span><span class="o">=</span><span class="s1">&#39;bus.jpg&#39;</span>
 </span></code></pre></div>
@@ -1101,9 +1101,9 @@
 <p><a href="https://docs.ultralytics.com/modes/predict/#inference-sources">Predict - Ultralytics YOLOv8 Docs</a></p>
 <p>参数的作用</p>
 <p><a href="https://docs.ultralytics.com/modes/predict/#inference-arguments">Predict - Ultralytics YOLOv8 Docs</a></p>
-<h2 id="7">7</h2>
+<h2 id="7">7<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
 <p><code>.yaml</code>文件里面的标签要与<code>labels.txt</code>里面的顺序一致</p>
-<h2 id="8">8</h2>
+<h2 id="8">8<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
 <p>v8 <code>.yaml</code> 文件示例：</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../datasets/coco8</span><span class="w">  </span><span class="c1"># dataset root dir</span>
@@ -1130,7 +1130,7 @@
 <li>txt文件路径，txt文件内为各个图片的路径</li>
 <li>列表形式的图片路径</li>
 </ol>
-<h2 id="9">9</h2>
+<h2 id="9">9<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
 <p>如果detect时使用某个pt模型报错，有可能是因为 训练该模型时使用的ultralytics版本 比 本机安装的版本 新，使用了旧版本 <code>requirements.txt</code> 中未安装的包，因此更新ultralytics包即可</p>
 
 
