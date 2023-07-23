@@ -65,7 +65,18 @@
     
     
     
-  </head>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -900,8 +911,8 @@
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="n">results</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>  <span class="c1"># or .show(), .save(), .crop(), .pandas(), etc.</span>
 </span></code></pre></div>
 <p>指南中的原始的代码 <code>https://ultralytics.com/images/zidane.jpg</code> 需要梯子加载，提前下载，</p>
-<p><img alt="zidane.jpg" src="../../images/zidane.jpg" /></p>
-<p><img alt="bus.jpg" src="../../images/bus.jpg" /></p>
+<p><a class="glightbox" href="../../images/zidane.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="zidane.jpg" src="../../images/zidane.jpg" /></a></p>
+<p><a class="glightbox" href="../../images/bus.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bus.jpg" src="../../images/bus.jpg" /></a></p>
 <p>或自定义一个图片</p>
 <p>将 <code>results.print()</code> 改成 <code>results.show()</code></p>
 </blockquote>
@@ -1037,5 +1048,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
       
     
-  </body>
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
