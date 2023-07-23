@@ -213,3 +213,12 @@ plugins:
 >   插件官方使用文档：
 >
 >   [blueswen/mkdocs-glightbox: A MkDocs plugin supports image lightbox (zoom effect) with GLightbox. (github.com)](https://github.com/blueswen/mkdocs-glightbox#usage)
+
+## 14
+
+添加版权信息
+
+```yaml
+copyright: Copyright &copy; 2023 - 2023 Ronald Luo
+```
+

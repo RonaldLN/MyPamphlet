@@ -80,3 +80,5 @@ plugins:
       enable_creation_date: true
       type: timeago
   - glightbox
+
+copyright: Copyright &copy; 2023 - 2023 Ronald Luo
