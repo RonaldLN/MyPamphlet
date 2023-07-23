@@ -312,3 +312,11 @@ plugins:
 >   ```
 
 并且添加了i18n需要注释掉 `theme:` 中的 `language:` 
+
+此外，
+
+若想添加对应语言版本的文档，比如 `index.md` 的中文版，则在相同路径下创建 `index.zh.md` 进行编写
+
+>   参考
+>
+>   [cs-self-learning/docs at master · PKUFlyingPig/cs-self-learning (github.com)](https://github.com/PKUFlyingPig/cs-self-learning/tree/master/docs)
