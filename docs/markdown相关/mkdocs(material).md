@@ -41,6 +41,7 @@ markdown_extensions:
 ```yaml
 theme:
   name: material # 固定
+  language: zh # 语言设置为中文(会改变搜索栏/最后修改 等文字)，默认为英文
   logo: assets/logo.jpg # 页面中顶部栏左侧图标
   favicon: assets/favicon.jpg # 浏览器页面标签图标
   features:
