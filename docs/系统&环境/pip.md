@@ -29,5 +29,11 @@ pip 升级某个包
 pip install [-U / --updrade] xxx
 ```
 
+## 3
 
+安装某个版本的包
+
+```bash
+pip install xxx==x.x.x
+```
 

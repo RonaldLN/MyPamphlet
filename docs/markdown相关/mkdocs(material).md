@@ -52,6 +52,9 @@ theme:
     - navigation.footer # 页面底部有下一页的链接(按目录上的顺序)
     - navigation.tabs # 一级目录融合至顶栏，并且只展示二级目录
     - content.code.copy # 代码块复制按键
+    - search.suggest # 搜索建议
+    - search.highlight # 搜索结果高亮/突出显示
+    - search.share # 搜索结果分享
 ```
 
 ## 4
@@ -95,6 +98,23 @@ nav:
 
 ## 6
 
+```yaml
+plugins:
+  - git-revision-date-localized: # 页面下方创建和修改时间
+      enable_creation_date: true
+      type: timeago
+  - glightbox # 图片放大
+  - search: # 搜索(支持中文、英文)
+      lang: 
+        - zh
+        - en
+```
+
+-   [页面下方创建和修改时间](#13)
+-   [图片放大](#14)
+
+## 7
+
 右上角github仓库
 
 [Adding a git repository - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/)
@@ -104,7 +124,7 @@ repo_url: https://github.com/RonaldLN/Project-Application-Form-of-AIGC
 repo_name: Project-Application-Form-of-AIGC
 ```
 
-## 7
+## 8
 
 上传到`github`、`gitee`仓库：
 
@@ -114,7 +134,7 @@ mkdocs gh-deploy --force
 
 (该命令只上传site文件夹至gh-pages分支，若是github仓库，会自动选择gh-pages分支生成github pages页面)
 
-## 8
+## 9
 
 添加 KaTeX 公式书写
 
@@ -145,11 +165,11 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 ```
 
-## 9
+## 10
 
 放在 `/doc`内子文件夹里的md文件会根据该子文件夹名自动生成一级目录（如果没有自定义目录）
 
-## 10
+## 11
 
 添加谷歌分析
 
@@ -160,7 +180,7 @@ extra:
     property: G-xxxxxxxxxx
 ```
 
-## 11
+## 12
 
 图像延迟加载
 
@@ -170,7 +190,7 @@ extra:
 ![xxx](.../xxx.png){ loading=lazy }
 ```
 
-## 12
+## 13
 
 设置每个文章底部显示创建和更新时间
 
@@ -191,7 +211,7 @@ plugins:
       type: timeago
 ```
 
-## 13
+## 14
 
 图片缩放功能/点击放大
 
@@ -214,7 +234,7 @@ plugins:
 >
 >   [blueswen/mkdocs-glightbox: A MkDocs plugin supports image lightbox (zoom effect) with GLightbox. (github.com)](https://github.com/blueswen/mkdocs-glightbox#usage)
 
-## 14
+## 15
 
 添加版权信息
 
@@ -222,3 +242,38 @@ plugins:
 copyright: Copyright &copy; 2023 - 2023 Ronald Luo
 ```
 
+## 16
+
+搜索
+
+```yaml
+theme:
+    ...
+    features:
+ 	...
+    - search.suggest # 搜索建议
+    - search.highlight # 搜索结果高亮/突出显示
+    - search.share # 搜索结果分享
+
+plugins:
+  ...
+  - search: # 搜索(选择支持中文、英文)
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      lang: 
+        - zh
+        - en
+```
+
+中文支持(即将)
+
+>   [Setting up site search - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#chinese-language-support)
+
+为了在[内置搜索插件](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#built-in-search-plugin)中添加对中文的支持，请通过 `pip` 安装 [jieba](https://pypi.org/project/jieba/) 文本分割库，插件将通过分句器运行所有文本：
+
+```bash
+pip install jieba
+```
+
+搜索建议：
+
+>   启用搜索建议后，搜索将显示最后一个单词的最可能完成情况，该单词可以通过 ++arrow-right++ 键填充
