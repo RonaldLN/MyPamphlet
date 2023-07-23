@@ -303,7 +303,7 @@ plugins:
 
 需要安装 `mkdocs-static-i18n` 包
 
-并且在 `mkdocs.yml` 中 `plugins:` 里 `- i18n` 需要写在 `git-revision-date-localized` 之前
+并且在 `mkdocs.yml` 中 `plugins:` 里 `- i18n:` 需要写在 `- git-revision-date-localized:` 之前
 
 >   报错信息：
 >
