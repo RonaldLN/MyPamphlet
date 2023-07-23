@@ -190,3 +190,26 @@ plugins:
       enable_creation_date: true
       type: timeago
 ```
+
+## 13
+
+图片缩放功能/点击放大
+
+[Images - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/reference/images/#lightbox)
+
+`pip`:
+
+```bash
+pip install mkdocs-glightbox
+```
+
+`mkdocs.yml`:
+
+```yaml
+plugins:
+  - glightbox
+```
+
+>   插件官方使用文档：
+>
+>   [blueswen/mkdocs-glightbox: A MkDocs plugin supports image lightbox (zoom effect) with GLightbox. (github.com)](https://github.com/blueswen/mkdocs-glightbox#usage)

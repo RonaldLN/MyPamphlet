@@ -65,7 +65,18 @@
     
     
     
-  </head>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -863,7 +874,7 @@
 <p>github pages 可以自动更新</p>
 <h2 id="4">4<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent - GitHub Docs</a></p>
-<p><img alt="github_linux_ssh" src="../../images/github_linux_ssh.png" /></p>
+<p><a class="glightbox" href="../../images/github_linux_ssh.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="github_linux_ssh" src="../../images/github_linux_ssh.png" /></a></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;xxx@example.com&quot;</span>
 </span></code></pre></div>
 <p>第二行填写文件要保存的位置（直接复制给的就好了），然后<code>passphrase</code>可以不设置，之后把<code>~/.ssh/id_ed25519.pub</code>中的全部复制粘贴到github设置ssh中就行了</p>
@@ -984,5 +995,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
       
     
-  </body>
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
