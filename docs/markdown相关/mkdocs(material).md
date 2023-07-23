@@ -160,3 +160,33 @@ extra:
     property: G-xxxxxxxxxx
 ```
 
+## 11
+
+图像延迟加载
+
+在每个图像后加上 `{ loading=lazy }` 
+
+```markdown
+![xxx](.../xxx.png){ loading=lazy }
+```
+
+## 12
+
+设置每个文章底部显示创建和更新时间
+
+[Adding a git repository - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/?h=contributor#document-dates)
+
+添加包：
+
+```bash
+pip install mkdocs-git-revision-date-localized-plugin
+```
+
+添加到 `mkdocs.yml`:
+
+```yaml
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+```

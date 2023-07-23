@@ -74,3 +74,8 @@ extra:
   analytics:
     provider: google
     property: G-H7SV12D750
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago

@@ -14,7 +14,7 @@ python ok [-q xxx] --local
 
 变量可以 “指向” 一个函数
 
-![cs61a_10](../images/cs61a_10.png)
+![cs61a_10](../images/cs61a_10.png){ loading=lazy }
 
 ### 2
 
@@ -42,17 +42,17 @@ cs61a中使用的可以显示python程序中 environment 、 frame 等信息的�
 
 调用函数时，会创建一个新的frame，且frame的名字为函数本身的名字(即创建时的名字 (如果是lambda匿名函数则 没有名字/名字为lambda))，
 
-![cs61a_11](../images/cs61a_11.png)
+![cs61a_11](../images/cs61a_11.png){ loading=lazy }
 
 即如果用某个变量指向了函数，在用变量调用函数的时，创建的frame名字仍为原函数名
 
-![cs61a_12](../images/cs61a_12.png)
+![cs61a_12](../images/cs61a_12.png){ loading=lazy }
 
 ## Lecture 2 Q&A
 
 ### 1
 
-![cs61a_14](../images/cs61a_14.png)
+![cs61a_14](../images/cs61a_14.png){ loading=lazy }
 
 在哪个frame中定义(define)的函数，其parent就是哪个frame，除了Global frame其他都有parent，
 
@@ -72,7 +72,7 @@ exec("curry = lambda f: lambda x: lambda y: f(x, y)")
 
 可以让 `curry` 变量指向一个匿名函数
 
-![cs61a_1](../images/cs61a_1.png)
+![cs61a_1](../images/cs61a_1.png){ loading=lazy }
 
 ### 2
 
@@ -97,7 +97,7 @@ string字符串的元素也是字符串，list的元素就是元素，即有
 
 ### 4
 
-![cs61a_2](../images/cs61a_2.png)
+![cs61a_2](../images/cs61a_2.png){ loading=lazy }
 
 记忆技巧 *“下标”* 对应元素之前，
 
@@ -125,7 +125,7 @@ string字符串的元素也是字符串，list的元素就是元素，即有
 
 如果列表有子列表，且元素个数都固定，那么 `for` 可以直接获取子列表的元素/unpack子列表，如子列表都含两个元素：
 
-![cs61a_3](../images/cs61a_3.png)
+![cs61a_3](../images/cs61a_3.png){ loading=lazy }
 
 ## Lecture 10 Q&A
 
@@ -147,7 +147,7 @@ def fact_helper(n, k, result):
         return fact_helper(n, k + 1, k * result)
 ```
 
-![cs61a_4](../images/cs61a_4.png)
+![cs61a_4](../images/cs61a_4.png){ loading=lazy }
 
 >   or
 >
@@ -194,15 +194,15 @@ def fact(n):
 
 **"Unpacking" a list**
 
-![cs61a_5](../images/cs61a_5.png)
+![cs61a_5](../images/cs61a_5.png){ loading=lazy }
 
 ### 2
 
 抽象思想
 
-![cs61a_6](../images/cs61a_6.png)
+![cs61a_6](../images/cs61a_6.png){ loading=lazy }
 
-![cs61a_7](../images/cs61a_7.png)
+![cs61a_7](../images/cs61a_7.png){ loading=lazy }
 
 >   **==... you should know that when you're writing one part of a large program, that it should use the level abstraction appropriate to what you're trying to do,==**
 >
@@ -212,7 +212,7 @@ def fact(n):
 
 ### 3
 
-![cs61a_8](../images/cs61a_8.png)
+![cs61a_8](../images/cs61a_8.png){ loading=lazy }
 
 字典可以通过特定的列表构造( 二元元组 组成的列表)
 
@@ -220,7 +220,7 @@ def fact(n):
 
 字典也有推导式
 
-![cs61a_9](../images/cs61a_9.png)
+![cs61a_9](../images/cs61a_9.png){ loading=lazy }
 
 ## Lecture 11 Q&A
 
@@ -234,4 +234,16 @@ def fact(n):
 
 添加判断功能可以这样设计
 
-![cs61a_13](../images/cs61a_13.png)
+![cs61a_13](../images/cs61a_13.png){ loading=lazy }
+
+## Lecture 12 Trees
+
+### 1
+
+![cs61a_15](../images/cs61a_15.png){ loading=lazy }
+
+`[...]` 中括号/方括号(square brackets)中的内容表示为可选的(optional)
+
+### 2
+
+![cs61a_16](../images/cs61a_16.png){ loading=lazy }
