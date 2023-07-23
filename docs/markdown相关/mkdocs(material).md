@@ -41,7 +41,7 @@ markdown_extensions:
 ```yaml
 theme:
   name: material # 固定
-  language: zh # 语言设置为中文(会改变搜索栏/最后修改 等文字)，默认为英文
+  # language: zh # 语言设置为中文(会改变搜索栏/最后修改 等文字)，默认为英文
   logo: assets/logo.jpg # 页面中顶部栏左侧图标
   favicon: assets/favicon.jpg # 浏览器页面标签图标
   features:
@@ -101,6 +101,16 @@ nav:
 
 ```yaml
 plugins:
+  - i18n: # 语言切换 (需要放在 git-revision-date-localized 之前)
+      default_language: en
+      material_alternate: true
+      languages:
+        zh:
+          name: 简体中文
+          build: true
+        en:
+          name: English labels (英文标签)
+          build: true
   - git-revision-date-localized: # 页面下方创建和修改时间
       enable_creation_date: true
       type: timeago
@@ -111,6 +121,7 @@ plugins:
         - en
 ```
 
+-   [语言切换](#17)
 -   [页面下方创建和修改时间](#13)
 -   [图片放大](#14)
 
@@ -281,3 +292,23 @@ plugins:
 搜索建议：
 
 >   启用搜索建议后，搜索将显示最后一个单词的最可能完成情况，该单词可以通过 ++arrow-right++ 键填充
+
+## 17
+
+语言切换
+
+>   参考
+>
+>   [cs-self-learning/mkdocs.yml at master · PKUFlyingPig/cs-self-learning (github.com)](https://github.com/PKUFlyingPig/cs-self-learning/blob/master/mkdocs.yml)
+
+需要安装 `mkdocs-static-i18n` 包
+
+并且在 `mkdocs.yml` 中 `plugins:` 里 `- i18n` 需要写在 `git-revision-date-localized` 之前
+
+>   报错信息：
+>
+>   ```bash
+>   Error: [git-revision-date-localized] should be defined after the i18n plugin in your mkdocs.yml file. This is because i18n adds a 'locale' variable to markdown pages that this plugin supports.
+>   ```
+
+并且添加了i18n需要注释掉 `theme:` 中的 `language:` 
