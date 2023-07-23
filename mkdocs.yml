@@ -89,7 +89,7 @@ plugins:
           build: true
         en:
           name: English labels (英文标签)
-          build: true
+          build: false
   - git-revision-date-localized: # 页面下方创建和修改时间
       enable_creation_date: true
       type: timeago

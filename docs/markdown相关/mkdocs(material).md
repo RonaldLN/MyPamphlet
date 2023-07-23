@@ -289,7 +289,7 @@ plugins:
 >   pip install jieba
 >   ```
 
-搜索建议：
+搜索建议功能：
 
 >   启用搜索建议后，搜索将显示最后一个单词的最可能完成情况，该单词可以通过 ++arrow-right++ 键填充
 
@@ -324,3 +324,7 @@ pip install mkdocs-static-i18n
 >   参考
 >
 >   [cs-self-learning/docs at master · PKUFlyingPig/cs-self-learning (github.com)](https://github.com/PKUFlyingPig/cs-self-learning/tree/master/docs)
+>
+>   ---
+>
+>   [ultrabug/mkdocs-static-i18n: MkDocs i18n plugin using static translation markdown files (github.com)](https://github.com/ultrabug/mkdocs-static-i18n/)
