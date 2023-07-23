@@ -1,3 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+         <loc>None./</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/"/>
+         
+    </url>
+    <url>
+         <loc>NoneNotes%20of%20Courses/CS61A/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Notes%20of%20Courses/CS61A/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Notes%20of%20Courses/CS61A/"/>
+         
+    </url>
+    <url>
+         <loc>Nonegit%E7%9B%B8%E5%85%B3/github%20copilot/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/git%E7%9B%B8%E5%85%B3/github%20copilot/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/git%E7%9B%B8%E5%85%B3/github%20copilot/"/>
+         
+    </url>
+    <url>
+         <loc>Nonegit%E7%9B%B8%E5%85%B3/github%26gitee/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/git%E7%9B%B8%E5%85%B3/github%26gitee/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/git%E7%9B%B8%E5%85%B3/github%26gitee/"/>
+         
+    </url>
+    <url>
+         <loc>Nonemarkdown%E7%9B%B8%E5%85%B3/mermaid/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/markdown%E7%9B%B8%E5%85%B3/mermaid/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/markdown%E7%9B%B8%E5%85%B3/mermaid/"/>
+         
+    </url>
+    <url>
+         <loc>Nonemarkdown%E7%9B%B8%E5%85%B3/mkdocs%28material%29/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/markdown%E7%9B%B8%E5%85%B3/mkdocs%28material%29/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/markdown%E7%9B%B8%E5%85%B3/mkdocs%28material%29/"/>
+         
+    </url>
+    <url>
+         <loc>Nonepython%E5%BA%93/matplotlib/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/python%E5%BA%93/matplotlib/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/python%E5%BA%93/matplotlib/"/>
+         
+    </url>
+    <url>
+         <loc>Nonepython%E5%BA%93/numpy/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/python%E5%BA%93/numpy/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/python%E5%BA%93/numpy/"/>
+         
+    </url>
+    <url>
+         <loc>Nonepython%E5%BA%93/scipy/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/python%E5%BA%93/scipy/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/python%E5%BA%93/scipy/"/>
+         
+    </url>
+    <url>
+         <loc>Nonepython%E5%BA%93/sympy/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/python%E5%BA%93/sympy/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/python%E5%BA%93/sympy/"/>
+         
+    </url>
+    <url>
+         <loc>Noneyolo/yolov5/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/yolo/yolov5/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/yolo/yolov5/"/>
+         
+    </url>
+    <url>
+         <loc>Noneyolo/yolov7/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/yolo/yolov7/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/yolo/yolov7/"/>
+         
+    </url>
+    <url>
+         <loc>Noneyolo/yolov8/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/yolo/yolov8/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/yolo/yolov8/"/>
+         
+    </url>
+    <url>
+         <loc>None%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/anaconda/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/anaconda/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/anaconda/"/>
+         
+    </url>
+    <url>
+         <loc>None%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/cuda%20cudnn%E5%AE%89%E8%A3%85/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/cuda%20cudnn%E5%AE%89%E8%A3%85/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/cuda%20cudnn%E5%AE%89%E8%A3%85/"/>
+         
+    </url>
+    <url>
+         <loc>None%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/pip/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/pip/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/pip/"/>
+         
+    </url>
+    <url>
+         <loc>None%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/ubuntu/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/ubuntu/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/ubuntu/"/>
+         
+    </url>
+    <url>
+         <loc>None%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/vim/</loc>
+         <lastmod>2023-07-23</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/vim/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/%E7%B3%BB%E7%BB%9F%26%E7%8E%AF%E5%A2%83/vim/"/>
+         
+    </url>
 </urlset>
