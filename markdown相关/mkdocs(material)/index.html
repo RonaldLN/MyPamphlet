@@ -1391,9 +1391,12 @@
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- search</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="c1"># 搜索(选择支持中文、英文)</span>
 </span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">      </span><span class="nt">separator</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;[\s\-,:!=\[\]()&quot;/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&amp;[lg]t;&#39;</span>
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">      </span><span class="nt">lang</span><span class="p">:</span><span class="w"> </span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zh</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="c1"># - zh</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ja</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
 </span></code></pre></div>
+<p>中文暂不支持，可以选择日文( <code>ja</code> )代替</p>
+<blockquote>
 <p>中文支持(即将)</p>
 <blockquote>
 <p><a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#chinese-language-support">Setting up site search - Material for MkDocs (squidfunk.github.io)</a></p>
@@ -1401,6 +1404,7 @@
 <p>为了在<a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#built-in-search-plugin">内置搜索插件</a>中添加对中文的支持，请通过 <code>pip</code> 安装 <a href="https://pypi.org/project/jieba/">jieba</a> 文本分割库，插件将通过分句器运行所有文本：</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>pip<span class="w"> </span>install<span class="w"> </span>jieba
 </span></code></pre></div>
+</blockquote>
 <p>搜索建议：</p>
 <blockquote>
 <p>启用搜索建议后，搜索将显示最后一个单词的最可能完成情况，该单词可以通过 <span class="keys"><kbd class="key-arrow-right">Right</kbd></span> 键填充</p>
@@ -1411,7 +1415,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-07-23T12:10:48+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-07-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-07-23T12:17:42+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-07-23</span>
       
         <br>
         创建日期:
