@@ -44,6 +44,7 @@ theme:
   # language: zh # 语言设置为中文(会改变搜索栏/最后修改 等文字)，默认为英文
   logo: assets/logo.jpg # 页面中顶部栏左侧图标
   favicon: assets/favicon.jpg # 浏览器页面标签图标
+  custom_dir: overrides # html源代码扩展文件夹
   features:
     - navigation.expand # 目录自动展开子目录
     # - toc.integrate # 右边的toc融合到左侧的目录中
@@ -328,3 +329,72 @@ pip install mkdocs-static-i18n
 >   ---
 >
 >   [ultrabug/mkdocs-static-i18n: MkDocs i18n plugin using static translation markdown files (github.com)](https://github.com/ultrabug/mkdocs-static-i18n/)
+
+## 18
+
+添加自定义的代码
+
+>   [javascript - How to add script to head tag in MkDocs? - Stack Overflow](https://stackoverflow.com/questions/61832890/how-to-add-script-to-head-tag-in-mkdocs)
+>
+>   [Customization - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks)
+
+以添加百度统计的代码为例：
+
+先在 `mkdocs.yml` 中添加以下内容
+
+```yaml
+theme:
+  ...
+  custom_dir: overrides
+```
+
+>   [Customization - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/customization/#extending-the-theme)
+
+并且在 `mkdocs.yml` 相同路径下创建 `overrides` 文件夹
+
+再在该文件夹中创建 `main.html` 文件
+
+```txt
+.
+├─ overrides/
+│  └─ main.html
+└─ mkdocs.yml
+```
+
+并在该文件中添加如下内容：
+
+```html
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <!-- 从 百度统计-代码获取 中获取的代码 -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+{% endblock %}
+```
+
+>   如果要追加(而不是覆写)，需要添加 `{{ super() }}` 来包含原有代码，如
+>
+>   ```html
+>   {% extends "base.html" %}
+>   
+>   {% block scripts %}
+>     <!-- Add scripts that need to run before here -->
+>     {{ super() }}
+>     <!-- Add scripts that need to run afterwards here -->
+>   {% endblock %}
+>   
+>   ```
+>
+>   (由于 `extrahead` 本身就为空，
+>
+>   >   ***Empty block to add custom meta tags***
+>
+>   所以不需要包含原有代码，可以直接覆写)
