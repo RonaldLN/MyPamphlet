@@ -63,6 +63,9 @@ markdown_extensions:
   - admonition # d 标注
   - pymdownx.details # d
   - pymdownx.superfences # d
+  - pymdownx.emoji: # 使用emoji和icon
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 repo_url: https://github.com/RonaldLN/MyPamphlet
 repo_name: RonaldLN/MyPamphlet

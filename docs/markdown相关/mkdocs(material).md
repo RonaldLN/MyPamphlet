@@ -34,6 +34,9 @@ markdown_extensions:
   - admonition # d 标注
   - pymdownx.details # d
   - pymdownx.superfences # d
+  - pymdownx.emoji: # 使用emoji和icon
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 ```
 
 ## 3
@@ -398,3 +401,32 @@ theme:
 >   >   ***Empty block to add custom meta tags***
 >
 >   所以不需要包含原有代码，可以直接覆写)
+
+## 19
+
+>   [Setting up the footer - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#+social.link)
+
+添加social links时，可以更改icon
+
+```yaml
+extra:
+  social:
+    - icon: simple/github
+      link: https://github.com/RonaldLN
+    - icon: simple/gitee
+      link: https://gitee.com/ronald-luo
+    - icon: material/email-fast
+      link: mailto:<ln12142325@mail.nwpu.edu.cn>
+```
+
+可用的icon可以在
+
+[Icons, Emojis - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/#search)
+
+中查询，
+
+但在写入 `mkdocs.yml` 时需要适当修改，如
+
+-   :octicons-mail-16: `:octicons-mail-16:` 改为 `octicons/mail-16`
+-   :material-email-fast: `:material-email-fast:` 改为 `material/email-fast`
+-   :simple-github: `:simple-github:` 改为 `simple/github`
