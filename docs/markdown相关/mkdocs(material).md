@@ -406,7 +406,7 @@ theme:
 
 >   [Setting up the footer - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#+social.link)
 
-添加social links时，可以更改icon
+添加social links时，(以及logo和git仓库图标)可以更改icon
 
 ```yaml
 extra:
