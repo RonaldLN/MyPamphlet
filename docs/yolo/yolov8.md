@@ -261,3 +261,10 @@ names:
 
 如果detect时使用某个pt模型报错，有可能是因为 训练该模型时使用的ultralytics版本 比 本机安装的版本 新，使用了旧版本 `requirements.txt` 中未安装的包，因此更新ultralytics包即可
 
+## 10
+
+train时要修改batch，修改 `batch` 参数： `batch=x`
+
+>   默认为16，-1为自动调整
+
+[Configuration - Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/usage/cfg/#train)
