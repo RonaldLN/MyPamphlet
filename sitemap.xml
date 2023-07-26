@@ -9,14 +9,6 @@
          
     </url>
     <url>
-         <loc>NoneNotes%20of%20Courses/</loc>
-         <lastmod>2023-07-26</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Notes%20of%20Courses/"/>
-         <xhtml:link rel="alternate" hreflang="en" href="NoneNotes%20of%20Courses/"/>
-         
-    </url>
-    <url>
          <loc>NoneNotes%20of%20Courses/CS61A/</loc>
          <lastmod>2023-07-26</lastmod>
          <changefreq>daily</changefreq>
