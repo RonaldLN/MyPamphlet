@@ -652,6 +652,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1471,6 +1485,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1496,6 +1524,10 @@
 
   <h1>CS61A</h1>
 
+<blockquote>
+<p><em>Notes of Courses</em> on gitee.io</p>
+<p><a href="https://ronald-luo.gitee.io/my-pamphlet_-notes-of-courses/">My Pamphlet (gitee.io)</a></p>
+</blockquote>
 <h2 id="lab-0">Lab 0<a class="headerlink" href="#lab-0" title="Permanent link">&para;</a></h2>
 <h3 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>运行hw或者lab任务的对应命令时，都加上 <code>--local</code> ，就只在本地运行，不会上传然后要求输入邮箱，如</p>
@@ -1645,14 +1677,80 @@
 <p><a class="glightbox" href="../../images/cs61a_15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_15" loading="lazy" src="../../images/cs61a_15.png" /></a></p>
 <p><code>[...]</code> 中括号/方括号(square brackets)中的内容表示为可选的(optional)</p>
 <h3 id="2_4">2<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h3>
+<p>序列聚合函数(Sequence Aggregation)</p>
+<p><a class="glightbox" href="../../images/cs61a_18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_18" loading="lazy" src="../../images/cs61a_18.png" /></a></p>
+<p><code>sum()</code> 函数，可以用于除字符串以外的序表，将序表中的元素以其对应的 <code>+</code> 法求和并返回(默认初始值为0，如果是其他类型，需要设置初始值，如列表需要传入空列表 <code>[]</code> 座位 <code>start</code> 参数)</p>
 <p><a class="glightbox" href="../../images/cs61a_16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_16" loading="lazy" src="../../images/cs61a_16.png" /></a></p>
+<p><code>max()</code> 函数，可以返回最大值，或者是使key函数返回值最大的值(自变量)</p>
+<p><a class="glightbox" href="../../images/cs61a_17.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_17" loading="lazy" src="../../images/cs61a_17.png" /></a></p>
+<blockquote>
+<p>对应的还有 <code>min()</code> 和 <code>any()</code></p>
+</blockquote>
+<h3 id="3_3">3<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
+<p><strong>树抽象(Tree Abstaction)的实现</strong></p>
+<p><a class="glightbox" href="../../images/cs61a_19.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_19" loading="lazy" src="../../images/cs61a_19.png" /></a></p>
+<h3 id="4_2">4<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h3>
+<p>递归在树中的运用，</p>
+<p>要<strong><mark>直接假想函数能返回所需要返回的东西(即假想返回的东西是已知的)</mark></strong>，然后直接在函数内部去<strong>直接使用</strong>这个返回的东西，</p>
+<p>并且需要记住树的孩子也是树。</p>
+<p>例如</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span> <span class="nf">count_leaves</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Count the leaves of a tree.&quot;&quot;&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="k">return</span> <span class="mi">1</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">branch_counts</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_leaves</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">branch_counts</span><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>Hint: 假想该函数一定能返回树的叶子数(即假想已知子树叶子数)，然后对子树的叶子数和即得到本树的叶子数</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span> <span class="nf">leaves</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list containing the leaves labels of tree.</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="sd">    &gt;&gt;&gt; leaves(fib_tree(5))</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="sd">    [1, 0, 1, 0, 1, 1, 0, 1]</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">tree</span><span class="p">)]</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">leaves</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">tree</span><span class="p">)],</span> <span class="p">[])</span>
+</span></code></pre></div>
+<blockquote>
+<p>Hint: 假想该函数能返回 一个含 <em>树的所有叶子的值/标签</em> 的list </p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">def</span> <span class="nf">increment_leaves</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a tree like t but with leaf labels incremented.&quot;&quot;&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        <span class="k">return</span> <span class="n">tree</span><span class="p">(</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="n">bs</span> <span class="o">=</span> <span class="p">[</span><span class="n">increment_leaves</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="k">return</span> <span class="n">tree</span><span class="p">(</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">bs</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a tree like t but with all labels incremented&quot;&quot;&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="k">return</span> <span class="n">tree</span><span class="p">(</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">increment</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span>
+</span></code></pre></div>
+<blockquote>
+<p>Hint: 假想能返回一个 ... 的树</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span> <span class="nf">fib_tree</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        <span class="k">return</span> <span class="n">tree</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">fib_tree</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fib_tree</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="k">return</span> <span class="n">tree</span><span class="p">(</span><span class="n">label</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">label</span><span class="p">(</span><span class="n">right</span><span class="p">),</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">])</span>
+</span></code></pre></div>
+<blockquote>
+<p>Hint同上</p>
+</blockquote>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-07-23T09:27:33+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-07-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-07-25T16:35:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-07-25</span>
       
         <br>
         Created:

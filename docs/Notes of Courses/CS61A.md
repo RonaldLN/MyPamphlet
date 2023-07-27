@@ -1,3 +1,7 @@
+>   *Notes of Courses* on gitee.io
+>
+>   [CS61A - My Pamphlet (gitee.io)](https://ronald-luo.gitee.io/my-pamphlet_-notes-of-courses/Notes of Courses/CS61A/)
+
 ## Lab 0
 
 ### 1
@@ -188,6 +192,134 @@ def fact(n):
     return helper(1)
 ```
 
+## Lab 04
+
+lab04中的Q4-Q6 在掌握了 *假想函数能返回所需要返回的东西(即假想返回的东西是已知的)* 的诀窍(在lecture12中)之后，做的很顺畅。
+
+1.   先假想函数能返回所需的东西/值
+2.   再想如何把情况分解成另一个或几个差不多(形式一样)但简单了一点的情况(有点类似于动态规划的找递推式)，如Q4中一般情况可以分成两个行/列减一的情况(即向上或向右走一步)
+3.   再想 “基本情况” (最简单/特殊的情况(作为递归的终止情况))
+4.   最后调整一般情况的返回的值
+
+??? note "code"
+
+    Q4
+    
+    ```python
+    def paths(m, n):
+        """Return the number of paths from one corner of an
+        M by N grid to the opposite corner.
+    
+        >>> paths(2, 2)
+        2
+        >>> paths(5, 7)
+        210
+        >>> paths(117, 1)
+        1
+        >>> paths(1, 157)
+        1
+        """
+        "*** YOUR CODE HERE ***"
+        if m == 1 or n == 1:
+            return 1
+        else:
+            return paths(m - 1, n) + paths(m, n - 1)
+    ```
+    
+    Q5
+    
+    ```python
+    def max_subseq(n, t):
+        """
+        Return the maximum subsequence of length at most t that can be found in the given number n.
+        For example, for n = 20125 and t = 3, we have that the subsequences are
+            2
+            0
+            1
+            2
+            5
+            20
+            21
+            22
+            25
+            01
+            02
+            05
+            12
+            15
+            25
+            201
+            202
+            205
+            212
+            215
+            225
+            012
+            015
+            025
+            125
+        and of these, the maxumum number is 225, so our answer is 225.
+    
+        >>> max_subseq(20125, 3)
+        225
+        >>> max_subseq(20125, 5)
+        20125
+        >>> max_subseq(20125, 6) # note that 20125 == 020125
+        20125
+        >>> max_subseq(12345, 3)
+        345
+        >>> max_subseq(12345, 0) # 0 is of length 0
+        0
+        >>> max_subseq(12345, 1)
+        5
+        """
+        "*** YOUR CODE HERE ***"
+        if t == 0:
+            return 0
+        elif n < 10:
+            return n
+        else:
+            return max(max_subseq(n // 10, t - 1) * 10 + n % 10, max_subseq(n // 10, t))
+    ```
+    
+    Q6
+    
+    ```python
+    def add_chars(w1, w2):
+        """
+        Return a string containing the characters you need to add to w1 to get w2.
+    
+        You may assume that w1 is a subsequence of w2.
+    
+        >>> add_chars("owl", "howl")
+        'h'
+        >>> add_chars("want", "wanton")
+        'on'
+        >>> add_chars("rat", "radiate")
+        'diae'
+        >>> add_chars("a", "prepare")
+        'prepre'
+        >>> add_chars("resin", "recursion")
+        'curo'
+        >>> add_chars("fin", "effusion")
+        'efuso'
+        >>> add_chars("coy", "cacophony")
+        'acphon'
+        >>> from construct_check import check
+        >>> # ban iteration and sets
+        >>> check(LAB_SOURCE_FILE, 'add_chars',
+        ...       ['For', 'While', 'Set', 'SetComp']) # Must use recursion
+        True
+        """
+        "*** YOUR CODE HERE ***"
+        if not w1:
+            return w2
+        elif w1[0] == w2[0]:
+            return add_chars(w1[1:], w2[1:])
+        else:
+            return w2[0] + add_chars(w1, w2[1:])
+    ```
+
 ## Lecture 11 Data Abstraction
 
 ### 1
@@ -246,6 +378,122 @@ def fact(n):
 
 ### 2
 
+序列聚合函数(Sequence Aggregation)
+
+![cs61a_18](../images/cs61a_18.png){ loading=lazy }
+
+`sum()` 函数，可以用于除字符串以外的序表，将序表中的元素以其对应的 `+` 法求和并返回(默认初始值为0，如果是其他类型，需要设置初始值，如列表需要传入空列表 `[]` 座位 `start` 参数)
+
 ![cs61a_16](../images/cs61a_16.png){ loading=lazy }
 
-`sum()` 函数是一个序列聚合函数，可以用于除字符串以外的序表，将序表中的元素以其对应的 `+` 法求和并返回(默认初始值为0，如果是其他类型，需要设置初始值，如列表需要传入空列表 `[]` 座位 `start` 参数)
+`max()` 函数，可以返回最大值，或者是使key函数返回值最大的值(自变量)
+
+![cs61a_17](../images/cs61a_17.png){ loading=lazy }
+
+>   对应的还有 `min()` 和 `any()`
+
+### 3
+
+**树抽象(Tree Abstaction)的实现**
+
+![cs61a_19](../images/cs61a_19.png){ loading=lazy }
+
+### 4
+
+递归在树中的运用，
+
+要**==直接假想函数能返回所需要返回的东西(即假想返回的东西是已知的)==**，然后直接在函数内部去**直接使用**这个返回的东西，
+
+并且需要记住树的孩子也是树。
+
+例如
+
+```python
+def count_leaves(t):
+    """Count the leaves of a tree."""
+    if is_leaf(t):
+        return 1
+    else:
+        branch_counts = [count_leaves(b) for b in branches(t)]
+        return sum(branch_counts)
+```
+
+>   Hint: 假想该函数一定能返回树的叶子数(即假想已知子树叶子数)，然后对子树的叶子数和即得到本树的叶子数
+
+```python
+def leaves(tree):
+    """Return a list containing the leaves labels of tree.
+    
+    >>> leaves(fib_tree(5))
+    [1, 0, 1, 0, 1, 1, 0, 1]
+    """
+    if is_leaf(tree):
+        return [label(tree)]
+    else:
+        return sum([leaves(b) for b in branches(tree)], [])
+```
+
+>   Hint: 假想该函数能返回 一个含 *树的所有叶子的值/标签* 的list 
+
+```python
+def increment_leaves(t):
+    """Return a tree like t but with leaf labels incremented."""
+    if is_leaf(t):
+        return tree(label(t) + 1)
+    else:
+        bs = [increment_leaves(b) for b in branches(t)]
+        return tree(label(t), bs)
+```
+
+```python
+def increment(t):
+    """Return a tree like t but with all labels incremented"""
+    return tree(label(t) + 1, [increment(b) for b in branches(t)])
+```
+
+>   Hint: 假想能返回一个 ... 的树
+
+```python
+def fib_tree(n):
+    if n <= 1:
+        return tree(n)
+    else:
+        left, right = fib_tree(n - 2), fib_tree(n - 1)
+        return tree(label(left) + label(right), [left, right])
+```
+
+>   Hint同上
+
+### 5
+
+还有另一种**不使用函数本身返回的值**的递归函数
+
+![cs61a_20](../images/cs61a_20.png){ loading=lazy }
+
+```python
+def fact(n):
+    return fact_times(n, 1)
+
+def fact_times(n, k):
+    """Return k * n * (n - 1) * ... * 1"""
+    if n == 0:
+        return k
+    else:
+        return fact_times(n - 1, k * n)
+```
+
+![cs61a_21](../images/cs61a_21.png){ loading=lazy }
+
+(打印每个叶子(从根开始)的路径)
+
+```python
+def print_sums(t, so_far):
+    so_far = so_far + label(t)
+    if is_leaf(t):
+        print(so_far)
+    else:
+        for b in branches(t):
+            print_sums(b, so_far)
+```
+
+>   应该是将要迭代的变量作为参数传入函数中
