@@ -312,3 +312,33 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 而后经过检查发现，是由于 `labels.txt` 文件中只有11个标签，而标签文件中有 `11` (第12个标签)
 
 [python - Pytorch fails with CUDA error: device-side assert triggered on Colab - Stack Overflow](https://stackoverflow.com/questions/68166721/pytorch-fails-with-cuda-error-device-side-assert-triggered-on-colab)
+
+## 13
+
+恢复/继续之前的训练
+
+[Train - Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/modes/train/#resuming-interrupted-trainings)
+
+(可以新建一个 `resume_train.py` 文件)
+
+>   ```python
+>   from ultralytics import YOLO
+>   
+>   # Load a model
+>   model = YOLO('path/to/last.pt')  # load a partially trained model
+>   
+>   # Resume training
+>   results = model.train(resume=True)
+>   ```
+
+```python
+from ultralytics import YOLO
+
+if __name__ == '__main__':
+    # Load a model
+    model = YOLO('runs/detect/data1st9/weights/last.pt')  # load a partially trained model
+
+    # Resume training
+    results = model.train(resume=True)
+```
+
