@@ -2,6 +2,10 @@
 >
 >   [CS61A - My Pamphlet (gitee.io)](https://ronald-luo.gitee.io/my-pamphlet_-notes-of-courses/Notes of Courses/CS61A/)
 
+!!! info
+
+    [CS 61A Fall 2020 (berkeley.edu)](https://inst.eecs.berkeley.edu/~cs61a/fa20/)
+
 ## Lab 0
 
 ### 1
@@ -9,7 +13,7 @@
 运行hw或者lab任务的对应命令时，都加上 `--local` ，就只在本地运行，不会上传然后要求输入邮箱，如
 
 ```bash
-python ok [-q xxx] --local
+python ok [-q xxx] [-u] --local
 ```
 
 ## Lecture 2 Functions
@@ -368,6 +372,218 @@ lab04中的Q4-Q6 在掌握了 *假想函数能返回所需要返回的东西(即
 
 ![cs61a_13](../images/cs61a_13.png){ loading=lazy }
 
+## Project Cats
+
+!!! info
+
+    需要了解 Lec 12 Trees 中的数据抽象(data abstraction)部分的内容
+
+### 1
+
+Problem 5 中使用 `min()` (序列聚合函数)会很方便，
+
+但要注意 使用 `key` 参数传入判断函数时，需要写上 `key=` 
+
+### 2
+
+Problem 9 中尝试了列表推导式的嵌套使用
+
+```python
+def time_per_word(times_per_player, words):
+    """Given timing data, return a game data abstraction, which contains a list
+    of words and the amount of time each player took to type each word.
+
+    Arguments:
+        times_per_player: A list of lists of timestamps including the time
+                          the player started typing, followed by the time
+                          the player finished typing each word.
+        words: a list of words, in the order they are typed.
+    """
+    # BEGIN PROBLEM 9
+    "*** YOUR CODE HERE ***"
+    times = [[timestamp[i + 1] - timestamp[i] for i in range(len(timestamp) - 1)] for timestamp in times_per_player]
+    return game(words, times)
+    # END PROBLEM 9
+```
+
+### 3
+
+Problem 10 中如果要把一个string加入(使用 `+` 运算符)到list中，不能直接*加*string (否则会把只含有单个字母的string作为元素加入到列表中)，应该 `+ [str]` 或 `+= [str]` (创建一个含该字符串的列表)
+
+### 4
+
+Problem 6
+
+看了hint视频后，将原本需要借助内部helper函数的写法改成了不需要helper的，关键之处在于 想到了limit可以用于计数(拿来减)
+
+```python
+def shifty_shifts(start, goal, limit):
+    """A diff function for autocorrect that determines how many letters
+    in START need to be substituted to create GOAL, then adds the difference in
+    their lengths.
+    """
+    # BEGIN PROBLEM 6
+    # assert False, 'Remove this line'
+    # def helper(start, goal, count):
+    #     if count > limit:
+    #         return count
+    #     # elif not start:
+    #     #     return count + len(goal)
+    #     # elif not goal:
+    #     #     return count + len(start)
+    #     elif not start or not goal:
+    #         return count + len(start + goal)
+    #     else:
+    #         return helper(start[1:], goal[1:], count if start[0] == goal[0] else count + 1)
+    # return helper(start, goal, 0)
+
+    # if limit == 0:
+    #     return 1
+    if limit < 0:
+        return 0
+    elif not start or not goal:
+        return len(start + goal)
+    elif start[0] == goal[0]:
+        return shifty_shifts(start[1:], goal[1:], limit)
+    else:
+        return 1 + shifty_shifts(start[1:], goal[1:], limit - 1)
+    # END PROBLEM 6
+```
+
+>   下图有一点启发作用(对problem 7如何找到*降解*的方法也有一定帮助)
+>
+>   ![cs61a_22](../images/cs61a_22.png){ loading=lazy }
+
+### 5
+
+Problem 7
+
+由提示视频中problem 6中的，助教*降解* **替换** 操作的方法如下：
+
+```python
+#   "range", "rungs"  2
+#    "ange",  "ungs"  2
+#     "nge",   "ngs"  1
+#      "ge",    "gs"  1
+#       "e",     "s"  1
+#        "",      ""  0
+```
+
+>   ![cs61a_22](../images/cs61a_22.png){ loading=lazy }
+
+即*降解*的关键一步为：
+
+```python
+#   "range", "rungs"  1 + x
+#    "ange",  "ungs"  1 + x
+#     "nge",   "ngs"  x
+#       ...,     ...  ...
+```
+
+那么，类似的， **添加** 操作的降解，拿 `cats` 作为start 以及 `scat` 作为goal 举例，可理解为：
+
+cats在开头添加一个s，变成scats (添加的字母一定是goal的第一个字母)，
+
+**那么需要判断的部分，就从 ==cats== 、 ==scat==，变成了 s ==cats== 、 s ==cat==**
+
+则降解的关键一步就应该是：
+
+```python
+#       ...,     ...  ...
+#    "cats",  "scat"  1 + x
+#    "cats",   "cat"  x
+#       ...,     ...  ...
+```
+
+则同理，**删除** 操作的降解，拿 ckiteus 、 kittens 举例，
+
+操作前后，**需要判断的部分，从 ==ckiteus== 、 ==kittens==，变成了 ==kiteus== 、 ==kittens==**
+
+则降解的关键一步就应该是：
+
+```python
+#          ...,        ...  ...
+#    "ckiteus",  "kittens"  1 + x
+#     "kiteus",  "kittens"  x
+#          ...,        ...  ...
+```
+
+则最后根据模板修改的代码为：
+
+```python
+def pawssible_patches(start, goal, limit):
+    """A diff function that computes the edit distance from START to GOAL."""
+    # assert False, 'Remove this line'
+
+    if limit < 0: # Fill in the condition
+        # BEGIN
+        "*** YOUR CODE HERE ***"
+        return 0
+        # END
+
+    elif not start or not goal: # Feel free to remove or add additional cases
+        # BEGIN
+        "*** YOUR CODE HERE ***"
+        return len(start + goal)
+        # END
+
+    elif start[0] == goal[0]:
+        return pawssible_patches(start[1:], goal[1:], limit)
+    else:
+        add_diff = 1 + pawssible_patches(start, goal[1:], limit - 1) # ... # Fill in these lines
+        remove_diff = 1 + pawssible_patches(start[1:], goal, limit - 1) # ...
+        substitute_diff = 1 + pawssible_patches(start[1:], goal[1:], limit - 1) # ...
+        # BEGIN
+        "*** YOUR CODE HERE ***"
+        return min(add_diff, remove_diff, substitute_diff)
+        # END
+```
+
+>   最后发现思路与助教提示的一样
+>
+>   ![cs61a_23](../images/cs61a_23.png){ loading=lazy }
+
+!!! quote
+
+    ...("ats" and "cats") we see thats adding one letter to the front, is actually the exact same as just chopping off letter from the front of the second word. so what do I mean by that, this is what I mean, I mean if I add one letter to the front, I might as well just be taking off one letter from the back, so instead of adding C to this word I can just say, well I'm just going to take off the first letter of whatever this word is, because I know that, if I add that letter to this word, then I know that it's going to be the correct letter, so I don't even need to add it, I can just go ahead and chop off the letter from the second word, and I know that it'll be okay. right, so doing comparing cats and cats, is the exact same thing as comparing ats and ats, there will be no more difference. so that's the add example right there...
+    
+    ...the last is the substitute example("hello" and "mello"). so this should be pretty familiar from our previous problem. remember for the previous problem we just took out the first letter of both, so it said that if they were different, then we're just gonna take them all out, and say that we had one edit distance, we had one substitution needed. and so you see that, substituting the first letter to an M to make it match the second, is the exact same thing as just taking out both letters. we don't care what they are, we see that they're different, we're just gonna take out both and call it a day. and so we see that we end with ello and ello, and then we're done...
+
+### 6
+
+字典可以这样写，更清晰
+
+```python
+report = {
+    "id": user_id,
+    "progress": progress,
+}
+```
+
+(最后一个逗号有没有不影响)
+
+>   ![cs61a_24](../images/cs61a_24.png){ loading=lazy }
+
+### 7
+
+一个小发现
+
+`...` 可以赋值给变量，如
+
+```python
+a = 
+```
+
+会报错，
+
+而
+
+```python
+a = ...
+```
+
+则不会报错
+
 ## Lecture 12 Trees
 
 ### 1
@@ -497,3 +713,334 @@ def print_sums(t, so_far):
 ```
 
 >   应该是将要迭代的变量作为参数传入函数中
+
+## Lecture 12 Q&A
+
+### 1
+
+11:06
+
+关于lab04 Q6
+
+!!! quote
+
+    ...by the way this is this is sort of a classic recursion problem, where you can see, you know, you think about the problem as what if i have a, you know, just there's one letter in each, and those match, what do i do, right, and then what do you do otherwise. it's, it's that classic recursion where you, you sort of simplify the problem to the simplest possible cases. the base case, one of them is empty, and then here there's there's sort of like two base cases almost, not quite because that second one is a recursion but it's that really really simple case, and then you build in the complexity after that. um, so that i, that's what's sort of really cool about these recursive solutions...
+    
+    ---
+    
+    ...顺便说一句，这是一个经典的递归问题，你可以看到，你知道，你认为这个问题是，如果我有一个，你知道的，每个只有一个字母，这些匹配，我该怎么做，对吧，然后你该怎么做。这是一个经典的递归，你可以将问题简化为最简单的情况。基本情况，其中一个是空的，然后这里几乎有两个基本情况，不完全是因为第二个是递归，但这是一个非常简单的情况，然后你构建复杂度。嗯，所以我，这就是这些递归解决方案真正酷的地方...
+
+### 2
+
+18:16
+
+关于hw02 Q5，匿名函数的递归
+
+!!! quote
+
+    **John**:
+    
+    ```python
+    lambda n: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    ...uh how would we give this thing a different name, well, instead of assigning we could have it be fact, 
+    
+    ```python
+    lambda fact: lambda n: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    but then, how would we like, pass that in, i guess instead of putting it here, maybe, maybe the best place to put it is here,
+    
+    ```python
+    lambda n, fact: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    so, basically in order to run this, we need an n and we need factorial. i'll just let that sink in, if factorial is not already defined, then somebody needs to pass it in, in order for us to call it. i'm gonna need a little bit more space than this i'm afraid. now, that we have a function that takes n and factorial. we need to be a little bit careful, we want this to be our factorial function, but it takes two arguments, and here we're calling it with only one argument, so that seems like a mismatch. what should be the second argument every time we call fact, well it should be the same function again, that's kind of how we get that recursive structure,
+    
+    ```python
+    lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact)
+    ```
+    
+    is that every time we call this thing that takes in a number and the function that we're going to call recursively, it needs to be called on a new number and the function that we're going to call recursively. so we've actually made some progress even though all we've done is kind of like move a name in here, and uh, pass it around. the last part is that we need to figure out, how to write a function, that takes only n, and somehow uh, calls this one instead,
+    
+    ```python
+    lambda n: (lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    and that's actually not so bad, this says, uh, give me a function, and call that function, on both n and itself.
+    
+    ```python
+    lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    so if i have a function, and i call it on n and itself, where n comes from here, now i just need to know which function i'm supposed to be calling on n in itself. and the answer is, this guy (`(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))`).
+    
+    ```python
+    g = lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    so let's see what g does now. g computes n factorial, if we really wanted to get rid of that assignment statement, 
+    
+    ```python
+    print((lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact)))(4))
+    ```
+    
+    then we could compute four factorial this way, by taking this function and calling it on four, and then, hopefully, if everything went right, we will have printed four factorial, or five factorial, or whatever. ==so, what was the key moments in figuring this out, one was, if we can't have fact defined already, then we have to pass it in as an argument, and the second was, if we have a function that takes two arguments, and we really want a function that takes one argument, then we should write a function that takes one argument, and calls the function that takes two arguments. and, then, the last part really is kind of a trick, which is to say like if you had a function and an argument, you would then call the function on the argument in itself, this is basically how you create recursion, without using assignment statements== is this little part right here...
+    
+    **Hany**:
+    
+    ...i i think john's right here. by the way, look there's a couple of things that you've seen before, ==essentially there's the helper function in here. you have a function that, uh, only takes one parameter and, you really need to pass two, so you put a helper function in==, that's basically what you have here with the lambda. um, you've got sort of the notion of recursion and then there's just that little trick there, um, which you see with, uh, this, uh, lambda f of f of nf. so don't, don't get too worried if you didn't see that obvi, it obvious, i don't think it's at all obvious actually.
+    
+    **John**:
+    
+    one thing that's exciting about this while it's not obvious at all, is that it allows you to create iteration out of just functions, like of course there's no assignment here, there's also no while statement or for statement here. but we are doing something repetitively, and, so, um, this is kind of, uh, this idea right here, is a building block for the claim, that once you can define functions you can kind of write any program that you want, you can perform any computation, and you might wonder was that really true, like don't i need a while statement or a for statement. it turns out technically you don't, that does not mean we should get rid of while statements and for statements, they're a lot more readable than this i think, but, um, they're not strictly necessary in order to perform interesting computations.
+    
+    **Hany**:
+    
+    yes, and some in the chat just pointed out scheme and lisp is this is sort of the premise of these functional programming languages, that don't have looping, explicit looping constructs as you do everything, with these types of constructs, and it's a little bit mind-bending, but, it turns out it's expressive enough...
+    
+    ---
+    
+    **John**:
+    
+    ```python
+    lambda n: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    ...呃，我们怎么给这个东西取一个不同的名字呢，好吧，与其指定，我们可以让它成为fact，
+    
+    ```python
+    lambda fact: lambda n: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    但是，我们会怎么想，把它传进来，我想与其把它放在这里，也许，也许最好的地方放在这里，
+    
+    ```python
+    lambda n, fact: 1 if n == 1 else n * fact(n - 1)
+    ```
+    
+    所以，基本上，为了运行这个，我们需要一个n，我们需要fact。我会让它沉下去，如果fact还没有定义，那么需要有人把它传进来，这样我们才能调用它。恐怕我需要更多的空间。现在，我们有一个函数，它取n和fact。我们需要小心一点，我们希望这是我们的阶乘函数，但它需要两个参数，而这里我们只用一个参数来调用它，所以这看起来不匹配。每次我们调用fact时，第二个参数应该是什么，它应该是同一个函数，这就是我们得到递归结构的方式，
+    
+    ```python
+    lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact)
+    ```
+    
+    每次我们调用这个包含一个数字和我们要递归调用的函数的东西时，都需要对一个新的数字和我们将递归调用的功能进行调用。所以我们实际上已经取得了一些进展，尽管我们所做的只是把一个名字移到这里，然后把它传来传去。最后一部分是，我们需要弄清楚，如何编写一个只需要n的函数，并以某种方式调用这个函数，
+    
+    ```python
+    lambda n: (lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    这其实还不错，这说，给我一个函数，并调用这个函数，对n和它本身。
+    
+    ```python
+    lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    如果我有一个函数，我在n和它本身上调用它，n来自这里，现在我只需要知道我应该在n本身上调用哪个函数。答案是，这家伙 (`(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))`)。
+    
+    ```python
+    g = lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact))
+    ```
+    
+    让我们看看g现在做什么。g计算n阶乘，如果我们真的想去掉赋值语句，
+    
+    ```python
+    print((lambda n: (lambda f: f(n, f))(lambda n, fact: 1 if n == 1 else n * fact(n - 1, fact)))(4))
+    ```
+    
+    然后我们可以用这种方式计算4的阶乘，通过取这个函数并在4上调用它，然后，如果一切顺利，我们将打印出4的阶乘，或5的阶乘，或其他什么。==那么，弄清楚这一点的关键时刻是什么，一个是，如果我们还不能定义fact，那么我们必须将其作为一个参数传递，第二个是，我们有一个接受两个参数的函数，我们真的想要一个接受一个参数的函式，那么我们应该写一个接受了一个参数，并调用接受两个变量的函数。然后，最后一部分实际上是一种技巧，也就是说，如果你有一个函数和一个参数，你会在参数本身上调用函数，这基本上就是你创建递归的方法，而不使用赋值语句==，这就是这个小部分...
+    
+    **Hany**:
+    
+    ...我觉得约翰是对的。顺便说一下，这里有你以前见到过一些东西，最基本地 ==这里有helper函数。你有一个函数，呃，只接受一个参数，你需要传递两个，所以你在里面放了一个辅助函数==，这基本上就是lambda。嗯，你已经有了递归的概念，然后有一个小技巧，你可以看到，这个，这个，lambda f of f of nf。所以不要，不要太担心，如果你没有清楚地看到，我认为它实际上一点也不明显。
+    
+    **John**:
+    
+    虽然这一点并不明显，但有一点令人兴奋，那就是它允许你仅从函数中创建迭代，当然这里没有赋值，这里也没有while语句或for语句。但我们在重复地做一些事情，这是一种，嗯，这个想法，是这个主张的一个构建块，一旦你定义了函数，你就可以编写任何你想要的程序，你可以执行任何计算，你可能会想，这真的是真的吗，比如我不需要while语句或for语句。事实证明，从技术上讲，你没有，这并不意味着我们应该去掉while语句，对于语句，它们比这更可读，但是，嗯，为了执行有趣的计算，它们并不是严格必要的。
+    
+    **Hany**:
+    
+    是的，聊天中的一些人刚刚指出scheme和lisp，这是这些函数式编程语言的前提，它们在做任何事情时都没有循环、显式的循环结构，有这些类型的结构，这有点让人费解，但事实证明它足够有表达力...
+
+我的理解是，匿名函数的递归，由于无法声明变量和给变量赋值，所以需要将函数作为参数传入匿名函数，然后再在内部调用，而由于此时匿名函数测参数中有一个函数参数，所以在调用以参数传入的函数时，参数也要与自身相匹配(即加上该函数自身)，如
+
+```python
+lambda n, f: 1 if n == 1 else f(n, f)
+```
+
+下一步我的理解是，由于需要去调用匿名函数自身，而又不能赋值，那么就智能将函数作为参数传入另一个函数，再在后者内部调用前者，即
+
+```python
+(lambda f: f(n, f))(lambda n, f: 1 if n == 1 else f(n, f))
+```
+
+最后，由于n是最终想要设置的参数，所以在最外面最后包上一层
+
+```python
+lambda n: (lambda f: f(n, f))(lambda n, f: 1 if n == 1 else f(n, f))
+```
+
+### 3
+
+23:52
+
+关于lecture 12最后提及的递归函数的构建方式
+
+!!! quote
+
+    ![cs61a_25](../images/cs61a_25.png){ loading=lazy }
+    
+    ```python
+    def fact(n):
+        if n == 0:
+            return 1
+        else:
+            return n * fact(n - 1)
+    
+    def fact_times(n, k):
+        """Return k times n factorial
+                  k *     n * (n-1) * ... * 1
+        """
+        if n == 0:
+            return k
+        else:
+            return fact_times(n - 1, k * n)
+    ```
+    
+    **John**:
+    
+    ...yeah, so the reason we did something a little bit different here, was so that we could show an example, of a recursive function, that just called itself, without doing anything with it, so there kind of wasn't anything outside of the call, everything happened inside the call, where we subtracted one from n and we multiplied k by n. but we didn't like add anything or multiply anything afterwards, which was different than the original version of factorial, which did multiply the result of the recursive call by n. the original one looked like this, right, it was like if n equals zero return one, else return n times fact n minus one. so here we make the recursive call and then we like do some work afterwards, and that means the recursive call doesn't really know where it came from. it doesn't know anything about which factorial result you're constructing, whereas this one does. at the end, when you hit the base case, you have computed k times n factorial for whatever n in k you started with, and that is now named k, which is a little confusing, but that's how it goes sometimes with recursion. but the point is that the whole answer is, uh, built up by the time you hit the base
+    case, at which point you just have to return return return return, all the work is done.
+    
+    **Hany**:
+    
+    and notice, by the way, ==in that first one== that's not true, as you're doing recursion, ==there is a delayed gratification of the evaluation of that product, so when you hit the base case in the first fact, you then have to go back and now multiply all those numbers between n and one==. yeah because you built an expression, whereas ==in the fact times==, you basically have an assignment operator, it's that you're, you're just ==using the parameters as the assignment operator==, and so ==when you hit that base case, done, i've got the answer==. so, so you're right, ==of course, we could have done it differently, we didn't have to do it this way, but you see that the structurally the recursion is subtly different here==, and it turns out this has a real implication too by the way, downstream, and i think, i think we'll eventually do that, right john.
+    
+    **John**:
+    
+    yeah so ==this is called, uh, tail recursion==, and this is not, and we'll talk about this later when we talk about interpreters. um, so the goal here wasn't to implement fact times, it was actually to re-implement fact. but ==in order to re-implement fact you'd have to have a helper function, that's what fact times is. that keeps track of two arguments instead of one. the thing you're trying to compute the factorial of, and the result the answer of computing n.==
+    
+    ---
+    
+    **John**：
+    
+    ...是的，我们在这里做了一些不同的事情，是为了展示一个递归函数的示例，它只是调用了自己，而没有对它做任何事情，所以在调用之外几乎没有什么东西，所有事情都发生在调用内部，我们从n中减去了1并将k乘以n。但是我们没有添加或乘以任何其他东西，这与阶乘的原始版本不同，原始版本通过乘以递归调用的结果来计算。原始版本看起来像这样，如果n等于零，则返回1，否则返回n乘以fact（n-1）。所以在这里，我们进行递归调用，然后在之后进行一些工作，这意味着递归调用不知道它来自哪里。它不知道你正在构建哪个阶乘结果，而这个版本知道。最后，当你到达基本情况时，你已经计算出了对于任何以k为n开始的n，k乘以n的阶乘，现在它被命名为k，这有点令人困惑，但有时就是这样递归。但是重点是整个答案在达到基本情况时就已经构建完成，此时你只需要返回，返回，返回，所有的工作都已完成。
+    
+    **Hany**：
+    
+    顺便提一下，==在第一个函数中==，当你进行递归时，==有一个乘积的评估延迟，所以当你在第一个fact中达到基本情况时，你需要回去现在乘以n和1之间的所有数字==。是的，因为你构建了一个表达式，而 ==在fact times中==，你基本上有一个赋值运算符，你只是 ==将参数用作赋值运算符==，所以当你 ==到达基本情况时，完成了，我得到了答案==。所以，当然，你是对的，==我们本来可以用不同的方式做这个，但你可以看到，递归的结构在这里是微妙不同的==，这在下游也有实际影响，我认为我们最终会做，对吧，John。
+    
+    **John**：
+    
+    是的，所以 ==这被称为尾递归==，而这不是尾递归，我们将在讨论解释器时再谈论这个问题。所以这里的目标不是实现fact times，而是重新实现fact。但是 ==为了重新实现fact，您必须有一个辅助函数，即fact times。与一个参数不同，它保留了要计算阶乘的元素和计算n结果的答案这两个参数。==
+
+## Lecture 13 Q&A
+
+### 1
+
+John关于 `min()` 和 `max()` 的 `key` 参数的一些解释和说明
+
+!!! qoute
+
+    ...what's going on with the min function and its optional argument called key. sometimes what you want is to find the smallest number among a list, and min will do that for you. but **sometimes what you want is to find a particular number that's extreme in another way, like it's not the smallest, it's not the largest, but it's the closest to five or it's the, it's the thing that when you square it is closest to 24, or you know you could imagine any kind of description, where there's like a some value, that would do this the best**, and min allows you to find that element for any possible condition, and that's the point of that key function. **so the way you do it is that, you start out with your same set of values, of which one is the one that you're looking for, and then you provide a function, and this function is going to be called on every single one of these values**, and yeah, let's use that example of, uh, the square is as close as possible to 24. i don't know why you would want this, but maybe you would for some reason.
+    
+    ```python
+    >>> min([3, 2, 5, 6], key=lambda x: abs(x * x - 24))
+    ```
+    
+    so what's going to happen here, is that it's going to square, and then subtract 24 from each of these, and then take the absolute value in order to get some measurement of how close is the square of this x to 24. and it tells us 5 is among these numbers the one that when you square it gets you pretty close to 24. **in fact there's like an important property about this computation that's not shown, which is that 5 squared minus 24 is 1, and there's no 1 in this output, that's all hidden**. what is happening is that, that 1 is computed along with the result of, squaring 3 and subtracting 24, and squaring 6 and subtracting 24. **so it's done it for all of them, and then it has found the one, for which the result of calling this function is the smallest**. why the smallest, because it's min. **so in this way you can use min in order to find the, kind of extreme value for any notion of extreme that you want, but you always get one of these values**. and if there's a tie, then you'll get an arbitrary one i think. you get the first one but i'm not actually sure...
+    
+    ---
+    
+    ...min函数及其名为key的可选参数发生了什么。有时，你想要的是在一个列表中找到最小的数字，min会为你做到这一点。**有时，你想要的是找到一个以另一种方式极端的特定数字，比如它不是最小的，也不是最大的，但它最接近5，或者它是，当你把它平方时，它最接近24，或者你知道你可以想象任何一种描述，其中有一个值，这将是最好的**，min允许你找到任何可能条件下的元素，这就是关键函数的意义所在。**这样做的方法是，你从一组相同的值开始，其中一个是你正在寻找的值，然后你提供一个函数，这个函数将对这些值中的每一个调用**，是的，让我们用这个例子，呃，平方尽可能接近24。我不知道你为什么想要这个，但也许出于某种原因你会想要。
+    
+    ```python
+    >>> min([3, 2, 5, 6], key=lambda x: abs(x * x - 24))
+    ```
+    
+    这里要做的是，它要平方，然后从每一个中减去24，然后取绝对值，得到x和24的平方有多接近。它告诉我们，5是这些数字中的一个，当你平方时，它会非常接近24**事实上，这个计算有一个重要的性质没有显示，那就是5的平方减去24是1，而这个输出中没有1，这都是隐藏的**。现在的情况是，1与平方3和减法24、平方6和减法24的结果一起计算。**因此，它对所有这些函数都进行了处理，然后找到了一个函数，调用该函数的结果是最小的**。为什么是最小的，因为它是最小的。**通过这种方式，你可以使用min来找到，任何你想要的极值概念的极值，但你总是得到其中一个值**。如果打成平手，我想你会得到一个任意的平手。你得到了第一个，但我实际上不确定...
+
+### 2
+
+![cs61a_26](../images/cs61a_26.png){ loading=lazy }
+
+两个列表在比较大小时，会比较第一个元素的大小( `min()` 函数也类似)，
+
+测试了一下，应该是像字符串一样的规则，即前一个元素能比较出就按照该结果，若相等则比较下一个元素...
+
+```python
+>>> [3, 4, 5] > [3, 3]
+True
+>>> [3, 4, 5] > [4, 3]
+False
+>>> [3, 4, 5] > [3, 4]
+True
+>>> [3, 4, 5] > [3, 5]
+False
+```
+
+## Lecture 14 Circuits
+
+### 1
+
+Hany讲设计电路(Design Circuits)的内容中，构建命题逻辑公式的思路(step 1-3)值得学习
+
+>   1.   step 1. build truth-table for all possible input/output values
+>   2.   step 2. build sub-expressions with *and/not* for each output column
+>   3.   step 3. combine, two at a time, sub-expressions with an *or*
+>   4.   step 4. draw circuit diagram
+
+![cs61a_27](../images/cs61a_27.png){ loading=lazy }
+
+1.   先根据真值表写出子表达式
+2.   再将子表达式析取(or)到一起
+
+|  a   |  b   |   c   |  d   |
+| :--: | :--: | :---: | :--: |
+|  0   |  0   |   0   |  0   |
+|  0   |  1   | ==1== |  0   |
+|  1   |  0   |   1   |  0   |
+|  1   |  1   |   0   |  1   |
+
+上面真值表中高亮的c的1的输出值，需要的子表达式应为 `c = a' · b` (非a且b)
+
+|  a   |  b   |   c   |  d   |
+| :--: | :--: | :---: | :--: |
+|  0   |  0   |   0   |  0   |
+|  0   |  1   |   1   |  0   |
+|  1   |  0   | ==1== |  0   |
+|  1   |  1   |   0   |  1   |
+
+同理，这个高亮的输出值，对应的子表达式应为 `c = a · b'` 
+
+最后，再析取两个子表达式，即得到
+
+`c = (a' · b) + (a · b') ` 
+
+### 2
+
+二进制数的加法需要构建出有3个输入值和2个输出值的电路
+
+![cs61a_28](../images/cs61a_28.png){ loading=lazy }
+
+![cs61a_30](../images/cs61a_30.png){ loading=lazy }
+
+### 3
+
+![cs61a_29](../images/cs61a_29.png){ loading=lazy }
+
+>   ...okay, remember how the sub expressions work, **you treat each output column separately**, the d and the e. **output column are completely independent of each other**. we're going to identify **wherever there's a one**, and then here here here and here. we're going to build a sub expression **using only and and not**, and then we're going to **combine those sub expressions using the or operator**. and then once we have the final expression, of course we're going to draw some circuitry...
+>
+
+感觉有点类似与写出主析取范式
+
+### 4
+
+![cs61a_31](../images/cs61a_31.png){ loading=lazy }
+
+写命题逻辑公式的技巧：
+
+1.   变元多的时候可以多个变元合成一组，然后结合表格展示真值
+2.   写子表达式时的技巧，如由上图灰色区域，可以发现与a的取值无关，故可以写出子表达式 `b·c·d'`

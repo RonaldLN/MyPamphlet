@@ -268,3 +268,47 @@ train时要修改batch，修改 `batch` 参数： `batch=x`
 >   默认为16，-1为自动调整
 
 [Configuration - Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/usage/cfg/#train)
+
+## 11
+
+```bash
+...
+  File "E:\Anaconda3\envs\Pytorch\Lib\site-packages\ultralytics\engine\trainer.py", line 537, in save_metrics
+    with open(self.csv, 'a') as f:
+         ^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'run\\detect\\data1st2\\results.csv'
+
+进程已结束，退出代码为 1
+```
+
+不止什么原因，报错原因应该是 `result.csv` 文件被打开被占用，但我并没有打开这个文件。
+
+重新再运行程序即可
+
+[Training fails when results.csv file is open · Issue #862 · ultralytics/ultralytics (github.com)](https://github.com/ultralytics/ultralytics/issues/862)
+
+## 12
+
+```bash
+...
+  File "E:\Anaconda3\envs\Pytorch\Lib\site-packages\ultralytics\utils\tal.py", line 152, in get_box_metrics
+    bbox_scores[mask_gt] = pd_scores[ind[0], :, ind[1]][mask_gt]  # b, max_num_obj, h*w
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported ar some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+进程已结束，退出代码为 1
+```
+
+>   ...
+>
+>   大多数情况下，**==CUDA运行时错误可能是某些索引不匹配的原因，例如您尝试在具有 10 个标签的数据集上训练具有15个输出节点的网络==**。这个 CUDA 错误的事情是，一旦你收到这个错误一次，你就会在使用 torch.tensors 执行的每个操作中收到它。这会强制您重新启动笔记本。
+>
+>   ...
+
+而后经过检查发现，是由于 `labels.txt` 文件中只有11个标签，而标签文件中有 `11` (第12个标签)
+
+[python - Pytorch fails with CUDA error: device-side assert triggered on Colab - Stack Overflow](https://stackoverflow.com/questions/68166721/pytorch-fails-with-cuda-error-device-side-assert-triggered-on-colab)
