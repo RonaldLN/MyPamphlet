@@ -893,6 +893,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    12
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1146,6 +1160,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    12
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1381,13 +1409,45 @@
 <p>默认为16，-1为自动调整</p>
 </blockquote>
 <p><a href="https://docs.ultralytics.com/usage/cfg/#train">Configuration - Ultralytics YOLOv8 Docs</a></p>
+<h2 id="11">11<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>...
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;E:\Anaconda3\envs\Pytorch\Lib\site-packages\ultralytics\engine\trainer.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">537</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>save_metrics
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span>with<span class="w"> </span>open<span class="o">(</span>self.csv,<span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="o">)</span><span class="w"> </span>as<span class="w"> </span>f:
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">         </span>^^^^^^^^^^^^^^^^^^^
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>PermissionError:<span class="w"> </span><span class="o">[</span>Errno<span class="w"> </span><span class="m">13</span><span class="o">]</span><span class="w"> </span>Permission<span class="w"> </span>denied:<span class="w"> </span><span class="s1">&#39;run\\detect\\data1st2\\results.csv&#39;</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>进程已结束，退出代码为<span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>不止什么原因，报错原因应该是 <code>result.csv</code> 文件被打开被占用，但我并没有打开这个文件。</p>
+<p>重新再运行程序即可</p>
+<p><a href="https://github.com/ultralytics/ultralytics/issues/862">Training fails when results.csv file is open · Issue #862 · ultralytics/ultralytics (github.com)</a></p>
+<h2 id="12">12<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>...
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;E:\Anaconda3\envs\Pytorch\Lib\site-packages\ultralytics\utils\tal.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">152</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>get_box_metrics
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>bbox_scores<span class="o">[</span>mask_gt<span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd_scores<span class="o">[</span>ind<span class="o">[</span><span class="m">0</span><span class="o">]</span>,<span class="w"> </span>:,<span class="w"> </span>ind<span class="o">[</span><span class="m">1</span><span class="o">]][</span>mask_gt<span class="o">]</span><span class="w">  </span><span class="c1"># b, max_num_obj, h*w</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">                           </span>~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>RuntimeError:<span class="w"> </span>CUDA<span class="w"> </span>error:<span class="w"> </span>device-side<span class="w"> </span>assert<span class="w"> </span>triggered
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>CUDA<span class="w"> </span>kernel<span class="w"> </span>errors<span class="w"> </span>might<span class="w"> </span>be<span class="w"> </span>asynchronously<span class="w"> </span>reported<span class="w"> </span>ar<span class="w"> </span>some<span class="w"> </span>other<span class="w"> </span>API<span class="w"> </span>call,<span class="w"> </span>so<span class="w"> </span>the<span class="w"> </span>stacktrace<span class="w"> </span>below<span class="w"> </span>might<span class="w"> </span>be<span class="w"> </span>incorrect.
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>For<span class="w"> </span>debugging<span class="w"> </span>consider<span class="w"> </span>passing<span class="w"> </span><span class="nv">CUDA_LAUNCH_BLOCKING</span><span class="o">=</span><span class="m">1</span>.
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>Compile<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span>TORCH_USE_CUDA_DSA<span class="sb">`</span><span class="w"> </span>to<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>device-side<span class="w"> </span>assertions.
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>进程已结束，退出代码为<span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<blockquote>
+<p>...</p>
+<p>大多数情况下，<strong><mark>CUDA运行时错误可能是某些索引不匹配的原因，例如您尝试在具有 10 个标签的数据集上训练具有15个输出节点的网络</mark></strong>。这个 CUDA 错误的事情是，一旦你收到这个错误一次，你就会在使用 torch.tensors 执行的每个操作中收到它。这会强制您重新启动笔记本。</p>
+<p>...</p>
+</blockquote>
+<p>而后经过检查发现，是由于 <code>labels.txt</code> 文件中只有11个标签，而标签文件中有 <code>11</code> (第12个标签)</p>
+<p><a href="https://stackoverflow.com/questions/68166721/pytorch-fails-with-cuda-error-device-side-assert-triggered-on-colab">python - Pytorch fails with CUDA error: device-side assert triggered on Colab - Stack Overflow</a></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-07-25T16:35:49+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-07-25</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-24T10:06:43+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-24</span>
       
         <br>
         创建日期:
