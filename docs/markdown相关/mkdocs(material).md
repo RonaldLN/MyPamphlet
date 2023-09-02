@@ -37,6 +37,9 @@ markdown_extensions:
   - pymdownx.emoji: # 使用emoji和icon
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  # - pymdownx.superfences # e 内容选项卡
+  # - pymdownx.tabbed: # e
+      # alternate_style: true 
 ```
 
 ## 3
@@ -430,3 +433,99 @@ extra:
 -   :octicons-mail-16: `:octicons-mail-16:` 改为 `octicons/mail-16`
 -   :material-email-fast: `:material-email-fast:` 改为 `material/email-fast`
 -   :simple-github: `:simple-github:` 改为 `simple/github`
+
+## 20
+
+>   [Content tabs - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage)
+
+内容选项卡
+
+`mkdocs.yml`:
+
+```yaml
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+```
+
+>   示例
+>
+>   ```markdown
+>   === "Unordered list"
+>   
+>       * Sed sagittis eleifend rutrum
+>       * Donec vitae suscipit est
+>       * Nulla tempor lobortis orci
+>   
+>   === "Ordered list"
+>   
+>       1. Sed sagittis eleifend rutrum
+>       2. Donec vitae suscipit est
+>       3. Nulla tempor lobortis orci
+>   
+>   ```
+
+## 21
+
+小技巧
+
+如果 内容选项卡 或者 告诫/信息 不能在有序列表中显示(或 有序列表因为 内容选项卡 或者 告诫/信息 被中断)，如
+
+```markdown
+1.   步骤一
+
+     !!! note
+
+         ...
+
+2.   步骤二
+
+     ...
+```
+
+1.   步骤一
+
+     !!! note
+
+         ...
+
+2.   步骤二
+
+     ...
+
+则可以借助 引用 `> `
+
+```markdown
+1.   步骤一
+
+     > !!! note
+     > 
+     >     ...
+     
+     &nbsp;
+     
+     > === "tab"
+     > 
+     >     ...
+
+2.   步骤二
+
+     ...
+```
+
+1.   步骤一
+
+     > !!! note
+     > 
+     >     ...
+     
+     &nbsp;
+     
+     > === "tab"
+     > 
+     >     ...
+
+2.   步骤二
+
+     ...

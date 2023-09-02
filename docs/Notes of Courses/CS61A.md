@@ -936,6 +936,115 @@ lambda n: (lambda f: f(n, f))(lambda n, f: 1 if n == 1 else f(n, f))
     
     是的，所以 ==这被称为尾递归==，而这不是尾递归，我们将在讨论解释器时再谈论这个问题。所以这里的目标不是实现fact times，而是重新实现fact。但是 ==为了重新实现fact，您必须有一个辅助函数，即fact times。与一个参数不同，它保留了要计算阶乘的元素和计算n结果的答案这两个参数。==
 
+## Lab 05
+
+### 1
+
+Q6 中，借鉴了 `lab05.py` 文件底部 `Tree ADT` 中最后一个函数 `copy_tree()` 的函数构造思路
+
+>   ```python
+>   def copy_tree(t):
+>       """Returns a copy of t. Only for testing purposes.
+>   
+>       >>> t = tree(5)
+>       >>> copy = copy_tree(t)
+>       >>> t = tree(6)
+>       >>> print_tree(copy)
+>       5
+>       """
+>       return tree(label(t), [copy_tree(b) for b in branches(t)])
+>   ```
+
+由于Q6中是需要返回一个新的树，所以直接用树的构造函数根据原树去**递归地**(参考 `copy_tree()` )构造一个新树
+
+>   (先构建好基本的递归，再考虑基本情况(basic situation)下如何处理)
+>
+>   1.   ```python
+>        def sprout_leaves(t, leaves):
+>            return tree(label(t), [... sprout_leaves(branch, leaves) for branch in branches(t)])
+>        ```
+>
+>   2.   ```python
+>        def sprout_leaves(t, leaves):
+>            return tree(label(t), [... if is_leaf(branch) else sprout_leaves(branch, leaves) for branch in branches(t)])
+>        ```
+>
+>   3.   ```python
+>        def sprout_leaves(t, leaves):
+>            return tree(label(t), [tree(label(branch), [...]) if is_leaf(branch) else sprout_leaves(branch, leaves) for branch in branches(t)])
+>        ```
+>
+>   4.   ```python
+>        def sprout_leaves(t, leaves):
+>            return tree(label(t), [tree(label(branch), [tree(leaf) for leaf in leaves]) if is_leaf(branch) else sprout_leaves(branch, leaves) for branch in branches(t)])
+>        ```
+
+### 2
+
+Q9
+
+(可以利用下标来构建推导式)
+
+!!! quote
+
+    ==*Hint:* To write this as a single comprehension, you may find the expression `k%2`, which evaluates to 0 on even numbers and 1 on odd numbers, to be useful. Consider how you can use the 0 or 1 returned by `k%2` to alternatively access the beginning and the middle of the list.==
+
+??? note "code"
+
+    ```python
+    def riffle(deck):
+    """Produces a single, perfect riffle shuffle of DECK, consisting of
+    DECK[0], DECK[M], DECK[1], DECK[M+1], ... where M is position of the
+    second half of the deck.  Assume that len(DECK) is even.
+    >>> riffle([3, 4, 5, 6])
+    [3, 5, 4, 6]
+    >>> riffle(range(20))
+    [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
+    """
+    "*** YOUR CODE HERE ***"
+    return [deck[i // 2] if i % 2 == 0 else deck[(len(deck) + i) // 2] for i in range(len(deck))]
+    ```
+
+### 3
+
+在 [Lecture 14 Q&A](#Lecture 14 Q&A) 中 John 有提到此题的解法，在看了一部分(使用下标的方法)之后，用列表推导式写出了一个可用的方法(结构有点类似于Q6)：
+
+```python
+def add_trees(t1, t2):
+    return tree(label(t1) + label(t2), [add_trees(branches(t1)[i] if i < len(branches(t1)) else tree(0), branches(t2)[i] if i < len(branches(t2)) else tree(0)) for i in range(max(len(branches(t1)), len(branches(t2))))])
+```
+
+### 4
+
+Q11中
+
+```python
+def build_successors_table(tokens):
+    """Return a dictionary: keys are words; values are lists of successors.
+
+    >>> text = ['We', 'came', 'to', 'investigate', ',', 'catch', 'bad', 'guys', 'and', 'to', 'eat', 'pie', '.']
+    >>> table = build_successors_table(text)
+    >>> sorted(table)
+    [',', '.', 'We', 'and', 'bad', 'came', 'catch', 'eat', 'guys', 'investigate', 'pie', 'to']
+    >>> table['to']
+    ['investigate', 'eat']
+    >>> table['pie']
+    ['.']
+    >>> table['.']
+    ['We']
+    """
+    table = {}
+    prev = '.'
+    for word in tokens:
+        if prev not in table:
+            "*** YOUR CODE HERE ***"
+        "*** YOUR CODE HERE ***"
+        prev = word
+    return table
+```
+
+中的 `sorted()` 函数如果以字典为传入参数，输出的 应该 是一个含有所有key并且排序好的列表
+
 ## Lecture 13 Q&A
 
 ### 1
@@ -1044,3 +1153,29 @@ Hany讲设计电路(Design Circuits)的内容中，构建命题逻辑公式的�
 
 1.   变元多的时候可以多个变元合成一组，然后结合表格展示真值
 2.   写子表达式时的技巧，如由上图灰色区域，可以发现与a的取值无关，故可以写出子表达式 `b·c·d'`
+
+## Lecture 14 Q&A
+
+### 1
+
+Lab 05 的 Q10
+
+![cs61a_32](../images/cs61a_32.png){ loading=lazy }
+
+John的方法我认为关键之处在于，用下标去联系两颗树对应的树枝/分支
+
+>   ```python
+>   def add_trees(t1, t2):
+>       result_label = label(t1) + label(t2)
+>       result_branches = []
+>       i = 0
+>       while i < min(len(branches(t1)), len(branches(t1))):
+>           b1, b2 = branches(t1)[i], branches(t2)[i]
+>           new_branch = add_trees(b1, b2)
+>           result_branches = result_branches + [new_branch]
+>           i = i + 1
+>       result_branches = result_branches + branches(t1)[i:]
+>       result_branches = result_branches + branches(t2)[i:]
+>       return tree(result_label, result_branches)
+>   ```
+
