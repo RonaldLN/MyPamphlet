@@ -529,3 +529,39 @@ markdown_extensions:
 2.   步骤二
 
      ...
+
+## 22
+
+小技巧
+
+在typora中
+
+```markdown
+>   ...
+
+>   ...
+```
+
+会显示成两个分开的引用
+
+而在 material for mkdocs 生成的页面中，会合成一个连着的引用
+
+**处理技巧** 可以用 `&nbsp;` (好像是html中的空格)来分开两个引用：
+
+```markdown
+>   ...
+
+&nbsp;
+
+>   ...
+```
+
+## 23
+
+用 material for mkdocs 在 github 或 gitee 上部署静态网页的(我的)方法：
+
+1.   先在 github 或 gitee 上创建一个新的仓库(可以选择自动添加README.md文件，因为这样会自动创建出 main 或 master 分支)
+2.   然后将仓库 `git clone` 到本地中
+3.   再在命令行中 `mkdocs new xxx` 那个文件夹
+4.   最后添加md文档文件，再部署到仓库即可
+

@@ -56,6 +56,16 @@ cs61a中使用的可以显示python程序中 environment 、 frame 等信息的�
 
 ![cs61a_12](../images/cs61a_12.png){ loading=lazy }
 
+### 4
+
+![cs61a_34](../images/cs61a_34.png){ loading=lazy }
+
+python中，赋值可以同时对两个变量进行，会使交换变量的值等操作更方便，如
+
+```python
+a, b = b, a
+```
+
 ## Lecture 2 Q&A
 
 ### 1
@@ -67,6 +77,141 @@ cs61a中使用的可以显示python程序中 environment 、 frame 等信息的�
 在frame中使用变量时，都会先在所在的frame中查找其对应的值，如果没有，则在上级parent中查找，如果还没有，则在parent的parent中查找(如果有parent)...
 
 如上图中f函数要打印z的值，z在f1 frame中没有，则来到f1的parent在Global frame中查找z的值，于是获得z的值(此时)为7，则打印7
+
+## HW 01
+
+### 1
+
+Q3，可以用总的减去最大的，得到最小的两个
+
+??? note "code"
+
+    ```python
+    def two_of_three(x, y, z):
+        return x * x + y * y + z * z - max(x, y, z) ** 2
+    ```
+
+### 2
+
+Q5
+
+```python
+def with_if_function():
+    """
+    >>> result = with_if_function()
+    42
+    47
+    >>> print(result)
+    None
+    """
+    return if_function(cond(), true_func(), false_func())
+```
+
+由于在 `return` 语句中，填入的时调用的函数( `true_func()` 和 `false_func()` )，运行的顺序是 先进行 `true_func()` 和 `false_func()` 两个函数的调用，再将他们的返回值传递给 `if_function()` 中，所以(由于两个函数被调用了) 42和47都会输出
+
+```python
+def with_if_statement():
+    """
+    >>> result = with_if_statement()
+    47
+    >>> print(result)
+    None
+    """
+    if cond():
+        return true_func()
+    else:
+        return false_func()
+```
+
+而在这个函数中，则只会调用 `true_func()` 和 `false_func()` 其中一个函数，因此只会输出一个数字
+
+??? note "code"
+
+    ```python
+    def if_function(condition, true_result, false_result):
+        """Return true_result if condition is a true value, and
+        false_result otherwise.
+    
+        >>> if_function(True, 2, 3)
+        2
+        >>> if_function(False, 2, 3)
+        3
+        >>> if_function(3==2, 3+2, 3-2)
+        1
+        >>> if_function(3>2, 3+2, 3-2)
+        5
+        """
+        if condition:
+            return true_result
+        else:
+            return false_result
+    
+    
+    def with_if_statement():
+        """
+        >>> result = with_if_statement()
+        47
+        >>> print(result)
+        None
+        """
+        if cond():
+            return true_func()
+        else:
+            return false_func()
+    
+    
+    def with_if_function():
+        """
+        >>> result = with_if_function()
+        42
+        47
+        >>> print(result)
+        None
+        """
+        return if_function(cond(), true_func(), false_func())
+    
+    
+    def cond():
+        "*** YOUR CODE HERE ***"
+        return False
+    
+    
+    def true_func():
+        "*** YOUR CODE HERE ***"
+        print(42)
+    
+    
+    def false_func():
+        "*** YOUR CODE HERE ***"
+        print(47)
+    ```
+
+## Homework 1 Hints
+
+### 1
+
+Q3 的两种思路：
+
+1.   全部的结果取最小
+2.   全部平方和减去最大平方
+
+![cs61a_44](../images/cs61a_44.png)
+
+## Lecture 03 Control
+
+### 1
+
+![cs61a_35](../images/cs61a_35.png){ loading=lazy }
+
+`print()` 可以传入多个参数，打印时每个参数之间会空一个空格
+
+### 2
+
+![cs61a_36](../images/cs61a_36.png){ loading=lazy }
+
+-   在 a函数 参数调用的位置填入 被调用的b函数 ，实际上使先运行 b函数 ，再将b的返回值传入 a函数
+
+-   `print()` 的返回值是 `None` 
 
 ## Lecture 10 Containers
 
@@ -1160,6 +1305,8 @@ Hany讲设计电路(Design Circuits)的内容中，构建命题逻辑公式的�
 
 Lab 05 的 Q10
 
+**不使用 built-in zip function:**
+
 ![cs61a_32](../images/cs61a_32.png){ loading=lazy }
 
 John的方法我认为关键之处在于，用下标去联系两颗树对应的树枝/分支
@@ -1179,3 +1326,113 @@ John的方法我认为关键之处在于，用下标去联系两颗树对应的�
 >       return tree(result_label, result_branches)
 >   ```
 
+**使用 built-in zip function:**
+
+![cs61a_33](../images/cs61a_33.png){ loading=lazy }
+
+`zip()` 可以将多个序列中的元素同时提取出来，比如，a列表有5个元素，b列表有8个元素，则 将两者输入到 `zip()` 中，会得到一个含有a列表全部元素和b列表前5个元素的*序列*，序列中每个元素为a b列表中下标对应的元素(像上图中的一样)
+
+**重要的是**可以使用 序列推导式，或者 `for` 语句(利用 `zip()` )**将多个序列中的元素一起提取出来**，如
+
+```python
+>>> l1 = [1, 2, 3]
+>>> l2 = ["a", "b", "c"]
+>>> [[x, y] for x, y in zip(l1, l2)]
+[[1, 'a'], [2, 'b'], [3, 'c']]
+```
+
+那么使用 `zip` 的代码可以写成：
+
+```python
+def add_trees(t1, t2):
+    result_label = label(t1) + label(t2)
+    result_branches = [add_trees(b1, b2) for b1, b2 in zip(branches(t1), branches(t2))]
+    result_branches += branches(t1)[len(result_branches):] + branches(t2)[len(result_branches):]
+    return tree(result_label, result_branches)
+```
+
+## Lecture 15 Mutable Values
+
+### 1
+
+![cs61a_37](../images/cs61a_37.png)
+
+!!! quote
+
+    ...so objects represent information, **they consist of data and behavior bundled together to create abstractions. objects can represent things, but also properties of things, or interactions, or processes, they're an extremely general concept, anything that has attributes can be represented as an object**. a type of object is called a class, classes are first class values in python, they can be passed in as arguments to functions. and objects are the heart of object oriented programming, which is an approached programming, that allows us to organize large programs using a central metaphor, that a large program is just one big thing, it's a bunch of individual objects, communicating with each other by sending messages back and forth.
+    
+    ---
+    
+    ...所以对象表示信息，**它们由捆绑在一起的数据和行为组成，以创建抽象。对象可以表示事物，也可以表示事物的属性、交互或过程，它们是一个非常通用的概念，任何具有属性的东西都可以表示为对象**。一种类型的对象被称为类，类是python中的第一个类值，它们可以作为参数传递给函数。对象是面向对象编程的核心，这是一种接近编程，它允许我们使用一个中心隐喻来组织大型程序，大型程序只是一件大事，它是一堆单独的对象，通过来回发送消息来相互通信。
+
+### 2
+
+`str` 的几个方法(每种数据类型下的数据都是一个对象，如 `int` 、 `str` )
+
+![cs61a_38](../images/cs61a_38.png){ loading=lazy }
+
+### 3
+
+我认为这是一个适合记忆的ascii码表
+
+![cs61a_39](../images/cs61a_39.png){ loading=lazy }
+
+这是16进制的ascii码表：
+
+```python
+>>> a = 'A'
+>>> ord(a)
+65
+>>> hex(ord(a))
+'0x41'
+```
+
+### 4
+
+![cs61a_40](../images/cs61a_40.png){ loading=lazy }
+
+-   一些 `list` 的方法 
+-   列表可以同时修改多个值，如图中 `suit[0:2] = ['heart', 'diamond']`
+
+-   如果将值为一个列表的变量赋值给另一个变量，那么两个变量其实上都指向同一个列表对象，通过二者之一进行改动，都是对对象本身改动(显示另外一个变量的值时会发现也改变了)
+
+>   ![cs61a_41](../images/cs61a_41.png){ loading=lazy }
+>
+>   从环境图中也可以看到，两个变量指向的时通过一个列表，修改都是对于列表对象本身进行修改
+
+### 5
+
+![cs61a_41](../images/cs61a_41.png){ loading=lazy }
+
+所有指向同一个对象的变量(的值，即指向的对象)都会被**一个改变(==mutation==)**影响
+
+并且，只有*可变的*类型才能这样：list 和 dictionary
+
+>   All name thar refer to the same object are affected by a mutation
+>
+>   Only objects of *mutable* types can change: lists & dictionaries
+
+### 6
+
+![cs61a_43](../images/cs61a_43.png)
+
+可以使用*列表切片*去来 增添 或 删减 或 替换 列表中的元素
+
+```python
+>>> list = [1, 2]
+>>> list[4:6] = [4, 5]
+>>> list
+[1, 2, 4, 5]
+>>> list[3:] = [6, 7, 8]
+>>> list
+[1, 2, 4, 6, 7, 8]
+>>> list[2:] = []
+>>> list
+[1, 2]
+```
+
+### 7
+
+被逗号分隔的几个数据也会被认为元组(tuple) (可认为是省略了括号的元组)
+
+![cs61a_45](../images/cs61a_45.png){ loading=lazy }
