@@ -72,11 +72,7 @@ a, b = b, a
 
 ![cs61a_14](../images/cs61a_14.png){ loading=lazy }
 
-在哪个frame中定义(define)的函数，其parent就是哪个frame，除了Global frame其他都有parent，
-
-在frame中使用变量时，都会先在所在的frame中查找其对应的值，如果没有，则在上级parent中查找，如果还没有，则在parent的parent中查找(如果有parent)...
-
-如上图中f函数要打印z的值，z在f1 frame中没有，则来到f1的parent在Global frame中查找z的值，于是获得z的值(此时)为7，则打印7
+在哪个frame中定义(define)的函数，其parent就是哪个frame，除了Global frame其他都有parent
 
 ## HW 01
 
@@ -145,8 +141,9 @@ def with_if_statement():
             return true_result
         else:
             return false_result
-    
-    
+
+
+​    
     def with_if_statement():
         """
         >>> result = with_if_statement()
@@ -158,8 +155,9 @@ def with_if_statement():
             return true_func()
         else:
             return false_func()
-    
-    
+
+
+​    
     def with_if_function():
         """
         >>> result = with_if_function()
@@ -169,18 +167,21 @@ def with_if_statement():
         None
         """
         return if_function(cond(), true_func(), false_func())
-    
-    
+
+
+​    
     def cond():
         "*** YOUR CODE HERE ***"
         return False
-    
-    
+
+
+​    
     def true_func():
         "*** YOUR CODE HERE ***"
         print(42)
-    
-    
+
+
+​    
     def false_func():
         "*** YOUR CODE HERE ***"
         print(47)
@@ -197,7 +198,7 @@ Q3 的两种思路：
 
 ![cs61a_44](../images/cs61a_44.png)
 
-## Lecture 03 Control
+## Lecture 3 Control
 
 ### 1
 
@@ -212,6 +213,115 @@ Q3 的两种思路：
 -   在 a函数 参数调用的位置填入 被调用的b函数 ，实际上使先运行 b函数 ，再将b的返回值传入 a函数
 
 -   `print()` 的返回值是 `None` 
+
+补充：
+
+![cs61a_47](../images/cs61a_47.png){ loading=lazy }
+
+### 3
+
+!!! quote
+
+    An environment is a sequence of frames.
+    
+    -   The global frame alone
+    -   A local, then the global frame
+
+![cs61a_51](../images/cs61a_51.png){ loading=lazy }
+
+![cs61a_50](../images/cs61a_50.png){ loading=lazy }
+
+变量名在查找对应的值的时候，会从当前的 frame 依次向上(parent frame) 查找值，并绑定最早找到的值，如图中的 `square` 先在f1中查找(如果f1没有再在Global frame中查找)，并绑定了4 (如果f1中没有 `square` 对应的值，则会绑定到global frame中的func square)
+
+==此外==，
+
+图中也可以发现，frame的parent是根据代码的结构来确定的，而不是根据调用的关系来确定的，如 第一张图中 `square(square(3))` 里面和外面的 `square` 的 parent 都是 global frame
+
+>   跟 Lecture 2 Q&A 中一样
+
+### 4
+
+![cs61a_52](../images/cs61a_52.png){ loading=lazy }
+
+-   ```bash
+    python -i xxx.py
+    ```
+
+    可以将 `xxx.py` 文件中的代码引入命令行或者终端
+
+-   命令行/终端中使用python时，++ctrl+d++ `^D` 可以清空界面
+
+![cs61a_53](../images/cs61a_53.png){ loading=lazy }
+
+-   ```bash
+    python -m doctest [-v] xxx.py
+    ```
+
+    可以运行 `xxx.py` 中函数说明语句部分的代码(用于测试函数能否输入正确预期结果)，如果报错会显示出报错信息，如果不报错则不显示信息 而正常显示下一行(如果死循环就一直不显示下一行)，
+
+    `-v` 选项是不报错也能显示每个输入的测试结果，如上图
+
+### 5
+
+真值为**假**的值： `False` , `0` , `''` , `None` 等等
+
+其余其他值基本上都为真
+
+### 6
+
+![cs61a_62](../images/cs61a_62.png){ loading=lazy }
+
+老师写分解质因数的思路值得学习：
+
+将问题分解成两步：
+
+1.   一个数的最小因数(因为要求要升序)
+2.   再循环找最小因数，从而获得升序的分解质因数
+
+并且将找最小的因数这个功能单独写成一个函数，这样看起来就很清晰
+
+```python
+def prime_factors(n):
+    """Print the prime factors of n in non-decreasing order.
+    
+    >>> prime_factors(8)
+    2
+    2
+    2
+    >>> prime_factors(9)
+    3
+    3
+    >>> prime_factors(10)
+    2
+    5
+    >>> prime_factors(11)
+    11
+    >>> prime_factors(12)
+    2
+    2
+    3
+    >>> prime_factors(858)
+    2
+    3
+    11
+    13
+    """
+    while n > 1:
+        k = smallest_prime_factor(n)
+        n = n // k
+        print(k)
+        
+def smallest_prime_factor(n):
+    """Return the smallest k > 1 that evenly divides n."""
+    k = 2
+    while n % k != 0:
+        k = k + 1
+    return k
+```
+
+## Lecture 3 Q&A
+
+
 
 ## Lecture 10 Containers
 
@@ -1433,6 +1543,99 @@ def add_trees(t1, t2):
 
 ### 7
 
-被逗号分隔的几个数据也会被认为元组(tuple) (可认为是省略了括号的元组)
-
 ![cs61a_45](../images/cs61a_45.png){ loading=lazy }
+
+-   被逗号分隔的几个数据也会被认为元组(tuple) (可认为是省略了括号的元组)
+-   用一个列表来调用 tuple 的构造函数，会得到含有相同顺序的相同元素的元组
+-   逗号 `,` 可以位于元组的最后(应该也可以位于列表和字典的最后，之前有试过)
+-   第三点和第一点结合起来可以得到：`2,` 和 `2` 是不一样的(前者是一个元素，后者是一个整数)
+
+### 8
+
+元组能作为字典的 key:
+
+```python
+>>> {(1, 2): 3}
+{(1, 2): 3}
+```
+
+但元组中也不能含有列表:
+
+```python
+>>> {(1, [2]): 3}
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+```
+
+### 9
+
+![cs61a_46](../images/cs61a_46.png){ loading=lazy }
+
+-   可变对象可以通过 *对象突变(Object mutation)* 来改变值，也可以通过 *Name change* 来改变(应该是直接改变指向的对象)，而不可变对象(如元组等)只能通过 *Name change* 来改变
+-   如果不可变对象含有可变对象的元素，这个可变对象可以改变(个人认为，可以类比成c中的指针常量，指针本身不改变，但指向的值能改变)
+
+### 10
+
+**恒等运算符(Identity Operators) `is`**
+
+用于判断两个变量是否指向同一个对象
+
+![cs61a_48](../images/cs61a_48.png){ loading=lazy }
+
+![cs61a_49](../images/cs61a_49.png){ loading=lazy }
+
+### 11
+
+![cs61a_54](../images/cs61a_54.png){ loading=lazy }
+
+同一个函数的默认参数是同一个对象，即使多次调用函数，使用默认参数时使用的都是同一个对象
+
+因此如果是可变对象类型，要注意==修改这个对象会导致之后调用函数时(如果使用的话)默认参数会与之前不一样
+
+### 12
+
+list的各种运算
+
+-   `.append()` 方法，将传入的参数添加道列表尾部(如果传入的是一个列表，就将该列表(同一对象)存入尾部)
+
+    ![cs61a_5](../images/cs61a_55.png){ loading=lazy }
+
+-   `.extend()` 方法，应该是传入一个列表(元组或许也可以？(试了，可以))，将列表中的元素依次添加到原列表尾部
+
+    ![cs61a_56](../images/cs61a_56.png){ loading=lazy }
+
+-   **加法** 和 **切片** ，**两者都会创建出一个新的列表**，因此下图中 `a[1] = 9` 并没有使 列表s 的元素改变，但由于 列表a 的第三个元素是列表，同时也是 列表b 的第二个元素，因此通过 列表b 修改时，也会让原本的 列表t 改变
+
+    ![cs61a_57](../images/cs61a_57.png){ loading=lazy }
+
+-   `list()` 列表的构造方法，可以传入一个列表(元组和 `range()` 也可以)，(如果传入的是一个列表)会构建出一个与原列表一样的**新**列表
+
+    ![cs61a_58](../images/cs61a_58.png){ loading=lazy }
+
+-   **列表切片的赋值**，可以对列表进行 **添加(添的比删的多)** / **替换(添的删的一样多)** / **删减(添的比删的少)** 操作，如下图中
+
+    -   `s[0:0] = t` 将t中元素加到(==塞入==)s的头部(0号位置)
+    -   `s[3:] = t` 将4号元素删去，并在该位置 塞入 t中的元素
+
+    ![cs61a_59](../images/cs61a_59.png){ loading=lazy }
+
+-   -   `.pop()` 方法，从列表中**拿出**并**返回**最后一个元素
+    -   `.remove()` 方法，传入一个参数，在列表中删去第一个跟传入参数相同的元素
+    -   用切片赋值的方法去删除列表中的元素
+
+    ![cs61a_60](../images/cs61a_60.png){ loading=lazy }
+
+    
+
+### 13
+
+![cs61a_61](../images/cs61a_61.png){ loading=lazy }
+
+```python
+t = [1, 2, 3]
+t[1:3] = [t]
+t.extend(t)
+```
+
+最终得到 `t = [1, [...], 1, [...]]` 的结果的原因，个人的理解：由上图中的环境图可以看到，列表中会有 *无穷循环的指向* 会一直后指向前再从前走到后，因此会得到 `...` 的东西
