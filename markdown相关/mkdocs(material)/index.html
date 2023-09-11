@@ -760,6 +760,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    24
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    25
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1370,6 +1384,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    24
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    25
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1499,10 +1527,11 @@
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">search</span><span class="p">:</span><span class="w"> </span><span class="c1"># 搜索(支持中文、英文)</span>
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">      </span><span class="nt">separator</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;[\s\-,:!=\[\]()&quot;/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&amp;[lg]t;&#39;</span>
 </span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">      </span><span class="nt">jieba_dict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dict.txt</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">      </span><span class="nt">lang</span><span class="p">:</span><span class="w"> </span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zh</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ja</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">      </span><span class="nt">jieba_dict_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user_dict.txt</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">      </span><span class="nt">lang</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zh</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ja</span>
 </span></code></pre></div>
 <ul>
 <li><a href="#17">语言切换</a></li>
@@ -1834,13 +1863,35 @@
 <li>再在命令行中 <code>mkdocs new xxx</code> 那个文件夹</li>
 <li>最后添加md文档文件，再部署到仓库即可</li>
 </ol>
+<h2 id="24">24<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
+<p>关于mkdocs-material的tag功能</p>
+<blockquote>
+<p><a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/">Setting up tags - Material for MkDocs (squidfunk.github.io)</a></p>
+</blockquote>
+<p>(个人猜测)其作用在于，能够在每个页面的第一个标题上方显示一个或多个 <em>标签</em> (好像只能在页面的上方)，以及在搜索时，含有对应标签的网页/文档下也会显示出该标签(这个有利于搜索文档，或者文档分类)</p>
+<p>然后还有一个功能是，能设置一个文档成为 <em>标签索引页</em> (<a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/#adding-a-tags-index">Setting up tags - Material for MkDocs (squidfunk.github.io)</a>)，能显示标签被哪些页面/文档包含了</p>
+<p><a href="https://github.com/squidfunk/mkdocs-material/issues/2593">Tags support 🆕 · Issue #2593 · squidfunk/mkdocs-material (github.com)</a></p>
+<p>这个网页能看到一些效果</p>
+<h2 id="25">25<a class="headerlink" href="#25" title="Permanent link">&para;</a></h2>
+<p>中文的搜索支持</p>
+<blockquote>
+<p><a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#chinese-language-support">Setting up site search - Material for MkDocs (squidfunk.github.io)</a></p>
+</blockquote>
+<p>需要从jieba github仓库中下载 <code>dict.txt</code> 或 <code>dict.txt.small</code> 或 <code>dict.txt.big</code> 文件，然后放到本地项目中</p>
+<p><code>mkdocs.yml</code> 中，</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nt">plugins</span><span class="p">:</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">search</span><span class="p">:</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">      </span><span class="nt">jieba_dict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dict.txt</span><span class="w"> </span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">      </span><span class="nt">jieba_dict_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user_dict.txt</span>
+</span></code></pre></div>
+<p><code>dict.txt</code> 和 <code>user_dict.txt</code> 两处对应的是 <code>mkdocs.yml</code> 文件的位置，所以如果将这两个路径替换成别的路径，根目录应该是 <code>mkdocs.yml</code> 的目录</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-04T13:28:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-04</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-11T17:01:26+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-11</span>
       
         <br>
         Created:
