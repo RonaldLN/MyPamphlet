@@ -110,6 +110,14 @@ a, b, c = symbols('a b c')
 pip install matplotlib
 ```
 
+## 7
+
+>   2023数模国赛
+
+如果需要在函数或方程中添加对数函数，需要使用sympy包里的 `log(x, y)` 函数(x为真数，y为底数)
+
+(如果在导入sympy包时，使用 `from sympy import *` 则可能会使得 python 的 math 里的求对数的函数被覆盖)
+
 ---
 
 ??? example "chat log"

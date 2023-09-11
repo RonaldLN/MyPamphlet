@@ -1,3 +1,66 @@
+## 1
+
+*读取*和*写入*的函数
+
+```python
+import openpyxl
+
+
+# 定义一个函数，从 Excel 文件中获取数据并存储到列表中
+def get_data_from_excel(file_name, sheet_name):
+    # 创建一个空列表来存储数据
+    data_list = []
+    # 打开 Excel 文件
+    wb = openpyxl.load_workbook(file_name)
+    # 获取工作表
+    sheet = wb[sheet_name]
+    # 获取最大行数
+    max_row = sheet.max_row
+    # 获取最大列数
+    max_column = sheet.max_column
+    # 使用循环从 Excel 文件中获取数据
+    for i in range(2, max_row + 1):
+        # 创建一个空列表来存储每行的数据
+        sub_list = []
+        for j in range(1, max_column + 1):
+            # 获取每个单元格的数据
+            cell = sheet.cell(row=i, column=j)
+            # 将数据添加到子列表中
+            sub_list.append(cell.value)
+        # 将子列表添加到数据列表中
+        data_list.append(sub_list)
+    # 返回数据列表
+    return data_list
+
+
+# 定义一个函数，将数据写入 Excel 文件中
+def write_data_to_excel(file_name, sheet_name, data_list):
+    # 打开 Excel 文件
+    wb = openpyxl.load_workbook(file_name)
+    # 如果工作表不存在，则创建它
+    if sheet_name not in wb.sheetnames:
+        wb.create_sheet(sheet_name)
+    # 获取工作表
+    sheet = wb[sheet_name]
+    # 根据数据的大小获取最大行数和列数
+    max_row = len(data_list)
+    max_column = len(data_list[0])
+    # 使用循环将数据写入 Excel 文件中
+    for i in range(2, max_row + 2):
+        for j in range(1, max_column + 1):
+            # 获取每个单元格的数据
+            cell = sheet.cell(row=i, column=j)
+            # 将数据写入单元格
+            cell.value = data_list[i - 2][j - 1]
+    # 保存 Excel 文件
+    wb.save(file_name)
+```
+
+-   注意：**写入的函数需要目标文件已经创建好/已经存在**
+-   该写入函数将list列表写入excel表格时，会空出第一行(可以用于填写栏目名称)
+
+---
+
 ??? example "chat log"
 
     **user**:

@@ -281,7 +281,7 @@ PermissionError: [Errno 13] Permission denied: 'run\\detect\\data1st2\\results.c
 进程已结束，退出代码为 1
 ```
 
-不止什么原因，报错原因应该是 `result.csv` 文件被打开被占用，但我并没有打开这个文件。
+不知什么原因，报错原因应该是 `result.csv` 文件被打开被占用，但我并没有打开这个文件。
 
 重新再运行程序即可
 

@@ -144,48 +144,48 @@ def with_if_statement():
 
 
 ​    
-    def with_if_statement():
-        """
-        >>> result = with_if_statement()
-        47
-        >>> print(result)
-        None
-        """
-        if cond():
-            return true_func()
-        else:
-            return false_func()
+​    def with_if_statement():
+​        """
+​        >>> result = with_if_statement()
+​        47
+​        >>> print(result)
+​        None
+​        """
+​        if cond():
+​            return true_func()
+​        else:
+​            return false_func()
 
 
 ​    
-    def with_if_function():
-        """
-        >>> result = with_if_function()
-        42
-        47
-        >>> print(result)
-        None
-        """
-        return if_function(cond(), true_func(), false_func())
+​    def with_if_function():
+​        """
+​        >>> result = with_if_function()
+​        42
+​        47
+​        >>> print(result)
+​        None
+​        """
+​        return if_function(cond(), true_func(), false_func())
 
 
 ​    
-    def cond():
-        "*** YOUR CODE HERE ***"
-        return False
+​    def cond():
+​        "*** YOUR CODE HERE ***"
+​        return False
 
 
 ​    
-    def true_func():
-        "*** YOUR CODE HERE ***"
-        print(42)
+​    def true_func():
+​        "*** YOUR CODE HERE ***"
+​        print(42)
 
 
 ​    
-    def false_func():
-        "*** YOUR CODE HERE ***"
-        print(47)
-    ```
+​    def false_func():
+​        "*** YOUR CODE HERE ***"
+​        print(47)
+​    ```
 
 ## Homework 1 Hints
 
@@ -1626,7 +1626,6 @@ list的各种运算
 
     ![cs61a_60](../images/cs61a_60.png){ loading=lazy }
 
-    
 
 ### 13
 
@@ -1639,3 +1638,238 @@ t.extend(t)
 ```
 
 最终得到 `t = [1, [...], 1, [...]]` 的结果的原因，个人的理解：由上图中的环境图可以看到，列表中会有 *无穷循环的指向* 会一直后指向前再从前走到后，因此会得到 `...` 的东西
+
+## Lecture 15 Q&A
+
+### 1
+
+![cs61a_63](../images/cs61a_63.png){ loading=lazy }
+
+*切片赋值*需要是一个列表(可能元组或者字符串 或其他*容器(container)*也行？)，如上图中 `s[0:0] = 5` 会报错，应该写成 `s[0:0] = [5]`
+
+###  2
+
+(可以作为上一点的补充)
+
+!!! quote
+
+    good question. so why isn't it that t becomes an element of s, and the reason is that's just how slice assignment works. it's that it takes a container full of elements and **it doesn't put that whole container in s, instead of puts the elements of that container in s**.
+    
+    ---
+    
+    好问题。为什么t不成为s的一个元素，原因是切片赋值就是这样工作的。它取一个装满元素的容器，**不是将整个容器放在s中，而是将该容器的元素放在s**。
+
+### 3
+
+![cs61a_64](../images/cs61a_64.png){ loading=lazy }
+
+下标选择(*selector*)不会改变列表的长度
+
+而切片赋值会改变列表的长度
+
+!!! quote
+
+    ...there's only t and this used to be three elements long, it's still three elements long, element assignment never changes the length of the list, it just changes what's in it. slice assignment is different, it changes the length of the list, it replaces an existing slice with some new elements.
+    
+    ---
+    
+    ...只有t，它过去有三个元素长，现在仍然有三个元件长，元素赋值永远不会改变列表的长度，它只是改变其中的内容。切片赋值不同，它改变了列表的长度。它用一些新元素替换了现有的切片。
+
+### 4
+
+Hany关于切片的比喻
+
+!!! quote
+
+    ...what you're going to do, is think about it this way, so on the left hand side with the slicing you say, grab those elements, throw them out, and then take whatever's on the right hand side, and shove them into the position, so they can be longer, shorter, it doesn't matter.
+    
+    ---
+    
+    ...你要做的是这样想，所以在切片的左手边，抓住这些元素，把它们扔出去，然后拿走右手边的任何东西，把它们推到这个位置，这样它们就可以更长、更短，这无关紧要。
+
+### 5
+
+关于元组tuple存在和被使用的原因
+
+!!! quote
+
+    **John**:
+    
+    ...but the more common reason is that, people are designing their programs so that they don't have to think about mutation back, when you could just describe every function by its domain range and behavior, life was easier. i'm not saying it was easy, there were plenty of like tricky recursion problems and stuff like that, but at least you knew that, if you called a function, the only thing you really have to worry about is what does it return, not what does it change. and if you use tuples everywhere, since they can't be changed, you kind of don't have to think about what does it change, you just have to think about what it returns, whereas if you're using lists everywhere, if you're not careful, the consequence of calling a function will be not only that it changes something, or that it returns something but also that it changes something, and that's like twice as many things to keep track of when you're writing a big program, and trying to understand how all the parts work, so that's like the main reason to have some immutable version of a sequence, is just to like make sure you write programs in such a way, that nothing can change anything else, except by passing in arguments and returning them.
+    
+    **Hany**:
+    
+    it's it's called side effects, the thing that's scary when you call a function is there some side effect, that it that goes beyond just what was passed and what was returned it modified a list, and i, how did i, how do i know that, that how do i control that, and so the tuples are nice...so the tools are nice, because it's essentially like you're locking your data, right, it's giving you data security yeah.
+    
+    ---
+    
+    **John**:
+    
+    ...但更常见的原因是，人们正在设计他们的程序，这样他们就不必再考虑突变了，当你可以通过每个函数的域范围和行为来描述它时，生活就更容易了。我并不是说这很容易，有很多类似棘手的递归问题和类似的东西，但至少你知道，如果你调用一个函数，你真正需要担心的是它会返回什么，而不是改变什么。如果你在任何地方都使用元组，因为它们是不可更改的，你不必考虑它会改变什么，你只需要考虑它会返回什么，而如果你在所有地方都使用列表，如果你不小心，调用一个函数的后果不仅是它会改变一些东西，或者它会返回一些东西，当你在写一个大程序，并试图了解所有部分是如何工作的时候，这就像是需要跟踪的事情的两倍，所以这就像是拥有一个不可变版本的序列的主要原因，就是要确保你以这样的方式写程序，除了传递参数并返回它们之外，没有什么能改变其他任何事情。
+    
+    **Hany**:
+    
+    它被称为副作用，当你调用一个函数时，可怕的是有一些副作用，它超出了传递和返回的内容，它修改了一个列表，我，我是怎么知道的，我是如何控制的，所以元组很好...所以这些工具很好，因为它本质上就像你在锁定你的数据，对吧，它给了你数据安全性。
+
+### 6
+
+Hany和John关于 *类(Class)* 和 *对象(Object)* 的区别的解释
+
+(将 *类* 比作 *蓝图* ，将 *对象* 比作 *依据蓝图修建好的具体的房子*)
+
+!!! quote
+
+    **Hany**:
+    
+    so the question is what is the difference between a class and an object. the class is, so here's how i think about
+    it, think about a blueprint for a house, is the class, and the house is the thing you build from the blueprint. okay so i can have a class date, um that is the sort of the definition of the data i'm storing, and the functionality of it, and then i can instantiate, i can create as many of those objects as i want, so they're essentially realizations of the thing that you've created, so the class is, just it's sort of like a definition, nothing exists, and then when you create an object, well now i can sort of do things with it. so there's a class of type list, and then i can define lists, i can define one list, two lists, 50 lists whatever i want, yeah.
+    
+    **John**:
+    
+    yeah, and that analogy is nice because you can live in a house, but you can't live in a blueprint, like if you just have the class, you can't really do anything with it, until you construct one of the things that it describes, build the house and then you can go live.
+    
+    **Hany**:
+    
+    and you can go live in it, right. and it's sort of like a function definition, right, you define a function, but doesn't do anything, it's just a definition, it just hangs out in the global frame somewhere, but then when you call it, ah now we're actually doing something.
+    
+    ---
+    
+    **Hany**:
+    
+    所以问题是类和对象之间的区别是什么。课堂是这样的，所以我是这样想的
+    想想房子的蓝图，它就是阶级，房子就是你根据蓝图建造的东西。好的，我可以有一个类的日期，嗯，这是我存储的数据的定义，以及它的功能，然后我可以实例化，我可以创建我想要的任意多的对象，所以它们本质上是你创建的东西的实现，所以类是，它有点像一个定义，什么都不存在，然后当你创建一个对象时，现在我可以用它做一些事情了，所以有一类类型列表，然后我可以定义列表，我可以定义一个列表，两个列表，50个列表，我想要的，是的。
+    
+    **John**:
+    
+    是的，这个比喻很好，因为你可以住在房子里，但你不能住在蓝图里，就像你只有课，你真的不能用它做任何事情，直到你建造了它描述的东西之一，建造了房子，然后你就可以生活了。
+    
+    **Hany**:
+    
+    你可以住在里面，对吧。这有点像函数定义，对吧，你定义了一个函数，但什么都不做，它只是一个定义，它只是挂在全局框架的某个地方，但当你调用它时，啊，现在我们实际上在做一些事情。
+
+## HW 03
+
+### 1
+
+**减少递归中的冗余部分**
+
+!!! quote
+
+    **Arms-length recursion (sidenote)**
+    
+    Before we get started, a quick comment on recursion with tree data structures. Consider the following function.
+    
+    ```
+    def min_depth(t):
+        """A simple function to return the distance between t's root and its closest leaf"""
+        if is_leaf(t):
+            return 0 # Base case---the distance between a node and itself is zero
+        h = float('inf') # Python's version of infinity
+        for b in branches(t):
+            if is_leaf(b): return 1 # !!!
+            h = min(h, 1 + min_depth(b))
+        return h
+    ```
+    
+    The line flagged with `!!!` is an "arms-length" recursion violation. Although our code works correctly when it is present, by performing this check we are doing work that should be done by the next level of recursion—we already have an if-statement that handles any inputs to `min_depth` that are leaves, so we should not include this line to eliminate redundancy in our code.
+    
+    ```
+    def min_depth(t):
+        """A simple function to return the distance between t's root and its closest leaf"""
+        if is_leaf(t):
+            return 0
+        h = float('inf')
+        for b in branches(t):
+            # Still works fine!
+            h = min(h, 1 + min_depth(b))
+        return h
+    ```
+    
+    Arms-length recursion is not only redundant but often complicates our code and obscures the functionality of recursive functions, making writing recursive functions much more difficult. We always want our recursive case to be handling one and only one recursive level.
+    
+    ---
+    
+    **臂长递归 (旁注)**
+    
+    在我们开始之前，先简要介绍一下树数据结构的递归。考虑以下函数。
+    
+    ```
+    def min_depth(t):
+        """A simple function to return the distance between t's root and its closest leaf"""
+        if is_leaf(t):
+            return 0 # Base case---the distance between a node and itself is zero
+        h = float('inf') # Python's version of infinity
+        for b in branches(t):
+            if is_leaf(b): return 1 # !!!
+            h = min(h, 1 + min_depth(b))
+        return h
+    ```
+    
+    该行标记为 `!!!` 是一种“臂长”递归冲突。尽管我们的代码在存在时可以正常工作，但通过执行此检查，我们正在做下一级递归应该做的工作——我们已经有了一个if语句，它处理 `min_depth` 的任何叶子输入，所以我们不应该包括这一行来消除代码中的冗余。
+    
+    ```
+    def min_depth(t):
+        """A simple function to return the distance between t's root and its closest leaf"""
+        if is_leaf(t):
+            return 0
+        h = float('inf')
+        for b in branches(t):
+            # Still works fine!
+            h = min(h, 1 + min_depth(b))
+        return h
+    ```
+    
+    臂长递归不仅是多余的，而且经常使我们的代码复杂化，并模糊递归函数的功能，使编写递归函数变得更加困难。我们总是希望我们的递归情况是处理一个并且只有一个递归级别。
+
+### 2
+
+Q2 中我将计算力矩的代码独立成了一个函数
+
+```python
+def balanced(m):
+    ...
+    def torque(s):
+        assert is_arm(s), "must call torque on a arm"
+        return length(s) * total_weight(end(s))
+    ...
+```
+
+??? note "code"
+
+    ```python
+    def balanced(m):
+        """Return whether m is balanced.
+    
+        >>> t, u, v = examples()
+        >>> balanced(t)
+        True
+        >>> balanced(v)
+        True
+        >>> w = mobile(arm(3, t), arm(2, u))
+        >>> balanced(w)
+        False
+        >>> balanced(mobile(arm(1, v), arm(1, w)))
+        False
+        >>> balanced(mobile(arm(1, w), arm(1, v)))
+        False
+        >>> from construct_check import check
+        >>> # checking for abstraction barrier violations by banning indexing
+        >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
+        True
+        """
+        "*** YOUR CODE HERE ***"
+        def torque(s):
+            assert is_arm(s), "must call torque on a arm"
+            return length(s) * total_weight(end(s))
+    
+        if is_planet(m):
+            return True
+        else:
+            if torque(left(m)) != torque(right(m)):
+                return False
+            else:
+                return balanced(end(left(m))) and balanced(end(right(m)))
+    ```
+
+### 3
+
