@@ -123,9 +123,13 @@ plugins:
       type: timeago
   - glightbox # 图片放大
   - search: # 搜索(支持中文、英文)
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      jieba_dict: dict.txt
+      jieba_dict_user: user_dict.txt
       lang: 
         - zh
         - en
+        - ja
 ```
 
 -   [语言切换](#17)
@@ -565,3 +569,35 @@ markdown_extensions:
 3.   再在命令行中 `mkdocs new xxx` 那个文件夹
 4.   最后添加md文档文件，再部署到仓库即可
 
+## 24
+
+关于mkdocs-material的tag功能
+
+>   [Setting up tags - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/)
+
+(个人猜测)其作用在于，能够在每个页面的第一个标题上方显示一个或多个 *标签* (好像只能在页面的上方)，以及在搜索时，含有对应标签的网页/文档下也会显示出该标签(这个有利于搜索文档，或者文档分类)
+
+然后还有一个功能是，能设置一个文档成为 *标签索引页* ([Setting up tags - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/#adding-a-tags-index))，能显示标签被哪些页面/文档包含了
+
+[Tags support 🆕 · Issue #2593 · squidfunk/mkdocs-material (github.com)](https://github.com/squidfunk/mkdocs-material/issues/2593)
+
+这个网页能看到一些效果
+
+## 25
+
+中文的搜索支持
+
+>   [Setting up site search - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#chinese-language-support)
+
+需要从jieba github仓库中下载 `dict.txt` 或 `dict.txt.small` 或 `dict.txt.big` 文件，然后放到本地项目中
+
+`mkdocs.yml` 中，
+
+```yaml
+plugins:
+  - search:
+      jieba_dict: dict.txt 
+      jieba_dict_user: user_dict.txt
+```
+
+`dict.txt` 和 `user_dict.txt` 两处对应的是 `mkdocs.yml` 文件的位置，所以如果将这两个路径替换成别的路径，根目录应该是 `mkdocs.yml` 的目录
