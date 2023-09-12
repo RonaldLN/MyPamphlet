@@ -601,3 +601,46 @@ plugins:
 ```
 
 `dict.txt` 和 `user_dict.txt` 两处对应的是 `mkdocs.yml` 文件的位置，所以如果将这两个路径替换成别的路径，根目录应该是 `mkdocs.yml` 的目录
+
+## 26
+
+一次报告错误的经历
+
+[Why does mkdocs-material display unsupported Chinese when running the mkdocs gh-deploy -- force command · squidfunk/mkdocs-material · Discussion #5992 (github.com)](https://github.com/squidfunk/mkdocs-material/discussions/5992)
+
+作者让创建一个*最小复制件*然后上传，
+
+[Creating a reproduction - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/guides/creating-a-reproduction/#creating-a-reproduction)
+
+我大致的操作过程是，创建一个新的mkdocs项目，然后按文档说的 在 `mkdocs.yml` 文件中添加必要的配置，
+
+-   ```yaml
+    theme:
+      name: material
+    ```
+
+    基本上必须的
+
+-   ```yaml
+    plugins:
+      - search:
+          jieba_dict: jieba_dict/dict.txt.big
+          jieba_dict_user: jieba_dict/user_dict.txt
+          lang: 
+            - zh
+    ```
+
+    报错的地方
+
+然后 `mkdocs build` 一下，出现了报错，(如果没有应该就是继续按原来的配置添加可能导致报错的配置，不断尝试直到出现报错)
+
+再按文档说的，添加生成错误报告的插件
+
+```yaml
+plugins:
+  - info
+```
+
+最后再 `mkdocs build` 一次，但是这次需要能连接上 github (要挂梯子)，然后会在项目根目录生成一个 zip 文件
+
+![mkdocs_bug_report](../images/mkdocs_bug_report.png){ loading=lazy }
