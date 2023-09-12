@@ -1873,3 +1873,73 @@ def balanced(m):
 
 ### 3
 
+Q5中，使用构造一个helper函数来传递结果列表
+
+```python
+    def preorder_helper(t, res):
+        res += [label(t)]
+        for branch in branches(t):
+            res += preorder_helper(branch, [])
+        return res
+```
+
+??? note "code"
+
+    ```python
+    def preorder(t):
+        """Return a list of the entries in this tree in the order that they
+        would be visited by a preorder traversal (see problem description).
+    
+        >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+        >>> preorder(numbers)
+        [1, 2, 3, 4, 5, 6, 7]
+        >>> preorder(tree(2, [tree(4, [tree(6)])]))
+        [2, 4, 6]
+        """
+        "*** YOUR CODE HERE ***"
+        def preorder_helper(t, res):
+            res += [label(t)]
+            # if is_leaf(t):
+            #     return res
+            # else:
+            #     for branch in branches(t):
+            #         res += preorder_helper(branch, res)
+            #     return res
+    
+            for branch in branches(t):
+                res += preorder_helper(branch, [])
+            return res
+        return preorder_helper(t, [])
+    ```
+
+### 4
+
+Q6
+
+(居然能只用一行)
+
+```python
+def has_path(t, word):
+    assert len(word) > 0, 'no path for empty word.'
+    "*** YOUR CODE HERE ***"
+    return word[0] == label(t) and True if len(word) == 1 else True in [has_path(b, word[1:]) for b in branches(t)]
+```
+
+### 5
+
+Q8
+
+题目是需要求x和y的差值的范围
+
+方法就是将y取负数，上/下界的负值作为新下/上界，然后使用之前的加法函数
+
+(由于没理解题目意思被卡了很久...)
+
+```python
+def sub_interval(x, y):
+    """Return the interval that contains the difference between any value in x
+    and any value in y."""
+    "*** YOUR CODE HERE ***"
+    return add_interval(x, interval(-upper_bound(y), -lower_bound(y)))
+```
+
