@@ -1759,7 +1759,7 @@ Hany和John关于 *类(Class)* 和 *对象(Object)* 的区别的解释
     
     Before we get started, a quick comment on recursion with tree data structures. Consider the following function.
     
-    ```
+    ```python
     def min_depth(t):
         """A simple function to return the distance between t's root and its closest leaf"""
         if is_leaf(t):
@@ -1773,7 +1773,7 @@ Hany和John关于 *类(Class)* 和 *对象(Object)* 的区别的解释
     
     The line flagged with `!!!` is an "arms-length" recursion violation. Although our code works correctly when it is present, by performing this check we are doing work that should be done by the next level of recursion—we already have an if-statement that handles any inputs to `min_depth` that are leaves, so we should not include this line to eliminate redundancy in our code.
     
-    ```
+    ```python
     def min_depth(t):
         """A simple function to return the distance between t's root and its closest leaf"""
         if is_leaf(t):
@@ -1793,7 +1793,7 @@ Hany和John关于 *类(Class)* 和 *对象(Object)* 的区别的解释
     
     在我们开始之前，先简要介绍一下树数据结构的递归。考虑以下函数。
     
-    ```
+    ```python
     def min_depth(t):
         """A simple function to return the distance between t's root and its closest leaf"""
         if is_leaf(t):
@@ -1807,7 +1807,7 @@ Hany和John关于 *类(Class)* 和 *对象(Object)* 的区别的解释
     
     该行标记为 `!!!` 是一种“臂长”递归冲突。尽管我们的代码在存在时可以正常工作，但通过执行此检查，我们正在做下一级递归应该做的工作——我们已经有了一个if语句，它处理 `min_depth` 的任何叶子输入，所以我们不应该包括这一行来消除代码中的冗余。
     
-    ```
+    ```python
     def min_depth(t):
         """A simple function to return the distance between t's root and its closest leaf"""
         if is_leaf(t):
@@ -1876,11 +1876,14 @@ def balanced(m):
 Q5中，使用构造一个helper函数来传递结果列表
 
 ```python
+def preorder(t):
+    ...
     def preorder_helper(t, res):
         res += [label(t)]
         for branch in branches(t):
             res += preorder_helper(branch, [])
         return res
+    ...
 ```
 
 ??? note "code"
