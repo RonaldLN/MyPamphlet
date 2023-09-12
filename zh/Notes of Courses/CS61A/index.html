@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
@@ -1228,6 +1228,20 @@
           <li class="md-nav__item">
   <a href="#3_11" class="md-nav__link">
     3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_10" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_6" class="md-nav__link">
+    5
   </a>
   
 </li>
@@ -2649,6 +2663,20 @@
           <li class="md-nav__item">
   <a href="#3_11" class="md-nav__link">
     3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_10" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_6" class="md-nav__link">
+    5
   </a>
   
 </li>
@@ -4110,13 +4138,67 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </span></code></pre></div>
 </details>
 <h3 id="3_11">3<a class="headerlink" href="#3_11" title="Permanent link">&para;</a></h3>
+<p>Q5中，使用构造一个helper函数来传递结果列表</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>    <span class="k">def</span> <span class="nf">preorder_helper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>        <span class="n">res</span> <span class="o">+=</span> <span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>        <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>            <span class="n">res</span> <span class="o">+=</span> <span class="n">preorder_helper</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="p">[])</span>
+</span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>        <span class="k">return</span> <span class="n">res</span>
+</span></code></pre></div>
+<details class="note">
+<summary>code</summary>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="k">def</span> <span class="nf">preorder</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of the entries in this tree in the order that they</span>
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a><span class="sd">    would be visited by a preorder traversal (see problem description).</span>
+</span><span id="__span-77-4"><a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>
+</span><span id="__span-77-5"><a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a><span class="sd">    &gt;&gt;&gt; numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])</span>
+</span><span id="__span-77-6"><a id="__codelineno-77-6" name="__codelineno-77-6" href="#__codelineno-77-6"></a><span class="sd">    &gt;&gt;&gt; preorder(numbers)</span>
+</span><span id="__span-77-7"><a id="__codelineno-77-7" name="__codelineno-77-7" href="#__codelineno-77-7"></a><span class="sd">    [1, 2, 3, 4, 5, 6, 7]</span>
+</span><span id="__span-77-8"><a id="__codelineno-77-8" name="__codelineno-77-8" href="#__codelineno-77-8"></a><span class="sd">    &gt;&gt;&gt; preorder(tree(2, [tree(4, [tree(6)])]))</span>
+</span><span id="__span-77-9"><a id="__codelineno-77-9" name="__codelineno-77-9" href="#__codelineno-77-9"></a><span class="sd">    [2, 4, 6]</span>
+</span><span id="__span-77-10"><a id="__codelineno-77-10" name="__codelineno-77-10" href="#__codelineno-77-10"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-77-11"><a id="__codelineno-77-11" name="__codelineno-77-11" href="#__codelineno-77-11"></a>    <span class="s2">&quot;*** YOUR CODE HERE ***&quot;</span>
+</span><span id="__span-77-12"><a id="__codelineno-77-12" name="__codelineno-77-12" href="#__codelineno-77-12"></a>    <span class="k">def</span> <span class="nf">preorder_helper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+</span><span id="__span-77-13"><a id="__codelineno-77-13" name="__codelineno-77-13" href="#__codelineno-77-13"></a>        <span class="n">res</span> <span class="o">+=</span> <span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span><span id="__span-77-14"><a id="__codelineno-77-14" name="__codelineno-77-14" href="#__codelineno-77-14"></a>        <span class="c1"># if is_leaf(t):</span>
+</span><span id="__span-77-15"><a id="__codelineno-77-15" name="__codelineno-77-15" href="#__codelineno-77-15"></a>        <span class="c1">#     return res</span>
+</span><span id="__span-77-16"><a id="__codelineno-77-16" name="__codelineno-77-16" href="#__codelineno-77-16"></a>        <span class="c1"># else:</span>
+</span><span id="__span-77-17"><a id="__codelineno-77-17" name="__codelineno-77-17" href="#__codelineno-77-17"></a>        <span class="c1">#     for branch in branches(t):</span>
+</span><span id="__span-77-18"><a id="__codelineno-77-18" name="__codelineno-77-18" href="#__codelineno-77-18"></a>        <span class="c1">#         res += preorder_helper(branch, res)</span>
+</span><span id="__span-77-19"><a id="__codelineno-77-19" name="__codelineno-77-19" href="#__codelineno-77-19"></a>        <span class="c1">#     return res</span>
+</span><span id="__span-77-20"><a id="__codelineno-77-20" name="__codelineno-77-20" href="#__codelineno-77-20"></a>
+</span><span id="__span-77-21"><a id="__codelineno-77-21" name="__codelineno-77-21" href="#__codelineno-77-21"></a>        <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-77-22"><a id="__codelineno-77-22" name="__codelineno-77-22" href="#__codelineno-77-22"></a>            <span class="n">res</span> <span class="o">+=</span> <span class="n">preorder_helper</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="p">[])</span>
+</span><span id="__span-77-23"><a id="__codelineno-77-23" name="__codelineno-77-23" href="#__codelineno-77-23"></a>        <span class="k">return</span> <span class="n">res</span>
+</span><span id="__span-77-24"><a id="__codelineno-77-24" name="__codelineno-77-24" href="#__codelineno-77-24"></a>    <span class="k">return</span> <span class="n">preorder_helper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">[])</span>
+</span></code></pre></div>
+</details>
+<h3 id="4_10">4<a class="headerlink" href="#4_10" title="Permanent link">&para;</a></h3>
+<p>Q6</p>
+<p>(居然能只用一行)</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="k">def</span> <span class="nf">has_path</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;no path for empty word.&#39;</span>
+</span><span id="__span-78-3"><a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>    <span class="s2">&quot;*** YOUR CODE HERE ***&quot;</span>
+</span><span id="__span-78-4"><a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a>    <span class="k">return</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">and</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">[</span><span class="n">has_path</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span></code></pre></div>
+<h3 id="5_6">5<a class="headerlink" href="#5_6" title="Permanent link">&para;</a></h3>
+<p>Q8</p>
+<p>题目是需要求x和y的差值的范围</p>
+<p>方法就是将y取负数，上/下界的负值作为新下/上界，然后使用之前的加法函数</p>
+<p>(由于没理解题目意思被卡了很久...)</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="k">def</span> <span class="nf">sub_interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the interval that contains the difference between any value in x</span>
+</span><span id="__span-79-3"><a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a><span class="sd">    and any value in y.&quot;&quot;&quot;</span>
+</span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>    <span class="s2">&quot;*** YOUR CODE HERE ***&quot;</span>
+</span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>    <span class="k">return</span> <span class="n">add_interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">interval</span><span class="p">(</span><span class="o">-</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="o">-</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+</span></code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-11T11:05:07+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-11</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T06:42:02+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
       
         <br>
         创建日期:
