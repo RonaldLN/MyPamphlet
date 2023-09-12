@@ -1251,6 +1251,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lecture-16-mutable-functions" class="md-nav__link">
+    Lecture 16 Mutable Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 16 Mutable Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_20" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_15" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2677,6 +2704,33 @@
           <li class="md-nav__item">
   <a href="#5_6" class="md-nav__link">
     5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-16-mutable-functions" class="md-nav__link">
+    Lecture 16 Mutable Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 16 Mutable Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_20" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_15" class="md-nav__link">
+    2
   </a>
   
 </li>
@@ -4195,6 +4249,14 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>    <span class="s2">&quot;*** YOUR CODE HERE ***&quot;</span>
 </span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>    <span class="k">return</span> <span class="n">add_interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">interval</span><span class="p">(</span><span class="o">-</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="o">-</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
 </span></code></pre></div>
+<h2 id="lecture-16-mutable-functions">Lecture 16 Mutable Functions<a class="headerlink" href="#lecture-16-mutable-functions" title="Permanent link">&para;</a></h2>
+<h3 id="1_20">1<a class="headerlink" href="#1_20" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_65.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_65" loading="lazy" src="../../images/cs61a_65.png" /></a></p>
+<p><strong>函数中的赋值语句，只能影响到函数所在的frame</strong>，不能影响到母框架里的变量</p>
+<h3 id="2_15">2<a class="headerlink" href="#2_15" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_66.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_66" loading="lazy" src="../../images/cs61a_66.png" /></a></p>
+<p><strong><mark><code>nonlocal</code> 语句</mark></strong></p>
+<p>感觉是能在一个函数中声明要使用 <strong><em>非当前框架内的变量(名)</em></strong>，从而之后在使用的时候，就不会在当前的框架内创建这个变量，而是在上级框架中寻找</p>
 
   <hr>
 <div class="md-source-file">
