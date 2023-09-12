@@ -774,6 +774,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    26
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1398,6 +1405,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    26
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1885,13 +1899,47 @@
 </span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">      </span><span class="nt">jieba_dict_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user_dict.txt</span>
 </span></code></pre></div>
 <p><code>dict.txt</code> 和 <code>user_dict.txt</code> 两处对应的是 <code>mkdocs.yml</code> 文件的位置，所以如果将这两个路径替换成别的路径，根目录应该是 <code>mkdocs.yml</code> 的目录</p>
+<h2 id="26">26<a class="headerlink" href="#26" title="Permanent link">&para;</a></h2>
+<p>一次报告错误的经历</p>
+<p><a href="https://github.com/squidfunk/mkdocs-material/discussions/5992">Why does mkdocs-material display unsupported Chinese when running the mkdocs gh-deploy -- force command · squidfunk/mkdocs-material · Discussion #5992 (github.com)</a></p>
+<p>作者让创建一个<em>最小复制件</em>然后上传，</p>
+<p><a href="https://squidfunk.github.io/mkdocs-material/guides/creating-a-reproduction/#creating-a-reproduction">Creating a reproduction - Material for MkDocs (squidfunk.github.io)</a></p>
+<p>我大致的操作过程是，创建一个新的mkdocs项目，然后按文档说的 在 <code>mkdocs.yml</code> 文件中添加必要的配置，</p>
+<ul>
+<li>
+<p><code>yaml
+    theme:
+      name: material</code></p>
+<p>基本上必须的</p>
+</li>
+<li>
+<p>```yaml
+    plugins:</p>
+<ul>
+<li>search:
+      jieba_dict: jieba_dict/dict.txt.big
+      jieba_dict_user: jieba_dict/user_dict.txt
+      lang: 
+        - zh
+```</li>
+</ul>
+<p>报错的地方</p>
+</li>
+</ul>
+<p>然后 <code>mkdocs build</code> 一下，出现了报错，(如果没有应该就是继续按原来的配置添加可能导致报错的配置，不断尝试直到出现报错)</p>
+<p>再按文档说的，添加生成错误报告的插件</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nt">plugins</span><span class="p">:</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span>
+</span></code></pre></div>
+<p>最后再 <code>mkdocs build</code> 一次，但是这次需要能连接上 github (要挂梯子)，然后会在项目根目录生成一个 zip 文件</p>
+<p><a class="glightbox" href="../../images/mkdocs_bug_report.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="mkdocs_bug_report" loading="lazy" src="../../images/mkdocs_bug_report.png" /></a></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-11T17:01:26+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-11</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T07:06:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
       
         <br>
         Created:
