@@ -1279,6 +1279,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#3_12" class="md-nav__link">
+    3
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2737,6 +2744,13 @@
           <li class="md-nav__item">
   <a href="#2_15" class="md-nav__link">
     2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_12" class="md-nav__link">
+    3
   </a>
   
 </li>
@@ -4263,13 +4277,17 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 <p><a class="glightbox" href="../../images/cs61a_66.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_66" loading="lazy" src="../../images/cs61a_66.png" /></a></p>
 <p><strong><mark><code>nonlocal</code> 语句</mark></strong></p>
 <p>感觉是能在一个函数中声明要使用 <strong><em>非当前框架内的变量(名)</em></strong>，从而之后在使用的时候，就不会在当前的框架内创建这个变量，而是在上级框架中寻找</p>
+<h3 id="3_12">3<a class="headerlink" href="#3_12" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_67.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_67" loading="lazy" src="../../images/cs61a_67.png" /></a></p>
+<p><strong>在函数体中，名称的所有实例都必须引用同一框架</strong></p>
+<p>所以不能像图里面一样，一开始使用了母框架中的值--绑定了母框架中的变量，而后又在<strong>未使用 <code>nonlocal</code> 语句</strong>的情况下，进行赋值</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T07:29:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-13T03:38:45+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-13</span>
       
         <br>
         Created:

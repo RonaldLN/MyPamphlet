@@ -109,27 +109,41 @@ nav:
 ```yaml
 plugins:
   - i18n: # 语言切换 (需要放在 git-revision-date-localized 之前)
-      default_language: en
-      material_alternate: true
+    # v0.5.6
+      # default_language: en
+      # material_alternate: true
+      # languages:
+      #   zh:
+      #     name: 简体中文
+      #     build: true
+      #   en:
+      #     name: English labels (英文标签)
+      #     build: false
+    # v1.0.3
+      reconfigure_search: false
       languages:
-        zh:
-          name: 简体中文
-          build: true
-        en:
-          name: English labels (英文标签)
-          build: true
+          - locale: zh
+            name: 简体中文
+            build: true
+            default: false
+          - locale: en
+            name: English labels (英文标签)
+            build: true
+            default: true
   - git-revision-date-localized: # 页面下方创建和修改时间
       enable_creation_date: true
       type: timeago
   - glightbox # 图片放大
   - search: # 搜索(支持中文、英文)
-      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-      jieba_dict: dict.txt
-      jieba_dict_user: user_dict.txt
-      lang: 
-        - zh
-        - en
-        - ja
+      # separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      separator: '[\\s\\u200b\\u3000\\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      jieba_dict: jieba_dict/dict.txt.big
+      jieba_dict_user: jieba_dict/user_dict.txt
+      # lang: 
+      #   - zh
+      #   - ja
+      #   - en
+  # - tags # 添加给单个文档添加tag标签
 ```
 
 -   [语言切换](#17)
@@ -708,3 +722,29 @@ WARNING - Language 'zh' is not supported by Lunr.js, not setting it in the 'plug
 经过调整和选项的设置，最后报错信息消失了。
 
 但是搜索功能的中文分割仍然不能用，向作者[再次询问](https://github.com/squidfunk/mkdocs-material/discussions/5992?sort=old#discussioncomment-6984967)
+
+---
+
+**stage 3**
+
+作者[回复](https://github.com/squidfunk/mkdocs-material/discussions/5992#discussioncomment-6986083)他尝试了，可以正常使用
+
+经过尝试，发现需要将 `theme` 设置中的 `language` 设置成 `zh` 才能使搜索的中文支持正常(不加就不行)，并向作者[反映](https://github.com/squidfunk/mkdocs-material/discussions/5992#discussioncomment-6986308)
+
+作者回复，因为设置了 `language: zh` 会自动配置*搜索分割(search separator)*，如果没有设置 `language: zh` ，则需要**手动添加相应的*搜索分割(search separator)***，参考[Chinese search support - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/blog/2022/05/05/chinese-search-support/#configuration)
+
+但是我看到他给出的[github里的文件](https://github.com/squidfunk/mkdocs-material/blob/502a517e2e7774c0518a60f0c8bf502b25671284/src/partials/languages/zh.html#L56)里，设置的的分割要更多( `  "search.config.separator": "[\\s\\u200b\\u3000\\-、。，．？！；]+",` )，所以我选取了那个文件里的配置添加到我的 `mkdocs.yml` 文件里
+
+```yaml
+  - search:
+      separator: '[\\s\\u200b\\u3000\\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+```
+
+>   原本为：
+>
+>   ```yaml
+>     - search:
+>         separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+>   ```
+
+经过测试，搜索中文支持能够正常使用，并且 `i18n` 插件也能正常使用
