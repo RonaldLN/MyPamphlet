@@ -1946,3 +1946,18 @@ def sub_interval(x, y):
     return add_interval(x, interval(-upper_bound(y), -lower_bound(y)))
 ```
 
+## Lecture 16 Mutable Functions
+
+### 1
+
+![cs61a_65](../images/cs61a_65.png){ loading=lazy }
+
+**函数中的赋值语句，只能影响到函数所在的frame**，不能影响到母框架里的变量
+
+### 2
+
+![cs61a_66](../images/cs61a_66.png){ loading=lazy }
+
+**==`nonlocal` 语句==**
+
+感觉是能在一个函数中声明要使用 ***非当前框架内的变量(名)***，从而之后在使用的时候，就不会在当前的框架内创建这个变量，而是在上级框架中寻找

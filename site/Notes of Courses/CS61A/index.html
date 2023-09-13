@@ -48,6 +48,10 @@
     
       <link rel="stylesheet" href="../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -190,14 +194,14 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="./" hreflang="en" class="md-select__link">
-              English labels (英文标签)
+            <a href="../../zh/Notes%20of%20Courses/CS61A/" hreflang="zh" class="md-select__link">
+              简体中文
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../zh/Notes%20of%20Courses/CS61A/" hreflang="zh" class="md-select__link">
-              简体中文
+            <a href="./" hreflang="en" class="md-select__link">
+              English labels (英文标签)
             </a>
           </li>
         
@@ -1244,6 +1248,33 @@
           <li class="md-nav__item">
   <a href="#5_6" class="md-nav__link">
     5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-16-mutable-functions" class="md-nav__link">
+    Lecture 16 Mutable Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 16 Mutable Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_20" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_15" class="md-nav__link">
+    2
   </a>
   
 </li>
@@ -2688,6 +2719,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lecture-16-mutable-functions" class="md-nav__link">
+    Lecture 16 Mutable Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture 16 Mutable Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_20" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_15" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4046,51 +4104,51 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 <p class="admonition-title">Quote</p>
 <p><strong>Arms-length recursion (sidenote)</strong></p>
 <p>Before we get started, a quick comment on recursion with tree data structures. Consider the following function.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>def min_depth(t):
-</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>    &quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;
-</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>    if is_leaf(t):
-</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>        return 0 # Base case---the distance between a node and itself is zero
-</span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>    h = float(&#39;inf&#39;) # Python&#39;s version of infinity
-</span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>    for b in branches(t):
-</span><span id="__span-70-7"><a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a>        if is_leaf(b): return 1 # !!!
-</span><span id="__span-70-8"><a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a>        h = min(h, 1 + min_depth(b))
-</span><span id="__span-70-9"><a id="__codelineno-70-9" name="__codelineno-70-9" href="#__codelineno-70-9"></a>    return h
+<div class="language-python highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="k">def</span> <span class="nf">min_depth</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;</span>
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>        <span class="k">return</span> <span class="mi">0</span> <span class="c1"># Base case---the distance between a node and itself is zero</span>
+</span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>    <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="c1"># Python&#39;s version of infinity</span>
+</span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-70-7"><a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a>        <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span> <span class="c1"># !!!</span>
+</span><span id="__span-70-8"><a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a>        <span class="n">h</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">min_depth</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-70-9"><a id="__codelineno-70-9" name="__codelineno-70-9" href="#__codelineno-70-9"></a>    <span class="k">return</span> <span class="n">h</span>
 </span></code></pre></div>
 <p>The line flagged with <code>!!!</code> is an "arms-length" recursion violation. Although our code works correctly when it is present, by performing this check we are doing work that should be done by the next level of recursion—we already have an if-statement that handles any inputs to <code>min_depth</code> that are leaves, so we should not include this line to eliminate redundancy in our code.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>def min_depth(t):
-</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>    &quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;
-</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>    if is_leaf(t):
-</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>        return 0
-</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>    h = float(&#39;inf&#39;)
-</span><span id="__span-71-6"><a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>    for b in branches(t):
-</span><span id="__span-71-7"><a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a>        # Still works fine!
-</span><span id="__span-71-8"><a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a>        h = min(h, 1 + min_depth(b))
-</span><span id="__span-71-9"><a id="__codelineno-71-9" name="__codelineno-71-9" href="#__codelineno-71-9"></a>    return h
+<div class="language-python highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="k">def</span> <span class="nf">min_depth</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;</span>
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>        <span class="k">return</span> <span class="mi">0</span>
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>    <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</span><span id="__span-71-6"><a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-71-7"><a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a>        <span class="c1"># Still works fine!</span>
+</span><span id="__span-71-8"><a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a>        <span class="n">h</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">min_depth</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-71-9"><a id="__codelineno-71-9" name="__codelineno-71-9" href="#__codelineno-71-9"></a>    <span class="k">return</span> <span class="n">h</span>
 </span></code></pre></div>
 <p>Arms-length recursion is not only redundant but often complicates our code and obscures the functionality of recursive functions, making writing recursive functions much more difficult. We always want our recursive case to be handling one and only one recursive level.</p>
 <hr />
 <p><strong>臂长递归 (旁注)</strong></p>
 <p>在我们开始之前，先简要介绍一下树数据结构的递归。考虑以下函数。</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>def min_depth(t):
-</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>    &quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;
-</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>    if is_leaf(t):
-</span><span id="__span-72-4"><a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>        return 0 # Base case---the distance between a node and itself is zero
-</span><span id="__span-72-5"><a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>    h = float(&#39;inf&#39;) # Python&#39;s version of infinity
-</span><span id="__span-72-6"><a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a>    for b in branches(t):
-</span><span id="__span-72-7"><a id="__codelineno-72-7" name="__codelineno-72-7" href="#__codelineno-72-7"></a>        if is_leaf(b): return 1 # !!!
-</span><span id="__span-72-8"><a id="__codelineno-72-8" name="__codelineno-72-8" href="#__codelineno-72-8"></a>        h = min(h, 1 + min_depth(b))
-</span><span id="__span-72-9"><a id="__codelineno-72-9" name="__codelineno-72-9" href="#__codelineno-72-9"></a>    return h
+<div class="language-python highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="k">def</span> <span class="nf">min_depth</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;</span>
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-72-4"><a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>        <span class="k">return</span> <span class="mi">0</span> <span class="c1"># Base case---the distance between a node and itself is zero</span>
+</span><span id="__span-72-5"><a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>    <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="c1"># Python&#39;s version of infinity</span>
+</span><span id="__span-72-6"><a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-72-7"><a id="__codelineno-72-7" name="__codelineno-72-7" href="#__codelineno-72-7"></a>        <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span> <span class="c1"># !!!</span>
+</span><span id="__span-72-8"><a id="__codelineno-72-8" name="__codelineno-72-8" href="#__codelineno-72-8"></a>        <span class="n">h</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">min_depth</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-72-9"><a id="__codelineno-72-9" name="__codelineno-72-9" href="#__codelineno-72-9"></a>    <span class="k">return</span> <span class="n">h</span>
 </span></code></pre></div>
 <p>该行标记为 <code>!!!</code> 是一种“臂长”递归冲突。尽管我们的代码在存在时可以正常工作，但通过执行此检查，我们正在做下一级递归应该做的工作——我们已经有了一个if语句，它处理 <code>min_depth</code> 的任何叶子输入，所以我们不应该包括这一行来消除代码中的冗余。</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>def min_depth(t):
-</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>    &quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;
-</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>    if is_leaf(t):
-</span><span id="__span-73-4"><a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a>        return 0
-</span><span id="__span-73-5"><a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a>    h = float(&#39;inf&#39;)
-</span><span id="__span-73-6"><a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a>    for b in branches(t):
-</span><span id="__span-73-7"><a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a>        # Still works fine!
-</span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a>        h = min(h, 1 + min_depth(b))
-</span><span id="__span-73-9"><a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a>    return h
+<div class="language-python highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="k">def</span> <span class="nf">min_depth</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple function to return the distance between t&#39;s root and its closest leaf&quot;&quot;&quot;</span>
+</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>    <span class="k">if</span> <span class="n">is_leaf</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-73-4"><a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a>        <span class="k">return</span> <span class="mi">0</span>
+</span><span id="__span-73-5"><a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a>    <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</span><span id="__span-73-6"><a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-73-7"><a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a>        <span class="c1"># Still works fine!</span>
+</span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a>        <span class="n">h</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">min_depth</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-73-9"><a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a>    <span class="k">return</span> <span class="n">h</span>
 </span></code></pre></div>
 <p>臂长递归不仅是多余的，而且经常使我们的代码复杂化，并模糊递归函数的功能，使编写递归函数变得更加困难。我们总是希望我们的递归情况是处理一个并且只有一个递归级别。</p>
 </div>
@@ -4141,11 +4199,14 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </details>
 <h3 id="3_11">3<a class="headerlink" href="#3_11" title="Permanent link">&para;</a></h3>
 <p>Q5中，使用构造一个helper函数来传递结果列表</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>    <span class="k">def</span> <span class="nf">preorder_helper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
-</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>        <span class="n">res</span> <span class="o">+=</span> <span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
-</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>        <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-</span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>            <span class="n">res</span> <span class="o">+=</span> <span class="n">preorder_helper</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="p">[])</span>
-</span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>        <span class="k">return</span> <span class="n">res</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="k">def</span> <span class="nf">preorder</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>    <span class="o">...</span>
+</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>    <span class="k">def</span> <span class="nf">preorder_helper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+</span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>        <span class="n">res</span> <span class="o">+=</span> <span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+</span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>        <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span><span id="__span-76-6"><a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a>            <span class="n">res</span> <span class="o">+=</span> <span class="n">preorder_helper</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="p">[])</span>
+</span><span id="__span-76-7"><a id="__codelineno-76-7" name="__codelineno-76-7" href="#__codelineno-76-7"></a>        <span class="k">return</span> <span class="n">res</span>
+</span><span id="__span-76-8"><a id="__codelineno-76-8" name="__codelineno-76-8" href="#__codelineno-76-8"></a>    <span class="o">...</span>
 </span></code></pre></div>
 <details class="note">
 <summary>code</summary>
@@ -4194,13 +4255,21 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>    <span class="s2">&quot;*** YOUR CODE HERE ***&quot;</span>
 </span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>    <span class="k">return</span> <span class="n">add_interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">interval</span><span class="p">(</span><span class="o">-</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="o">-</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
 </span></code></pre></div>
+<h2 id="lecture-16-mutable-functions">Lecture 16 Mutable Functions<a class="headerlink" href="#lecture-16-mutable-functions" title="Permanent link">&para;</a></h2>
+<h3 id="1_20">1<a class="headerlink" href="#1_20" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_65.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_65" loading="lazy" src="../../images/cs61a_65.png" /></a></p>
+<p><strong>函数中的赋值语句，只能影响到函数所在的frame</strong>，不能影响到母框架里的变量</p>
+<h3 id="2_15">2<a class="headerlink" href="#2_15" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_66.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_66" loading="lazy" src="../../images/cs61a_66.png" /></a></p>
+<p><strong><mark><code>nonlocal</code> 语句</mark></strong></p>
+<p>感觉是能在一个函数中声明要使用 <strong><em>非当前框架内的变量(名)</em></strong>，从而之后在使用的时候，就不会在当前的框架内创建这个变量，而是在上级框架中寻找</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T06:42:02+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T07:29:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
       
         <br>
         Created:
@@ -4302,6 +4371,14 @@ it, think about a blueprint for a house, is the class, and the house is the thin
     
     
       <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
       
         <script src="../../js/timeago.min.js"></script>
       

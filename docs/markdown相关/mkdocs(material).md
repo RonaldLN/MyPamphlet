@@ -340,6 +340,34 @@ pip install mkdocs-static-i18n
 >
 >   [ultrabug/mkdocs-static-i18n: MkDocs i18n plugin using static translation markdown files (github.com)](https://github.com/ultrabug/mkdocs-static-i18n/)
 
+**==`mkdocs-static-i18n插件版本更新==**:
+
+1.0.0之后的版本，似乎**配置格式改变**了，[cs-self-learning/docs at master · PKUFlyingPig/cs-self-learning (github.com)](https://github.com/PKUFlyingPig/cs-self-learning/tree/master/docs) 这里面使用的格式可能是旧版的，新版的配置格式可以见[Setting up languages - MkDocs static i18n plugin documentation (en) (ultrabug.github.io)](https://ultrabug.github.io/mkdocs-static-i18n/setup/setting-up-languages/#option-languages)：
+
+```yaml
+- i18n:
+      reconfigure_search: false
+      languages:
+          - locale: zh
+            name: 简体中文
+            build: true
+            default: false
+          - locale: en
+            name: English labels (英文标签)
+            build: true
+            default: true
+```
+
+由于应该是去除了 `default_language` 这个选项，所以默认语言需要在语言里面单独设置，**默认语言需要将 `build` 和 `default` 都设置为 `true`** ，否则会报错。
+
+(新版中 `default_language` 和 `material_alternate` 两个选项都已经不能用，如果配置会报错)
+
+此外，由于 mkdocs-material 本身的搜索功能不支持中文 `zh` ，因此需要将 `reconfigure_search` 设置为 `false` 
+
+[Setting up search - MkDocs static i18n plugin documentation (en) (ultrabug.github.io)](https://ultrabug.github.io/mkdocs-static-i18n/setup/setting-up-search/)
+
+[26](#26)记录的询问过程中涉及到了这个问题
+
 ## 18
 
 添加自定义的代码
@@ -602,11 +630,17 @@ plugins:
 
 `dict.txt` 和 `user_dict.txt` 两处对应的是 `mkdocs.yml` 文件的位置，所以如果将这两个路径替换成别的路径，根目录应该是 `mkdocs.yml` 的目录
 
+并且**要去除掉 `lang` 选项**(具体可见[26](#26))
+
 ## 26
 
 一次报告错误的经历
 
+>   2023-09-12
+
 [Why does mkdocs-material display unsupported Chinese when running the mkdocs gh-deploy -- force command · squidfunk/mkdocs-material · Discussion #5992 (github.com)](https://github.com/squidfunk/mkdocs-material/discussions/5992)
+
+**stage 1**
 
 作者让创建一个*最小复制件*然后上传，
 
@@ -644,3 +678,33 @@ plugins:
 最后再 `mkdocs build` 一次，但是这次需要能连接上 github (要挂梯子)，然后会在项目根目录生成一个 zip 文件
 
 ![mkdocs_bug_report](../images/mkdocs_bug_report.png){ loading=lazy }
+
+---
+
+**stage 2**
+
+作者[回复](https://github.com/squidfunk/mkdocs-material/discussions/5992?sort=old#discussioncomment-6981166)，将 `search` 中的 `lang` 选项全部去除即可
+
+但在我去除后，仍产生了一行报错
+
+```bash
+...
+WARNING - Language 'zh' is not supported by Lunr.js, not setting it in the 'plugins.search.lang' option
+...
+```
+
+怀疑是由于使用了语言切换的插件 `i18n` 中设置的 `zh` 导致的，
+
+将插件的配置代码注释掉之后，再次配置，发现报错信息消失(所以确定报错信息是由于在i18n插件中设置了 `zh` 相关的配置产生的)
+
+在查看了 `mkdocs-static-i18n` 的官方文档([Installation - MkDocs static i18n plugin documentation (en) (ultrabug.github.io)](https://ultrabug.github.io/mkdocs-static-i18n/getting-started/installation/))之后，发现插件有个选项可以不更改mkdocs-material原有的内置search插件的配置
+
+[Setting up search - MkDocs static i18n plugin documentation (en) (ultrabug.github.io)](https://ultrabug.github.io/mkdocs-static-i18n/setup/setting-up-search/)
+
+然后发现这是新版本才有的选项，所以将原有版本 `v0.5.6` 更新为 `v1.0.3` ，但新版本的语言配置也改变，[Setting up languages - MkDocs static i18n plugin documentation (en) (ultrabug.github.io)](https://ultrabug.github.io/mkdocs-static-i18n/setup/setting-up-languages/#option-languages)，
+
+(其余的一些关于新版变化的发现可见于[18](#18))
+
+经过调整和选项的设置，最后报错信息消失了。
+
+但是搜索功能的中文分割仍然不能用，向作者[再次询问](https://github.com/squidfunk/mkdocs-material/discussions/5992?sort=old#discussioncomment-6984967)

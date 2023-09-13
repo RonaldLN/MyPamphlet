@@ -89,15 +89,27 @@ extra:
 
 plugins:
   - i18n: # 语言切换 (需要放在 git-revision-date-localized 之前)
-      default_language: en
-      material_alternate: true
+    # v0.5.6
+      # default_language: en
+      # material_alternate: true
+      # languages:
+      #   zh:
+      #     name: 简体中文
+      #     build: true
+      #   en:
+      #     name: English labels (英文标签)
+      #     build: false
+    # v1.0.3
+      reconfigure_search: false
       languages:
-        zh:
-          name: 简体中文
-          build: true
-        en:
-          name: English labels (英文标签)
-          build: false
+          - locale: zh
+            name: 简体中文
+            build: true
+            default: false
+          - locale: en
+            name: English labels (英文标签)
+            build: true
+            default: true
   - git-revision-date-localized: # 页面下方创建和修改时间
       enable_creation_date: true
       type: timeago
@@ -106,10 +118,10 @@ plugins:
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
       jieba_dict: jieba_dict/dict.txt.big
       jieba_dict_user: jieba_dict/user_dict.txt
-      lang: 
-        - zh
-        - ja
-        - en
+      # lang: 
+      #   - zh
+      #   - ja
+      #   - en
   - tags
 
 
