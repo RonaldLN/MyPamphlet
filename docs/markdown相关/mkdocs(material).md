@@ -108,6 +108,15 @@ nav:
 
 ```yaml
 plugins:
+  # - blog:
+  #     blog_dir: .
+  #     blog_toc: true
+  #     post_date_format: full
+  #     archive_toc: true
+  #     categories_toc: true
+  #     pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
+  #     pagination_keep_content: true
+  #     draft_if_future_date: true
   - i18n: # 语言切换 (需要放在 git-revision-date-localized 之前)
     # v0.5.6
       # default_language: en
@@ -137,12 +146,12 @@ plugins:
   - search: # 搜索(支持中文、英文)
       # separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
       separator: '[\\s\\u200b\\u3000\\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-      jieba_dict: jieba_dict/dict.txt.big
-      jieba_dict_user: jieba_dict/user_dict.txt
-      # lang: 
-      #   - zh
-      #   - ja
-      #   - en
+      # jieba_dict: jieba_dict/dict.txt.big
+      # jieba_dict_user: jieba_dict/user_dict.txt
+      lang: 
+        # - zh
+        - ja
+        - en
   # - tags # 添加给单个文档添加tag标签
 ```
 
