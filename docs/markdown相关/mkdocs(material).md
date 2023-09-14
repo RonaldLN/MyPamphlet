@@ -650,7 +650,7 @@ plugins:
 
 一次报告错误的经历
 
->   2023-09-12
+>   2023-09-11
 
 [Why does mkdocs-material display unsupported Chinese when running the mkdocs gh-deploy -- force command · squidfunk/mkdocs-material · Discussion #5992 (github.com)](https://github.com/squidfunk/mkdocs-material/discussions/5992)
 

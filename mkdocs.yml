@@ -115,13 +115,13 @@ plugins:
       type: timeago
   - glightbox # 图片放大
   - search: # 搜索(选择支持中文、英文)
-      separator: '[\\s\\u200b\\u3000\\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-      jieba_dict: jieba_dict/dict.txt.big
-      jieba_dict_user: jieba_dict/user_dict.txt
-      # lang: 
-      #   - zh
-      #   - ja
-      #   - en
+      separator: '[\u200b\u3000\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      # jieba_dict: jieba_dict/dict.txt.big
+      # jieba_dict_user: jieba_dict/user_dict.txt
+      lang: 
+        # - zh
+        - ja
+        - en
   # - tags # 添加给单个文档添加tag标签
 
 
