@@ -4,7 +4,7 @@
 
 ## 1
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 **==在字典中直接查询、取出的是 key 的值==**
 
@@ -64,7 +64,7 @@ for value in xxx.values():
 
 ## 3
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 字典的 `.values()` 方法，返回的是一个 dict_values 类型，如果需要的是列表，则需要类型转换：
 
@@ -78,13 +78,13 @@ dict_values([0])
 
 ## 4
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 **字典不能切片**
 
 ## 5
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 !!! note
 
@@ -119,7 +119,7 @@ def read_data(file_name):
 
 ## 6
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 对小数四舍五入 使用 `round()` 函数，如
 
@@ -134,7 +134,7 @@ for _, value in data_res.items():
 
 ## 7
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 datetime类型
 
@@ -168,7 +168,7 @@ datetime类型
 
 ## 8
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 将列表写入csv文件的函数
 

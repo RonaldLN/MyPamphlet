@@ -1,6 +1,6 @@
 ## 1
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 *读取*和*写入*的函数
 

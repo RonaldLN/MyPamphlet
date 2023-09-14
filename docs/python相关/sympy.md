@@ -112,7 +112,7 @@ pip install matplotlib
 
 ## 7
 
->   2023数模国赛
+>   [2023数模国赛](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/08/2023/)
 
 如果需要在函数或方程中添加对数函数，需要使用sympy包里的 `log(x, y)` 函数(x为真数，y为底数)
 
