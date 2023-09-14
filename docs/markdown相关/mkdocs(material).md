@@ -108,15 +108,15 @@ nav:
 
 ```yaml
 plugins:
-  # - blog:
-  #     blog_dir: .
-  #     blog_toc: true
-  #     post_date_format: full
+  # - blog: # 设置blog
+  #     blog_dir: . # 设置blog对应的路径
+  #     blog_toc: true # 设置blog索引页面的目录
+  #     post_date_format: full # 设置blog索引页面的日期格式
   #     archive_toc: true
   #     categories_toc: true
-  #     pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
-  #     pagination_keep_content: true
-  #     draft_if_future_date: true
+  #     pagination_format: "$link_first $link_previous ~2~ $link_next $link_last" # 设置blog索引页面的分页格式
+  #     pagination_keep_content: true # 设置blog索引页面的分页内容
+  #     draft_if_future_date: true # 设置如果blog的日期是未来的话，就会被当成草稿不会被发布
   - i18n: # 语言切换 (需要放在 git-revision-date-localized 之前)
     # v0.5.6
       # default_language: en
@@ -657,7 +657,7 @@ plugins:
 
 ## 26
 
-一次报告错误的经历
+[一次报告错误的经历](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/11/github/)
 
 >   2023-09-11
 
@@ -757,3 +757,152 @@ WARNING - Language 'zh' is not supported by Lunr.js, not setting it in the 'plug
 >   ```
 
 经过测试，搜索中文支持能够正常使用，并且 `i18n` 插件也能正常使用
+
+## 27
+
+[中文搜索支持](https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#chinese-language-support)感觉不是很好用，所以用回了原来的配置
+
+```yaml
+  - search: # 搜索(选择支持中文、英文)
+      separator: '[\u200b\u3000\-、。，．？！；\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      # jieba_dict: jieba_dict/dict.txt.big
+      # jieba_dict_user: jieba_dict/user_dict.txt
+      lang: 
+        # - zh
+        - ja
+        - en
+```
+
+## 28
+
+[配置blog的过程记录](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/13/mkdocs-material-blog/)
+
+[Setting up a blog - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/)
+
+先配置好，再发布blog
+
+设置blog插件：
+
+```yaml
+plugin:
+  - blog
+```
+
+并创建相应的目录结构：
+
+```bash
+.
+├─ docs/
+│  └─ blog/
+│     ├─ posts/
+│     └─ index.md
+└─ mkdocs.yml
+```
+
+并将 `blog` 路径下的 `index.md` 添加到 `mkdocs.yml` 目录的配置中：
+
+```yaml
+nav:
+  - Blog:
+    - blog/index.md 
+```
+
+默认配置下，blog对应的目录是上面目录结构中的 `blog/` ，
+
+如果要自定义blog的目录，比如要设置*独立的blog*，可以将 `blog-dir` 设置成 `.` ：
+
+```yaml
+plugins:
+  - blog:
+      blog_dir: .
+```
+
+那么如果其他的路径使用默认的设置的话，文件结构应该变成
+
+```bash
+.
+├─ docs/
+│  ├─ posts/
+│  └─ index.md
+└─ mkdocs.yml
+```
+
+那么之前的目录的设置应该改成
+
+```yaml
+nav:
+  - Blog:
+    - index.md 
+```
+
+`post_dir` 参数同理
+
+最终我的配置：
+
+```yaml
+nav:
+  - Blog:
+    - index.md 
+
+plugins:
+  - blog: # 设置blog
+      blog_dir: . # 设置blog对应的路径
+      blog_toc: true # 设置blog索引页面的目录
+      post_date_format: full # 设置blog索引页面的日期格式
+      archive_toc: true
+      categories_toc: true
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last" # 设置blog索引页面的分页格式
+      pagination_keep_content: true # 设置blog索引页面的分页内容
+      draft_if_future_date: true # 设置如果blog的日期是未来的话，就会被当成草稿不会被发布
+```
+
+在post对应的目录中创建blog文档(默认为 `{blog}/posts` )，
+
+```markdown
+---
+draft: false
+date: 2023-09-11
+authors:
+  - ronald_luo
+categories:
+  - Configure & Debug
+---
+
+# 一次在github上询问作者的经历
+
+>   2023-09-11
+
+[Why does mkdocs-material display unsupported Chinese when running the mkdocs gh-deploy -- force command · squidfunk/mkdocs-material · Discussion #5992 (github.com)](https://github.com/squidfunk/mkdocs-material/discussions/5992)
+
+<!-- more -->
+
+## **stage 1**
+
+作者让创建一个*最小复制件*然后上传，
+
+...
+```
+
+-   `draft` : 是否设置成草稿，只有预览会构建，发布不会构建
+-   `date` : 日期
+-   `authors` : 选择一个或多个 `.author.yml` 文件中已有的作者
+-   `categories` : 选择分类
+-   `<!-- more -->` : 摘要设置，主页中只显示代码之前的内容
+
+**注意：一级标题只能设置一个，否则目录不会显示**
+
+[How can I make the table of content appear for each post in my blog? · squidfunk/mkdocs-material · Discussion #5998 (github.com)](https://github.com/squidfunk/mkdocs-material/discussions/5998#discussioncomment-6993353)
+
+>   其余一些选项
+>
+>   [Adding categories](https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/#adding-categories)
+>
+>   设置分类比较简单 易懂
+>
+>   [Adding tags](https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/#adding-tags)
+>
+>   添加tags在我的尝试过程中只能在搜索结果中显示tag，文章顶部并不能显示tag，感觉实用性不是很高，所以就没有添加这个东西
+>
+>   [Setting the reading time](https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/#setting-the-reading-time)
+>
+>   阅读时间在blog插件里内置有这个功能，不用设置也能显示阅读时间，但是如果认为不准的话，可以自己对单篇blog设置阅读时间而覆盖掉自动计算的
