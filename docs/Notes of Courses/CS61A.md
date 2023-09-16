@@ -321,6 +321,33 @@ def smallest_prime_factor(n):
 
 ## Lecture 3 Q&A
 
+### 1
+
+![cs61a_69](../images/cs61a_69.png){ loading=lazy }
+
+由于**同一个函数内的同一个变量名必须指向同一个框架下的东西**，所以
+
+```python
+x = 2
+
+def f():
+    print(x)
+    x = 3
+    print(x)
+    
+f()
+```
+
+`x = 3` 这行已经对local框架下的x赋值，所以 f 函数内的x就都只能绑定local框架下的值，不能绑定母框架下的值
+
+而第一个 `print(x)` 在执行时，(local框架下的)变量x还并未赋值，所以会报错，
+
+如果去掉 `x = 3` 那么程序就不会报错
+
+==[Lecture 16](https://ronaldln.github.io/MyPamphlet/Notes%20of%20Courses/CS61A/#3_12)中也说到了这一点==
+
+## Lecture 4 Higher-Order Functions
+
 
 
 ## Lecture 10 Containers
@@ -1969,3 +1996,76 @@ def sub_interval(x, y):
 **在函数体中，名称的所有实例都必须引用同一框架**
 
 所以不能像图里面一样，一开始使用了母框架中的值--绑定了母框架中的变量，而后又在**未使用 `nonlocal` 语句**的情况下，进行赋值
+
+### 4
+
+另一种实现使用并更改母框架中的数据并且**不使用 `nonlocal` 语句**的方法
+
+![cs61a_68](../images/cs61a_68.png){ loading=lazy }
+
+在母框架中使用可改变的数据类型，如列表或字典，然后在子函数中对其的元素进行更改，以达到需求
+
+### 5
+
+*参考透明度 (Referential Transparency)*
+
+![cs61a_70](../images/cs61a_70.png){ loading=lazy }
+
+这个概念好像是指，如果表达式是*参考透明(referentially transparent)*的，那么在**直接用与返回值相同的值替换表达式中的函数**后，能**得到和原来一样的结果**，即**不改变程序的意义(not change the meaning of a program)**
+
+而*突变(mutation)*可能会破坏表达式的参考透明，因为**突变可以改变环境(中的属性/值)**，
+
+比如
+
+```python
+def f(x):
+    x = 4
+    def g(y):
+        def h(z):
+            nonlocal x
+            x = x + 1
+            return x + y + z
+        return h
+    return g
+a = f(1)
+b = a(2)
+total = b(3) + b(4)
+```
+
+运行出来，`total` 结果是22(10+12)
+
+但如果将 `b(3)` 替换成 `10`
+
+```python
+def f(x):
+    x = 4
+    def g(y):
+        def h(z):
+            nonlocal x
+            x = x + 1
+            return x + y + z
+        return h
+    return g
+a = f(1)
+b = a(2)
+total = 10 + b(4)
+```
+
+`total` 结果就变成了21(10+11)
+
+这是由于，前者 `b(3)` 在调用 `h` 函数的时候，改动了母框架中的 `x` 的值，使得两处代码中 `b(4)` 在调用 `h` 函数时，使用的值不一样，因此`total` 结果就不一样
+
+## Lecture 16 Q&A
+
+### 1
+
+![cs61a_71](../images/cs61a_71.png){ loading=lazy }
+
+列表的 `+=` 和 `=` 的一些区别，
+
+图中左侧，`a = a + b` 可以理解成，**先是 `a + b` 得到一个新的列表，然后将变量名 `a` 绑定到这个新的列表上**，所以 `c` 绑定的原列表没有被改变
+
+而右侧，`a += b` 可以类比成 `a.extend(b)` ，是**对 `a` 指向的列表本身进行了修改**，所以通过 `c` 也能看到列表改变了
+
+## Lecture 17 Iterations
+
