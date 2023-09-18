@@ -2069,3 +2069,116 @@ total = 10 + b(4)
 
 ## Lecture 17 Iterations
 
+### 1
+
+![cs61a_72](../images/cs61a_72.png){ loading=lazy }
+
+-   `iter()` 传入一个可以迭代的数据(比如列表)，然后返回一个对应的迭代器(我感觉应该是一个 `iter` 类型的构造函数)，并且迭代器的初始的位置位于数据(如列表)的起始端(第一个元素之前)，并且如果两次对同一个列表调用 `iter()` 函数，返回的是两个不同的迭代器，即
+
+    ```python
+    >>> s = [3, 4, 5]
+    >>> t = iter(s)
+    >>> next(t)
+    3
+    >>> next(t)
+    4
+    >>> u = iter(s)
+    >>> next(u)
+    3
+    >>> next(t)
+    5
+    >>> next(u)
+    4
+    ```
+
+-   `next()` **传入一个迭代器**(传入可迭代数据会报错)，返回迭代器的后一个元素，并向前移动一个位置，即下次再调用 `next()` 并传入同一个迭代器，返回的会是另一个元素
+
+### 2
+
+如果用 `list()` 去传入一个迭代器，那么会返回一个列表包含迭代器之后的所有元素，**不包含之前的，并且会将迭代器的位置移动到列表的末端**
+
+```python
+>>> s = [[1, 2], 3, 4, 5]
+>>> s
+[[1, 2], 3, 4, 5]
+>>> t = iter(s)
+>>> next(t)
+[1, 2]
+>>> next(t)
+3
+>>> list(t)
+[4, 5]
+>>> next(t)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+### 3
+
+>   A dictionary, its keys, its values, and its items are all iterable values
+
+`dict.keys` `dict.values` `dict.items` 都是可以迭代的对象
+
+-   如果对 `iter()` 直接传入一个字典，返回的迭代器对应的是keys的迭代器
+-   对 `next()` 传入 `dict.items` 对应的迭代器，返回的是由字典的key和对应的value组成的二元元组
+
+```python
+>>> d = {'one': 1, 'two': 2, 'three': 3}
+>>> d['zero'] = 0
+>>> k = iter(d.keys())  # or iter(d)
+>>> next(k)
+'one'
+>>> next(k)
+'two'
+>>> next(k)
+'three'
+>>> next(k)
+'zero'
+>>> v = iter(d.values())
+>>> next(v)
+1
+>>> next(v)
+2
+>>> next(v)
+3
+>>> next(v)
+0
+>>> i = iter(d.items())
+>>> next(i)
+('one', 1)
+>>> next(i)
+('two', 2)
+>>> next(i)
+('three', 3)
+>>> next(i)
+('zero', 0)
+```
+
+### 4
+
+如果改变一个**字典**的大小(经过测试，给字典添加元素，不会使得之前构建的迭代器失效)，比如添加一组新的键值对，或者删去，会使得之前构建的迭代器不能使用(keys, values, items都不能)
+
+```python
+>>> d = {'one': 1, 'two': 2}
+>>> k = iter(d)
+>>> next(k)
+'one'
+>>> d['zero'] = 0
+>>> next(k)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+RuntimeError: dictionary changed size during iteration
+>>> d
+{'one': 1, 'two': 2, 'zero': 0}
+>>> k = iter(d)
+>>> next(k)
+'one'
+>>> next(k)
+'two'
+>>> d['zero'] = 5
+>>> next(k)
+'zero'
+```
+
+而如果只是**修改已存在的键值对的值**，不会使得之前构建的迭代器失效(values, items对应的迭代器在修改了字典之后连接的会是修改之后的值)

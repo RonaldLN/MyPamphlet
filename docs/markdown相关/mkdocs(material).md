@@ -906,3 +906,183 @@ categories:
 >   [Setting the reading time](https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/#setting-the-reading-time)
 >
 >   阅读时间在blog插件里内置有这个功能，不用设置也能显示阅读时间，但是如果认为不准的话，可以自己对单篇blog设置阅读时间而覆盖掉自动计算的
+
+## 29
+
+[更改和配置自定义的网页颜色的记录](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/16/mkdocs-material/#mkdocs-material)
+
+如果只需修改顶部栏的颜色和鼠标放置处的链接的强调色，并且不使用自定义的颜色，那么根据官方文档中的指示，
+
+[Changing the colors - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/)
+
+在 `mkdocs.yml` 添加相应的配置即可
+
+**配置自定义的网页主题(网页包括底色、顶部栏颜色、强调色)**
+
+在对应路径新建文件 `docs/stylesheets/extra.css` 
+
+并在 `mkdocs.yml` 中添加：
+
+```yaml
+extra_css:
+  - stylesheets/extra.css
+```
+
+[颜色计算器 - 在线颜色工具 - PhotoKit.com](https://photokit.com/colors/color-calculator/?lang=zh)
+
+这个网站能查询颜色的HSL、HSV、HEX、RGB等对应的值
+
+**css文件中的设置代码**：
+
+-   **深色主题**：
+
+    我是直接从mkdocs构建的网页的css文件中复制了默认 `slate` 主题的配置代码并稍加修改得到我自定义的主题配置代码：
+
+    ```css
+    [data-md-color-scheme="forest-dark"] {
+      --md-hue: 221;
+      --md-default-fg-color: hsla(var(--md-hue), 75%, 95%, 1);
+      --md-default-fg-color--light: hsla(var(--md-hue), 75%, 90%, 0.62);
+      --md-default-fg-color--lighter: hsla(var(--md-hue), 75%, 90%, 0.32);
+      --md-default-fg-color--lightest: hsla(var(--md-hue), 75%, 90%, 0.12);
+      --md-default-bg-color: hsla(var(--md-hue), 45%, 22%, 1);
+      --md-default-bg-color--light: hsla(var(--md-hue), 45%, 22%, 0.54);
+      --md-default-bg-color--lighter: hsla(var(--md-hue), 45%, 22%, 0.26);
+      --md-default-bg-color--lightest: hsla(var(--md-hue), 45%, 22%, 0.07);
+      --md-code-fg-color: hsla(var(--md-hue), 18%, 86%, 1);
+      --md-code-bg-color: hsla(var(--md-hue), 45%, 16%, 1);
+      --md-code-hl-color: #4287ff26;
+      --md-code-hl-number-color: #e6695b;
+      --md-code-hl-special-color: #f06090;
+      --md-code-hl-function-color: #c973d9;
+      --md-code-hl-constant-color: #9383e2;
+      --md-code-hl-keyword-color: #6791e0;
+      --md-code-hl-string-color: #2fb170;
+      --md-code-hl-name-color: var(--md-code-fg-color);
+      --md-code-hl-operator-color: var(--md-default-fg-color--light);
+      --md-code-hl-punctuation-color: var(--md-default-fg-color--light);
+      --md-code-hl-comment-color: var(--md-default-fg-color--light);
+      --md-code-hl-generic-color: var(--md-default-fg-color--light);
+      --md-code-hl-variable-color: var(--md-default-fg-color--light);
+      --md-typeset-color: var(--md-default-fg-color);
+      --md-typeset-a-color: var(--md-primary-fg-color);
+      --md-typeset-mark-color: #ffb7424d;
+      --md-typeset-kbd-color: hsla(var(--md-hue), 15%, 94%, 0.12);
+      --md-typeset-kbd-accent-color: hsla(var(--md-hue), 15%, 94%, 0.2);
+      --md-typeset-kbd-border-color: hsla(var(--md-hue), 15%, 14%, 1);
+      --md-typeset-table-color: hsla(var(--md-hue), 75%, 95%, 0.12);
+      --md-typeset-table-color--light: hsla(var(--md-hue), 75%, 95%, 0.035);
+      --md-admonition-fg-color: var(--md-default-fg-color);
+      --md-admonition-bg-color: var(--md-default-bg-color);
+      --md-footer-bg-color: hsla(var(--md-hue), 15%, 12%, 0.87);
+      --md-footer-bg-color--dark: hsla(var(--md-hue), 15%, 10%, 1);
+      --md-shadow-z1: 0 0.2rem 0.5rem #0003, 0 0 0.05rem #0000001a;
+      --md-shadow-z2: 0 0.2rem 0.5rem #0000004d, 0 0 0.05rem #00000040;
+      --md-shadow-z3: 0 0.2rem 0.5rem #0006, 0 0 0.05rem #00000059;
+      color-scheme: dark;
+    
+      --md-primary-fg-color: hsl(30, 78%, 61%);
+      --md-primary-fg-color--light: hsl(38, 91%, 82%);
+      --md-primary-fg-color--dark: hsl(25, 26%, 34%);
+      --md-primary-bg-color: #fff;
+      --md-primary-bg-color--light: #ffffffb3;
+    
+      --md-typeset-a-color: var(--md-primary-fg-color);
+    
+      --md-accent-fg-color: hsl(36, 100%, 45%);
+      --md-accent-fg-color--transparent: #f500561a;
+      --md-accent-bg-color: #fff;
+      --md-accent-bg-color--light: #ffffffb3;
+    }
+    ```
+
+    **网页底色推荐采用HSL模式设置颜色**，因为原始的代码中，单独将“H”(hue)设置为一个参数 `--md-hue` ，然后再其他属性中直接使用这个参数来配置相应的网页颜色属性
+
+    **与网页底色相关的属性有**：
+
+    -   `--md-hue` ：设置底色的**色相(Hue)**，范围为 0 - 360
+
+    -   ```css
+          --md-default-bg-color: hsla(var(--md-hue), 45%, 22%, 1);
+          --md-default-bg-color--light: hsla(var(--md-hue), 45%, 22%, 0.54);
+          --md-default-bg-color--lighter: hsla(var(--md-hue), 45%, 22%, 0.26);
+          --md-default-bg-color--lightest: hsla(var(--md-hue), 45%, 22%, 0.07);
+        ```
+
+        `--md-default-bg-color` 对应的就是网页的底色，`45%` 对应的位置是**HSL**中的**S**饱和度，`22%` 对应的位置是**HSL**中的**L**亮度，另外三个属性暂不知道对应的颜色在哪里，但介于名字，所以认为这四个属性是一块的
+
+    -   `  --md-code-bg-color` 设置代码块的底色，参数与 `--md-default-bg-color` 一样，深色模式下，代码块的底色的亮度一般设置成网页底色的亮度 -6%
+
+    **与顶部栏颜色相关的属性**：
+
+    ```css
+      --md-primary-fg-color: hsl(30, 78%, 61%);
+      --md-primary-fg-color--light: hsl(38, 91%, 82%);
+      --md-primary-fg-color--dark: hsl(25, 26%, 34%);
+      --md-primary-bg-color: #fff;
+      --md-primary-bg-color--light: #ffffffb3;
+    
+      --md-typeset-a-color: var(--md-primary-fg-color);
+    ```
+
+    `--md-primary-fg-color` 是直接决定顶部栏颜色的属性，用HSL(如 `hsl(30, 78%, 61%)` )，HEX(如 `#db9aa5` )形式都可以设置颜色
+
+    `--md-primary-fg-color--light` 和 `--md-primary-fg-color--dark` 虽然还不知道这两个有什么用，但是我参考[官方文档](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#custom-color-schemes)以及默认slate主题对应的css文件中的部分，将light设置成同色系的浅色，dark设置成同色系的深色，如上面的代码(设置的是黄色色系)
+
+    `--md-typeset-a-color` 是设置链接等地方的颜色，直接将其设置成与顶部栏颜色一致即可：
+
+    ```css
+      --md-typeset-a-color: var(--md-primary-fg-color);
+    ```
+
+    **与*强调色*相关的属性**：
+
+    ```css
+      --md-accent-fg-color: hsl(36, 100%, 45%);
+      --md-accent-fg-color--transparent: #f500561a;
+      --md-accent-bg-color: #fff;
+      --md-accent-bg-color--light: #ffffffb3;
+    ```
+
+    只用修改 `--md-accent-fg-color` 属性即可
+
+-   **浅色主题**：
+
+    下面是我目前(其中一个主题)的设置：
+
+    ```css
+    [data-md-color-scheme="forest"] {
+      --md-hue: 82;
+      --md-default-bg-color: hsla(var(--md-hue), 93%, 90%, 1);
+      --md-default-bg-color--light: hsla(var(--md-hue), 93%, 90%, 0.54);
+      --md-default-bg-color--lighter: hsla(var(--md-hue), 93%, 90%, 0.26);
+      --md-default-bg-color--lightest: hsla(var(--md-hue), 93%, 90%, 0.07);
+      --md-code-bg-color: hsla(var(--md-hue), 58%, 88%, 1);
+    
+      --md-primary-fg-color: hsl(38, 100%, 34%);
+      --md-primary-fg-color--light: hsl(38, 91%, 82%);
+      --md-primary-fg-color--dark: hsl(25, 26%, 34%);
+      --md-primary-bg-color: #fff;
+      --md-primary-bg-color--light: #ffffffb3;
+    
+      --md-typeset-a-color: var(--md-primary-fg-color);
+    
+      --md-accent-fg-color: hsl(36, 100%, 45%);
+      --md-accent-fg-color--transparent: #f500561a;
+      --md-accent-bg-color: #fff;
+      --md-accent-bg-color--light: #ffffffb3;
+    
+      --md-admonition-fg-color: var(--md-default-fg-color);
+      --md-admonition-bg-color: var(--md-default-bg-color);
+    }
+    ```
+
+    相关的选项与深色主题中的设置都差不多，好像要注意的只有我设置的浅色模式下的代码块的底色亮度是比网页底色要高3%左右，以及补充相应的设置(参考[配置过程的记录](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/16/mkdocs-material/#_7))
+
+`css` 文件中的 `data-md-color-scheme=` 后的引号(没有引号也可以)中的内容，就是可以/应该写在 `mkdocs.yml` 中 `scheme:` 后的*关键字*，但是要注意，如果想设置的*关键字*不止一个单词，那么 `css` 文件中的设置**单词之间应该用短横线 `-` 连接**
+
+**`mkdocs.yml` 中的设置**：
+
+可以按 [Color scheme](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme) 中直接设置 `scheme` 选项
+
+也可以按 [Color palette toggle](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle) 设置多个主题切换，而都是在相应的 `scheme` 选项之后填写设置的对应 *关键字*/主题名字 即可
