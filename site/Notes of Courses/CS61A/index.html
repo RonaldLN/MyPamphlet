@@ -1322,6 +1322,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6_5" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1383,8 +1390,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5_8" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_6" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7_2" class="md-nav__link">
+    7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8_1" class="md-nav__link">
+    8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9_1" class="md-nav__link">
+    9
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-17-qa" class="md-nav__link">
+    Lecture 17 Q&amp;A
+  </a>
   
 </li>
       
@@ -2906,6 +2955,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6_5" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2967,8 +3023,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5_8" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_6" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7_2" class="md-nav__link">
+    7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8_1" class="md-nav__link">
+    8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9_1" class="md-nav__link">
+    9
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-17-qa" class="md-nav__link">
+    Lecture 17 Q&amp;A
+  </a>
   
 </li>
       
@@ -4550,6 +4648,57 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </span></code></pre></div>
 <p><code>total</code> 结果就变成了21(10+11)</p>
 <p>这是由于，前者 <code>b(3)</code> 在调用 <code>h</code> 函数的时候，改动了母框架中的 <code>x</code> 的值，使得两处代码中 <code>b(4)</code> 在调用 <code>h</code> 函数时，使用的值不一样，因此<code>total</code> 结果就不一样</p>
+<h3 id="6_5">6<a class="headerlink" href="#6_5" title="Permanent link">&para;</a></h3>
+<p>这节课最后，教授提到的一题</p>
+<p><a class="glightbox" href="../../images/cs61a_73.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_73" loading="lazy" src="../../images/cs61a_73.png" /></a></p>
+<p>教授提到，在开始做这题时，可以寻找base cases是什么，</p>
+<p>然后从输入示例中可以得到，base case是当其中一个为零的时候</p>
+<hr />
+<p>开始写代码时，我是先注意到最后的 <code>return</code> 的语句的形式，再联想到教授说到的 <em>tree recursion</em> ，所以我感觉括号外应该是一个 <code>min</code> ，然后括号里面是比较两种递归返回的值哪个更小，所以我就暂且填上：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a><span class="k">def</span> <span class="nf">combo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a>    <span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+</span><span id="__span-83-5"><a id="__codelineno-83-5" name="__codelineno-83-5" href="#__codelineno-83-5"></a>        <span class="k">return</span> <span class="n">combo</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span-83-6"><a id="__codelineno-83-6" name="__codelineno-83-6" href="#__codelineno-83-6"></a>    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">combo</span><span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">10</span><span class="p">,</span> <span class="n">combo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">b</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+</span></code></pre></div>
+<p>但是 <code>elif</code> 之后填什么一直没想到，(因为不知道有相同数字还有不同的数字要怎么分割怎么处理，以及a只剩一种数字的情况下，怎么判断放在b前面还是后面，感觉要分非常多种情况特别复杂，之后发现其实情况很简单...)</p>
+<p>直到三天之后</p>
+<p>开始继续思考这题时，我开始思考到达 base case 的最后一种情况，即 a 是个一位数，而 b 是 321，想到如果a和b某个数位相同，那么可以想<em>快速排序</em>一样将b分成两边去递归(但是好像对数字分割很难操作起来)，然后由分割就进一步开始想a和b的最后一位去比较(将b分割成前面和最后一位)，那么(要使得结果最小)应该是将大的那个放在最后，所以开始尝试编写代码</p>
+<p>但是发现 <code>elif</code> 后填不上东西，所以打算先不按它提供的结构自己写：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="k">def</span> <span class="nf">combo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4" href="#__codelineno-84-4"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5" href="#__codelineno-84-5"></a>        <span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">%</span> <span class="mi">10</span><span class="p">:</span>
+</span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6" href="#__codelineno-84-6"></a>            <span class="o">...</span>
+</span><span id="__span-84-7"><a id="__codelineno-84-7" name="__codelineno-84-7" href="#__codelineno-84-7"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-84-8"><a id="__codelineno-84-8" name="__codelineno-84-8" href="#__codelineno-84-8"></a>            <span class="o">...</span>
+</span><span id="__span-84-9"><a id="__codelineno-84-9" name="__codelineno-84-9" href="#__codelineno-84-9"></a>    <span class="c1"># elif ...:</span>
+</span><span id="__span-84-10"><a id="__codelineno-84-10" name="__codelineno-84-10" href="#__codelineno-84-10"></a>    <span class="c1">#     return combo(...)</span>
+</span><span id="__span-84-11"><a id="__codelineno-84-11" name="__codelineno-84-11" href="#__codelineno-84-11"></a>    <span class="c1"># return min(combo(a // 10, b) * 10 + a % 10, combo(a, b // 10) * 10 + b % 10)</span>
+</span></code></pre></div>
+<p><mark>然后发现 <code>...</code> 处的代码就是最后 <code>return</code> 中之前写的代码，并且能实现对应的处理功能</mark>，所以 <code>elif</code> 后应该考虑的是a b最后一位相同的情况，故</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="k">def</span> <span class="nf">combo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the smallest integer with all of the digits of a and b (in order).</span>
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a>
+</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a><span class="sd">    &gt;&gt;&gt; combo(531, 432)    # 45312 contains both _531_ and 4_3_2.</span>
+</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a><span class="sd">    45312</span>
+</span><span id="__span-85-6"><a id="__codelineno-85-6" name="__codelineno-85-6" href="#__codelineno-85-6"></a><span class="sd">    &gt;&gt;&gt; combo(531, 4321)   # 45321 contains both _531_ and 4_321.</span>
+</span><span id="__span-85-7"><a id="__codelineno-85-7" name="__codelineno-85-7" href="#__codelineno-85-7"></a><span class="sd">    45321</span>
+</span><span id="__span-85-8"><a id="__codelineno-85-8" name="__codelineno-85-8" href="#__codelineno-85-8"></a><span class="sd">    &gt;&gt;&gt; combo(1234, 9123)  # 91234 contains both _1234 and 9123_.</span>
+</span><span id="__span-85-9"><a id="__codelineno-85-9" name="__codelineno-85-9" href="#__codelineno-85-9"></a><span class="sd">    91234</span>
+</span><span id="__span-85-10"><a id="__codelineno-85-10" name="__codelineno-85-10" href="#__codelineno-85-10"></a><span class="sd">    &gt;&gt;&gt; combo(0, 321)      # The number 0 has no digits, so 0 is not in the result.</span>
+</span><span id="__span-85-11"><a id="__codelineno-85-11" name="__codelineno-85-11" href="#__codelineno-85-11"></a><span class="sd">    321</span>
+</span><span id="__span-85-12"><a id="__codelineno-85-12" name="__codelineno-85-12" href="#__codelineno-85-12"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-85-13"><a id="__codelineno-85-13" name="__codelineno-85-13" href="#__codelineno-85-13"></a>    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-85-14"><a id="__codelineno-85-14" name="__codelineno-85-14" href="#__codelineno-85-14"></a>        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span><span id="__span-85-15"><a id="__codelineno-85-15" name="__codelineno-85-15" href="#__codelineno-85-15"></a>    <span class="k">elif</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="n">b</span> <span class="o">%</span> <span class="mi">10</span><span class="p">:</span>
+</span><span id="__span-85-16"><a id="__codelineno-85-16" name="__codelineno-85-16" href="#__codelineno-85-16"></a>        <span class="k">return</span> <span class="n">combo</span><span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">10</span>
+</span><span id="__span-85-17"><a id="__codelineno-85-17" name="__codelineno-85-17" href="#__codelineno-85-17"></a>    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">combo</span><span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">10</span><span class="p">,</span> <span class="n">combo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">b</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+</span></code></pre></div>
+<p>然后半信半疑地进行了测试，发现这竟然就是答案</p>
+<p>最后总结反思了一下，递归还是<strong>得牢记要假设函数能返回所需要的东西</strong>(我感觉这样可能就更好能想到分割出最后一位)</p>
 <h2 id="lecture-16-qa">Lecture 16 Q&amp;A<a class="headerlink" href="#lecture-16-qa" title="Permanent link">&para;</a></h2>
 <h3 id="1_22">1<a class="headerlink" href="#1_22" title="Permanent link">&para;</a></h3>
 <p><a class="glightbox" href="../../images/cs61a_71.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_71" loading="lazy" src="../../images/cs61a_71.png" /></a></p>
@@ -4562,19 +4711,19 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 <ul>
 <li>
 <p><code>iter()</code> 传入一个可以迭代的数据(比如列表)，然后返回一个对应的迭代器(我感觉应该是一个 <code>iter</code> 类型的构造函数)，并且迭代器的初始的位置位于数据(如列表)的起始端(第一个元素之前)，并且如果两次对同一个列表调用 <code>iter()</code> 函数，返回的是两个不同的迭代器，即</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a><span class="mi">3</span>
-</span><span id="__span-83-5"><a id="__codelineno-83-5" name="__codelineno-83-5" href="#__codelineno-83-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-83-6"><a id="__codelineno-83-6" name="__codelineno-83-6" href="#__codelineno-83-6"></a><span class="mi">4</span>
-</span><span id="__span-83-7"><a id="__codelineno-83-7" name="__codelineno-83-7" href="#__codelineno-83-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</span><span id="__span-83-8"><a id="__codelineno-83-8" name="__codelineno-83-8" href="#__codelineno-83-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-</span><span id="__span-83-9"><a id="__codelineno-83-9" name="__codelineno-83-9" href="#__codelineno-83-9"></a><span class="mi">3</span>
-</span><span id="__span-83-10"><a id="__codelineno-83-10" name="__codelineno-83-10" href="#__codelineno-83-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-83-11"><a id="__codelineno-83-11" name="__codelineno-83-11" href="#__codelineno-83-11"></a><span class="mi">5</span>
-</span><span id="__span-83-12"><a id="__codelineno-83-12" name="__codelineno-83-12" href="#__codelineno-83-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-</span><span id="__span-83-13"><a id="__codelineno-83-13" name="__codelineno-83-13" href="#__codelineno-83-13"></a><span class="mi">4</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-86-4"><a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a><span class="mi">3</span>
+</span><span id="__span-86-5"><a id="__codelineno-86-5" name="__codelineno-86-5" href="#__codelineno-86-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-86-6"><a id="__codelineno-86-6" name="__codelineno-86-6" href="#__codelineno-86-6"></a><span class="mi">4</span>
+</span><span id="__span-86-7"><a id="__codelineno-86-7" name="__codelineno-86-7" href="#__codelineno-86-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-86-8"><a id="__codelineno-86-8" name="__codelineno-86-8" href="#__codelineno-86-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span id="__span-86-9"><a id="__codelineno-86-9" name="__codelineno-86-9" href="#__codelineno-86-9"></a><span class="mi">3</span>
+</span><span id="__span-86-10"><a id="__codelineno-86-10" name="__codelineno-86-10" href="#__codelineno-86-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-86-11"><a id="__codelineno-86-11" name="__codelineno-86-11" href="#__codelineno-86-11"></a><span class="mi">5</span>
+</span><span id="__span-86-12"><a id="__codelineno-86-12" name="__codelineno-86-12" href="#__codelineno-86-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span id="__span-86-13"><a id="__codelineno-86-13" name="__codelineno-86-13" href="#__codelineno-86-13"></a><span class="mi">4</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -4583,20 +4732,20 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 </ul>
 <h3 id="2_16">2<a class="headerlink" href="#2_16" title="Permanent link">&para;</a></h3>
 <p>如果用 <code>list()</code> 去传入一个迭代器，那么会返回一个列表包含迭代器之后的所有元素，<strong>不包含之前的，并且会将迭代器的位置移动到列表的末端</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
-</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4" href="#__codelineno-84-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5" href="#__codelineno-84-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6" href="#__codelineno-84-6"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-</span><span id="__span-84-7"><a id="__codelineno-84-7" name="__codelineno-84-7" href="#__codelineno-84-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-84-8"><a id="__codelineno-84-8" name="__codelineno-84-8" href="#__codelineno-84-8"></a><span class="mi">3</span>
-</span><span id="__span-84-9"><a id="__codelineno-84-9" name="__codelineno-84-9" href="#__codelineno-84-9"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-84-10"><a id="__codelineno-84-10" name="__codelineno-84-10" href="#__codelineno-84-10"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</span><span id="__span-84-11"><a id="__codelineno-84-11" name="__codelineno-84-11" href="#__codelineno-84-11"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-84-12"><a id="__codelineno-84-12" name="__codelineno-84-12" href="#__codelineno-84-12"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-</span><span id="__span-84-13"><a id="__codelineno-84-13" name="__codelineno-84-13" href="#__codelineno-84-13"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-</span><span id="__span-84-14"><a id="__codelineno-84-14" name="__codelineno-84-14" href="#__codelineno-84-14"></a><span class="ne">StopIteration</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-87-4"><a id="__codelineno-87-4" name="__codelineno-87-4" href="#__codelineno-87-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-87-5"><a id="__codelineno-87-5" name="__codelineno-87-5" href="#__codelineno-87-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-87-6"><a id="__codelineno-87-6" name="__codelineno-87-6" href="#__codelineno-87-6"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-87-7"><a id="__codelineno-87-7" name="__codelineno-87-7" href="#__codelineno-87-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-87-8"><a id="__codelineno-87-8" name="__codelineno-87-8" href="#__codelineno-87-8"></a><span class="mi">3</span>
+</span><span id="__span-87-9"><a id="__codelineno-87-9" name="__codelineno-87-9" href="#__codelineno-87-9"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-87-10"><a id="__codelineno-87-10" name="__codelineno-87-10" href="#__codelineno-87-10"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-87-11"><a id="__codelineno-87-11" name="__codelineno-87-11" href="#__codelineno-87-11"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-87-12"><a id="__codelineno-87-12" name="__codelineno-87-12" href="#__codelineno-87-12"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span id="__span-87-13"><a id="__codelineno-87-13" name="__codelineno-87-13" href="#__codelineno-87-13"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span id="__span-87-14"><a id="__codelineno-87-14" name="__codelineno-87-14" href="#__codelineno-87-14"></a><span class="ne">StopIteration</span>
 </span></code></pre></div>
 <h3 id="3_13">3<a class="headerlink" href="#3_13" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -4607,66 +4756,268 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 <li>如果对 <code>iter()</code> 直接传入一个字典，返回的迭代器对应的是keys的迭代器</li>
 <li>对 <code>next()</code> 传入 <code>dict.items</code> 对应的迭代器，返回的是由字典的key和对应的value组成的二元元组</li>
 </ul>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># or iter(d)</span>
-</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a><span class="s1">&#39;one&#39;</span>
-</span><span id="__span-85-6"><a id="__codelineno-85-6" name="__codelineno-85-6" href="#__codelineno-85-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-85-7"><a id="__codelineno-85-7" name="__codelineno-85-7" href="#__codelineno-85-7"></a><span class="s1">&#39;two&#39;</span>
-</span><span id="__span-85-8"><a id="__codelineno-85-8" name="__codelineno-85-8" href="#__codelineno-85-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-85-9"><a id="__codelineno-85-9" name="__codelineno-85-9" href="#__codelineno-85-9"></a><span class="s1">&#39;three&#39;</span>
-</span><span id="__span-85-10"><a id="__codelineno-85-10" name="__codelineno-85-10" href="#__codelineno-85-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-85-11"><a id="__codelineno-85-11" name="__codelineno-85-11" href="#__codelineno-85-11"></a><span class="s1">&#39;zero&#39;</span>
-</span><span id="__span-85-12"><a id="__codelineno-85-12" name="__codelineno-85-12" href="#__codelineno-85-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</span><span id="__span-85-13"><a id="__codelineno-85-13" name="__codelineno-85-13" href="#__codelineno-85-13"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-</span><span id="__span-85-14"><a id="__codelineno-85-14" name="__codelineno-85-14" href="#__codelineno-85-14"></a><span class="mi">1</span>
-</span><span id="__span-85-15"><a id="__codelineno-85-15" name="__codelineno-85-15" href="#__codelineno-85-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-</span><span id="__span-85-16"><a id="__codelineno-85-16" name="__codelineno-85-16" href="#__codelineno-85-16"></a><span class="mi">2</span>
-</span><span id="__span-85-17"><a id="__codelineno-85-17" name="__codelineno-85-17" href="#__codelineno-85-17"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-</span><span id="__span-85-18"><a id="__codelineno-85-18" name="__codelineno-85-18" href="#__codelineno-85-18"></a><span class="mi">3</span>
-</span><span id="__span-85-19"><a id="__codelineno-85-19" name="__codelineno-85-19" href="#__codelineno-85-19"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-</span><span id="__span-85-20"><a id="__codelineno-85-20" name="__codelineno-85-20" href="#__codelineno-85-20"></a><span class="mi">0</span>
-</span><span id="__span-85-21"><a id="__codelineno-85-21" name="__codelineno-85-21" href="#__codelineno-85-21"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">i</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="__span-85-22"><a id="__codelineno-85-22" name="__codelineno-85-22" href="#__codelineno-85-22"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span id="__span-85-23"><a id="__codelineno-85-23" name="__codelineno-85-23" href="#__codelineno-85-23"></a><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-85-24"><a id="__codelineno-85-24" name="__codelineno-85-24" href="#__codelineno-85-24"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span id="__span-85-25"><a id="__codelineno-85-25" name="__codelineno-85-25" href="#__codelineno-85-25"></a><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-85-26"><a id="__codelineno-85-26" name="__codelineno-85-26" href="#__codelineno-85-26"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span id="__span-85-27"><a id="__codelineno-85-27" name="__codelineno-85-27" href="#__codelineno-85-27"></a><span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span><span id="__span-85-28"><a id="__codelineno-85-28" name="__codelineno-85-28" href="#__codelineno-85-28"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span id="__span-85-29"><a id="__codelineno-85-29" name="__codelineno-85-29" href="#__codelineno-85-29"></a><span class="p">(</span><span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># or iter(d)</span>
+</span><span id="__span-88-4"><a id="__codelineno-88-4" name="__codelineno-88-4" href="#__codelineno-88-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-88-5"><a id="__codelineno-88-5" name="__codelineno-88-5" href="#__codelineno-88-5"></a><span class="s1">&#39;one&#39;</span>
+</span><span id="__span-88-6"><a id="__codelineno-88-6" name="__codelineno-88-6" href="#__codelineno-88-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-88-7"><a id="__codelineno-88-7" name="__codelineno-88-7" href="#__codelineno-88-7"></a><span class="s1">&#39;two&#39;</span>
+</span><span id="__span-88-8"><a id="__codelineno-88-8" name="__codelineno-88-8" href="#__codelineno-88-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-88-9"><a id="__codelineno-88-9" name="__codelineno-88-9" href="#__codelineno-88-9"></a><span class="s1">&#39;three&#39;</span>
+</span><span id="__span-88-10"><a id="__codelineno-88-10" name="__codelineno-88-10" href="#__codelineno-88-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-88-11"><a id="__codelineno-88-11" name="__codelineno-88-11" href="#__codelineno-88-11"></a><span class="s1">&#39;zero&#39;</span>
+</span><span id="__span-88-12"><a id="__codelineno-88-12" name="__codelineno-88-12" href="#__codelineno-88-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span id="__span-88-13"><a id="__codelineno-88-13" name="__codelineno-88-13" href="#__codelineno-88-13"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span id="__span-88-14"><a id="__codelineno-88-14" name="__codelineno-88-14" href="#__codelineno-88-14"></a><span class="mi">1</span>
+</span><span id="__span-88-15"><a id="__codelineno-88-15" name="__codelineno-88-15" href="#__codelineno-88-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span id="__span-88-16"><a id="__codelineno-88-16" name="__codelineno-88-16" href="#__codelineno-88-16"></a><span class="mi">2</span>
+</span><span id="__span-88-17"><a id="__codelineno-88-17" name="__codelineno-88-17" href="#__codelineno-88-17"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span id="__span-88-18"><a id="__codelineno-88-18" name="__codelineno-88-18" href="#__codelineno-88-18"></a><span class="mi">3</span>
+</span><span id="__span-88-19"><a id="__codelineno-88-19" name="__codelineno-88-19" href="#__codelineno-88-19"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span id="__span-88-20"><a id="__codelineno-88-20" name="__codelineno-88-20" href="#__codelineno-88-20"></a><span class="mi">0</span>
+</span><span id="__span-88-21"><a id="__codelineno-88-21" name="__codelineno-88-21" href="#__codelineno-88-21"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">i</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="__span-88-22"><a id="__codelineno-88-22" name="__codelineno-88-22" href="#__codelineno-88-22"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-88-23"><a id="__codelineno-88-23" name="__codelineno-88-23" href="#__codelineno-88-23"></a><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-88-24"><a id="__codelineno-88-24" name="__codelineno-88-24" href="#__codelineno-88-24"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-88-25"><a id="__codelineno-88-25" name="__codelineno-88-25" href="#__codelineno-88-25"></a><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-88-26"><a id="__codelineno-88-26" name="__codelineno-88-26" href="#__codelineno-88-26"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-88-27"><a id="__codelineno-88-27" name="__codelineno-88-27" href="#__codelineno-88-27"></a><span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-88-28"><a id="__codelineno-88-28" name="__codelineno-88-28" href="#__codelineno-88-28"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-88-29"><a id="__codelineno-88-29" name="__codelineno-88-29" href="#__codelineno-88-29"></a><span class="p">(</span><span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="4_12">4<a class="headerlink" href="#4_12" title="Permanent link">&para;</a></h3>
 <p>如果改变一个<strong>字典</strong>的大小(经过测试，给字典添加元素，不会使得之前构建的迭代器失效)，比如添加一组新的键值对，或者删去，会使得之前构建的迭代器不能使用(keys, values, items都不能)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-86-4"><a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a><span class="s1">&#39;one&#39;</span>
-</span><span id="__span-86-5"><a id="__codelineno-86-5" name="__codelineno-86-5" href="#__codelineno-86-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-86-6"><a id="__codelineno-86-6" name="__codelineno-86-6" href="#__codelineno-86-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-86-7"><a id="__codelineno-86-7" name="__codelineno-86-7" href="#__codelineno-86-7"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-</span><span id="__span-86-8"><a id="__codelineno-86-8" name="__codelineno-86-8" href="#__codelineno-86-8"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-</span><span id="__span-86-9"><a id="__codelineno-86-9" name="__codelineno-86-9" href="#__codelineno-86-9"></a><span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">changed</span> <span class="n">size</span> <span class="n">during</span> <span class="n">iteration</span>
-</span><span id="__span-86-10"><a id="__codelineno-86-10" name="__codelineno-86-10" href="#__codelineno-86-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-</span><span id="__span-86-11"><a id="__codelineno-86-11" name="__codelineno-86-11" href="#__codelineno-86-11"></a><span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;zero&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-</span><span id="__span-86-12"><a id="__codelineno-86-12" name="__codelineno-86-12" href="#__codelineno-86-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-</span><span id="__span-86-13"><a id="__codelineno-86-13" name="__codelineno-86-13" href="#__codelineno-86-13"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-86-14"><a id="__codelineno-86-14" name="__codelineno-86-14" href="#__codelineno-86-14"></a><span class="s1">&#39;one&#39;</span>
-</span><span id="__span-86-15"><a id="__codelineno-86-15" name="__codelineno-86-15" href="#__codelineno-86-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-86-16"><a id="__codelineno-86-16" name="__codelineno-86-16" href="#__codelineno-86-16"></a><span class="s1">&#39;two&#39;</span>
-</span><span id="__span-86-17"><a id="__codelineno-86-17" name="__codelineno-86-17" href="#__codelineno-86-17"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span id="__span-86-18"><a id="__codelineno-86-18" name="__codelineno-86-18" href="#__codelineno-86-18"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="__span-86-19"><a id="__codelineno-86-19" name="__codelineno-86-19" href="#__codelineno-86-19"></a><span class="s1">&#39;zero&#39;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span id="__span-89-3"><a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-89-4"><a id="__codelineno-89-4" name="__codelineno-89-4" href="#__codelineno-89-4"></a><span class="s1">&#39;one&#39;</span>
+</span><span id="__span-89-5"><a id="__codelineno-89-5" name="__codelineno-89-5" href="#__codelineno-89-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-89-6"><a id="__codelineno-89-6" name="__codelineno-89-6" href="#__codelineno-89-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-89-7"><a id="__codelineno-89-7" name="__codelineno-89-7" href="#__codelineno-89-7"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span id="__span-89-8"><a id="__codelineno-89-8" name="__codelineno-89-8" href="#__codelineno-89-8"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span id="__span-89-9"><a id="__codelineno-89-9" name="__codelineno-89-9" href="#__codelineno-89-9"></a><span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">changed</span> <span class="n">size</span> <span class="n">during</span> <span class="n">iteration</span>
+</span><span id="__span-89-10"><a id="__codelineno-89-10" name="__codelineno-89-10" href="#__codelineno-89-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+</span><span id="__span-89-11"><a id="__codelineno-89-11" name="__codelineno-89-11" href="#__codelineno-89-11"></a><span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;zero&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</span><span id="__span-89-12"><a id="__codelineno-89-12" name="__codelineno-89-12" href="#__codelineno-89-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span id="__span-89-13"><a id="__codelineno-89-13" name="__codelineno-89-13" href="#__codelineno-89-13"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-89-14"><a id="__codelineno-89-14" name="__codelineno-89-14" href="#__codelineno-89-14"></a><span class="s1">&#39;one&#39;</span>
+</span><span id="__span-89-15"><a id="__codelineno-89-15" name="__codelineno-89-15" href="#__codelineno-89-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-89-16"><a id="__codelineno-89-16" name="__codelineno-89-16" href="#__codelineno-89-16"></a><span class="s1">&#39;two&#39;</span>
+</span><span id="__span-89-17"><a id="__codelineno-89-17" name="__codelineno-89-17" href="#__codelineno-89-17"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;zero&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span id="__span-89-18"><a id="__codelineno-89-18" name="__codelineno-89-18" href="#__codelineno-89-18"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="__span-89-19"><a id="__codelineno-89-19" name="__codelineno-89-19" href="#__codelineno-89-19"></a><span class="s1">&#39;zero&#39;</span>
 </span></code></pre></div>
 <p>而如果只是<strong>修改已存在的键值对的值</strong>，不会使得之前构建的迭代器失效(values, items对应的迭代器在修改了字典之后连接的会是修改之后的值)</p>
+<h3 id="5_8">5<a class="headerlink" href="#5_8" title="Permanent link">&para;</a></h3>
+<p><code>for</code> 语句也可以使用迭代器，但只是从迭代器当前的位置开始，并且会将迭代器的位置移动到最后，(感觉跟第二点很相像)</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">ri</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">ri</span><span class="p">)</span>
+</span><span id="__span-90-4"><a id="__codelineno-90-4" name="__codelineno-90-4" href="#__codelineno-90-4"></a><span class="mi">3</span>
+</span><span id="__span-90-5"><a id="__codelineno-90-5" name="__codelineno-90-5" href="#__codelineno-90-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ri</span><span class="p">:</span>
+</span><span id="__span-90-6"><a id="__codelineno-90-6" name="__codelineno-90-6" href="#__codelineno-90-6"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-90-7"><a id="__codelineno-90-7" name="__codelineno-90-7" href="#__codelineno-90-7"></a><span class="o">...</span>
+</span><span id="__span-90-8"><a id="__codelineno-90-8" name="__codelineno-90-8" href="#__codelineno-90-8"></a><span class="mi">4</span>
+</span><span id="__span-90-9"><a id="__codelineno-90-9" name="__codelineno-90-9" href="#__codelineno-90-9"></a><span class="mi">5</span>
+</span><span id="__span-90-10"><a id="__codelineno-90-10" name="__codelineno-90-10" href="#__codelineno-90-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ri</span><span class="p">:</span>
+</span><span id="__span-90-11"><a id="__codelineno-90-11" name="__codelineno-90-11" href="#__codelineno-90-11"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-90-12"><a id="__codelineno-90-12" name="__codelineno-90-12" href="#__codelineno-90-12"></a><span class="o">...</span>
+</span><span id="__span-90-13"><a id="__codelineno-90-13" name="__codelineno-90-13" href="#__codelineno-90-13"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">ri</span><span class="p">)</span>
+</span><span id="__span-90-14"><a id="__codelineno-90-14" name="__codelineno-90-14" href="#__codelineno-90-14"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span id="__span-90-15"><a id="__codelineno-90-15" name="__codelineno-90-15" href="#__codelineno-90-15"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span id="__span-90-16"><a id="__codelineno-90-16" name="__codelineno-90-16" href="#__codelineno-90-16"></a><span class="ne">StopIteration</span>
+</span></code></pre></div>
+<h3 id="6_6">6<a class="headerlink" href="#6_6" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_74.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_74" loading="lazy" src="../../images/cs61a_74.png" /></a></p>
+<p>一些会返回迭代器的 built-in functions</p>
+<p><strong><mark>上图中的 <code>iterable</code> 也包括迭代器，所以迭代器也算作可迭代对象</mark></strong></p>
+<p><strong>John的个Demo</strong></p>
+<ol>
+<li>
+<blockquote>
+<p><code>python
+     &gt;   &gt;&gt;&gt; bcd = ['b', 'c', 'd']
+     &gt;   &gt;&gt;&gt; [x.upper() for x in bcd]
+     &gt;   ['B', 'C', 'D']
+     &gt;   &gt;&gt;&gt; map(lambda x: x.upper(), bcd)
+     &gt;   &lt;map object at 0x000002597B19F730&gt;
+     &gt;   &gt;&gt;&gt; m = map(lambda x: x.upper(), bcd)
+     &gt;   &gt;&gt;&gt; next(m)
+     &gt;   'B'
+     &gt;   &gt;&gt;&gt; next(m)
+     &gt;   'C'
+     &gt;   &gt;&gt;&gt; next(m)
+     &gt;   'D'
+     &gt;   &gt;&gt;&gt; next(m)
+     &gt;   Traceback (most recent call last):
+     &gt;     File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+     &gt;   StopIteration
+     &gt;   &gt;&gt;&gt;
+     &gt;</code></p>
+</blockquote>
+<p>这是一个简单展示的利用 <code>map</code> 来获取 一个将传入函数套用在迭代出来的数据的迭代器 的例子</p>
+</li>
+<li>
+<blockquote>
+<blockquote>
+<p><code>python
+     &gt;   &gt;   def double(x):
+     &gt;   &gt;       print('**', x, '=&gt;', 2 * x, '**')
+     &gt;   &gt;       return 2 * x
+     &gt;   &gt;</code></p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code> &gt;   ```python
+ &gt;   &gt;&gt;&gt; m = map(double, [3, 5, 7])
+ &gt;   &gt;&gt;&gt; next(m)
+ &gt;   ** 3 =&gt; 6 **
+ &gt;   6
+ &gt;   &gt;&gt;&gt; next(m)
+ &gt;   ** 5 =&gt; 10 **
+ &gt;   10
+ &gt;   &gt;&gt;&gt; next(m)
+ &gt;   ** 7 =&gt; 14 **
+ &gt;   14
+ &gt;   &gt;&gt;&gt;
+ &gt;   ```
+</code></pre></div>
+</blockquote>
+<p>在这个例子中，可以注意到，map返回的迭代器，<strong>并不是直接把 传入的函数对可迭代对象的每个数据的返回值存在迭代器中，而是将可迭代对象和传入的函数绑定在同一个迭代器里，在迭代时就用==迭代器迭代返回的数据==去调用函数</strong>(所以才会运行 <code>print</code> 函数，即打印出东西)</p>
+</li>
+<li>
+<blockquote>
+<p><code>python
+     &gt;   &gt;&gt;&gt; m = map(double, range(3, 7))
+     &gt;   &gt;&gt;&gt; f = lambda y: y &gt;= 10
+     &gt;   &gt;&gt;&gt; t = filter(f, m)
+     &gt;   &gt;&gt;&gt; next(t)
+     &gt;   ** 3 =&gt; 6 **
+     &gt;   ** 4 =&gt; 8 **
+     &gt;   ** 5 =&gt; 10 **
+     &gt;   10
+     &gt;   &gt;&gt;&gt; next(t)
+     &gt;   ** 6 =&gt; 12 **
+     &gt;   12
+     &gt;   &gt;&gt;&gt; list(t)
+     &gt;   []
+     &gt;   &gt;&gt;&gt; list(filter(f, map(double, range(3, 7))))
+     &gt;   ** 3 =&gt; 6 **
+     &gt;   ** 4 =&gt; 8 **
+     &gt;   ** 5 =&gt; 10 **
+     &gt;   ** 6 =&gt; 12 **
+     &gt;   [10, 12]
+     &gt;   &gt;&gt;&gt;
+     &gt;</code></p>
+</blockquote>
+<p><strong><mark>这个例子</mark></strong>中，展示了 <code>filter</code> ，和 <code>map</code> 很类似，也是<strong>将迭代对象和函数绑定到一起(而不是直接取目标的返回值，也没有保存迭代对象的值)</strong>，所以在迭代 <mark><code>filter</code> 返回的迭代器==时，是==先迭代它的迭代对象</mark>，<mark>再将迭代返回值放入函数判断(不符合就继续迭代)</mark>(所以 <code>double</code> 内部的print语句才会执行)，<mark>然后返回符合(判断)函数的值</mark>。从这个例子中可以很清晰地看到这一点</p>
+</li>
+<li>
+<blockquote>
+<p><code>python
+     &gt;   &gt;&gt;&gt; t = [1, 2, 3, 2, 1]
+     &gt;   &gt;&gt;&gt; t
+     &gt;   [1, 2, 3, 2, 1]
+     &gt;   &gt;&gt;&gt; reversed(t)
+     &gt;   &lt;list_reverseiterator object at 0x000002597B1D12D0&gt;
+     &gt;   &gt;&gt;&gt; reversed(t) == t
+     &gt;   False
+     &gt;   &gt;&gt;&gt; list(reversed(t))
+     &gt;   [1, 2, 3, 2, 1]
+     &gt;   &gt;&gt;&gt; list(reversed(t)) == t
+     &gt;   True
+     &gt;   &gt;&gt;&gt;
+     &gt;</code></p>
+</blockquote>
+<p>这个例子展现了 <code>reversed</code> 返回的是一个迭代器(所以不会等于原来的列表)</p>
+</li>
+<li>
+<blockquote>
+<p><code>python
+     &gt;   &gt;&gt;&gt; d = {'a': 1, 'b': 2}
+     &gt;   &gt;&gt;&gt; d
+     &gt;   {'a': 1, 'b': 2}
+     &gt;   &gt;&gt;&gt; items = iter(d.items())
+     &gt;   &gt;&gt;&gt; next(items)
+     &gt;   ('a', 1)
+     &gt;   &gt;&gt;&gt; next(items)
+     &gt;   ('b', 2)
+     &gt;   &gt;&gt;&gt; items = zip(d.keys(), d.values())
+     &gt;   &gt;&gt;&gt; next(items)
+     &gt;   ('a', 1)
+     &gt;   &gt;&gt;&gt; next(items)
+     &gt;   ('b', 2)
+     &gt;   &gt;&gt;&gt;
+     &gt;</code></p>
+<div class="language-text highlight"><pre><span></span><code> &gt;   ![cs61a_75](../images/cs61a_75.png){ loading=lazy }
+</code></pre></div>
+</blockquote>
+<p>这个例子中，字典键值对的顺序和John的demo有点不一样，应该是由于python版本不同的原因</p>
+</li>
+</ol>
+<h3 id="7_2">7<a class="headerlink" href="#7_2" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_76.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_76" loading="lazy" src="../../images/cs61a_76.png" /></a></p>
+<p><em>生成器和生成器函数 Generators and Generator Functions</em></p>
+<p>使用 <code>yield</code> 而不是 <code>return</code> 关键字来返回值的函数，就是<em>生成器函数</em>，而<em>生成器函数</em>会返回一个<em>生成器</em>，<em>生成器</em>是一个迭代器，迭代时会按照函数中 <code>yield</code> 语句的顺序来返回值，参考上图</p>
+<p>John的一个demo</p>
+<blockquote>
+<blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a><span class="k">def</span> <span class="nf">evens</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>    <span class="n">even</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="p">(</span><span class="n">start</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a>    <span class="k">while</span> <span class="n">even</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+</span><span id="__span-91-4"><a id="__codelineno-91-4" name="__codelineno-91-4" href="#__codelineno-91-4"></a>        <span class="k">yield</span> <span class="n">even</span>
+</span><span id="__span-91-5"><a id="__codelineno-91-5" name="__codelineno-91-5" href="#__codelineno-91-5"></a>        <span class="n">even</span> <span class="o">+=</span> <span class="mi">2</span>
+</span></code></pre></div>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">evens</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span>
+</span><span id="__span-92-3"><a id="__codelineno-92-3" name="__codelineno-92-3" href="#__codelineno-92-3"></a><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="n">evens</span> <span class="n">at</span> <span class="mh">0x000002597B170580</span><span class="o">&gt;</span>
+</span><span id="__span-92-4"><a id="__codelineno-92-4" name="__codelineno-92-4" href="#__codelineno-92-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-92-5"><a id="__codelineno-92-5" name="__codelineno-92-5" href="#__codelineno-92-5"></a><span class="mi">2</span>
+</span><span id="__span-92-6"><a id="__codelineno-92-6" name="__codelineno-92-6" href="#__codelineno-92-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-92-7"><a id="__codelineno-92-7" name="__codelineno-92-7" href="#__codelineno-92-7"></a><span class="mi">4</span>
+</span><span id="__span-92-8"><a id="__codelineno-92-8" name="__codelineno-92-8" href="#__codelineno-92-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-92-9"><a id="__codelineno-92-9" name="__codelineno-92-9" href="#__codelineno-92-9"></a><span class="mi">6</span>
+</span><span id="__span-92-10"><a id="__codelineno-92-10" name="__codelineno-92-10" href="#__codelineno-92-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-92-11"><a id="__codelineno-92-11" name="__codelineno-92-11" href="#__codelineno-92-11"></a><span class="mi">8</span>
+</span><span id="__span-92-12"><a id="__codelineno-92-12" name="__codelineno-92-12" href="#__codelineno-92-12"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-92-13"><a id="__codelineno-92-13" name="__codelineno-92-13" href="#__codelineno-92-13"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span id="__span-92-14"><a id="__codelineno-92-14" name="__codelineno-92-14" href="#__codelineno-92-14"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span id="__span-92-15"><a id="__codelineno-92-15" name="__codelineno-92-15" href="#__codelineno-92-15"></a><span class="ne">StopIteration</span>
+</span><span id="__span-92-16"><a id="__codelineno-92-16" name="__codelineno-92-16" href="#__codelineno-92-16"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">evens</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</span><span id="__span-92-17"><a id="__codelineno-92-17" name="__codelineno-92-17" href="#__codelineno-92-17"></a><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</span><span id="__span-92-18"><a id="__codelineno-92-18" name="__codelineno-92-18" href="#__codelineno-92-18"></a><span class="o">&gt;&gt;&gt;</span>
+</span></code></pre></div>
+</blockquote>
+<p>John的解释是，当一个 <em>Generator Function</em> 被调用时，函数里面的语句不会被立即执行，而是直接返回一个 <em>Generator</em> ，而在 <em>generator</em> 每次迭代时，函数内的语句才会被执行，且只执行到下一个 <code>yield</code> 处就暂停执行，并返回值</p>
+<h3 id="8_1">8<a class="headerlink" href="#8_1" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_77.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_77" loading="lazy" src="../../images/cs61a_77.png" /></a></p>
+<p><strong><code>yield from</code> 语句</strong>，后面可以是 迭代器 或者 可迭代对象 (如果是迭代器估计会修改迭代器的位置)</p>
+<p>上图中还展示了生成器函数的一种类似于递归的写法</p>
+<blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2" href="#__codelineno-93-2"></a>    <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3" href="#__codelineno-93-3"></a>        <span class="k">yield</span> <span class="n">k</span>
+</span><span id="__span-93-4"><a id="__codelineno-93-4" name="__codelineno-93-4" href="#__codelineno-93-4"></a>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">countdown</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+</span><span id="__span-93-5"><a id="__codelineno-93-5" name="__codelineno-93-5" href="#__codelineno-93-5"></a>            <span class="k">yield</span> <span class="n">x</span>
+</span></code></pre></div>
+<p>更简洁的写法就是</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>    <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3" href="#__codelineno-94-3"></a>        <span class="k">yield</span> <span class="n">k</span>
+</span><span id="__span-94-4"><a id="__codelineno-94-4" name="__codelineno-94-4" href="#__codelineno-94-4"></a>        <span class="k">yield from</span> <span class="n">countdown</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+</blockquote>
+<h3 id="9_1">9<a class="headerlink" href="#9_1" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../images/cs61a_78.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_78" loading="lazy" src="../../images/cs61a_78.png" /></a></p>
+<p>John的一个神奇的生成器函数的demo，感觉很像递归的感觉，并且多个生成器函数组合使用可以产生神奇的效果</p>
+<h2 id="lecture-17-qa">Lecture 17 Q&amp;A<a class="headerlink" href="#lecture-17-qa" title="Permanent link">&para;</a></h2>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-18T07:35:44+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-18</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-19T06:35:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-19</span>
       
         <br>
         Created:
