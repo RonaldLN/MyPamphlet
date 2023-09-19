@@ -2055,6 +2055,77 @@ total = 10 + b(4)
 
 这是由于，前者 `b(3)` 在调用 `h` 函数的时候，改动了母框架中的 `x` 的值，使得两处代码中 `b(4)` 在调用 `h` 函数时，使用的值不一样，因此`total` 结果就不一样
 
+### 6
+
+这节课最后，教授提到的一题
+
+![cs61a_73](../images/cs61a_73.png){ loading=lazy }
+
+教授提到，在开始做这题时，可以寻找base cases是什么，
+
+然后从输入示例中可以得到，base case是当其中一个为零的时候
+
+---
+
+开始写代码时，我是先注意到最后的 `return` 的语句的形式，再联想到教授说到的 *tree recursion* ，所以我感觉括号外应该是一个 `min` ，然后括号里面是比较两种递归返回的值哪个更小，所以我就暂且填上：
+
+```python
+def combo(a, b):
+    if a == 0 or b == 0:
+        return a + b
+    elif ...:
+        return combo(...)
+    return min(combo(a // 10, b) * 10 + a % 10, combo(a, b // 10) * 10 + b % 10)
+```
+
+但是 `elif` 之后填什么一直没想到，(因为不知道有相同数字还有不同的数字要怎么分割怎么处理，以及a只剩一种数字的情况下，怎么判断放在b前面还是后面，感觉要分非常多种情况特别复杂，之后发现其实情况很简单...)
+
+直到三天之后
+
+开始继续思考这题时，我开始思考到达 base case 的最后一种情况，即 a 是个一位数，而 b 是 321，想到如果a和b某个数位相同，那么可以想*快速排序*一样将b分成两边去递归(但是好像对数字分割很难操作起来)，然后由分割就进一步开始想a和b的最后一位去比较(将b分割成前面和最后一位)，那么(要使得结果最小)应该是将大的那个放在最后，所以开始尝试编写代码
+
+但是发现 `elif` 后填不上东西，所以打算先不按它提供的结构自己写：
+
+```python
+def combo(a, b):
+    if a == 0 or b == 0:
+        return a + b
+    else:
+        if a % 10 < b % 10:
+            ...
+        else:
+            ...
+    # elif ...:
+    #     return combo(...)
+    # return min(combo(a // 10, b) * 10 + a % 10, combo(a, b // 10) * 10 + b % 10)
+```
+
+==然后发现 `...` 处的代码就是最后 `return` 中之前写的代码，并且能实现对应的处理功能==，所以 `elif` 后应该考虑的是a b最后一位相同的情况，故
+
+```python
+def combo(a, b):
+    """Return the smallest integer with all of the digits of a and b (in order).
+
+    >>> combo(531, 432)    # 45312 contains both _531_ and 4_3_2.
+    45312
+    >>> combo(531, 4321)   # 45321 contains both _531_ and 4_321.
+    45321
+    >>> combo(1234, 9123)  # 91234 contains both _1234 and 9123_.
+    91234
+    >>> combo(0, 321)      # The number 0 has no digits, so 0 is not in the result.
+    321
+    """
+    if a == 0 or b == 0:
+        return a + b
+    elif a % 10 == b % 10:
+        return combo(a // 10, b // 10) * 10 + a % 10
+    return min(combo(a // 10, b) * 10 + a % 10, combo(a, b // 10) * 10 + b % 10)
+```
+
+然后半信半疑地进行了测试，发现这竟然就是答案
+
+最后总结反思了一下，递归还是**得牢记要假设函数能返回所需要的东西**(我感觉这样可能就更好能想到分割出最后一位)
+
 ## Lecture 16 Q&A
 
 ### 1
@@ -2182,3 +2253,218 @@ RuntimeError: dictionary changed size during iteration
 ```
 
 而如果只是**修改已存在的键值对的值**，不会使得之前构建的迭代器失效(values, items对应的迭代器在修改了字典之后连接的会是修改之后的值)
+
+### 5
+
+`for` 语句也可以使用迭代器，但只是从迭代器当前的位置开始，并且会将迭代器的位置移动到最后，(感觉跟第二点很相像)
+
+```python
+>>> r = range(3, 6)
+>>> ri = iter(r)
+>>> next(ri)
+3
+>>> for i in ri:
+...     print(i)
+...
+4
+5
+>>> for i in ri:
+...     print(i)
+...
+>>> next(ri)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+### 6
+
+![cs61a_74](../images/cs61a_74.png){ loading=lazy }
+
+一些会返回迭代器的 built-in functions
+
+**==上图中的 `iterable` 也包括迭代器，所以迭代器也算作可迭代对象==**
+
+**John的个Demo**
+
+1.   >   ```python
+     >   >>> bcd = ['b', 'c', 'd']
+     >   >>> [x.upper() for x in bcd]
+     >   ['B', 'C', 'D']
+     >   >>> map(lambda x: x.upper(), bcd)
+     >   <map object at 0x000002597B19F730>
+     >   >>> m = map(lambda x: x.upper(), bcd)
+     >   >>> next(m)
+     >   'B'
+     >   >>> next(m)
+     >   'C'
+     >   >>> next(m)
+     >   'D'
+     >   >>> next(m)
+     >   Traceback (most recent call last):
+     >     File "<stdin>", line 1, in <module>
+     >   StopIteration
+     >   >>>
+     >   ```
+
+     这是一个简单展示的利用 `map` 来获取 一个将传入函数套用在迭代出来的数据的迭代器 的例子
+
+2.   >   >   ```python
+     >   >   def double(x):
+     >   >       print('**', x, '=>', 2 * x, '**')
+     >   >       return 2 * x
+     >   >   ```
+     >
+     >   ```python
+     >   >>> m = map(double, [3, 5, 7])
+     >   >>> next(m)
+     >   ** 3 => 6 **
+     >   6
+     >   >>> next(m)
+     >   ** 5 => 10 **
+     >   10
+     >   >>> next(m)
+     >   ** 7 => 14 **
+     >   14
+     >   >>>
+     >   ```
+
+     在这个例子中，可以注意到，map返回的迭代器，**并不是直接把 传入的函数对可迭代对象的每个数据的返回值存在迭代器中，而是将可迭代对象和传入的函数绑定在同一个迭代器里，在迭代时就用==迭代器迭代返回的数据==去调用函数**(所以才会运行 `print` 函数，即打印出东西)
+
+3.   >   ```python
+     >   >>> m = map(double, range(3, 7))
+     >   >>> f = lambda y: y >= 10
+     >   >>> t = filter(f, m)
+     >   >>> next(t)
+     >   ** 3 => 6 **
+     >   ** 4 => 8 **
+     >   ** 5 => 10 **
+     >   10
+     >   >>> next(t)
+     >   ** 6 => 12 **
+     >   12
+     >   >>> list(t)
+     >   []
+     >   >>> list(filter(f, map(double, range(3, 7))))
+     >   ** 3 => 6 **
+     >   ** 4 => 8 **
+     >   ** 5 => 10 **
+     >   ** 6 => 12 **
+     >   [10, 12]
+     >   >>>
+     >   ```
+
+     **==这个例子==**中，展示了 `filter` ，和 `map` 很类似，也是**将迭代对象和函数绑定到一起(而不是直接取目标的返回值，也没有保存迭代对象的值)**，所以在迭代 ==`filter` 返回的迭代器==时，是==先迭代它的迭代对象==，==再将迭代返回值放入函数判断(不符合就继续迭代)==(所以 `double` 内部的print语句才会执行)，==然后返回符合(判断)函数的值==。从这个例子中可以很清晰地看到这一点
+
+4.   >   ```python
+     >   >>> t = [1, 2, 3, 2, 1]
+     >   >>> t
+     >   [1, 2, 3, 2, 1]
+     >   >>> reversed(t)
+     >   <list_reverseiterator object at 0x000002597B1D12D0>
+     >   >>> reversed(t) == t
+     >   False
+     >   >>> list(reversed(t))
+     >   [1, 2, 3, 2, 1]
+     >   >>> list(reversed(t)) == t
+     >   True
+     >   >>>
+     >   ```
+
+     这个例子展现了 `reversed` 返回的是一个迭代器(所以不会等于原来的列表)
+
+5.   >   ```python
+     >   >>> d = {'a': 1, 'b': 2}
+     >   >>> d
+     >   {'a': 1, 'b': 2}
+     >   >>> items = iter(d.items())
+     >   >>> next(items)
+     >   ('a', 1)
+     >   >>> next(items)
+     >   ('b', 2)
+     >   >>> items = zip(d.keys(), d.values())
+     >   >>> next(items)
+     >   ('a', 1)
+     >   >>> next(items)
+     >   ('b', 2)
+     >   >>>
+     >   ```
+     >
+     >   ![cs61a_75](../images/cs61a_75.png){ loading=lazy }
+
+     这个例子中，字典键值对的顺序和John的demo有点不一样，应该是由于python版本不同的原因
+
+### 7
+
+![cs61a_76](../images/cs61a_76.png){ loading=lazy }
+
+*生成器和生成器函数 Generators and Generator Functions*
+
+使用 `yield` 而不是 `return` 关键字来返回值的函数，就是*生成器函数*，而*生成器函数*会返回一个*生成器*，*生成器*是一个迭代器，迭代时会按照函数中 `yield` 语句的顺序来返回值，参考上图
+
+John的一个demo
+
+>   >   ```python
+>   >   def evens(start, end):
+>   >       even = start + (start % 2)
+>   >       while even < end:
+>   >           yield even
+>   >           even += 2
+>   >   ```
+>
+>   ```python
+>   >>> t = evens(2, 10)
+>   >>> t
+>   <generator object evens at 0x000002597B170580>
+>   >>> next(t)
+>   2
+>   >>> next(t)
+>   4
+>   >>> next(t)
+>   6
+>   >>> next(t)
+>   8
+>   >>> next(t)
+>   Traceback (most recent call last):
+>     File "<stdin>", line 1, in <module>
+>   StopIteration
+>   >>> list(evens(1, 10))
+>   [2, 4, 6, 8]
+>   >>>
+>   ```
+
+John的解释是，当一个 *Generator Function* 被调用时，函数里面的语句不会被立即执行，而是直接返回一个 *Generator* ，而在 *generator* 每次迭代时，函数内的语句才会被执行，且只执行到下一个 `yield` 处就暂停执行，并返回值
+
+### 8
+
+![cs61a_77](../images/cs61a_77.png){ loading=lazy }
+
+**`yield from` 语句**，后面可以是 迭代器 或者 可迭代对象 (如果是迭代器估计会修改迭代器的位置)
+
+上图中还展示了生成器函数的一种类似于递归的写法
+
+>   ```python
+>   def countdown(k):
+>       if k > 0:
+>           yield k
+>           for x in countdown(k - 1):
+>               yield x
+>   ```
+>
+>   更简洁的写法就是
+>
+>   ```python
+>   def countdown(k):
+>       if k > 0:
+>           yield k
+>           yield from countdown(k - 1)
+>   ```
+
+### 9
+
+![cs61a_78](../images/cs61a_78.png){ loading=lazy }
+
+John的一个神奇的生成器函数的demo，感觉很像递归的感觉，并且多个生成器函数组合使用可以产生神奇的效果
+
+## Lecture 17 Q&A
+
