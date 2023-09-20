@@ -1973,6 +1973,20 @@ def sub_interval(x, y):
     return add_interval(x, interval(-upper_bound(y), -lower_bound(y)))
 ```
 
+## Homework 3 Hints
+
+### 1
+
+助教在提示Q5时，也说到了，**要假设/假想递归能返回正确的结果**
+
+!!! quote
+
+    so when we look at this problem. we see that the preordering of any tree always starts at the root, so it makes sense to make this our starting point, we want to add the current label to our pre ordering. so we want to maintain a list of the pre order, and we want to add our current label to the first element in our pre ordering. after we do that, we want to go through all of our children, so remember that we always go down the left most child, all the way to the right most child, in order. so we do pre order of this child, and then we do pre order of this left child, and then we do pre order the right child. so it makes sense to recurs down each child from left most to right most. and think about what you want to do with the recursive result, **remember that by the cursive leap of faith, we, remember that the pre ordering of any child, is assumed to return the correct value**. so think about what you expect the pre ordering of any child to be, and think about what you want to do with our result, and just a hint, that the call of pre order on any child is going to return a list, because pre ordering returns a list, based on the numbers there. so think about what you want to do the recursive result, and then maybe appending them or extending them, you want to return the pre ordering. so first you add the current label, then you add the results from each pre order on each child, and then we return the pre ordering of all of them. after you do all of this think about your base case, is there a base case you need to handle, maybe when the tree is a leaf, or maybe something similar to that. and I think that's enough for this problem good luck.
+    
+    ---
+    
+    在解决这个问题时，我们可以看到，任何树的前序遍历始终从根节点开始，因此将根节点作为我们的起始点是有意义的。我们希望将当前节点的标签添加到我们的前序遍历列表中，所以我们需要维护一个前序遍历的列表，并将当前节点的标签添加到前序遍历列表的第一个位置。在这之后，我们需要遍历所有的子节点。请记住，我们总是从最左边的子节点开始，一直遍历到最右边的子节点，按顺序进行。因此，我们首先对最左边的子节点进行前序遍历，然后对左子节点进行前序遍历，接着对右子节点进行前序遍历。这样，从最左边到最右边的子节点递归调用是有意义的。接下来，考虑如何处理递归结果。**请记住，按照递归的“跳跃信仰”，我们假定任何子节点的前序遍历都返回了正确的值**。因此，需要思考对递归结果要做什么，记住调用子节点的前序遍历会返回一个列表，根据这一点思考如何处理递归结果。一种可能的方式是将它们添加或扩展到当前前序遍历列表中。最终，我们需要返回前序遍历的结果。具体来说，操作顺序是：首先添加当前标签，然后添加每个子节点的前序遍历结果，最后返回所有子节点的前序遍历结果。在解决这个问题时，还需要考虑基本情况。是否有需要处理的基本情况，例如当树是叶子节点时，或者类似情况。在考虑完所有这些方面后，就可以着手解决问题了。祝你好运！
+
 ## Lecture 16 Mutable Functions
 
 ### 1
@@ -2137,6 +2151,57 @@ def combo(a, b):
 图中左侧，`a = a + b` 可以理解成，**先是 `a + b` 得到一个新的列表，然后将变量名 `a` 绑定到这个新的列表上**，所以 `c` 绑定的原列表没有被改变
 
 而右侧，`a += b` 可以类比成 `a.extend(b)` ，是**对 `a` 指向的列表本身进行了修改**，所以通过 `c` 也能看到列表改变了
+
+## Lab 06
+
+### 1
+
+Q4，我采用先取出和 `entry` 相同的元素的下标存在一个列表中，再将这些下标应用到 `insert` 方法上
+
+```python
+def insert_items(lst, entry, elem):
+    entries_indices = [i for i in range(len(lst)) if lst[i] == entry]
+    for index in entries_indices:
+        lst.insert(index, elem)
+    return lst
+```
+
+但是发现有两个地方需要修正：
+
+-   插入时，由于是在相应的元素之后插入，所以 `index` 需要改成 `index + 1` 
+
+-   由于如果按照从前到后插入新的元素，那么在前面插入时，会引起后面的元素的下标的改变，所以我改成从后往前插入，即把存储下标的列表顺序反过来
+
+    ```python
+        entries_indices = entries_indices[::-1]
+    ```
+
+??? note "code"
+
+    ```python
+    def insert_items(lst, entry, elem):
+        """
+        >>> test_lst = [1, 5, 8, 5, 2, 3]
+        >>> new_lst = insert_items(test_lst, 5, 7)
+        >>> new_lst
+        [1, 5, 7, 8, 5, 7, 2, 3]
+        >>> large_lst = [1, 4, 8]
+        >>> large_lst2 = insert_items(large_lst, 4, 4)
+        >>> large_lst2
+        [1, 4, 4, 8]
+        >>> large_lst3 = insert_items(large_lst2, 4, 6)
+        >>> large_lst3
+        [1, 4, 6, 4, 6, 8]
+        >>> large_lst3 is large_lst
+        True
+        """
+        "*** YOUR CODE HERE ***"
+        entries_indices = [i for i in range(len(lst)) if lst[i] == entry]
+        entries_indices = entries_indices[::-1]
+        for index in entries_indices:
+            lst.insert(index + 1, elem)
+        return lst
+    ```
 
 ## Lecture 17 Iterations
 
@@ -2467,4 +2532,162 @@ John的解释是，当一个 *Generator Function* 被调用时，函数里面的
 John的一个神奇的生成器函数的demo，感觉很像递归的感觉，并且多个生成器函数组合使用可以产生神奇的效果
 
 ## Lecture 17 Q&A
+
+### 1
+
+John 关于迭代器的解释
+
+!!! quote
+
+    yeah good question, so if an iterator is not a list, what is it. um, there are lots of different kinds of, uh, iterators, so you know it more by its behavior than its, like what it's constituted of. an iterator is something that you can call next on, and get more elements. in the case of a list, the iterator for a list, is more than just a list, it's kind of a reference to the list along with a position in that list that tells you where you are, so that if you call the next thing the iterator advances, meaning that if you called next again you'd get something else than you did the first time. so in that sense, it's, it has different behavior than a list, because it's both a list and like a marker for where you are. but list iterators are not the only kind of iterators, you could have an iterator through the labels in a tree, you could have an iterator through the prefixes in a string, you could have an iterator kind of through anything, and it's just a description of something that lets you go through multiple elements in some order by calling next on the iterator and getting the next value, and you can do that over and over again. so it's quite an abstract thing as opposed to, feeling quite as concrete as for example a list.
+    
+    ---
+    
+    好问题，如果迭代器不是一个列表，它是什么。嗯，有很多不同类型的迭代器，所以你更多地通过它的行为而不是它的行为来了解它，比如它是由什么组成的。迭代器是您接下来可以调用并获取更多元素的东西。在列表的情况下，列表的迭代器不仅仅是一个列表，它是对列表的引用，以及列表中的一个位置，告诉你在哪里，所以如果你调用下一个东西，迭代器会前进，这意味着如果你再次调用next，你会得到比第一次不同的东西。从这个意义上说，它的行为与列表不同，因为它既是一个列表，又像是一个你所在位置的标记。但列表迭代器并不是唯一一种迭代器，你可以通过树中的标签有一个迭代器。你可以通过字符串中的前缀有一个迭代器。你也可以通过任何东西有一个iterator。它只是一个东西的描述，让你通过在迭代器上调用next并获得下一个值来按某种顺序遍历多个元素，你可以一次又一次地这样做。所以这是一件非常抽象的事情，而不是像列表一样具体。
+
+### 2
+
+![cs61a_79](../images/cs61a_79.png){ loading=lazy }
+
+John展示了一种不使用 `yield` 关键字也可以实现相同功能的写法：
+
+```python
+def prefixes(s):
+    result = []
+    if s:
+        for x in prefixes(s[:-1]):
+            result.append(x)
+    return result
+
+print(list(prefixes('doges')))
+```
+
+>   原本的使用 `yield` 的写法
+>
+>   ```python
+>   def prefixes(s):
+>       if s:
+>           for x in prefixes(s[:-1]):
+>               yield x
+>           yield s
+>   
+>   print(list(prefixes('doges')))
+>   ```
+
+### 3
+
+John 和 Hany 解释关于迭代器每次迭代时就会被*更改*的特点(一次性使用的特点)
+
+!!! quote
+    
+    ```python
+    s = [1, 2, 3]
+    t = iter(s)
+    
+    len(list(t)) #-> returns 3
+    len(list(t)) #-> returns 0?
+    ```
+    
+    **John**:
+    
+    yeah good question, so the questions about this example and why is it the case that when you get the length of, uh, the result of listing out the contents of an iterator twice you get a different thing each time, first time you got three things, next time you got zero things. this isn't something having to do with len, this is having to do with how list interacts with an iterator. when you call list on an iterator, you end up building a list of all the contents of that iterator, but the iterator is used up as a side effect of calling list on it. so, if i have an iterator over these values, um, i can get one thing out of it, but then if i get another thing i get a different thing. list is kind of like calling next over and over again, and putting all the results in a list. so as soon as you call list on t, you're going to get everything that's left over in the iterator, that hasn't been used up or returned already. so we've already seen the one, we've seen the two, therefore calling list on t will just show us the three. and now t is used up, i can't get the next thing in t, because we're already at the end, and so if i try to list everything that's left and t, i'll get an empty list. so your version was start with this, get all the contents of that, which is a list containing one two and three. if i do this, i'm changing t. this is, uh, every time you get elements from an iterator, you're changing that iterator, which means you can't really use it again. so if you get the length of this you get three, you get the length of this you get zero.
+    
+    **Hany**:
+    
+    **so think of these iterators as one use disposable operators, once you've gone through the list, either next next next next, or the list of it is you're essentially enumerating the list, it's gone**. right, so by the way you could have implemented this yourself, you could have written a function that every time you access an element, the next element, you delete that element from the list, that's essentially what's going on here. yeah. and so once you, it's a funny thing about iterators by the way, is that once you look at the list, it's, it's sort of like, uh, what is it, **it's like snapchat, right, the image comes in, you look at it, and then it vanishes, it's gone**.
+    
+    **John**:
+    
+    that is beautiful.
+    
+    **Hany**:
+    
+    yeah, you got to be impressed by somebody my age, making a snapchat reference, that's, that's i think you know, you have a little credit for that.
+    
+    **John**:
+    
+    perfect snapchat analogy.
+    
+    ---
+    
+    ```python
+    s = [1, 2, 3]
+    t = iter(s)
+    
+    len(list(t)) #-> returns 3
+    len(list(t)) #-> returns 0?
+    ```
+    
+    **John**:
+    
+    是的，这是一个很好的问题。关于这个示例的问题是，为什么在两次获取迭代器的内容的长度时，每次都会得到不同的结果？第一次得到三个元素，下一次却得到零个元素？这与 `len` 函数无关，而与 `list` 如何与迭代器交互有关。当你在迭代器上调用 `list` 时，你实际上正在构建一个包含该迭代器的所有内容的列表，但调用 `list` 会消耗迭代器，这是一个副作用。因此，如果我有一个迭代器遍历这些值，我可以从中获取一个元素，但如果我再次获取一个元素，我将得到不同的结果。 `list` 就像一次又一次地调用 `next` ，然后将所有结果放入列表中。因此，一旦在 `t` 上调用 `list` ，你将获得迭代器中剩余的所有内容，这些内容尚未被使用或返回。所以我们已经看到了1和2，因此在 `t` 上调用 `list` 将只显示3。现在 `t` 已经被用完了，我无法再获取 `t` 中的下一个元素，因为我们已经到达末尾，所以如果我尝试列出 `t` 中剩下的所有内容，我将得到一个空列表。所以你的版本是从这个开始，获取了包含1、2和3的列表。如果我做这个，我就改变了 `t` 。每当从迭代器中获取元素时，你都会改变该迭代器，这意味着你不能再次使用它。因此，如果你获取这个的长度，你会得到3，如果你获取这个的长度，你会得到0。
+    
+    **Hany**:
+    
+    **所以把这些迭代器看作是一次性的操作符，一旦你遍历了列表，无论是通过连续调用 `next` 还是通过调用 `list` ，它们都消失了**。对，顺便说一句，你其实可以自己实现这个，你可以编写一个函数，每次访问一个元素，都从列表中删除那个元素，这本质上就是这里发生的事情。是的，所以一旦你看过列表，**这有点像 Snapchat，对吧？图像进来，你看了一眼，然后它就消失了，没有了**。
+    
+    **John**:
+    
+    这太精彩了。
+    
+    **Hany**:
+    
+    是的，你得对我这个年龄的人能够提到 Snapchat 感到印象深刻，我想你应该给我点信用。
+    
+    **John**:
+    
+    完美的 Snapchat 比喻。
+
+## Lecture 18 Objects
+
+### 1
+
+![cs61a_80](../images/cs61a_80.png){ loading=lazy }
+
+关于 class 和 object 之间的关系的形容
+
+!!! quote
+
+    关于 class 和 object 的解释：
+    
+    -   **class**: A class combines (and abstracts) data and functions
+    -   **object**: An object is an instantiation of a class
+
+### 2
+
+![cs61a_81](../images/cs61a_81.png){ loading=lazy }
+
+类内的方法在编写是，第一个参数须是 `self` ，
+
+但类内方法在被调用的时候，不需要传入 `self` 的值，或者说 `self` 就是调用方法的实例，所以只需要传入之后的参数
+
+### 3
+
+![cs61a_82](../images/cs61a_82.png){ loadind=lazy }
+
+python有内置函数可以查询/访问类的实例的*属性(attribute)*，或者是类的属性 (**==类内的方法算作是类本身的属性，而不是具体实例的属性==**)
+
+`getattr()` 可以访问属性，获取对应的值
+
+`hasatrr()` 可以看是否有某个属性
+
+**函数的第一个参数需要传入实例，第二个参数需要传入要查询的属性的属性名(以字符串传入)**
+
+### 4
+
+![cs61a_83](../images/cs61a_83.png){ loading=lazy }
+
+如上图，`类名.方法名` 是一个函数，并且 `self` 参数需要传入东西，而 `对象.方法名` 是一个方法，`self` 不用传
+
+### 5
+
+![cs61a_84](../images/cs61a_84.png){ loading=lazy }
+
+**类属性**
+
+如上图，在类中赋值的变量，(应该)就是类的属性(类内的方法也算是类的属性，第3点有提到过)，
+
+**==类属性不是对象/实例的一部分，而是类的一部分，如果更改类属性，那么通过其他类的对象访问出来的类属性应该都是更改后的值==**
+
+## Lecture 18 Q&A
 
