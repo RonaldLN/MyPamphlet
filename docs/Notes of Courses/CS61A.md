@@ -2758,6 +2758,14 @@ AttributeError: interest
 >>>
 ```
 
+### 2
+
+![cs61a_85](../images/cs61a_85.png){ loading=lazy }
+
+`del` 也可以删除列表中的元素，
+
+但是John说 `del` 不常用
+
 ## HW 04
 
 ### 1
@@ -2992,4 +3000,22 @@ Q6
     ```
 
 ## Lecture 19 Inheritance
+
+### 1
+
+![cs61a_86](../images/cs61a_86.png){ loading=lazy }
+
+用 *点表达式 dot expression* 给属性赋值
+
+==如果*点 `.`* 左边的对象是实例，那么赋值的就是实例的属性，==
+
+==而如果*点 `.`* 左边的对象是类，那么赋值的就是类的属性==
+
+>   这就解释了上节课 Q&A 中的第一点
+
+并且，由于
+
+>   Attribute assignment statement adds or modifies the attribute named ...
+
+所以，属性赋值就是，如果实例/类**还没有**对应名字的属性，那么赋值就会添加一个相对应的属性，而如果已经存在对应名字的属性，那么就会修改这个属性的值
 
