@@ -3019,3 +3019,57 @@ Q6
 
 所以，属性赋值就是，如果实例/类**还没有**对应名字的属性，那么赋值就会添加一个相对应的属性，而如果已经存在对应名字的属性，那么就会修改这个属性的值
 
+### 2
+
+![cs61a_87](../images/cs61a_87.png){ loading=lazy }
+
+通过 `实例.属性` ，实际上是先在实例中先查看是否有对应的属性，如果有就返回，如果没有就到类中去查看是否有对应的属性
+
+![cs61a_88](../images/cs61a_88.png){ loading=lazy }
+
+### 3
+
+继承的语法：
+
+```python
+class <name>(<base class>):
+    <suite>
+```
+
+### 4
+
+![cs61a_89](../images/cs61a_89.png){ loading=lazy }
+
+一个使用继承的例子，没想到居然可以这样使用父类的方法 来修改成为自己的方法(惊奇地发现 `self` 参数原来是这么用的)
+
+### 5
+
+![cs61a_90](../images/cs61a_90.png){ loading=lazy }
+
+子类与父类的属性的使用关系感觉也是和实例与类的属性使用关系很像，即**父类的属性并没有复制并绑定到子类中，而是在使用属性时，现在子类中查看，如果没有就到父类中查看**(如果父类中没有就继续到父类的父类...)
+
+### 6
+
+John在demo中展示了 `CheckingAccount` 的 `withdraw` 方法的两种写法：
+
+-   ```python
+    class CheckingAccount(Account):
+        ...
+        def withdraw(self, amount):
+            amount = amount + 1
+            if amount > self.balance:
+                return 'Insufficient funds'
+            self.balance = self.balance - amount
+            return self.balance
+    ```
+
+-   ```python
+    class CheckingAccount(Account):
+        ...
+        withdraw_fee = 1
+        def withdraw(self, amount):
+            return Account.withdraw(self, amount + self.withdraw_fee)
+    ```
+
+前者相比于后者有个类似于(之前数据抽象相关的课程中提到的)打破抽象的界限的问题，会存在一个隐患，即如果对父类的方法进行修改，那么子类的方法还会是原来的样子，而后者如果父类被修改了，子类也会跟着一起修改
+

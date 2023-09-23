@@ -4,6 +4,23 @@
 
 且，设置图例( `legned()` )、坐标轴标签和标题( `title("text")` )的函数只对代码中最近的窗口有效
 
+## 2
+
+保存图像的方法
+
+>   ```python
+>   from matplotlib import pyplot as plt
+>   ```
+
+`plt.savefig()` 可以把图像保存成图片，但是会把之前添加过的数据都放在一个图里面
+
+我就每次输出成文件后清除数据
+
+```python
+plt.savefig(path + '.png')
+plt.clf()
+```
+
 ---
 
 ??? example "chat log"
