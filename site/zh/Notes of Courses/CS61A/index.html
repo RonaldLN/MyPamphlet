@@ -1626,6 +1626,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2_21" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_17" class="md-nav__link">
+    3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_14" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_10" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_7" class="md-nav__link">
+    6
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3451,6 +3486,41 @@
           <li class="md-nav__item">
   <a href="#1_30" class="md-nav__link">
     1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_21" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_17" class="md-nav__link">
+    3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_14" class="md-nav__link">
+    4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_10" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_7" class="md-nav__link">
+    6
   </a>
   
 </li>
@@ -5829,13 +5899,52 @@ it, think about a blueprint for a house, is the class, and the house is the thin
 <p>Attribute assignment statement adds or modifies the attribute named ...</p>
 </blockquote>
 <p>所以，属性赋值就是，如果实例/类<strong>还没有</strong>对应名字的属性，那么赋值就会添加一个相对应的属性，而如果已经存在对应名字的属性，那么就会修改这个属性的值</p>
+<h3 id="2_21">2<a class="headerlink" href="#2_21" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/cs61a_87.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_87" loading="lazy" src="../../../images/cs61a_87.png" /></a></p>
+<p>通过 <code>实例.属性</code> ，实际上是先在实例中先查看是否有对应的属性，如果有就返回，如果没有就到类中去查看是否有对应的属性</p>
+<p><a class="glightbox" href="../../../images/cs61a_88.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_88" loading="lazy" src="../../../images/cs61a_88.png" /></a></p>
+<h3 id="3_17">3<a class="headerlink" href="#3_17" title="Permanent link">&para;</a></h3>
+<p>继承的语法：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a><span class="k">class</span> <span class="err">&lt;</span><span class="nc">name</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&lt;</span><span class="n">base</span> <span class="n">class</span><span class="o">&gt;</span><span class="p">):</span>
+</span><span id="__span-116-2"><a id="__codelineno-116-2" name="__codelineno-116-2" href="#__codelineno-116-2"></a>    <span class="o">&lt;</span><span class="n">suite</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<h3 id="4_14">4<a class="headerlink" href="#4_14" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/cs61a_89.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_89" loading="lazy" src="../../../images/cs61a_89.png" /></a></p>
+<p>一个使用继承的例子，没想到居然可以这样使用父类的方法 来修改成为自己的方法(惊奇地发现 <code>self</code> 参数原来是这么用的)</p>
+<h3 id="5_10">5<a class="headerlink" href="#5_10" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/cs61a_90.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cs61a_90" loading="lazy" src="../../../images/cs61a_90.png" /></a></p>
+<p>子类与父类的属性的使用关系感觉也是和实例与类的属性使用关系很像，即<strong>父类的属性并没有复制并绑定到子类中，而是在使用属性时，现在子类中查看，如果没有就到父类中查看</strong>(如果父类中没有就继续到父类的父类...)</p>
+<h3 id="6_7">6<a class="headerlink" href="#6_7" title="Permanent link">&para;</a></h3>
+<p>John在demo中展示了 <code>CheckingAccount</code> 的 <code>withdraw</code> 方法的两种写法：</p>
+<ul>
+<li>
+<p><code>python
+    class CheckingAccount(Account):
+        ...
+        def withdraw(self, amount):
+            amount = amount + 1
+            if amount &gt; self.balance:
+                return 'Insufficient funds'
+            self.balance = self.balance - amount
+            return self.balance</code></p>
+</li>
+<li>
+<p><code>python
+    class CheckingAccount(Account):
+        ...
+        withdraw_fee = 1
+        def withdraw(self, amount):
+            return Account.withdraw(self, amount + self.withdraw_fee)</code></p>
+</li>
+</ul>
+<p>前者相比于后者有个类似于(之前数据抽象相关的课程中提到的)打破抽象的界限的问题，会存在一个隐患，即如果对父类的方法进行修改，那么子类的方法还会是原来的样子，而后者如果父类被修改了，子类也会跟着一起修改</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-22T03:21:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-22</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-23T04:42:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-23</span>
       
         <br>
         创建日期:
