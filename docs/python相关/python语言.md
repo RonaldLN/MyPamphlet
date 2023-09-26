@@ -184,3 +184,11 @@ def write_data_to_csv(file_name, data_list):
 ```
 
 `encoding` 参数是编码格式，选择 `"gbk"` excel能正常打开，选择 `"utf-8"` excel好像会显示乱码
+
+## 9
+
+命令行中的python的退出：
+
+- Linux系统下(可能MacOS系统下也是)，是 ++ctrl+d++
+- Windows系统下，则是 ++ctrl+d++ 然后 ++enter++
+
