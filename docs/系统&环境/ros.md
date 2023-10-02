@@ -46,7 +46,7 @@ unset __conda_setup
 
 > 但是我发现直接执行 `conda deactivate` 的命令也可以退出 anaconda 的 base 环境
 >
-> ![exit_anaconda](/home/ronald/Github/MyPamphlet/docs/images/exit_anaconda.png){ loading=lazy }
+> ![exit_anaconda](../images/exit_anaconda.png){ loading=lazy }
 
 但是发现还是显示 `No module named 'rospkg'` ，
 
