@@ -982,6 +982,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1150,6 +1157,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1230,13 +1244,45 @@
 <li>Conda 可执行文件：<code>...\Anaconda3\Scripts\conda.exe</code></li>
 <li>加载环境</li>
 </ol>
+<h2 id="5">5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>在 git bash 中使用 conda 环境</p>
+<p>直接执行 <code>conda activate</code> 的命令会显示</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>conda<span class="w"> </span>activate
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>CommandNotFoundError:<span class="w"> </span>Your<span class="w"> </span>shell<span class="w"> </span>has<span class="w"> </span>not<span class="w"> </span>been<span class="w"> </span>properly<span class="w"> </span>configured<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="s1">&#39;conda activate&#39;</span>.
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>If<span class="w"> </span>using<span class="w"> </span><span class="s1">&#39;conda activate&#39;</span><span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>batch<span class="w"> </span>script,<span class="w"> </span>change<span class="w"> </span>your
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>invocation<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;CALL conda.bat activate&#39;</span>.
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>To<span class="w"> </span>initialize<span class="w"> </span>your<span class="w"> </span>shell,<span class="w"> </span>run
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span>$<span class="w"> </span>conda<span class="w"> </span>init<span class="w"> </span>&lt;SHELL_NAME&gt;
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>Currently<span class="w"> </span>supported<span class="w"> </span>shells<span class="w"> </span>are:
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span>-<span class="w"> </span>bash
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">  </span>-<span class="w"> </span>cmd.exe
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">  </span>-<span class="w"> </span>fish
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">  </span>-<span class="w"> </span>tcsh
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">  </span>-<span class="w"> </span>xonsh
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">  </span>-<span class="w"> </span>zsh
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">  </span>-<span class="w"> </span>powershell
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>See<span class="w"> </span><span class="s1">&#39;conda init --help&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information<span class="w"> </span>and<span class="w"> </span>options.
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>IMPORTANT:<span class="w"> </span>You<span class="w"> </span>may<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>close<span class="w"> </span>and<span class="w"> </span>restart<span class="w"> </span>your<span class="w"> </span>shell<span class="w"> </span>after<span class="w"> </span>running<span class="w"> </span><span class="s1">&#39;conda init&#39;</span>.
+</span></code></pre></div>
+<p>解决的办法是</p>
+<p><a href="https://github.com/microsoft/vscode-python/issues/19534#issuecomment-1194774160">Conda environment fails to activate with Git Bash · Issue #19534 · microsoft/vscode-python (github.com)</a></p>
+<p><code>source</code> anaconda3 安装路径下的 <code>/Scripts/activate</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">source</span><span class="w"> </span>/e/Programs/Anaconda3/Scripts/activate
+</span></code></pre></div>
+<p>然后就会启动 anaconda 的 base 环境，这时 <code>conda activate xxx</code> 就有用了</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-26T02:50:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-26</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-03T14:57:03+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-03</span>
       
         <br>
         Created:
