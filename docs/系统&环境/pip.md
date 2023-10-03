@@ -37,3 +37,11 @@ pip install [-U / --updrade] xxx
 pip install xxx==x.x.x
 ```
 
+## 4
+
+pip 安装某个本地的 包 / `.whl` 文件，直接 `pip install xxx.whl` 即可
+
+```bash
+pip install xxx.whl
+```
+
