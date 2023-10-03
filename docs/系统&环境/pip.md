@@ -47,6 +47,8 @@ pip install xxx.whl
 
 ## 5
 
+[Python查看第三方库、包的所有可用版本，历史版本_python 2.7 pip查询可用库版本-CSDN博客](https://blog.csdn.net/u011519550/article/details/88890382)
+
 如果想查询要安装的包所有可以安装的版本
 
 可以这样
