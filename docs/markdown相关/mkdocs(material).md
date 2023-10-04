@@ -1086,3 +1086,77 @@ extra_css:
 可以按 [Color scheme](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme) 中直接设置 `scheme` 选项
 
 也可以按 [Color palette toggle](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle) 设置多个主题切换，而都是在相应的 `scheme` 选项之后填写设置的对应 *关键字*/主题名字 即可
+
+## 30
+
+添加评论
+
+[Adding a comment system - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/)
+
+需要先将github仓库的讨论打开(可见 [手册 - github - 6](https://ronaldln.github.io/MyPamphlet/git%E7%9B%B8%E5%85%B3/github%26gitee/#6))
+
+然后按照说明文档上的，安装 **[Giscus GitHub App](https://github.com/apps/giscus)** 并给对应仓库的权限，
+
+然后在 [giscus](https://giscus.app/zh-CN) 网页上自行选择一些选项，然后生成一小段代码
+
+再在 `mkdocs.yml` 相同路径的 `overrides` 文件夹中(如果没有就创建一个)，创建 `overrides/partials/comments.html` :
+
+```html
+{% if page.meta.comments %}
+  <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+  <!-- Insert generated snippet here -->
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+{% endif %}
+
+```
+
+并将 giscus 网页上生成的代码粘贴到注释中的对应位置
+
+**此外**
+
+由于我使用的是自定义的颜色，并且评论的颜色也想进行一些修改，所以对上面的代码进行一些修改
+
+需要关注两处
+
+```html
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+```
+
+我将 `"slate"` 改成了我之前自定义的网页主题 `"sunset-glow-dark"` ，将 `"transparent_dark"` 和 `"light"` 改成了我认为更适合我自定义主题的颜色 `"noborder_dark"` 和 `"dark_dimmed"`

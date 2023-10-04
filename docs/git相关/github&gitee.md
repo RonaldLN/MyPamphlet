@@ -45,3 +45,13 @@ ssh-keygen -t ed25519 -C "xxx@example.com"
 ```bash
 git pull
 ```
+
+## 6
+
+github 仓库设置 *讨论* GitHub Discussions
+
+[GitHub Discussions 文档 - GitHub 文档](https://docs.github.com/zh/discussions)
+
+在 **Settings - General - Features - Discussions** 前面勾选上
+
+就可以打开*讨论*功能了
