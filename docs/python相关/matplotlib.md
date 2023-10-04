@@ -21,6 +21,28 @@ plt.savefig(path + '.png')
 plt.clf()
 ```
 
+## 3
+
+```python
+import matplotlib
+
+fig = matplotlib.pyplot.figure()
+```
+
+直接使用会报错
+
+```bash
+AttributeError: module 'matplotlib' has no attribute 'pyplot'
+```
+
+需要单独进行导入
+
+```python
+import matplotlib.pyplot as plt
+```
+
+代码中进行相应的修改就可以正常使用
+
 ---
 
 ??? example "chat log"
