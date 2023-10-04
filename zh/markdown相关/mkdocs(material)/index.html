@@ -826,6 +826,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    30
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1494,6 +1501,13 @@
         <li class="md-nav__item">
   <a href="#29" class="md-nav__link">
     29
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    30
   </a>
   
 </li>
@@ -2356,13 +2370,70 @@
 <p><strong><code>mkdocs.yml</code> 中的设置</strong>：</p>
 <p>可以按 <a href="https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme">Color scheme</a> 中直接设置 <code>scheme</code> 选项</p>
 <p>也可以按 <a href="https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle">Color palette toggle</a> 设置多个主题切换，而都是在相应的 <code>scheme</code> 选项之后填写设置的对应 <em>关键字</em>/主题名字 即可</p>
+<h2 id="30">30<a class="headerlink" href="#30" title="Permanent link">&para;</a></h2>
+<p>添加评论</p>
+<p><a href="https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/">Adding a comment system - Material for MkDocs (squidfunk.github.io)</a></p>
+<p>需要先将github仓库的讨论打开(可见 <a href="https://ronaldln.github.io/MyPamphlet/git%E7%9B%B8%E5%85%B3/github%26gitee/#6">手册 - github - 6</a>)</p>
+<p>然后按照说明文档上的，安装 <strong><a href="https://github.com/apps/giscus">Giscus GitHub App</a></strong> 并给对应仓库的权限，</p>
+<p>然后在 <a href="https://giscus.app/zh-CN">giscus</a> 网页上自行选择一些选项，然后生成一小段代码</p>
+<p>再在 <code>mkdocs.yml</code> 相同路径的 <code>overrides</code> 文件夹中(如果没有就创建一个)，创建 <code>overrides/partials/comments.html</code> :</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>{% if page.meta.comments %}
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;__comments&quot;</span><span class="p">&gt;</span>{{ lang.t(&quot;meta.comments&quot;) }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>  <span class="cm">&lt;!-- Insert generated snippet here --&gt;</span>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>  <span class="cm">&lt;!-- Synchronize Giscus theme with palette --&gt;</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">giscus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;script[src*=giscus]&quot;</span><span class="p">)</span>
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a><span class="w">    </span><span class="c1">// Set palette on initial load</span>
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">__md_get</span><span class="p">(</span><span class="s2">&quot;__palette&quot;</span><span class="p">)</span>
+</span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">palette</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-52-12"><a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a><span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span>
+</span><span id="__span-52-13"><a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a><span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;transparent_dark&quot;</span>
+</span><span id="__span-52-14"><a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span>
+</span><span id="__span-52-15"><a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a>
+</span><span id="__span-52-16"><a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a><span class="w">      </span><span class="c1">// Instruct Giscus to set theme</span>
+</span><span id="__span-52-17"><a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a><span class="w">      </span><span class="nx">giscus</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;data-theme&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">theme</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-52-18"><a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-52-19"><a id="__codelineno-52-19" name="__codelineno-52-19" href="#__codelineno-52-19"></a>
+</span><span id="__span-52-20"><a id="__codelineno-52-20" name="__codelineno-52-20" href="#__codelineno-52-20"></a><span class="w">    </span><span class="c1">// Register event handlers after documented loaded</span>
+</span><span id="__span-52-21"><a id="__codelineno-52-21" name="__codelineno-52-21" href="#__codelineno-52-21"></a><span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-52-22"><a id="__codelineno-52-22" name="__codelineno-52-22" href="#__codelineno-52-22"></a><span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[data-md-component=palette]&quot;</span><span class="p">)</span>
+</span><span id="__span-52-23"><a id="__codelineno-52-23" name="__codelineno-52-23" href="#__codelineno-52-23"></a><span class="w">      </span><span class="nx">ref</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-52-24"><a id="__codelineno-52-24" name="__codelineno-52-24" href="#__codelineno-52-24"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">__md_get</span><span class="p">(</span><span class="s2">&quot;__palette&quot;</span><span class="p">)</span>
+</span><span id="__span-52-25"><a id="__codelineno-52-25" name="__codelineno-52-25" href="#__codelineno-52-25"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">palette</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-52-26"><a id="__codelineno-52-26" name="__codelineno-52-26" href="#__codelineno-52-26"></a><span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span>
+</span><span id="__span-52-27"><a id="__codelineno-52-27" name="__codelineno-52-27" href="#__codelineno-52-27"></a><span class="w">            </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;transparent_dark&quot;</span>
+</span><span id="__span-52-28"><a id="__codelineno-52-28" name="__codelineno-52-28" href="#__codelineno-52-28"></a><span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span>
+</span><span id="__span-52-29"><a id="__codelineno-52-29" name="__codelineno-52-29" href="#__codelineno-52-29"></a>
+</span><span id="__span-52-30"><a id="__codelineno-52-30" name="__codelineno-52-30" href="#__codelineno-52-30"></a><span class="w">          </span><span class="c1">// Instruct Giscus to change theme</span>
+</span><span id="__span-52-31"><a id="__codelineno-52-31" name="__codelineno-52-31" href="#__codelineno-52-31"></a><span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.giscus-frame&quot;</span><span class="p">)</span>
+</span><span id="__span-52-32"><a id="__codelineno-52-32" name="__codelineno-52-32" href="#__codelineno-52-32"></a><span class="w">          </span><span class="nx">frame</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+</span><span id="__span-52-33"><a id="__codelineno-52-33" name="__codelineno-52-33" href="#__codelineno-52-33"></a><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">giscus</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">setConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-52-34"><a id="__codelineno-52-34" name="__codelineno-52-34" href="#__codelineno-52-34"></a><span class="w">            </span><span class="s2">&quot;https://giscus.app&quot;</span>
+</span><span id="__span-52-35"><a id="__codelineno-52-35" name="__codelineno-52-35" href="#__codelineno-52-35"></a><span class="w">          </span><span class="p">)</span>
+</span><span id="__span-52-36"><a id="__codelineno-52-36" name="__codelineno-52-36" href="#__codelineno-52-36"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-52-37"><a id="__codelineno-52-37" name="__codelineno-52-37" href="#__codelineno-52-37"></a><span class="w">      </span><span class="p">})</span>
+</span><span id="__span-52-38"><a id="__codelineno-52-38" name="__codelineno-52-38" href="#__codelineno-52-38"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-52-39"><a id="__codelineno-52-39" name="__codelineno-52-39" href="#__codelineno-52-39"></a><span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-52-40"><a id="__codelineno-52-40" name="__codelineno-52-40" href="#__codelineno-52-40"></a>{% endif %}
+</span></code></pre></div>
+<p>并将 giscus 网页上生成的代码粘贴到注释中的对应位置</p>
+<p><strong>此外</strong></p>
+<p>由于我使用的是自定义的颜色，并且评论的颜色也想进行一些修改，所以对上面的代码进行一些修改</p>
+<p>需要关注两处</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>      var theme = palette.color.scheme === &quot;slate&quot;
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>        ? &quot;transparent_dark&quot;
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>        : &quot;light&quot;
+</span></code></pre></div>
+<p>我将 <code>"slate"</code> 改成了我之前自定义的网页主题 <code>"sunset-glow-dark"</code> ，将 <code>"transparent_dark"</code> 和 <code>"light"</code> 改成了我认为更适合我自定义主题的颜色 <code>"noborder_dark"</code> 和 <code>"dark_dimmed"</code></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-26T02:50:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-26</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-04T06:41:25+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-04</span>
       
         <br>
         创建日期:
