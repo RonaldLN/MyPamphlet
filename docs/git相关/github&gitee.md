@@ -55,3 +55,76 @@ github 仓库设置 *讨论* GitHub Discussions
 在 **Settings - General - Features - Discussions** 前面勾选上
 
 就可以打开*讨论*功能了
+
+## 7
+
+git 代理相关问题
+
+由于之前想在 git bash 终端中使用 clash 的代理所以在 `E:\Program Files\Git\etc\bash.bashrc` 最上方按网上说的添加了
+
+```bash
+# Clash
+export http_proxy=https://127.0.0.1:7890;export https_proxy=https://127.0.0.1:7890
+```
+
+然后发现 `git clone` 在不打开 clash 的情况下会有报错
+
+```bash
+Collecting git+https://github.com/huggingface/peft.git (from -r requirements.txt (line 8))
+  Cloning https://github.com/huggingface/peft.git to c:\users\administrator\appdata\local\temp\pip-req-build-t4u9g6h5
+  Running command git clone --filter=blob:none --quiet https://github.com/huggingface/peft.git 'C:\Users\Administrator\AppData\Local\Temp\pip-req-build-t4u9g6h5'
+  fatal: unable to access 'https://github.com/huggingface/peft.git/': Failed to connect to 127.0.0.1 port 7890 after 2032 ms: Couldn't connect to server
+```
+
+所以在网上查询相关信息，发现这篇文章
+
+[解决git下载出现：Failed to connect to 127.0.0.1 port 1080: Connection refused拒绝连接错误-CSDN博客](https://blog.csdn.net/weixin_41010198/article/details/87929622)
+
+可以通过(windows也可以)
+
+```bash
+git config --global http.proxy
+git config --global https.proxy
+```
+
+查询 git http 和 htttps 有没有使用代理
+
+>   文章还说到 linux 还可以使用
+>
+>   ```bash
+>   env|grep -I proxy
+>   ```
+>
+>   来查询系统环境有没有代理，不过windows下这个命令运行不了
+
+**取消代理的方法**
+
+我在 windows git bash 上使用
+
+```bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+成功取消了代理
+
+而文章中的另一种方法
+
+```bash
+unset http_proxy
+unset ftp_proxy
+unset all_proxy
+unset https_proxy
+unset no_proxy
+```
+
+我试了在 windows git bash 上不行，可能在linux上可以
+
+最后我取消了代理之后 `git clone` 就不会有之前的 ` Failed to connect to 127.0.0.1 port 7890` 
+
+>   但是没打开 clash 时，变成了
+>
+>   ```bash
+>   fatal: unable to access 'https://github.com/huggingface/peft.git/': Failed to connect to github.com port 443 after 21065 ms: Couldn't connect to server
+>   ```
+
