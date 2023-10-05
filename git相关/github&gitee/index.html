@@ -584,6 +584,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1178,6 +1185,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1234,13 +1248,58 @@
 <p><a href="https://docs.github.com/zh/discussions">GitHub Discussions 文档 - GitHub 文档</a></p>
 <p>在 <strong>Settings - General - Features - Discussions</strong> 前面勾选上</p>
 <p>就可以打开<em>讨论</em>功能了</p>
+<h2 id="7">7<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>git 代理相关问题</p>
+<p>由于之前想在 git bash 终端中使用 clash 的代理所以在 <code>E:\Program Files\Git\etc\bash.bashrc</code> 最上方按网上说的添加了</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Clash</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span>https://127.0.0.1:7890<span class="p">;</span><span class="nb">export</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span>https://127.0.0.1:7890
+</span></code></pre></div>
+<p>然后发现 <code>git clone</code> 在不打开 clash 的情况下会有报错</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Collecting<span class="w"> </span>git+https://github.com/huggingface/peft.git<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span><span class="o">(</span>line<span class="w"> </span><span class="m">8</span><span class="o">))</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>Cloning<span class="w"> </span>https://github.com/huggingface/peft.git<span class="w"> </span>to<span class="w"> </span>c:<span class="se">\u</span>sers<span class="se">\a</span>dministrator<span class="se">\a</span>ppdata<span class="se">\l</span>ocal<span class="se">\t</span>emp<span class="se">\p</span>ip-req-build-t4u9g6h5
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>Running<span class="w"> </span><span class="nb">command</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>--quiet<span class="w"> </span>https://github.com/huggingface/peft.git<span class="w"> </span><span class="s1">&#39;C:\Users\Administrator\AppData\Local\Temp\pip-req-build-t4u9g6h5&#39;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>fatal:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>access<span class="w"> </span><span class="s1">&#39;https://github.com/huggingface/peft.git/&#39;</span>:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>port<span class="w"> </span><span class="m">7890</span><span class="w"> </span>after<span class="w"> </span><span class="m">2032</span><span class="w"> </span>ms:<span class="w"> </span>Couldn<span class="err">&#39;</span>t<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>server
+</span></code></pre></div>
+<p>所以在网上查询相关信息，发现这篇文章</p>
+<p><a href="https://blog.csdn.net/weixin_41010198/article/details/87929622">解决git下载出现：Failed to connect to 127.0.0.1 port 1080: Connection refused拒绝连接错误-CSDN博客</a></p>
+<p>可以通过(windows也可以)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>http.proxy
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>https.proxy
+</span></code></pre></div>
+<p>查询 git http 和 htttps 有没有使用代理</p>
+<blockquote>
+<p>文章还说到 linux 还可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>env<span class="p">|</span>grep<span class="w"> </span>-I<span class="w"> </span>proxy
+</span></code></pre></div>
+<p>来查询系统环境有没有代理，不过windows下这个命令运行不了</p>
+</blockquote>
+<p><strong>取消代理的方法</strong></p>
+<p>我在 windows git bash 上使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--unset<span class="w"> </span>http.proxy
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--unset<span class="w"> </span>https.proxy
+</span></code></pre></div>
+<p>成功取消了代理</p>
+<p>而文章中的另一种方法</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">unset</span><span class="w"> </span>http_proxy
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">unset</span><span class="w"> </span>ftp_proxy
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">unset</span><span class="w"> </span>all_proxy
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">unset</span><span class="w"> </span>https_proxy
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">unset</span><span class="w"> </span>no_proxy
+</span></code></pre></div>
+<p>我试了在 windows git bash 上不行，可能在linux上可以</p>
+<p>最后我取消了代理之后 <code>git clone</code> 就不会有之前的 <code>Failed to connect to 127.0.0.1 port 7890</code> </p>
+<blockquote>
+<p>但是没打开 clash 时，变成了</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>fatal:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>access<span class="w"> </span><span class="s1">&#39;https://github.com/huggingface/peft.git/&#39;</span>:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>github.com<span class="w"> </span>port<span class="w"> </span><span class="m">443</span><span class="w"> </span>after<span class="w"> </span><span class="m">21065</span><span class="w"> </span>ms:<span class="w"> </span>Couldn<span class="err">&#39;</span>t<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>server
+</span></code></pre></div>
+</blockquote>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-04T06:41:25+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-04</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-05T06:00:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-05</span>
       
         <br>
         Created:
