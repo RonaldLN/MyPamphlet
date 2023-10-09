@@ -3156,6 +3156,79 @@ class AsSeenOnTVAccount(CheckingAccount, SavingsAccount):
 
 在使用多重继承的时候，除非是真的很重要的关系，或者十分必须，在使用时要很注意，因为多重继承会使程序变得复杂，虽然很难举出例子，但是可以参考现实中(生物上)的继承
 
+## Lecture 19 Q&A
+
+### 1
+
+![cs61a_94](../images/cs61a_94.png){ loading=lazy }
+
+`type()` 函数如果返回类，可以通过它的返回值来访问类内的属性，如
+
+>   ```python
+>   class Account:
+>       def __init__(self, account_holder):
+>           self.holderr = account_holder
+>           self.balance = 0
+>           
+>       def deposit(self, amount):
+>           self.balance = self.balance = amount
+>           return self.balance
+>   ```
+
+```python
+>>> a = Account('John')
+>>> type(a).deposit(a, 100)
+100
+```
+
+但是 Hany 说应该避免使用这种写法，因为大多数人不会怎么写
+
+### 2
+
+![cs61a_95](../images/cs61a_95.png){ loading=lazy }
+
+根据 John 的解释，`super()` 的作用是，不在本类中寻找 `.` 之后的东西，而是在上一级父类中寻找
+
+并且在使用父类的*方法*时，会将实例自动传入 `self` 参数，和直接 `父类名.方法` 的使用形式略有不同
+
+### 3
+
+![cs61a_96](../images/cs61a_96.png){ loading=lazy }
+
+有多继承的类在使用本类中没有的方法时，是先在**上一级父类**中**按顺序**寻找，比如上图，如果在 `CheckingAccount` 中没找到对应的方法，那么不会在 `CheckingAccount` 的父类( `Acount` 类)中寻找，而是在 `SavingAccount` 类中寻找，**如果所有的上一级父类中都没找到对应的方法，那么才会在上两级父类中寻找(即父类的父类)**
+
+### 4
+
+??? quote
+
+    **John**:
+    
+    well i'd say at the outset that it's often the case that tracing through, uh, tree recursion is not something that humans can tolerate, like it's, it's just really messy sometimes, um, so the right answer is to shift the way in which you approach understanding, uh, implementation to get away from tracing, and instead just treat the recursive calls as abstractions, they do the thing that they're supposed to do, but how they do them is not your problem, and then like you can put it together. but this is not, not like obvious or easy so, um, so maybe we can talk about that with a particular example. so maybe while i read this maybe hany can, uh, say whether that makes sense to him.
+    
+    **Hany**:
+    
+    i i'll add one more thing to it, so john's absolutely right that tracing tree recursion is very hard, you have to hold a lot in your memory. um, so one way to fix it is as he just said, is to just think differently about it. it's not about tracing, it's about thinking about the fundamental nature of, um, the, the functions and they just do what you want them to do, and the other is to just use toy examples.
+    
+    ---
+    
+    **John**：
+    
+    嗯，我首先要说的是，往往情况是，追踪树形递归对人类来说是无法忍受的，就像有时候非常混乱一样。所以正确的答案是改变你理解实现的方式，摆脱追踪，而是将递归调用视为抽象，它们执行它们应该执行的任务，但它们如何执行不是你的问题，然后你可以将它们组合起来。但这并不明显或容易，所以也许我们可以用一个具体的例子来讨论一下。所以也许在我阅读这个的时候，Hany可以说一下这是否有意义。
+    
+    **Hany**：
+    
+    我要补充一点，John说得对，追踪树形递归非常困难，你必须记住很多东西。所以解决的一种方法就像他刚才说的那样，只是以不同的方式思考。这不是关于追踪，而是思考函数的基本性质，它们只是执行你想要它们执行的任务，另一种方法是使用简单的示例。
+
+John 和 Hany 说到**对树形递归追踪很难，所以不应该去追踪递归(我认为这里可以理解为，弄清楚递归的每一步的具体效果)，而是换一种想法去思考(即之前总结的假定函数能返回正确/所需的值)**
+
+### 5
+
+![cs61a_97](../images/cs61a_97.png){ loading=lazy }
+
+John 解答 Lab04 中的 Q5 ，
+
+提到，在解答/构建递归时，可以先拿简单的例子来进行思考，比如 `n = 123 ; t = 2` (而不要上来就尝试弄清楚 5 位数)，然后通过分析简单的例子，思路就会很清晰
+
 ## Project Ants
 
 ### 1
@@ -3961,10 +4034,11 @@ Test summary
         ...
         direction = None
         has_been_scared = False
-    
-    
-        ...
-    
+
+
+​    
+​        ...
+​    
         def action(self, gamestate):
             """A Bee's action stings the Ant that blocks its exit if it is blocked,
             or moves to the exit of its current place otherwise.
@@ -4047,11 +4121,12 @@ Test summary
         # bee.action = status(bee.action, bee)
         bee.action = new_action
         # END Problem Optional 4
-    
-    
-    class SlowThrower(ThrowerAnt):
-        """ThrowerAnt that causes Slow on Bees."""
-    
+
+
+​    
+​    class SlowThrower(ThrowerAnt):
+​        """ThrowerAnt that causes Slow on Bees."""
+​    
         name = 'Slow'
         food_cost = 4
         # BEGIN Problem Optional 4
@@ -4062,11 +4137,12 @@ Test summary
         def throw_at(self, target):
             if target:
                 apply_status(make_slow, target, 3)
-    
-    
-    class ScaryThrower(ThrowerAnt):
-        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
-    
+
+
+​    
+​    class ScaryThrower(ThrowerAnt):
+​        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
+​    
         name = 'Scary'
         food_cost = 6
         # BEGIN Problem Optional 4
@@ -4083,3 +4159,4 @@ Test summary
     ```
 
 ## Lecture 20 Representation
+

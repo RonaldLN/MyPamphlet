@@ -192,3 +192,32 @@ def write_data_to_csv(file_name, data_list):
 - Linux系统下(可能MacOS系统下也是)，是 ++ctrl+d++
 - Windows系统下，则是 ++ctrl+d++ 然后 ++enter++
 
+## 10
+
+>   [复现代码](https://ronaldln.github.io/MyPamphlet-Blog/2023/10/04/)
+
+偶然从
+
+```python
+cache_dir = kwargs.pop("cache_dir", None)
+```
+
+发现一个字典的 `.pop()` 方法的用法，
+
+>   ```python
+>   def pop(self, k, d=None): # real signature unknown; restored from __doc__
+>       """
+>       D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+>       
+>       If key is not found, default is returned if given, otherwise KeyError is raised
+>       """
+>       pass
+>   ```
+
+*If key is not found, default is returned if given, otherwise KeyError is raised*
+
+第二个参数的位置是默认返回值，即如果没有某个key对应的值，那么就返回这个默认的值，否则会引起 `KeyError`
+
+## 11
+
+如果要在函数内部使用全局变量，使用 `global` 关键字，跟 `nonlocal` 类似

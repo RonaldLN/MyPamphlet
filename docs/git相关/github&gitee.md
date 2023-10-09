@@ -128,3 +128,39 @@ unset no_proxy
 >   fatal: unable to access 'https://github.com/huggingface/peft.git/': Failed to connect to github.com port 443 after 21065 ms: Couldn't connect to server
 >   ```
 
+## 8
+
+git 设置代理
+
+(因为有时可能会 git clone 不了)
+
+[【git错误】Error: Failed to connect to github.com port 443 after 21074 ms: Timed out_Sheyami的博客-CSDN博客](https://blog.csdn.net/Sheyami/article/details/121631887)
+
+```bash
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy http://127.0.0.1:7890
+```
+
+## 9
+
+>   [复现代码](https://ronaldln.github.io/MyPamphlet-Blog/2023/10/04/)
+
+git bash 中在运行命令是，可以*环境变量(或者叫全局变量？)*，如
+
+```bash
+HF_DATASETS_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+python examples/pytorch/translation/run_translation.py --model_name_or_path t5-small --dataset_name wmt16 --dataset_config ro-en ...
+```
+
+或
+
+```bash
+# Make sure you have git-lfs installed (https://git-lfs.com)
+git lfs install
+git clone https://huggingface.co/decapoda-research/llama-7b-hf
+
+# if you want to clone without large files – just their pointers
+# prepend your git clone with the following env var:
+GIT_LFS_SKIP_SMUDGE=1
+```
+

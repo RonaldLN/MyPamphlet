@@ -178,3 +178,14 @@
 
 >   可设置开机启动 `start with linux` 和静默开启(不应用界面，只后台运行) `silent start`
 
+## 9
+
+>   [先进视觉](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/29/2023/)
+
+Ubuntu 下，如果要在 `.sh` 脚本中使用 `sudo` 命令，可以使用 `echo` 来自动输入密码，如
+
+```bash
+echo "1111" | sudo -S bash ./scripts/install_udev_rules.sh
+echo "1111" | sudo -S udevadm control --reload-rules && echo "1111" | sudo -S udevadm trigger
+```
+

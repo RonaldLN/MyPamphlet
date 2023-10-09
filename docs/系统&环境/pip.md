@@ -66,3 +66,13 @@ ERROR: Could not find a version that satisfies the requirement numpy==tst (from 
 ERROR: No matching distribution found for numpy==tst
 ```
 
+## 6
+
+>   [先进视觉](https://ronaldln.github.io/MyPamphlet-Blog/2023/09/29/2023/)
+
+可以通过添加 `--no-deps` 选项来忽略包的依赖的安装来直接安装
+
+```bash
+pip install xxx --nodeps
+```
+
