@@ -591,6 +591,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    9
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1192,6 +1206,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    9
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1293,13 +1321,37 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>fatal:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>access<span class="w"> </span><span class="s1">&#39;https://github.com/huggingface/peft.git/&#39;</span>:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>github.com<span class="w"> </span>port<span class="w"> </span><span class="m">443</span><span class="w"> </span>after<span class="w"> </span><span class="m">21065</span><span class="w"> </span>ms:<span class="w"> </span>Couldn<span class="err">&#39;</span>t<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>server
 </span></code></pre></div>
 </blockquote>
+<h2 id="8">8<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>git 设置代理</p>
+<p>(因为有时可能会 git clone 不了)</p>
+<p><a href="https://blog.csdn.net/Sheyami/article/details/121631887">【git错误】Error: Failed to connect to github.com port 443 after 21074 ms: Timed out_Sheyami的博客-CSDN博客</a></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>http.proxy<span class="w"> </span>http://127.0.0.1:7890
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>https.proxy<span class="w"> </span>http://127.0.0.1:7890
+</span></code></pre></div>
+<h2 id="9">9<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://ronaldln.github.io/MyPamphlet-Blog/2023/10/04/">复现代码</a></p>
+</blockquote>
+<p>git bash 中在运行命令是，可以<em>环境变量(或者叫全局变量？)</em>，如</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">HF_DATASETS_OFFLINE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">TRANSFORMERS_OFFLINE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>examples/pytorch/translation/run_translation.py<span class="w"> </span>--model_name_or_path<span class="w"> </span>t5-small<span class="w"> </span>--dataset_name<span class="w"> </span>wmt16<span class="w"> </span>--dataset_config<span class="w"> </span>ro-en<span class="w"> </span>...
+</span></code></pre></div>
+<p>或</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Make sure you have git-lfs installed (https://git-lfs.com)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>lfs<span class="w"> </span>install
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://huggingface.co/decapoda-research/llama-7b-hf
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># if you want to clone without large files – just their pointers</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># prepend your git clone with the following env var:</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nv">GIT_LFS_SKIP_SMUDGE</span><span class="o">=</span><span class="m">1</span>
+</span></code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-05T06:00:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-05</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T18:32:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
       
         <br>
         Created:
