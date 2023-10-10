@@ -164,3 +164,16 @@ git clone https://huggingface.co/decapoda-research/llama-7b-hf
 GIT_LFS_SKIP_SMUDGE=1
 ```
 
+## 10
+
+可以使用 `--amend` 来修改上一次 `commit` 提交
+
+```bash
+    ...
+    --amend               amend previous commit
+```
+
+```bash
+git commit --amend "..."
+```
+
