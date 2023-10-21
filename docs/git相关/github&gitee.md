@@ -17,7 +17,7 @@
 ```bash
 git add --all
 git commit -m "..." # 会在仓库对应文件的处显示，应该是用于标记哪一次上传
-git push -u origin [ master / main ]
+git push -u origin [ master | main ]
 ```
 
 ## 3
@@ -169,11 +169,19 @@ GIT_LFS_SKIP_SMUDGE=1
 可以使用 `--amend` 来修改上一次 `commit` 提交
 
 ```bash
+usage: git commit [-a | --interactive | --patch] [-s] [-v] [-u<mode>] [--amend]
+                  [--dry-run] [(-c | -C | --squash) <commit> | --fixup [(amend|reword):]<commit>)]
+                  [-F <file> | -m <msg>] [--reset-author] [--allow-empty]
+                  [--allow-empty-message] [--no-verify] [-e] [--author=<author>]
+                  [--date=<date>] [--cleanup=<mode>] [--[no-]status]
+                  [-i | -o] [--pathspec-from-file=<file> [--pathspec-file-nul]]
+                  [(--trailer <token>[(=|:)<value>])...] [-S[<keyid>]]
+                  [--] [<pathspec>...]
     ...
     --amend               amend previous commit
 ```
 
 ```bash
-git commit --amend "..."
+git commit --amend -m "..."
 ```
 

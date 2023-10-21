@@ -52,7 +52,7 @@ conda env list
 创建conda环境，`python=3.x`指定python版本
 
 ```bash
-conda create [ -n / --name ] xxx python=3.x
+conda create [ -n | --name ] xxx python=3.x
 ```
 
 从已有环境克隆一个新的环境

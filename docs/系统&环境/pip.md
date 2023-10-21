@@ -26,7 +26,7 @@ pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple
 pip 升级某个包
 
 ```bash
-pip install [-U / --updrade] xxx
+pip install [-U | --updrade] xxx
 ```
 
 ## 3

@@ -1160,3 +1160,22 @@ extra_css:
 ```
 
 我将 `"slate"` 改成了我之前自定义的网页主题 `"sunset-glow-dark"` ，将 `"transparent_dark"` 和 `"light"` 改成了我认为更适合我自定义主题的颜色 `"noborder_dark"` 和 `"dark_dimmed"`
+
+## 31
+
+解决 **`i18n` 插件首页进行语言切换时，跳转到不存在的网址并显示404页面**的问题
+
+>   9月18日在 issue 向作者提问
+>
+>   [Link setting error on homepage (`index.md` `index.html`) · Issue #261 · ultrabug/mkdocs-static-i18n (github.com)](https://github.com/ultrabug/mkdocs-static-i18n/issues/261)
+
+作者对我的 issue 进行[回答](https://github.com/ultrabug/mkdocs-static-i18n/issues/261#issuecomment-1761175325)
+
+**解决方法是**，
+
+需要在 `mkdocs.yml` 文件中，添加 `site_url` 的设置，
+
+```yaml
+site_url: https://ronaldln.github.io/MyPamphlet
+```
+
