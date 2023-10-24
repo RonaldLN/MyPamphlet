@@ -1234,3 +1234,31 @@ plugins:
       page_template: "page_template/page_statistics.html"
 ```
 
+## 33
+
+如果换用 [Google Font](https://fonts.google.com/) 上收录的字体，直接按照 [Changing the fonts - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/) 中的方法操作即可，但是这种方法应该不能使用多个字体
+
+**使用未被 [Google Font](https://fonts.google.com/) 收录的字体，以及使用多个字体的方法(中英文不同字体)**
+
+需要找到字体的 `css` 文件，[Google Font](https://fonts.google.com/) 上的字体可以选择具体粗细规格后，点击页面右上角像购物袋一样的图标，然后在右侧出现的一栏中找到 `css` 文件对应的地址，以及能看到关键字，
+
+我使用了 [Google Font](https://fonts.google.com/) 上的 思源宋体，其对应地址
+
+```css
+https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
+```
+
+关键字为 `Noto Serif SC` ，
+
+如果是未被 [Google Font](https://fonts.google.com/) 收录的字体，则需要另外去寻找其 `css` 的地址，
+
+然后在 `mkdocs.yml` 中 `extra_css` 处加上相应的 `css` 地址，
+
+再在设置自定义网页外观的 `css` 文件中(我与[官方文档上](https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#customization)一样，使用 `docs/stylesheets/extra.css` )添加
+
+```css
+:root {
+  --md-text-font: "JetBrains Mono", "LXGW WenKai Screen"; 
+  --md-code-font: "JetBrains Mono", "Noto Serif SC";
+}
+```
