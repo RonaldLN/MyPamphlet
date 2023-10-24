@@ -35,11 +35,12 @@ markdown_extensions:
   - pymdownx.details # d
   - pymdownx.superfences # d
   - pymdownx.emoji: # 使用emoji和icon
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  # - pymdownx.superfences # e 内容选项卡
-  # - pymdownx.tabbed: # e
-      # alternate_style: true 
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences # e 内容选项卡
+  - pymdownx.tabbed: # e
+      alternate_style: true
+  - md_in_html # 在 md 文档中能显示 html 的效果
 ```
 
 ## 3
@@ -153,6 +154,7 @@ plugins:
         - ja
         - en
   # - tags # 添加给单个文档添加tag标签
+  - statistics # 统计页面字数、代码行数、阅读时间
 ```
 
 -   [语言切换](#17)
@@ -1177,5 +1179,56 @@ extra_css:
 
 ```yaml
 site_url: https://ronaldln.github.io/MyPamphlet
+```
+
+## 32
+
+非 blog 页面设置 页面字数、代码行数、阅读时间统计
+
+使用 `mkdocs-statistics-plugin` 插件
+
+[TonyCrane/mkdocs-statistics-plugin: A MkDocs plugin that generate statistic data of a site (github.com)](https://github.com/TonyCrane/mkdocs-statistics-plugin)
+
+先 `pip install`
+
+```bash
+pip install mkdocs-statistics-plugin
+```
+
+然后在 `mkdocs.yml` 中添加设置
+
+```yaml
+plugins:
+  - statistics
+```
+
+一些可以设置的选项：
+
+-   `page_check_metadata` : 默认为空，用于筛选添加统计信息的页面(只在含有指定属性的页面中添加统计信息，如含有 `comments` )
+-   `page_read_time` : 默认为 `true` ，设置是否显示阅读时间
+-   `page_template` : 默认为空，设置自定义的统计信息样式，路径相对于 `/docs` 
+
+**设置自定义的统计信息样式**
+
+模板文件在仓库中有，[`mkdocs_statistics_plugin/templates/page_statistics.html`](https://github.com/TonyCrane/mkdocs-statistics-plugin/blob/master/mkdocs_statistics_plugin/templates/page_statistics.html)
+
+我在 blog 中设置了自定义的样式，我把样式文件设置为 `/docs/page_template/page_statistics.html` ，并稍加了修改( `<div>` 里面格式与 `markdown` (所以要换行需要两行))
+
+```html
+<div markdown="1" style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+&nbsp;
+
+:material-circle-edit-outline: 约 {{ words }} 个字 {% if code_lines != 0 %} • :fontawesome-solid-code: {{ code_lines }} 行代码 {% endif %}{% if read_time %}:material-clock-time-two-outline: {% if read_time == 0 %}预计阅读时间不到 1 分钟{% else %}预计阅读时间 {{ read_time }} 分钟{% endif %}{% endif %}
+
+---
+</div>
+```
+
+`mkdocs.yml` 中
+
+```yaml
+plugins:
+  - statistics: # 统计页面字数、代码行数、阅读时间
+      page_template: "page_template/page_statistics.html"
 ```
 
