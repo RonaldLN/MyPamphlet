@@ -1,3 +1,5 @@
+# SymPy
+
 ## 1
 
 [Quick examples · sympy/sympy Wiki (github.com)](https://github.com/sympy/sympy/wiki/Quick-examples)

@@ -1,3 +1,5 @@
+# Ubuntu
+
 ## 1
 
 在客户机中装载虚拟CD驱动器，启动终端，使用tar解压缩安装程序，然后执行 `vmware-install.pl` 安装 VMware Tools。

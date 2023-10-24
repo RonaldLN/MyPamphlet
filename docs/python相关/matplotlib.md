@@ -1,3 +1,5 @@
+# Matplotlib
+
 ## 1
 
 通过 `figure(num)` 方法创建多个窗口，并且可以通过参数 `figsize=(width, height)` 设置窗口的大小

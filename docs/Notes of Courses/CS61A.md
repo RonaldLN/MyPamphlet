@@ -1,3 +1,5 @@
+# CS61A
+
 >   *Notes of Courses* on gitee.io
 >
 >   [CS61A - My Pamphlet (gitee.io)](https://ronald-luo.gitee.io/my-pamphlet_-notes-of-courses/Notes of Courses/CS61A/)
@@ -4039,26 +4041,26 @@ Test summary
 ​    
 ​        ...
 ​    
-        def action(self, gamestate):
-            """A Bee's action stings the Ant that blocks its exit if it is blocked,
-            or moves to the exit of its current place otherwise.
-    
-            gamestate -- The GameState, used to access game state information.
-            """
-            destination = self.place.exit
-            # Extra credit: Special handling for bee direction
-            # BEGIN EC
-            "*** YOUR CODE HERE ***"
-            if self.direction:
-                destination = self.direction
-            # END EC
-            if self.blocked():
-                self.sting(self.place.ant)
-            elif self.armor > 0 and destination is not None:
-                self.move_to(destination)
-    
-        ...
-    
+​        def action(self, gamestate):
+​            """A Bee's action stings the Ant that blocks its exit if it is blocked,
+​            or moves to the exit of its current place otherwise.
+​    
+​            gamestate -- The GameState, used to access game state information.
+​            """
+​            destination = self.place.exit
+​            # Extra credit: Special handling for bee direction
+​            # BEGIN EC
+​            "*** YOUR CODE HERE ***"
+​            if self.direction:
+​                destination = self.direction
+​            # END EC
+​            if self.blocked():
+​                self.sting(self.place.ant)
+​            elif self.armor > 0 and destination is not None:
+​                self.move_to(destination)
+​    
+​        ...
+​    
     ...
     
     ############
@@ -4127,36 +4129,36 @@ Test summary
 ​    class SlowThrower(ThrowerAnt):
 ​        """ThrowerAnt that causes Slow on Bees."""
 ​    
-        name = 'Slow'
-        food_cost = 4
-        # BEGIN Problem Optional 4
-        # implemented = False   # Change to True to view in the GUI
-        implemented = True
-        # END Problem Optional 4
-    
-        def throw_at(self, target):
-            if target:
-                apply_status(make_slow, target, 3)
+​        name = 'Slow'
+​        food_cost = 4
+​        # BEGIN Problem Optional 4
+​        # implemented = False   # Change to True to view in the GUI
+​        implemented = True
+​        # END Problem Optional 4
+​    
+​        def throw_at(self, target):
+​            if target:
+​                apply_status(make_slow, target, 3)
 
 
 ​    
 ​    class ScaryThrower(ThrowerAnt):
 ​        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
 ​    
-        name = 'Scary'
-        food_cost = 6
-        # BEGIN Problem Optional 4
-        # implemented = False   # Change to True to view in the GUI
-        implemented = True
-        # END Problem Optional 4
-    
-        def throw_at(self, target):
-            # BEGIN Problem Optional 4
-            "*** YOUR CODE HERE ***"
-            if target:
-                apply_status(make_scare, target, 2)
-            # END Problem Optional 4
-    ```
+​        name = 'Scary'
+​        food_cost = 6
+​        # BEGIN Problem Optional 4
+​        # implemented = False   # Change to True to view in the GUI
+​        implemented = True
+​        # END Problem Optional 4
+​    
+​        def throw_at(self, target):
+​            # BEGIN Problem Optional 4
+​            "*** YOUR CODE HERE ***"
+​            if target:
+​                apply_status(make_scare, target, 2)
+​            # END Problem Optional 4
+​    ```
 
 ## Lecture 20 Representation
 
