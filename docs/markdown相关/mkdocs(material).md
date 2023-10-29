@@ -62,6 +62,9 @@ theme:
     - search.suggest # 搜索建议
     - navigation.footer # 页面底部有下一页的链接(按目录上的顺序)
     - navigation.tabs # 一级目录融合至顶栏，并且只展示二级目录
+    - navigation.tracking # 在翻到页面对应的标题处时，会将地址栏的地址更新成标题处的链接
+    - navigation.instant
+    - navigation.instant.progress # 页面顶部显示加载进度条
     - content.code.copy # 代码块复制按键
     - search.suggest # 搜索建议
     - search.highlight # 搜索结果高亮/突出显示
@@ -1157,7 +1160,7 @@ extra_css:
 
 需要关注两处
 
-```html
+```javascript
       var theme = palette.color.scheme === "slate"
         ? "transparent_dark"
         : "light"
@@ -1262,3 +1265,351 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
   --md-code-font: "JetBrains Mono", "Noto Serif SC";
 }
 ```
+
+## 34
+
+修改 **代码块** 和 **行内代码** 中的 **字体大小** 和 **行间距**
+
+>   详细尝试/试错过程细节参考 [调整 mkdocs-material 网页外观过程记录](https://ronald-luo.gitee.io/mypamphlet-blog/2023/10/25/mkdocs-material/)
+
+大致方法是，在设置网页样式的 `css` 文件中([官方文档](https://squidfunk.github.io/mkdocs-material/customization/#additional-css)中使用的是 `docs/stylesheets/extra.css` ，我使用的是 `docs/stylesheets/custom.css` )，
+
+```css
+/* 修改所有代码字体大小 */
+.md-typeset code {
+  font-size: .65rem;
+}
+
+/* (覆盖)修改行内代码字体大小 */
+.md-typeset code:not(pre code) {
+  font-size: inherit;
+}
+
+/* 修改代码块行间距 */
+.md-typeset pre {
+  line-height: 1.8;
+}
+```
+
+对这几个属性的值进行相应的修改(如果没有属性添加即可，会 **==覆盖==** 原有的默认属性值)
+
+## 35
+
+修改 giscus 的样式
+
+>   详细尝试/试错过程细节参考 [调整 mkdocs-material 网页外观过程记录](https://ronald-luo.gitee.io/mypamphlet-blog/2023/10/25/mkdocs-material/)
+
+经过在浏览器上测试发现了相关的几个属性
+
+![set_giscus_custom_style](../images/set_giscus_custom_style.png){ loading=lazy }
+
+-   `--color-btn-primary-text` : 右下角 *:material-github: 使用 Github 登录* 的按钮处，设置字的颜色
+-   `--color-btn-primary-bg` : 同上，设置按钮(整体填充)的颜色
+-   `--color-btn-primary-border` : 同上，设置按钮边框的颜色
+-   `--color-btn-primary-hover-bg` : 设置将鼠标放置在按钮上时，按钮(整体填充)的颜色
+-   `--color-btn-primary-hover-border` : 同上，设置按钮边框的颜色
+-   `--color-fg-default` : 设置 *`n` 个表情* 、 *`n` 条评论* 、*输入/预览* (选中那个) 的字体颜色
+-   `--color-fg-muted` : 设置 *`n` 个表情* 下的笑脸:octicons-smiley-16: 、*输入/预览* (没选中那个) 、*右上处 `Aa`* 、*按钮上方的markdown标志:octicons-markdown-16:* 的颜色
+-   `--color-canvas-default` : 设置 *输入* 和 按钮 所在的中空的(挖去中间输入评论文本的区域)的框的颜色
+-   `--color-canvas-inset` : 设置 中间输入评论文本的区域 的颜色
+-   `--color-canvas-subtle` : 设置 *预览* 所在的上方的框的颜色
+-   `--color-border-default` : 设置所有勾勒边框的线的颜色
+-   `--color-accent-fg` : 设置 将鼠标移动到 markdown标志:octicons-markdown-16: 或 `Aa` 处时，以及在评论文本的区域中输入时区域的框，改变的颜色
+
+然后基于 giscus 已有主题的 css 文件进行修改，如 [`light`](https://giscus.app/themes/light.css) [`noborder_dark`](https://giscus.app/themes/noborder_dark.css) ，将对应的属性的值设置成自己想设置的就可以了，
+
+最后我修改完的
+
+=== "giscus_sunset_glow.css"
+
+    ??? note "giscus_sunset_glow.css"
+        
+        ```css
+        /*! MIT License
+        * Copyright (c) 2018 GitHub Inc.
+        * https://github.com/primer/primitives/blob/main/LICENSE
+        */
+        main {
+        --color-prettylights-syntax-comment: #6e7781;
+        --color-prettylights-syntax-constant: #0550ae;
+        --color-prettylights-syntax-entity: #8250df;
+        --color-prettylights-syntax-storage-modifier-import: #24292f;
+        --color-prettylights-syntax-entity-tag: #116329;
+        --color-prettylights-syntax-keyword: #cf222e;
+        --color-prettylights-syntax-string: #0a3069;
+        --color-prettylights-syntax-variable: #953800;
+        --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+        --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+        --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+        --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+        --color-prettylights-syntax-carriage-return-bg: #cf222e;
+        --color-prettylights-syntax-string-regexp: #116329;
+        --color-prettylights-syntax-markup-list: #3b2300;
+        --color-prettylights-syntax-markup-heading: #0550ae;
+        --color-prettylights-syntax-markup-italic: #24292f;
+        --color-prettylights-syntax-markup-bold: #24292f;
+        --color-prettylights-syntax-markup-deleted-text: #82071e;
+        --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+        --color-prettylights-syntax-markup-inserted-text: #116329;
+        --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+        --color-prettylights-syntax-markup-changed-text: #953800;
+        --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+        --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+        --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+        --color-prettylights-syntax-meta-diff-range: #8250df;
+        --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+        --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+        --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+        --color-btn-text: #24292f;
+        --color-btn-bg: #f6f8fa;
+        --color-btn-border: #1f232826;
+        --color-btn-shadow: 0 1px 0 #1f23280a;
+        --color-btn-inset-shadow: inset 0 1px 0 #ffffff40;
+        --color-btn-hover-bg: #f3f4f6;
+        --color-btn-hover-border: #1f232826;
+        --color-btn-active-bg: #ebecf0;
+        --color-btn-active-border: #1f232826;
+        --color-btn-selected-bg: #eeeff2;
+        /* --color-btn-primary-text: #fff; */
+        /* --color-btn-primary-bg: #1f883d; */
+        /* --color-btn-primary-border: #1f232826; */
+        --color-btn-primary-shadow: 0 1px 0 #1f23281a;
+        --color-btn-primary-inset-shadow: inset 0 1px 0 #ffffff08;
+        /* --color-btn-primary-hover-bg: #1a7f37; */
+        /* --color-btn-primary-hover-border: #1f232826; */
+        --color-btn-primary-selected-bg: #187733;
+        --color-btn-primary-selected-shadow: inset 0 1px 0 #002d1133;
+        --color-btn-primary-disabled-text: #fffc;
+        --color-btn-primary-disabled-bg: #94d3a2;
+        --color-btn-primary-disabled-border: #1f232826;
+        --color-action-list-item-default-hover-bg: #d0d7de52;
+        --color-segmented-control-bg: #eaeef2;
+        --color-segmented-control-button-bg: #fff;
+        --color-segmented-control-button-selected-border: #8c959f;
+        /* --color-fg-default: #1f2328; */
+        /* --color-fg-muted: #656d76; */
+        --color-fg-subtle: #6e7781;
+        /* --color-canvas-default: #fff; */
+        --color-canvas-overlay: #fff;
+        /* --color-canvas-inset: #f6f8fa; */
+        /* --color-canvas-subtle: #f6f8fa; */
+        /* --color-border-default: #d0d7de; */
+        --color-border-muted: #d8dee4;
+        --color-neutral-muted: #afb8c133;
+        /* --color-accent-fg: #0969da; */
+        --color-accent-emphasis: #0969da;
+        --color-accent-muted: #54aeff66;
+        --color-accent-subtle: #ddf4ff;
+        --color-success-fg: #1a7f37;
+        --color-attention-fg: #9a6700;
+        --color-attention-muted: #d4a72c66;
+        --color-attention-subtle: #fff8c5;
+        --color-danger-fg: #d1242f;
+        --color-danger-muted: #ff818266;
+        --color-danger-subtle: #ffebe9;
+        --color-primer-shadow-inset: inset 0 1px 0 #d0d7de33;
+        --color-scale-gray-1: #eaeef2;
+        --color-scale-blue-1: #b6e3ff;
+    
+        /*! Extensions from @primer/css/alerts/flash.scss */
+        --color-social-reaction-bg-hover: var(--color-scale-gray-1);
+        --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-1);
+    
+        /* Custom style for sunset-glow mode */
+        --primary-default: 123, 117, 165;
+        --bg-default: 219, 154, 165;
+        --color-btn-primary-text: #000000de;
+        --color-btn-primary-bg: rgba(var(--primary-default), 0.45);
+        --color-btn-primary-border: rgba(var(--primary-default), 0.5);
+        --color-btn-primary-hover-bg: rgba(var(--primary-default), 0.3);
+        --color-btn-primary-hover-border: rgba(var(--primary-default), 0.75);
+        --color-fg-default: #000000de;
+        --color-fg-muted: #0000008a;
+        --color-canvas-default: hsl(322 21% 77% / 1);
+        --color-canvas-inset: hsl(0 21% 87% / 1);
+        --color-canvas-subtle: hsl(274 21% 70% / 1);
+        --color-border-default: hsl(274 21% 70% / 1);
+        --color-accent-fg: hsl(274 21% 70% / 1);
+        }
+    
+        main .pagination-loader-container {
+        background-image: url(https://github.com/images/modules/pulls/progressive-disclosure-line.svg)
+        }
+    
+        main .gsc-loading-image {
+        background-image: url(https://github.githubassets.com/images/mona-loading-default.gif)
+        }
+        ```
+
+=== "giscus_sunset_glow_dark.css"
+
+    ??? note "giscus_sunset_glow_dark.css"
+        
+        ```css
+        main {
+        --primary-default: 20, 222, 155;
+        --bg-default: 22, 22, 24;
+        --color-prettylights-syntax-comment: #8b949e;
+        --color-prettylights-syntax-constant: #79c0ff;
+        --color-prettylights-syntax-entity: #d2a8ff;
+        --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+        --color-prettylights-syntax-entity-tag: #7ee787;
+        --color-prettylights-syntax-keyword: #ff7b72;
+        --color-prettylights-syntax-string: #a5d6ff;
+        --color-prettylights-syntax-variable: #ffa657;
+        --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+        --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+        --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+        --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+        --color-prettylights-syntax-carriage-return-bg: #b62324;
+        --color-prettylights-syntax-string-regexp: #7ee787;
+        --color-prettylights-syntax-markup-list: #f2cc60;
+        --color-prettylights-syntax-markup-heading: #1f6feb;
+        --color-prettylights-syntax-markup-italic: #c9d1d9;
+        --color-prettylights-syntax-markup-bold: #c9d1d9;
+        --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+        --color-prettylights-syntax-markup-deleted-bg: #67060c;
+        --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+        --color-prettylights-syntax-markup-inserted-bg: #033a16;
+        --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+        --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+        --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+        --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+        --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+        --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+        --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+        --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+        --color-btn-text: #ebebf5db;
+        --color-btn-bg: rgba(var(--bg-default), 1);
+        --color-btn-border: rgba(var(--bg-default), 1);
+        --color-btn-shadow: 0 1px 0 rgba(var(--bg-default), 1);
+        --color-btn-inset-shadow: inset 0 1px 0 rgba(var(--bg-default), 1);
+        --color-btn-hover-bg: rgba(var(--bg-default), 0.5);
+        --color-btn-hover-border: rgba(var(--bg-default), 0.5);
+        --color-btn-active-bg: rgba(var(--primary-default), 0.2);
+        --color-btn-active-border: rgba(var(--primary-default), 1);
+        --color-btn-selected-bg: rgba(var(--primary-default), 0.15);
+        /* --color-btn-primary-text: #fff; */
+        /* --color-btn-primary-bg: rgba(var(--primary-default), 0.45); */
+        /* --color-btn-primary-border: rgba(var(--primary-default), 0.5); */
+        --color-btn-primary-shadow: 0 1px 0 #1b1f241a;
+        --color-btn-primary-inset-shadow: inset 0 1px 0 #ffffff08;
+        /* --color-btn-primary-hover-bg: rgba(var(--primary-default), 0.53); */
+        /* --color-btn-primary-hover-border: rgba(var(--primary-default), 0.75); */
+        --color-btn-primary-selected-bg: rgba(var(--primary-default), 0.45);
+        --color-btn-primary-selected-shadow: inset 0 1px 0 #002d1133;
+        --color-btn-primary-disabled-text: #fffc;
+        --color-btn-primary-disabled-bg: rgba(var(--primary-default), 0.5);
+        --color-btn-primary-disabled-border: rgba(var(--primary-default), 0.5);
+        --color-action-list-item-default-hover-bg: #b1bac41f;
+        --color-segmented-control-bg: #6e76811a;
+        --color-segmented-control-button-bg: #0d1117;
+        --color-segmented-control-button-selected-border: rgba(var(--bg-default), 0.85);
+        /* --color-fg-default: #ebebf5db; */
+        /* --color-fg-muted: #ebebf599; */
+        --color-fg-subtle: #ebebf580;
+        /* --color-canvas-default: #1e1e20; */
+        --color-canvas-overlay: #1e1e20;
+        /* --color-canvas-inset: rgba(var(--bg-default), 0.85); */
+        /* --color-canvas-subtle: rgba(var(--bg-default), 1); */
+        /* --color-border-default: rgba(var(--bg-default), 0.85); */
+        --color-border-muted: #afb8c133;
+        --color-neutral-muted: #afb8c133;
+        /* --color-accent-fg: rgba(var(--primary-default), 0.85); */
+        --color-accent-emphasis: rgba(var(--primary-default), 0.95);
+        --color-accent-muted: rgba(var(--primary-default), 0.4);
+        --color-accent-subtle: rgba(var(--primary-default), 0.1);
+        --color-success-fg: #3fb950;
+        --color-attention-fg: #d29922;
+        --color-attention-muted: #bb800966;
+        --color-attention-subtle: #bb800926;
+        --color-danger-fg: #f85149;
+        --color-danger-muted: #f8514966;
+        --color-danger-subtle: #f851491a;
+        --color-primer-shadow-inset: 0 1px 0 rgba(var(--bg-default), 1), inset 0 1px 0 rgba(var(--bg-default), 1);
+        --color-scale-gray-7: #161618;
+        --color-scale-blue-8: #10b98126;
+    
+        /*! Extensions from @primer/css/alerts/flash.scss */
+        --color-social-reaction-bg-hover: var(--color-scale-gray-7);
+        --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+    
+        /* Custom style for sunset-glow mode */
+        --custom-primary-default: 123, 117, 165;
+        /* --custom-bg-default: 219, 154, 165; */
+        --color-btn-primary-text: #fcece9;
+        --color-btn-primary-bg: rgba(var(--custom-primary-default), 0.85);
+        --color-btn-primary-border: rgba(var(--custom-primary-default), 0.5);
+        --color-btn-primary-hover-bg: rgba(var(--custom-primary-default), 0.7);
+        --color-btn-primary-hover-border: rgba(var(--custom-primary-default), 0.35);
+        --color-fg-default: #fcece9;
+        --color-fg-muted: #a4908c;
+        --color-canvas-default: hsl(309 5% 15% / 1);
+        --color-canvas-inset: hsl(8 5% 12% / 1);
+        --color-canvas-subtle: rgb(75 59 92);
+        --color-border-default: rgba(0, 0, 0, 0);
+        --color-accent-fg: rgba(var(--custom-primary-default), 0.7);
+        }
+    
+        main .pagination-loader-container {
+        background-image: url(https://github.com/images/modules/pulls/progressive-disclosure-line-dark.svg)
+        }
+    
+        main .gsc-loading-image {
+        background-image: url(https://github.githubassets.com/images/mona-loading-dark.gif)
+        }
+        ```
+
+然后，**==需要在[之前设置giscus时](#30)使用的 `comments.html` 中，将css文件添加到两处设置主题的代码中==**
+
+```javascript
+      var theme = palette.color.scheme === "sunset-glow-dark"
+        ? "https://cdn.jsdelivr.net/gh/RonaldLN/MyPamphlet-Blog@main/docs/stylesheets/giscus_sunset_glow_dark.css"
+        : "https://cdn.jsdelivr.net/gh/RonaldLN/MyPamphlet-Blog@main/docs/stylesheets/giscus_sunset_glow.css"
+```
+
+以及
+
+```html
+{% if page.meta.comments %}
+  ...
+  <script src="https://giscus.app/client.js"
+        ...
+        data-theme="https://cdn.jsdelivr.net/gh/RonaldLN/MyPamphlet-Blog@main/docs/stylesheets/giscus_sunset_glow.css"
+        ...
+        async>
+  </script>
+...
+{% endif %}
+```
+
+>   这里是使用了 [jsdelivr 网站](https://www.jsdelivr.com/) 来对github仓库中的文件进行 cdn 加速(不需要注册可以直接使用)，使用方法可以参考网站的说明文档
+>
+>   [Documentation - jsDelivr](https://www.jsdelivr.com/documentation)
+
+## 36
+
+设置右侧 toc 目录自动展开折叠
+
+>   详细尝试/试错过程细节参考 [调整 mkdocs-material 网页外观过程记录](https://ronald-luo.gitee.io/mypamphlet-blog/2023/10/25/mkdocs-material/)
+
+主要是参考了 [鹤翔万里的笔记本 (tonycrane.cc)](https://note.tonycrane.cc/) 作者仓库中的设置，
+
+将仓库中的 [`docs/css/fold_toc.css`](https://github.com/TonyCrane/note/blob/master/docs/css/fold_toc.css) 和 [`docs/js/toc.js`](https://github.com/TonyCrane/note/blob/master/docs/js/toc.js) 下载到 `docs/javascripts/toc.js` 和 `docs/stylesheets/fold_toc.css` 中(也可以放置在其他路径，在之后的设置中相应修改即可)
+
+然后在 `overrides/main.html` (如果没有创建即可)中覆写 `site_nav` 块(可参考官方文档 [Overriding blocks](https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks))，导入这两个文件即可
+
+```html
+{% extends "base.html" %}
+
+{% block site_nav %}
+  <!-- Add scripts that need to run before here -->
+  {{ super() }}
+  <!-- Add scripts that need to run afterwards here -->
+  {% if page.toc and not "toc.integrate" in features %}
+    <script src="https://cdn.jsdelivr.net/gh/RonaldLN/MyPamphlet@main/docs/javascripts/toc.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RonaldLN/MyPamphlet@main/docs/stylesheets/fold_toc.css">
+  {% endif %}
+{% endblock %}
+```
+
