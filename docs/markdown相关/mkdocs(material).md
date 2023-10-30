@@ -1613,3 +1613,129 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
 {% endblock %}
 ```
 
+## 37
+
+更改 blog index页面中 每篇博客的*摘录 excerpt* 部分的样式
+
+基于官方文档中的 [Setup and theme structure](https://squidfunk.github.io/mkdocs-material/customization/#setup-and-theme-structure) ，设置 `overrides/partials/post.html` ，
+
+>   因为 `partials/post.html` 处的注释写着 `# Blog post excerpt` ，说明这个是设置每篇博客的*摘录 excerpt* 的样式的
+
+然后由于我之前的经验，用除了 `main.html` 之外的其他文件进行覆写时，都不能使用 `{{ super() }}` 来获取默认的代码( `main.html` 主要是拿来覆写*块 block* 的，参考 [Overriding blocks](https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks))，
+
+所以我查看官方文档的仓库中是否有对应的模板，然后发现 [`material/templates/`](https://github.com/squidfunk/mkdocs-material/tree/master/material/templates) 中有模板，于是复制 `post.html` 的代码
+
+[mkdocs-material/material/templates/partials/post.html at master · squidfunk/mkdocs-material (github.com)](https://github.com/squidfunk/mkdocs-material/blob/master/material/templates/partials/post.html) 
+
+然后去生成的页面中查看要修改的地方的对应源代码，
+
+![post_excerpt_source_code](../images/post_excerpt_source_code.png){ loading=lazy }
+
+再在 `post.html` 中找到相应的代码部分
+
+```html
+<div class="md-post__content md-typeset">
+  {{ post.content }}
+  <nav class="md-post__action">
+    <a href="{{ post.url | url }}">
+      {{ lang.t("blog.continue") }}
+    </a>
+  </nav>
+</div>
+```
+
+经过几次尝试后，最后我修改为了
+
+```html
+<div class="md-post__content md-typeset">
+  {{ post.content }}
+  <nav class="md-post__action">
+    <a href="{{ post.url | url }}">
+      ...
+      <br />
+      {{ lang.t("blog.continue") }}
+    </a>
+    <hr>
+  </nav>
+</div>
+```
+
+??? note "post.html"
+
+    ```html
+    {#-
+      This file was automatically generated - do not edit
+    -#}
+    <article class="md-post md-post--excerpt">
+      <header class="md-post__header">
+        {% if post.authors %}
+          <nav class="md-post__authors md-typeset">
+            {% for author in post.authors %}
+              <span class="md-author">
+                <img src="{{ author.avatar }}" alt="{{ author.name }}">
+              </span>
+            {% endfor %}
+          </nav>
+        {% endif %}
+        <div class="md-post__meta md-meta">
+          <ul class="md-meta__list">
+            <li class="md-meta__item">
+              <time datetime="{{ post.config.date.created }}">
+                {{- post.config.date.created | date -}}
+              </time>
+              {#- Collapse whitespace -#}
+            </li>
+            {% if post.categories %}
+              <li class="md-meta__item">
+                {{ lang.t("blog.categories.in") }}
+                {% for category in post.categories %}
+                  <a href="{{ category.url | url }}" class="md-meta__link">
+                    {{- category.title -}}
+                  </a>
+                  {%- if loop.revindex > 1 %}, {% endif -%}
+                {% endfor -%}
+              </li>
+            {% endif %}
+            {% if post.config.readtime %}
+              {% set time = post.config.readtime %}
+              <li class="md-meta__item">
+                {% if time == 1 %}
+                  {{ lang.t("readtime.one") }}
+                {% else %}
+                  {{ lang.t("readtime.other") | replace("#", time) }}
+                {% endif %}
+              </li>
+            {% endif %}
+          </ul>
+          {% if post.config.draft %}
+            <span class="md-draft">
+              {{ lang.t("blog.draft") }}
+            </span>
+          {% endif %}
+        </div>
+      </header>
+      <div class="md-post__content md-typeset">
+        {{ post.content }}
+        <nav class="md-post__action">
+          <a href="{{ post.url | url }}">
+            ...
+            <br />
+            {{ lang.t("blog.continue") }}
+          </a>
+          <hr>
+        </nav>
+      </div>
+    </article>
+    
+    ```
+
+最后效果
+
+=== "修改后"
+
+    ![adjusted_post_excerpt](../images/adjusted_post_excerpt.png){ loading=lazy }
+
+=== "修改前"
+
+    ![original_post_excerpt](../images/original_post_excerpt.png){ loading=lazy }
+
