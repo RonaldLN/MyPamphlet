@@ -1315,6 +1315,10 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
 -   `--color-canvas-subtle` : 设置 *预览* 所在的上方的框的颜色
 -   `--color-border-default` : 设置所有勾勒边框的线的颜色
 -   `--color-accent-fg` : 设置 将鼠标移动到 markdown标志:octicons-markdown-16: 或 `Aa` 处时，以及在评论文本的区域中输入时区域的框，改变的颜色
+-   `--color-btn-primary-selected-bg` : 设置*登录按钮*点击时的颜色
+-   `--color-btn-primary-disabled-text` : 设置登录之后，*评论按钮*的*评论*两个字的颜色
+-   `--color-btn-primary-disabled-bg` : 同上，*评论按钮*的颜色
+-   `--color-btn-primary-disabled-border` : 同上，*评论按钮*边框的颜色
 
 然后基于 giscus 已有主题的 css 文件进行修改，如 [`light`](https://giscus.app/themes/light.css) [`noborder_dark`](https://giscus.app/themes/noborder_dark.css) ，将对应的属性的值设置成自己想设置的就可以了，
 
@@ -1322,7 +1326,7 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
 
 === "giscus_sunset_glow.css"
 
-    ??? note "giscus_sunset_glow.css"
+    ???+ note "giscus_sunset_glow.css"
         
         ```css
         /*! MIT License
@@ -1377,11 +1381,11 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
         --color-btn-primary-inset-shadow: inset 0 1px 0 #ffffff08;
         /* --color-btn-primary-hover-bg: #1a7f37; */
         /* --color-btn-primary-hover-border: #1f232826; */
-        --color-btn-primary-selected-bg: #187733;
+        /* --color-btn-primary-selected-bg: #187733; */
         --color-btn-primary-selected-shadow: inset 0 1px 0 #002d1133;
-        --color-btn-primary-disabled-text: #fffc;
-        --color-btn-primary-disabled-bg: #94d3a2;
-        --color-btn-primary-disabled-border: #1f232826;
+        /* --color-btn-primary-disabled-text: #fffc; */
+        /* --color-btn-primary-disabled-bg: #94d3a2; */
+        /* --color-btn-primary-disabled-border: #1f232826; */
         --color-action-list-item-default-hover-bg: #d0d7de52;
         --color-segmented-control-bg: #eaeef2;
         --color-segmented-control-button-bg: #fff;
@@ -1423,6 +1427,10 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
         --color-btn-primary-border: rgba(var(--primary-default), 0.5);
         --color-btn-primary-hover-bg: rgba(var(--primary-default), 0.3);
         --color-btn-primary-hover-border: rgba(var(--primary-default), 0.75);
+        --color-btn-primary-selected-bg: rgba(var(--primary-default), 0.75);
+        --color-btn-primary-disabled-text: #000000de;
+        --color-btn-primary-disabled-bg: var(--color-btn-primary-bg);
+        --color-btn-primary-disabled-border: var(--color-btn-primary-border);
         --color-fg-default: #000000de;
         --color-fg-muted: #0000008a;
         --color-canvas-default: hsl(322 21% 77% / 1);
@@ -1443,7 +1451,7 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
 
 === "giscus_sunset_glow_dark.css"
 
-    ??? note "giscus_sunset_glow_dark.css"
+    ???+ note "giscus_sunset_glow_dark.css"
         
         ```css
         main {
@@ -1496,11 +1504,11 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
         --color-btn-primary-inset-shadow: inset 0 1px 0 #ffffff08;
         /* --color-btn-primary-hover-bg: rgba(var(--primary-default), 0.53); */
         /* --color-btn-primary-hover-border: rgba(var(--primary-default), 0.75); */
-        --color-btn-primary-selected-bg: rgba(var(--primary-default), 0.45);
+        /* --color-btn-primary-selected-bg: rgba(var(--primary-default), 0.45); */
         --color-btn-primary-selected-shadow: inset 0 1px 0 #002d1133;
-        --color-btn-primary-disabled-text: #fffc;
-        --color-btn-primary-disabled-bg: rgba(var(--primary-default), 0.5);
-        --color-btn-primary-disabled-border: rgba(var(--primary-default), 0.5);
+        /* --color-btn-primary-disabled-text: #fffc; */
+        /* --color-btn-primary-disabled-bg: rgba(var(--primary-default), 0.5); */
+        /* --color-btn-primary-disabled-border: rgba(var(--primary-default), 0.5); */
         --color-action-list-item-default-hover-bg: #b1bac41f;
         --color-segmented-control-bg: #6e76811a;
         --color-segmented-control-button-bg: #0d1117;
@@ -1542,6 +1550,10 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
         --color-btn-primary-border: rgba(var(--custom-primary-default), 0.5);
         --color-btn-primary-hover-bg: rgba(var(--custom-primary-default), 0.7);
         --color-btn-primary-hover-border: rgba(var(--custom-primary-default), 0.35);
+        --color-btn-primary-selected-bg: rgba(var(--custom-primary-default), 0.5);
+        --color-btn-primary-disabled-text: #fcece9;
+        --color-btn-primary-disabled-bg: var(--color-btn-primary-bg);
+        --color-btn-primary-disabled-border: var(--color-btn-primary-border);
         --color-fg-default: #fcece9;
         --color-fg-muted: #a4908c;
         --color-canvas-default: hsl(309 5% 15% / 1);
