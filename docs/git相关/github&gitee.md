@@ -187,3 +187,12 @@ usage: git commit [-a | --interactive | --patch] [-s] [-v] [-u<mode>] [--amend]
 git commit --amend -m "..."
 ```
 
+## 11
+
+学习 git 的视频
+
+[Git + GitHub 10分钟完全入门_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1KD4y1S7FL)
+
+[Git + GitHub 10分钟完全入门 (进阶)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1hA411v7qX)
+
+[GitHub 到底怎么用？十分钟学会 GitHub 基础知识_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1yo4y1d7UK)
