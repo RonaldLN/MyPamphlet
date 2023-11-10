@@ -196,3 +196,11 @@ git commit --amend -m "..."
 [Git + GitHub 10分钟完全入门 (进阶)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1hA411v7qX)
 
 [GitHub 到底怎么用？十分钟学会 GitHub 基础知识_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1yo4y1d7UK)
+
+## 12
+
+github 提交 *PR Pull requests* 的方法，
+
+**需要先将别人的仓库 ==fork== 到自己的仓库中，然后进行修改**，
+
+之后就可以在自己 fork 的仓库或者原本的仓库中提交 *PR Pull requests*
