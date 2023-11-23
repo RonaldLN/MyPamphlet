@@ -1751,3 +1751,20 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap
 
     ![original_post_excerpt](../images/original_post_excerpt.png){ loading=lazy }
 
+## 38
+
+给单个页面隐藏右侧目录栏或者左侧导航栏
+
+[Hiding the sidebars](https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#hiding-the-sidebars)
+
+```markdown
+---
+hide:
+  - navigation
+  - toc
+---
+
+# Page title
+...
+```
+
