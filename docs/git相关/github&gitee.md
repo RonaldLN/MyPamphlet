@@ -204,3 +204,72 @@ github 提交 *PR Pull requests* 的方法，
 **需要先将别人的仓库 ==fork== 到自己的仓库中，然后进行修改**，
 
 之后就可以在自己 fork 的仓库或者原本的仓库中提交 *PR Pull requests*
+
+## 12
+
+查看仓库关联的远程库的命令
+
+```bash
+git remote -v
+```
+
+将本地仓库关联多个远程库
+
+**方法一** (不能同时推送)
+
+[Gitee导入Github仓库并同步更新_gitee强制同步-CSDN博客](https://blog.csdn.net/m0_46157986/article/details/109530672)
+
+关联的远程库名默认为 `origin` ，
+
+添加新的远程库
+
+```bash
+git remote add github git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git
+```
+
+`github` 处可以改成其他(自定义的)远程库名，最后是远程库的地址，
+
+添加后，进行 `git remote -v` 查看会发现
+
+```bash
+github  git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git (fetch)
+github  git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git (push)
+origin  git@gitee.com:ronald-luo/test.git (fetch)
+origin  git@gitee.com:ronald-luo/test.git (push)
+```
+
+因此在 `git push` 时需要选择要推送的远程库的库名进行推送
+
+```bash
+git push -u xxx branch
+```
+
+>   删除关联的远程库的命令
+>
+>   ```bash
+>   git remote rm xxx
+>   ```
+
+**方法二** (可以同时推送)
+
+[Git同时推送多个远程仓库 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/141941373)
+
+由于默认关联的远程库名是 `origin` ，
+
+所以通过
+
+```bash
+git remote set-url --add origin git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git
+```
+
+来在 `origin` 库名下添加远程库，
+
+然后 `git remote -v` 查看
+
+```bash
+origin  git@gitee.com:ronald-luo/test.git (fetch)
+origin  git@gitee.com:ronald-luo/test.git (push)
+origin  git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git (push)
+```
+
+因此在推送 `origin` 时就会向 github 和 gitee 一起推送
