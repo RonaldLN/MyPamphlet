@@ -205,7 +205,7 @@ github 提交 *PR Pull requests* 的方法，
 
 之后就可以在自己 fork 的仓库或者原本的仓库中提交 *PR Pull requests*
 
-## 12
+## 13
 
 查看仓库关联的远程库的命令
 
