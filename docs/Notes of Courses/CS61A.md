@@ -4061,8 +4061,8 @@ Test summary
 ​    
 ​        ...
 ​    
-    ...
-    
+​    ...
+​    
     ############
     # Statuses #
     ############
@@ -4141,7 +4141,6 @@ Test summary
 ​                apply_status(make_slow, target, 3)
 
 
-​    
 ​    class ScaryThrower(ThrowerAnt):
 ​        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
 ​    
@@ -4161,4 +4160,113 @@ Test summary
 ​    ```
 
 ## Lecture 20 Representation
+
+### 1
+
+![cs61a_98](../images/cs61a_98.png){ loading=lazy }
+
+`repr` 函数能把python表达式转换成在自然语言中*规范*的字符串，
+
+返回的字符串和在终端中使用交互式的python，输入表达式时显示的结果一样(即如上图，`12e12` 和 `print(repr(12e12))` 显示的一样)
+
+![cs61a_99](../images/cs61a_99.png){ loading=lazy }
+
+`str` 函数可以将对象转换成(其对应的)字符串(感觉有点类似于 c++ 中 左移运算符 `<<` 的重载)，这个字符串和 使用 `print` 函数 显示的结果是相应的(或者说使用 `print` 函数会隐式地调用 `__str__` 方法)
+
+上图中可以看到 `repr` 和 `str` 函数的不同之处
+
+### 2
+
+`repr()` 和 `str()` 都是通过调用传入参数的方法来实现功能
+
+`repr()` 会调用 `__repr__` 方法，
+
+>   ```python
+>   def repr(x):
+>       return type(x).__repr__(x)
+>   ```
+>
+>   使用类内方法可以避免在实例中修改了方法
+
+`str()` 会调用 `__str__` 方法
+
+>   如果没有 `__str__` 方法，则调用 `__repr__` 方法
+>
+>   ```python
+>   def str(x):
+>       t = type(x)
+>       if hasattr(t, '__str__'):
+>           return t.__str__(x)
+>       else:
+>           return t.__repr__(x)
+>   ```
+
+### 3
+
+如果一个类没有 `__str__` 方法，在直接调用 `__str__` 方法时，会改为调用 `__repr__` 方法
+
+>   ```python
+>   class Bear:
+>       """A Bear."""
+>       
+>       def __repr__(self):
+>           return 'Bear()'
+>       
+>   oski = Bear()
+>   print(oski)
+>   print(str(oski))
+>   print(repr(oski))
+>   print(oski.__str__())
+>   print(oski.__repr__())
+>   ```
+>
+>   运行以上代码，会显示
+>
+>   ```bash
+>   Bear()
+>   Bear()
+>   Bear()
+>   Bear()
+>   Bear()
+>   ```
+
+### 4
+
+字符串可以使用 `.format()` 来填入参数(需要注意序号/下标与传入顺序对应)
+
+```python
+>>> x = 5
+>>> y = 6
+>>> "x + y = {0}".format(x + y)
+'x + y = 11'
+>>> "x + y = {1}".format(x + y, y)
+'x + y = 6'
+```
+
+或者也可以使用
+
+```python
+>>> f"x + y = {x + y}"
+'x + y = 11'
+```
+
+### 5
+
+![cs61a_100](../images/cs61a_100.png){ loading=lazy }
+
+python的一些特殊方法名(前后都有两个下划线的方法)
+
+### 6
+
+![cs61a_101](../images/cs61a_101.png){ loading=lazy }
+
+`__add__` 方法是实例在加号左边时使用， `__radd__` 方法是实例在加号右边时使用，
+
+>   John 直接添加了一行代码
+>
+>   ```python
+>   __radd__ = __add__
+>   ```
+
+## Lecture 20 Q&A
 
