@@ -8,7 +8,7 @@
 
     [CS 61A Fall 2020 (berkeley.edu)](https://inst.eecs.berkeley.edu/~cs61a/fa20/)
 
-## Lab 0
+## Lab 00
 
 ### 1
 
@@ -3231,6 +3231,168 @@ John 解答 Lab04 中的 Q5 ，
 
 提到，在解答/构建递归时，可以先拿简单的例子来进行思考，比如 `n = 123 ; t = 2` (而不要上来就尝试弄清楚 5 位数)，然后通过分析简单的例子，思路就会很清晰
 
+## Lab 07
+
+### 1
+
+在做Q1时，本来使用
+
+```python
+yield from [x * multiplier for x in it]
+```
+
+但是当 `it` 是能无穷迭代的生成器时(如要测试的 `naturals()` )，就会超时，
+
+但我询问 chatgpt ，它提供的代码与我上面的代码很像，只是把列表换成了元组，然后测试竟然不会超时，
+
+**所以使用 `yield from` 时可以使用元组来避免可以无穷迭代的迭代器造成的超时**
+
+下面是询问 chatgpt 为什么会这样的原因的记录
+
+???+ example "chat log"
+
+    **You**:
+    
+    Generators also allow us to represent infinite sequences, such as the sequence of natural numbers (1, 2, ...) shown in the function below!
+    
+    ```python
+    def naturals():
+        """A generator function that yields the infinite sequence of natural
+        numbers, starting at 1.
+    
+        >>> m = naturals()
+        >>> type(m)
+        <class 'generator'>
+        >>> [next(m) for _ in range(10)]
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        """
+        i = 1
+        while True:
+            yield i
+            i += 1
+    ```
+    
+    **Q1: Scale**
+    
+    Implement the generator function `scale(it, multiplier)`, which yields elements of the given iterable `it`, scaled by `multiplier`. As an extra challenge, try writing this function using a `yield from` statement!
+    
+    ```python
+    def scale(it, multiplier):
+        """Yield elements of the iterable it scaled by a number multiplier.
+    
+        >>> m = scale([1, 5, 2], 5)
+        >>> type(m)
+        <class 'generator'>
+        >>> list(m)
+        [5, 25, 10]
+    
+        >>> m = scale(naturals(), 2)
+        >>> [next(m) for _ in range(5)]
+        [2, 4, 6, 8, 10]
+        """
+        "*** YOUR CODE HERE ***"
+    ```
+    
+    &nbsp;
+    
+    **ChatGPT**:
+    
+    Certainly! You can implement the `scale` generator function using a `yield from` statement. Here's one way to do it:
+    
+    ```python
+    def scale(it, multiplier):
+        """Yield elements of the iterable it scaled by a number multiplier."""
+        yield from (element * multiplier for element in it)
+    
+    # Test cases
+    m = scale([1, 5, 2], 5)
+    print(type(m))  # <class 'generator'>
+    print(list(m))  # [5, 25, 10]
+    
+    m = scale(naturals(), 2)
+    print([next(m) for _ in range(5)])  # [2, 4, 6, 8, 10]
+    ```
+    
+    In this implementation, the `scale` function uses a generator expression with `yield from` to yield elements of the iterable `it` scaled by the given `multiplier`. The generator expression `(element * multiplier for element in it)` generates scaled elements one by one, and `yield from` is used to yield each element from this expression.
+    
+    &nbsp;
+    
+    **You**:
+    
+    why timeout by using list type while not by using tuple type?
+    
+    &nbsp;
+    
+    **ChatGPT**:
+    
+    If you are experiencing a timeout when using a list type but not when using a tuple type, it might be due to the differences in how lists and tuples are handled in Python. Lists are mutable, meaning their elements can be changed after the list is created, while tuples are immutable, and their elements cannot be changed.
+    
+    When you use a list comprehension with a generator expression and `yield from`, the entire list needs to be generated in memory before any elements can be yielded. This might be problematic for an infinite generator, as attempting to generate an infinite list in memory can lead to a timeout.
+    
+    On the other hand, when using a tuple, it is immutable. Python can optimize and generate each element of the tuple on-the-fly without needing to create an entire list in memory. This can be more efficient, especially when dealing with infinite sequences.
+    
+    Here's an example to illustrate the difference:
+    
+    ```python
+    # Using a list
+    def scale_list(it, multiplier):
+        yield from [x * multiplier for x in it]
+    
+    # Using a tuple
+    def scale_tuple(it, multiplier):
+        yield from (x * multiplier for x in it)
+    
+    # Test cases
+    m_list = scale_list(naturals(), 2)
+    # This may lead to a timeout because it attempts to generate an infinite list in memory.
+    # print(list(m_list))
+    
+    m_tuple = scale_tuple(naturals(), 2)
+    # This is more efficient because it generates each element on-the-fly without creating an entire list.
+    print([next(m_tuple) for _ in range(5)])
+    ```
+    
+    In the commented-out line for `scale_list`, attempting to convert an infinite list to a list object might cause the program to run out of memory or take a very long time, leading to a timeout. Using a tuple can avoid this issue because it doesn't try to create an entire list in memory.
+    
+    &nbsp;
+    
+    **You**:
+    
+    translate to chinese
+    
+    &nbsp;
+    
+    **ChatGPT**:
+    
+    如果你在使用列表类型时遇到超时问题，但在使用元组类型时却没有，这可能是由于 Python 处理列表和元组的方式不同。列表是可变的，意味着它们的元素在列表创建后可以被修改，而元组是不可变的，它们的元素不能被修改。
+    
+    当你使用列表解析与生成器表达式以及 `yield from` 时，在产生任何元素之前需要在内存中生成整个列表。对于无限生成器，尝试在内存中生成无限列表可能导致超时。
+    
+    另一方面，使用元组是不可变的。Python 可以优化并在需要时即时生成元组的每个元素，而无需创建整个列表在内存中。这可能更有效率，尤其是在处理无限序列时。
+    
+    以下是一个示例，用以说明这种差异：
+    
+    ```python
+    # 使用列表
+    def scale_list(it, multiplier):
+        yield from [x * multiplier for x in it]
+    
+    # 使用元组
+    def scale_tuple(it, multiplier):
+        yield from (x * multiplier for x in it)
+    
+    # 测试案例
+    m_list = scale_list(naturals(), 2)
+    # 这可能导致超时，因为它试图在内存中生成一个无限列表。
+    # print(list(m_list))
+    
+    m_tuple = scale_tuple(naturals(), 2)
+    # 这更加有效，因为它在不创建整个列表的情况下即时生成每个元素。
+    print([next(m_tuple) for _ in range(5)])
+    ```
+    
+    在注释掉的 `scale_list` 的行中，试图将无限列表转换为列表对象可能导致程序耗尽内存或花费很长时间，从而导致超时。使用元组可以避免这个问题，因为它不会尝试在内存中创建整个列表。
+
 ## Project Ants
 
 ### 1
@@ -4067,23 +4229,23 @@ Test summary
 ​    # Statuses #
 ​    ############
 ​    
-    def make_slow(action, bee):
-        """Return a new action method that calls ACTION every other turn.
-    
-        action -- An action method of some Bee
-        """
-        # BEGIN Problem Optional 4
-        "*** YOUR CODE HERE ***"
-        # def new_action(gamestate):
-        #     if gamestate.time % 2 == 1:
-        #         action(bee, gamestate)
-        def new_action(gamestate):
-            if gamestate.time % 2 == 0:
-                action(gamestate)
-        # bee.action = new_action
-        return new_action
-        # END Problem Optional 4
-    
+​    def make_slow(action, bee):
+​        """Return a new action method that calls ACTION every other turn.
+​    
+​        action -- An action method of some Bee
+​        """
+​        # BEGIN Problem Optional 4
+​        "*** YOUR CODE HERE ***"
+​        # def new_action(gamestate):
+​        #     if gamestate.time % 2 == 1:
+​        #         action(bee, gamestate)
+​        def new_action(gamestate):
+​            if gamestate.time % 2 == 0:
+​                action(gamestate)
+​        # bee.action = new_action
+​        return new_action
+​        # END Problem Optional 4
+​    
     def make_scare(action, bee):
         """Return a new action method that makes the bee go backwards.
     
