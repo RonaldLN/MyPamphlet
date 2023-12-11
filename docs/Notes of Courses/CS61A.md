@@ -4270,3 +4270,41 @@ python的一些特殊方法名(前后都有两个下划线的方法)
 
 ## Lecture 20 Q&A
 
+### 1
+
+![cs61a_102](../images/cs61a_102.png){ loading=lazy }
+
+`type` 和 `isinstance` 的区别
+
+-   `isinstance` 会判断一个实例是否是某个类或它的子类们
+-   `type` 只会返回实例具体的类
+
+### 2
+
+![cs61a_103](../images/cs61a_103.png){ loading=lazy }
+
+John 使用递归和 `yield` 语句来实现输出树的所有根到叶子的路径的方法
+
+```python
+def print_all_paths(t):
+    """Print all the paths from the root to a leaf.
+    
+    >>> t = tree(1, [tree(2, [tree(3), tree(5)]), tree(4)])
+    >>> print_all_paths(t)
+    [1, 2, 3]
+    [1, 2, 5]
+    [1, 4]
+    """
+    for path in all_paths(t):
+        print(path)
+
+def all_paths(t):
+    if is_leaf(t):
+        yield [label(t)]
+    for b in branches(t):
+        for path in all_paths(b):   # path might be [2, 3]
+            yield [label(t)] + path # yielding [1, 2, 3]
+```
+
+## Lecture 21 Composition
+
