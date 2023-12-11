@@ -4063,10 +4063,10 @@ Test summary
 ​    
 ​    ...
 ​    
-    ############
-    # Statuses #
-    ############
-    
+​    ############
+​    # Statuses #
+​    ############
+​    
     def make_slow(action, bee):
         """Return a new action method that calls ACTION every other turn.
     
@@ -4165,15 +4165,15 @@ Test summary
 
 ![cs61a_98](../images/cs61a_98.png){ loading=lazy }
 
-`repr` 函数能把python表达式转换成在自然语言中*规范*的字符串，
+`repr()` 函数能把python表达式转换成在自然语言中*规范*的字符串，
 
 返回的字符串和在终端中使用交互式的python，输入表达式时显示的结果一样(即如上图，`12e12` 和 `print(repr(12e12))` 显示的一样)
 
 ![cs61a_99](../images/cs61a_99.png){ loading=lazy }
 
-`str` 函数可以将对象转换成(其对应的)字符串(感觉有点类似于 c++ 中 左移运算符 `<<` 的重载)，这个字符串和 使用 `print` 函数 显示的结果是相应的(或者说使用 `print` 函数会隐式地调用 `__str__` 方法)
+`str()` (类)可以将对象转换成(其对应的)字符串(感觉有点类似于 c++ 中 左移运算符 `<<` 的重载)，这个字符串和 使用 `print` 函数 显示的结果是相应的(或者说使用 `print` 函数会隐式地调用 `__str__` 方法)
 
-上图中可以看到 `repr` 和 `str` 函数的不同之处
+上图中可以看到 `repr()` 和 `str()` 的不同之处
 
 ### 2
 
