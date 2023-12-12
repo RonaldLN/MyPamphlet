@@ -4264,25 +4264,25 @@ Test summary
 ​        return new_action
 ​        # END Problem Optional 4
 ​    
-    def make_scare(action, bee):
-        """Return a new action method that makes the bee go backwards.
-    
-        action -- An action method of some Bee
-        """
-        # BEGIN Problem Optional 4
-        "*** YOUR CODE HERE ***"
-        # bee.direction = bee.place.exit
-        # def new_action(gamestate):
-        #     bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
-        #     action(bee, gamestate)
-        def new_action(gamestate):
-            if not bee.has_been_scared:
-                bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
-            action(gamestate)
-        # bee.action = new_action
-        return new_action
-        # END Problem Optional 4
-    
+​    def make_scare(action, bee):
+​        """Return a new action method that makes the bee go backwards.
+​    
+​        action -- An action method of some Bee
+​        """
+​        # BEGIN Problem Optional 4
+​        "*** YOUR CODE HERE ***"
+​        # bee.direction = bee.place.exit
+​        # def new_action(gamestate):
+​        #     bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
+​        #     action(bee, gamestate)
+​        def new_action(gamestate):
+​            if not bee.has_been_scared:
+​                bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
+​            action(gamestate)
+​        # bee.action = new_action
+​        return new_action
+​        # END Problem Optional 4
+​    
     def apply_status(status, bee, length):
         """Apply a status to a BEE that lasts for LENGTH turns."""
         # BEGIN Problem Optional 4
@@ -4487,4 +4487,106 @@ def all_paths(t):
 ```
 
 ## Lecture 21 Composition
+
+### 1
+
+John 为自定义的 *链表 Linked List* 类 用递归的方式编写了类似于python内置的 `range` `map` `filter` 函数
+
+![cs61a_104](../images/cs61a_104.png){ loading=lazy }
+
+>   ```python
+>   class Link:
+>       empty = ()
+>       
+>       def __init__(self, first, rest=empty):
+>           assert rest is Link.empty or isinstance(rest, Link)
+>           self.first = first
+>           self.rest = rest
+>           
+>       def __repr__(self):
+>           if self.rest:
+>               rest_repr = ', ' + repr(self.rest)
+>           else:
+>               rest_repr = ''
+>           return 'Link()' + repr(self.first) + rest_repr + ')'
+>       
+>       def __str__(self):
+>           string = '<'
+>           while self.rest is not Link.empty:
+>               string += str(self.first) + ' '
+>               slef = self.rest
+>           return string + str(self.first) + '>'
+>   ```
+
+```python
+def range_link(start, end):
+    """Return a Link containing consecutive integers from start to end.
+    
+    >>> range_link(3, 6)
+    Link(e, Link(4, Link(5)))
+    """
+    if start >= end:
+        return Link.empty
+    else:
+        return Link(start, range_link(start + 1, end))
+```
+
+```python
+def map_link(f, s):
+    """Return a link that contains f(x) for each x in Link s.
+    
+    >>> map_link(square, range_link(3, 6))
+    Link(9, Link(16, Link(25)))
+    """
+    if s is Link.empty:
+        return s
+    else:
+        return Link(f(s.first), map_link(f, s.rest))
+```
+
+```python
+def filter_link(f, s):
+    """Return a Link that contains only the elements x of Link s for which f(x) is a true value.
+    
+    >>> filter_link(odd, range_link(3, 6))
+    Link(3, Link(5))
+    """
+    if s is Link.empty:
+        return s
+    filtered_rest = filter_link(f, s.rest)
+    if f(s.first):
+        return Link(s.first, filtered_rest)
+    else:
+        return filtered_rest
+```
+
+### 2
+
+![cs61a_105](../images/cs61a_105.png){ loading=lazy }
+
+John 用递归的方式写的 自定义链表结构 的 `add` 函数(让我觉得看起来很简洁)
+
+```python
+def add(s, v):
+    """Add v to s, returning modified s.
+    
+    >>> s = Link(1, Link(3, Link(5)))
+    >>> add(s, 0)
+    Link(0, Link(1, Link(3, Link(5))))
+    >>> add(s, 3)
+    Link(0, Link(1, Link(3, Link(5))))
+    >>> add(s, 4)
+    Link(0, Link(1, Link(3, Link(4, Link(5)))))
+    >>> add(s, 6)
+    Link(0, Link(1, Link(3, Link(4, Link(5, Link(6))))))
+    """
+    assert s is not Link.empty
+    if s.first > v:
+        s.first, s.rest = v, Link(s.first, s.rest)
+    elif s.first < v and empty(s.rest):
+        s.rest = Link(v)
+    elif s.first < v:
+        add(s.rest, v)
+    return s
+```
 
