@@ -4283,26 +4283,26 @@ Test summary
 ​        return new_action
 ​        # END Problem Optional 4
 ​    
-    def apply_status(status, bee, length):
-        """Apply a status to a BEE that lasts for LENGTH turns."""
-        # BEGIN Problem Optional 4
-        "*** YOUR CODE HERE ***"
-        old_action = bee.action
-        def new_action(gamestate):
-            nonlocal length
-            if length > 0:
-                length -= 1
-                status(old_action, bee)(gamestate)
-                if length == 0:
-                    # bee.action = old_action
-                    bee.direction = None
-                    if status is make_scare:
-                        bee.has_been_scared = True
-            else:
-                old_action(gamestate)
-        # bee.action = status(bee.action, bee)
-        bee.action = new_action
-        # END Problem Optional 4
+​    def apply_status(status, bee, length):
+​        """Apply a status to a BEE that lasts for LENGTH turns."""
+​        # BEGIN Problem Optional 4
+​        "*** YOUR CODE HERE ***"
+​        old_action = bee.action
+​        def new_action(gamestate):
+​            nonlocal length
+​            if length > 0:
+​                length -= 1
+​                status(old_action, bee)(gamestate)
+​                if length == 0:
+​                    # bee.action = old_action
+​                    bee.direction = None
+​                    if status is make_scare:
+​                        bee.has_been_scared = True
+​            else:
+​                old_action(gamestate)
+​        # bee.action = status(bee.action, bee)
+​        bee.action = new_action
+​        # END Problem Optional 4
 
 
 ​    
@@ -4624,3 +4624,45 @@ class Tree:
         return not self.branches
 ```
 
+## HW 05
+
+### 1
+
+Q5 中，本来我以为
+
+```python
+return [t.label].extend([preorder(b) for b in t.branches])
+```
+
+能实现，但是显示没有返回的值，然后进行测试发现，**列表的 `.append()` 和 `.extend()` 方法没有返回值**
+
+### 2
+
+Q6，我的两种实现方式
+
+-   按照原本提供的框架
+
+    ??? note "code"
+
+        ```python
+        def path_yielder(t, value):
+            "*** YOUR CODE HERE ***"
+            
+            if t.label == value:
+                yield [t.label]
+            for b in t.branches:
+                for path in path_yielder(b, value):
+            
+                    "*** YOUR CODE HERE ***"
+                    yield [t.label] + path
+        ```
+    
+-   我整合成一行代码
+
+    ??? note "code"
+
+        ```python
+        def path_yielder(t, value):
+            yield from (([[t.label]] if t.label == value else []) +
+                        sum([[[t.label] + path for path in path_yielder(b, value)] for b in t.branches], start=[]))
+        ```
