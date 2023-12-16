@@ -4666,3 +4666,34 @@ Q6，我的两种实现方式
             yield from (([[t.label]] if t.label == value else []) +
                         sum([[[t.label] + path for path in path_yielder(b, value)] for b in t.branches], start=[]))
         ```
+
+### 3
+
+Q3中，原本我是用递归的方式来实现，但是会稍微麻烦一些，
+
+```python
+def store_digits(n):
+    if n // 10 == 0:
+        return Link(n)
+    else:
+        pre_digits = store_digits(n // 10)
+        last_digits = pre_digits
+        while last_digits.rest != Link.empty:
+            last_digits = last_digits.rest
+        last_digits.rest = Link(n % 10)
+        return pre_digits
+```
+
+然后在提示视频中看到助教老师说**一般链表会使用递归和迭代的方式来实现功能**，这题使用迭代比较方便，然后我将我的代码改成了用迭代来实现
+
+??? note "code"
+
+    ```python
+    def store_digits(n):
+        link = Link(n % 10)
+        while n // 10:
+            n //= 10
+            link = Link(n % 10, link)
+        return link
+    ```
+
