@@ -4697,3 +4697,124 @@ def store_digits(n):
         return link
     ```
 
+## Lecture 22 Efficiency
+
+### 1
+
+![cs61a_106](../images/cs61a_106.png){ loading=lazy }
+
+从John的demo演示中可以看到， `def` 定义出的函数似乎也可以像类一样拥有*属性 Attribute* (可以使用 `.` 来访问)
+
+### 2
+
+**函数内部的变量具体指向的对象 取决于 ==调用时== 的情况**，
+
+例如
+
+```python
+>>> def f(n):
+...     return f(n-1) if n else n
+...
+>>> ori_f = f
+>>> f = 6
+>>> ori_f(4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in f
+TypeError: 'int' object is not callable
+>>>
+```
+
+在定义好 `f` 函数之后，将 `f` 修改为 `6` ，那么之后调用**原本的函数 `f`** 时，在进行递归调用(访问 `f` 变量)时，获取到的是整型 `6` ，所以会显示
+
+```python
+TypeError: 'int' object is not callable
+```
+
+所以，下面图中 John 演示的 demo 我觉得应该这样理解
+
+![cs61a_107](../images/cs61a_107.png){ loading=lazy }
+
+```python
+def fib(n):
+    if n == 0 or n == 1:
+        return n
+    else:
+        return fib(n-2) + fib(n-1)
+    
+def count(f):
+    def counted(n):
+        counted.call_count += 1
+        return f(n)
+    counted.call_count = 0
+    return counted
+
+def memo(f):
+    cache = {}
+    def memoized(n):
+        if n not in cache:
+            cache[n] = f(n)
+        return cache[n]
+    return memoized
+```
+
+-   第一步
+
+    ```python
+    >>> fib = count(fib)
+    >>> counted_fib = fib
+    ```
+
+    将 `fib` 函数传入 `count` 函数中，获得 第一个 `counted` (与之后第二个 `counted` 作区分)
+
+    ```mermaid
+    flowchart LR
+    变量名fib --> 第一个counted函数 --"f"--> fib函数
+    counted_fib --> 第一个counted函数
+    ```
+
+-   第二步
+
+    ```python
+    >>> fib = memo(fib)
+    ```
+
+    这里 `fib` 指向的是 第一个 `counted` ，所以传入 `memo` 的是 第一个 `counted` ，
+
+    然后获得 `memoized` 函数
+
+    ```mermaid
+    flowchart LR
+    counted_fib --> 第一个counted函数 --"f"--> fib函数
+    变量名fib --> memoized函数 --"f"--> 第一个counted函数
+    ```
+
+-   第三步
+
+    ```python
+    >>> fib = count(fib)
+    ```
+
+    和刚才类似，这里是将 `memoized` 函数传入 `count` ，然后获得 第二个 `counted` 函数
+
+    ```mermaid
+    flowchart LR
+    counted_fib --> 第一个counted函数 --"f"--> fib函数
+    memoized函数 --"f"--> 第一个counted函数
+    变量名fib --> 第二个counted函数 --"f"--> memoized函数
+    ```
+
+-   而 `fib` 函数内部在递归时，会访问 变量名 `fib` ，所以关系可以进一步理解为
+
+    ```mermaid
+    flowchart LR
+    变量名fib --> 第二个counted函数 --"f"--> memoized函数
+    counted_fib --> 第一个counted函数 --"f"--> fib函数
+    memoized函数 --"f"--> 第一个counted函数
+    fib函数 -.-> 变量名fib
+    ```
+
+    所以，每次调用(原本的) `fib` 函数时，递归调用的是 第二个 `counted` 函数，并且由于是 *树形递归*，所以 第二个 `counted` 函数的 `call_count` 大约为 `n` (30)的两倍，
+
+    而 第一个 `counted` 函数，只有 `memoized` 函数中传入未被记录结果的 `n` 时，才会被调用，因此 第一个 `counted` 函数 的 `call_count` 为 `31` ，刚好对应 0 到 30
+
