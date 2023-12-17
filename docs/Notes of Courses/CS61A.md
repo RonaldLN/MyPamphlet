@@ -4818,3 +4818,50 @@ def memo(f):
 
     而 第一个 `counted` 函数，只有 `memoized` 函数中传入未被记录结果的 `n` 时，才会被调用，因此 第一个 `counted` 函数 的 `call_count` 为 `31` ，刚好对应 0 到 30
 
+### 3
+
+![cs61a_108](../images/cs61a_108.png){ loading=lazy }
+
+John 给出了一种利用平方来加速 幂运算 的方法：
+$$
+b^n = \begin{cases}
+1 & \mathrm{if} \ n = 0 \\
+(b^{\frac{1}{2}n})^2 & \mathrm{if} \ n \ \mathrm{is \ even} \\
+b \cdot b^{n-1} & \mathrm{if} \ n \ \mathrm{is \ odd} \\
+\end{cases}
+$$
+
+```python
+def exp(b, n):
+    if n == 0:
+        return 1
+    elif n % 2 == 0:
+        return square(exp(b, n // 2))
+    else:
+        return b * exp(b, n - 1)
+    
+def square(x):
+    return x * x
+```
+
+### 4
+
+John 展示了一下 Jupyter Notebook 的使用
+
+!!! quote
+
+    John:
+    
+    ...this environment is called a jupiter notebook, you can read about them online. it's a common way that people use in order to execute python code when the output is a graph or a chart.
+    
+    ---
+    
+    John:
+    
+    ...这个环境被称为Jupyter笔记本，你可以在网上了解更多相关信息。这是人们在执行输出为图表或图表的Python代码时常用的一种方式。
+
+![cs61a_109](../images/cs61a_109.png){ loading=lazy }
+
+![cs61a_110](../images/cs61a_110.png){ loading=lazy }
+
+感觉用来画图会很方便
