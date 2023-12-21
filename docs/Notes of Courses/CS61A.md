@@ -4865,3 +4865,35 @@ John 展示了一下 Jupyter Notebook 的使用
 ![cs61a_110](../images/cs61a_110.png){ loading=lazy }
 
 感觉用来画图会很方便
+
+## Lab 08
+
+### 1
+
+Q5 的额外挑战 extra challenge，实现检测链表是否带有循环，但是只能使用固定大小的/恒定的空间
+
+我一开始没想出来，第二天重新思考的时候，想到有循环就意味着会来到曾经来过的节点，那么就意味着 这个节点可以用比当前更少的步数从链表头到达，所以，我打算使用恒定空间来记录当前走过的步数，
+
+最后成功实现了功能
+
+??? note "code"
+
+    ```python
+    def has_cycle_constant(link):
+        head = link
+        count = 0
+        while link.rest:
+            link = link.rest
+            count += 1
+            sublist = head
+            for _ in range(count):
+                if sublist is link:
+                    return True
+                sublist = sublist.rest
+        return False
+    ```
+
+## Lecture 23 Decomposition
+
+### 1
+
