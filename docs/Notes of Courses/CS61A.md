@@ -4905,3 +4905,59 @@ Q5 的额外挑战 extra challenge，实现检测链表是否带有循环，但�
 -   元素的顺序是无序的
 -   John介绍说，使用 `in` 语句查询某个元素是否在一个 set 中，所需的时间是常数级的，不会随着 set 的长度增长(像列表就会随着长度增长，是线性级的)
 -   `.union()` 和 `.intersection()` 分别是 set 取**并集**和**交集**的方法，并且 John 说道，这两个方法并不会对原本的 set 进行修改，而是会创建出一个新的 set
+
+## Lecture 23 Q&A
+
+### 1
+
+有人提问的一道考试题目
+
+![cs61a_112](../images/cs61a_112.png){ loading=lazy }
+
+我感觉还蛮有意思，于是我就暂停尝试了一下
+
+```python
+def stable(s, k, n):
+    """Return whether all pairs of elements of S within distance K differ by at most N.
+    
+    >>> stable([1, 2, 3, 5, 6], 1, 2)  # All adjacent values differ by at most 2.
+    True
+    >>> stable([1, 2, 3, 5, 6], 2, 2)  # abs(5-2) is a difference of 3.
+    False
+    >>> stable([1, 5, 1, 5, 1], 2, 2)  # abs(5-1) is a difference of 4.
+    False
+    """
+    for i in range(len(s)):
+        near = range(max(i - k, 0), i)
+        if any([abs(s[j] - s[i]) > n for j in near]):
+            return False
+    return True
+```
+
+运行进行测试，成功通过
+
+```bash
+> python -m doctest -v .\test.py
+Trying:
+    stable([1, 2, 3, 5, 6], 1, 2)  # All adjacent values differ by at most 2.
+Expecting:
+    True
+ok
+Trying:
+    stable([1, 2, 3, 5, 6], 2, 2)  # abs(5-2) is a difference of 3.
+Expecting:
+    False
+ok
+Trying:
+    stable([1, 5, 1, 5, 1], 2, 2)  # abs(5-1) is a difference of 4.
+Expecting:
+    False
+ok
+1 items had no tests:
+    test
+1 items passed all tests:
+   3 tests in test.stable
+3 tests in 2 items.
+3 passed and 0 failed.
+Test passed.
+```
