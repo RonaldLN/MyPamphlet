@@ -5019,8 +5019,9 @@ Test passed.
             return False
         else:
             return ______
-    
-    
+
+
+​    
     curry2 = lambda f: lambda x: lambda y: f(x, y)
     
     """B: (5 pts) Implement powers, a generator function which takes positive
@@ -5141,3 +5142,38 @@ def powers(n, k):
     yield from filter(curry2(is_power)(k), build(n))
 ```
 
+### 3
+
+![cs61a_114](../images/cs61a_114.png){ loading=lazy }
+
+John 提到了 lab 08 的 Q6 `reverse_other` 这题，基本的思路和之前我做的时候的思路感觉差不多，但是在具体处理上，我觉得老师的一些处理值得学习，
+
+首先就是，用到了之前的练习中也有提到的 `zip` 函数，利用了 `zip` 感觉就比我之前的写法更加简洁，
+
+然后是处理 **隔一层反转** 的操作上，是直接在子节点的循环中再次循环，就刚好能拿到 孙子节点，我之前的做法就稍微麻烦，还需要一个 `helper` 函数来辅助计数
+
+![cs61a_115](../images/cs61a_115.png){ loading=lazy }
+
+John又展示了不使用 `zip` 的实现方法，而他这次利用了**负的下标**来实现翻转
+
+```python
+for i in range(len(t.branches)):
+    t.branches[i].label = labels_of_branches[-i - 1]
+    ...
+```
+
+### 4
+
+有人提问，如果一个类继承自两个不同的类，那么它使用 `super` 时会怎样
+
+!!! quote
+
+    John:
+    
+    so if you use super on a class that inherits from two different classes, what have you built, you built something very strange, but basically whay you've built is the same object except for, it's gonna not look up things is its class, it's gonna look at them up in one of the base classes, and which one, well, it looks at them in the order that you inherit, so if have a class that inherits from both b and c, it's gonna look in b first and then it's gonna look at c, to find the corresponding attribute that you're looking at.
+    
+    ---
+    
+    John:
+    
+    当你在一个从两个不同类继承的类上使用 super 时，你构建了一些非常奇怪的东西，但基本上你构建的是相同的对象，只是它不会在其类中查找属性，而是会在其中一个基类中查找。而具体是哪一个基类呢？它会按照你继承的顺序查找，所以如果有一个类同时继承自类B和类C，它会首先在B中查找，然后再在C中查找相应的属性。
