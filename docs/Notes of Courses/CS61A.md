@@ -5022,12 +5022,12 @@ Test passed.
 
 
 ​    
-    curry2 = lambda f: lambda x: lambda y: f(x, y)
-    
-    """B: (5 pts) Implement powers, a generator function which takes positive
-    integers n and k. It yields all integers m that are both powers of k and whose
-    digits appear in order in n.
-    
+​    curry2 = lambda f: lambda x: lambda y: f(x, y)
+​    
+​    """B: (5 pts) Implement powers, a generator function which takes positive
+​    integers n and k. It yields all integers m that are both powers of k and whose
+​    digits appear in order in n.
+​    
     Assume thar is_power is implemented correctly.
     
     Note: powers may yield its results in any order. The doctests below check what
@@ -5177,3 +5177,183 @@ for i in range(len(t.branches)):
     John:
     
     当你在一个从两个不同类继承的类上使用 super 时，你构建了一些非常奇怪的东西，但基本上你构建的是相同的对象，只是它不会在其类中查找属性，而是会在其中一个基类中查找。而具体是哪一个基类呢？它会按照你继承的顺序查找，所以如果有一个类同时继承自类B和类C，它会首先在B中查找，然后再在C中查找相应的属性。
+
+## Lecture 24 Data Example
+
+### 1
+
+![cs61a_116](../images/cs61a_116.png){ loading=lazy }
+
+尝试自己做了一下这四题，下面是我写的
+
+```python
+def indices_of_min_abs(s):
+    """
+    >>> indices_of_min_abs([-4, -3, -2, 3, 2, 4])
+    [2, 4]
+    >>> indices_of_min_abs([1, 2, 3, 4, 5])
+    [0]
+    """
+    min_abs = min([abs(x) for x in s])
+    return [i for i in range(len(s)) if abs(s[i]) == min_abs]
+
+def largest_sum_of_adjacency(s):
+    """
+    >>> largest_sum_of_adjacency([-4, -3, -2, 3, 2, 4])
+    6
+    >>> largest_sum_of_adjacency([-4, 3, -2, -3, 2, -4])
+    1
+    """
+    return max([s[i] + s[i + 1] for i in range(len(s) - 1)])
+
+def map_digit_to_element(s):
+    """
+    >>> map_digit_to_element([5, 8, 13, 21, 34, 55, 89])
+    {1: [21], 3: [13], 4: [34], 5: [5, 55], 8: [8], 9: [89]}
+    """
+    result = {}
+    for x in s:
+        d = x % 10
+        if d not in result:
+            result[d] = [x]
+        else:
+            result[d] += [x]
+    return {d: result[d] for d in sorted(result)}
+
+def every_element_has_equal_value(s):
+    """
+    >>> every_element_has_equal_value([-4, -3, -2, 3, 2, 4])
+    False
+    >>> every_element_has_equal_value([4, 3, 2, 3, 2, 4])
+    True
+    """
+    for i in range(len(s)):
+        if all([i == j or s[i] != s[j] for j in range(len(s))]):
+            return False
+    return True
+```
+
+---
+
+在做第三个问题时，发现了如果 `sorted` 函数传入的是一个字典，那么会返回以键为元素排好序的列表
+
+### 2
+
+John 第一个问题中运用了 `map` 函数来获取 `min_abs` ，感觉比我的代码看起来更简洁些
+
+```python
+min_abs = min(map(abs, s))
+```
+
+John `return` 的那一行代码，提供了使用 `filter` 函数的另一种写法(由于 `filter` 返回的是一个迭代器，所以需要转换成列表)，
+
+```python
+return list(filter(lambda i: abs(s[i]) == min_abs, range(len(s))))
+```
+
+![cs61a_117](../images/cs61a_117.png){ loading=lazy }
+
+---
+
+John 在第二个问题中又提供了第二种方法，利用 `zip` 函数，并且**利用切片来获取相邻元素**(感觉太强了😲，完全没想到能这样用 `zip` )
+
+```python
+return max([a + b for a, b in zip(s[:-1], s[1:])])
+```
+
+![cs61a_118](../images/cs61a_118.png){ loading=lazy }
+
+---
+
+第三个问题 John 用了跟我的思路不同的另一种思路来实现
+
+```python
+return {d: [x for x in s if x % 10 == d] for d in range(10) if any([x % 10 == d for x in s])}
+```
+
+![cs61a_119](../images/cs61a_119.png){ loading=lazy }
+
+---
+
+第四个问题，John 一开始的思路感觉感觉和我的差不多，但是也比我的代码要简洁，
+
+```python
+return all([s[i] in s[:i] + s[i + 1:] for i in range(len(s))])
+```
+
+但是 John 提供了第二种思路，**==如果列表中有两个相同的数，那么意味着这个数的个数大于等于2==**，
+
+![cs61a_121](../images/cs61a_121.png){ loading=lazy }
+
+因此可以这样写
+
+```python
+return all([sum([1 for y in s if y == x]) > 1 for x in s])
+```
+
+而进一步，可以借助 `min` 来判断最小的结果大于 1 就可以了，
+
+而然后，列表有一个 `.count()` 方法，计算某个元素的个数，因此得到(应该是)最简洁的写法(真给我看得全程惊呆了😲)
+
+```python
+return min([s.count(x) for x in s]) > 1
+```
+
+![cs61a_120](../images/cs61a_120.png){ loading=lazy }
+
+### 3
+
+![cs61a_122](../images/cs61a_122.png){ loading=lazy }
+
+这里的第三和第四个问题感觉有点意思，第四个问题我一开始想没有想出来，最后看了 John 的编写才想明白
+
+![cs61a_123](../images/cs61a_123.png){ loading=lazy }
+
+```python
+def merge(s, t):
+    """Return a sorted Link with the elements of sorted s & t.
+    
+    >>> a = Link(1, Link(5))
+    >>> b = Link(1, Link(4))
+    >>> merge(a, b)
+    Link(1, Link(1, Link(4, Link(5))))
+    >>> a
+    Link(1, Link(5))
+    >>> b
+    Link(1, Link(4))
+    """
+    if s is Link.empty:
+        return t
+    elif t is Link.empty:
+        return s
+    elif s.first <= t.first:
+        return Link(s.first, merge(s.rest, t))
+    else:
+        return Link(t.first, merge(s, t.rest))
+    
+def merge_in_place(s, t):
+    """Return a sorted Link with the elements of sorted s & t.
+    
+    >>> a = Link(1, Link(5))
+    >>> b = Link(1, Link(4))
+    >>> merge(a, b)
+    Link(1, Link(1, Link(4, Link(5))))
+    >>> a
+    Link(1, Link(1, Link(4, Link(5))))
+    >>> b
+    Link(1, Link(4, Link(5)))
+    """
+    if s is Link.empty:
+        return t
+    elif t is Link.empty:
+        return s
+    elif s.first <= t.first:
+        # return Link(s.first, merge(s.rest, t))
+        s.rest = merge_in_place(s.rest, t)
+        return s
+    else:
+        # return Link(t.first, merge(s, t.rest))
+        t.rest = merge_in_place(s, t.rest)
+        return t
+```
+
