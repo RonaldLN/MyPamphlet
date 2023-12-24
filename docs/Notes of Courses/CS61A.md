@@ -5028,13 +5028,13 @@ Test passed.
 ​    integers n and k. It yields all integers m that are both powers of k and whose
 ​    digits appear in order in n.
 ​    
-    Assume thar is_power is implemented correctly.
-    
-    Note: powers may yield its results in any order. The doctests below check what
-    is yielded, but not the order. The built-in sorted funcion used in the doctests
-    takes in an iterable object and returns a list containing the elements of the
-    iterable in non-decreasing order.
-    
+​    Assume thar is_power is implemented correctly.
+​    
+​    Note: powers may yield its results in any order. The doctests below check what
+​    is yielded, but not the order. The built-in sorted funcion used in the doctests
+​    takes in an iterable object and returns a list containing the elements of the
+​    iterable in non-decreasing order.
+​    
     Check the doctests with: python3 ok -q b"""
     def powers(n, k):
         """Yield all powers of k whose digits appear in order in n.
@@ -5356,4 +5356,31 @@ def merge_in_place(s, t):
         t.rest = merge_in_place(s, t.rest)
         return t
 ```
+
+## Lab 09
+
+### 1
+
+Q3，做的时候想了好一会，做完之后我感觉蛮有意思的，
+
+这一题和上一题Q2很像，但是需要判断是否是(非严格)升序，所以提供的框架是构建一个 `subseq_helper` 函数，来记录前一个数的大小，
+
+-   如果当前的数比前一个数小，就可以直接忽略这个数
+-   如果大于等于，就需要分情况，当前这个数是否被使用(感觉算是Q2的升级版)
+
+??? note "code"
+
+    ```python
+    def inc_subseqs(s):
+        def subseq_helper(s, prev):
+            if not s:
+                return [[]]
+            elif s[0] < prev:
+                return subseq_helper(s[1:], prev)
+            else:
+                a = subseq_helper(s[1:], s[0])
+                b = subseq_helper(s[1:], prev)
+                return insert_into_all(s[0], a) + b
+        return subseq_helper(s, 0)
+    ```
 
