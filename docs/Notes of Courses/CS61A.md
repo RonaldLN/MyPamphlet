@@ -5035,34 +5035,34 @@ Test passed.
 ​    takes in an iterable object and returns a list containing the elements of the
 ​    iterable in non-decreasing order.
 ​    
-    Check the doctests with: python3 ok -q b"""
-    def powers(n, k):
-        """Yield all powers of k whose digits appear in order in n.
-        
-        >>> sorted(powers(12345, 5))
-        [1, 5, 25, 125]
-        >>> sorted(powers(54321, 5))  # 25 and 125 are not in order
-        [1, 5]
-        >>> sorted(powers(2493, 3))
-        [3, 9, 243]
-        
-        >>> sorted(powers(2493, 2))
-        [2, 4]
-        >>> sorted(powers(164352, 2))
-        [1, 2, 4, 16, 32, 64]
-        """
-        def build(seed):
-            """Yield all non-negetive integers whose digits appear in order in seed.
-            0 is yielded because 0 has no digits, so all its digits are in seed.
-            """
-            if seed == 0:
-                yield 0
-            else:
-                for x in ______:
-                    ______
-                    ______
-        yield from filter(curry2(______)(______), build(n))
-    ```
+​    Check the doctests with: python3 ok -q b"""
+​    def powers(n, k):
+​        """Yield all powers of k whose digits appear in order in n.
+​        
+​        >>> sorted(powers(12345, 5))
+​        [1, 5, 25, 125]
+​        >>> sorted(powers(54321, 5))  # 25 and 125 are not in order
+​        [1, 5]
+​        >>> sorted(powers(2493, 3))
+​        [3, 9, 243]
+​        
+​        >>> sorted(powers(2493, 2))
+​        [2, 4]
+​        >>> sorted(powers(164352, 2))
+​        [1, 2, 4, 16, 32, 64]
+​        """
+​        def build(seed):
+​            """Yield all non-negetive integers whose digits appear in order in seed.
+​            0 is yielded because 0 has no digits, so all its digits are in seed.
+​            """
+​            if seed == 0:
+​                yield 0
+​            else:
+​                for x in ______:
+​                    ______
+​                    ______
+​        yield from filter(curry2(______)(______), build(n))
+​    ```
 
 有人提问的一道题目，我有点想尝试一下，
 
@@ -5382,5 +5382,51 @@ Q3，做的时候想了好一会，做完之后我感觉蛮有意思的，
                 b = subseq_helper(s[1:], prev)
                 return insert_into_all(s[0], a) + b
         return subseq_helper(s, 0)
+    ```
+
+### 2
+
+Q4 这题也有点意思，我想到的递归的思路就是，把大的树分成两个小的，
+
+然后一开始是把两个小的加起来，然后错了，捋了一下，发现应该是把两个小的 结果/可能 相乘，最后就对了
+
+??? note "code"
+
+    ```python
+    def num_trees(n):
+        if n == 1:
+            return 1
+        return sum([num_trees(i) * num_trees(n - i) for i in range(1, n)])
+    ```
+
+### 3
+
+Q5，有点难想感觉(但是做完以后感觉这题又不是很复杂😂)
+
+>   一开始 `for` 语句里 `g` 之后没写 `()` ，然后就发生了报错😅
+>
+>   ```python
+>   Traceback (most recent call last):
+>     File "E:\Courses\cs61a\lab\lab09\lab09.py", line 121, in make_generators_generator
+>       for _ in g:
+>   TypeError: 'function' object is not iterable
+>   ```
+>
+>   之后这样类似的要注意
+
+??? note "code"
+
+    ```python
+    def make_generators_generator(g):
+        def gen(i):
+            for e in g():
+                if i == 0:
+                    break
+                yield e
+                i -= 1
+        count = 0
+        for _ in g():
+            count += 1
+            yield gen(count)
     ```
 
