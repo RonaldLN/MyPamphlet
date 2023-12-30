@@ -5430,3 +5430,67 @@ Q5，有点难想感觉(但是做完以后感觉这题又不是很复杂😂)
             yield gen(count)
     ```
 
+### 4
+
+Q12，感觉这题蛮有意思，定义了某种模板(可以从 doctest 中看出来)，感觉之后说不定能参考
+
+```python
+def make_to_string(front, mid, back, empty_repr):
+    """ Returns a function that turns linked lists to strings.
+
+    >>> kevins_to_string = make_to_string("[", "|-]-->", "", "[]")
+    >>> jerrys_to_string = make_to_string("(", " . ", ")", "()")
+    >>> lst = Link(1, Link(2, Link(3, Link(4))))
+    >>> kevins_to_string(lst)
+    '[1|-]-->[2|-]-->[3|-]-->[4|-]-->[]'
+    >>> kevins_to_string(Link.empty)
+    '[]'
+    >>> jerrys_to_string(lst)
+    '(1 . (2 . (3 . (4 . ()))))'
+    >>> jerrys_to_string(Link.empty)
+    '()'
+    """
+    def printer(lnk):
+        if ______________:
+            return _________________________
+        else:
+            return _________________________
+    return printer
+```
+
+??? note "code"
+
+    ```python
+    def make_to_string(front, mid, back, empty_repr):
+        def printer(lnk):
+            if lnk is Link.empty:
+                return empty_repr
+            else:
+                return front + str(lnk.first) + mid + printer(lnk.rest) + back
+        return printer
+    ```
+
+### 5
+
+Q13，给的代码框架感觉值得学习，而且一开始还没想明白要怎么编写😂
+
+```python
+def prune_small(t, n):
+    while ___________________________:
+        largest = max(_______________, key=____________________)
+        _________________________
+    for __ in _____________:
+        ___________________
+```
+
+??? note "code"
+
+    ```python
+    def prune_small(t, n):
+        while len(t.branches) > n:
+            largest = max([b for b in t.branches], key=lambda t: t.label)
+            t.branches.remove(largest)
+        for b in t.branches:
+            prune_small(b, n)
+    ```
+
