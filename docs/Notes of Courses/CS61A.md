@@ -5357,6 +5357,158 @@ def merge_in_place(s, t):
         return t
 ```
 
+## Lecture 24 Q&A
+
+### 1
+
+提到的17春(第二次期中模拟考)的一个题目
+
+!!! quote
+
+    **Perfect Engine!**
+    
+    You are in an apocalyptic society and have been charged with making an n-gen, or a generator that computes all of the n-perfect numbers. However, in this apocalyptic society, **built-in AND user-defined Python multiplication is forbidden** in any form!
+    
+    You have a blueprint for building a few n-gins from a natural number generator:
+    
+    -   ```txt
+        A 2-gen:
+        1 2 3 4 5 6 7 8 9 ...
+        1 4 9 16 25 ...
+        ```
+    
+    -   ```txt
+        A 3-gen:
+        1 2 3 4 5 6 7 8 9 ...
+        1 3 7 12 19 27 ...
+        1 8 27 ...
+        ```
+    
+    Hint: Here is how `yield from` works. When used inside an iterable `yield from` will issue each element from another iterable as though it was issued from the first iterable. The following code is equivalent:
+    
+    -   ```python
+        def generator1 ():
+            for item in generator2 ():
+                yield item
+            # do more things in this generator
+        ```
+    
+    -   ```python
+        def generator1 ():
+            yield from generator2 ()
+            # more things on this generator
+        ```
+    
+    Now its your job to build the perfect n-gen and power society out of the apocalypse! Good luck!
+    
+    ```python
+    def nats():
+        """
+        A generator that yields
+        all natural numbers.
+        Might be helpful!
+        """
+        curr = 0
+        while True:
+            curr += 1
+            yield curr
+            
+    def create_skip(n, gen):
+        if n == 1:
+            yield from ____________
+        curr , skip = ________, ________
+        for elem in ____________:
+            if skip == n:
+                ___________________
+            else:
+                curr = __________________
+                skip = _________________
+                yield _________________
+            
+    def perfect_ngen(n):
+        """
+        >>> two_gen = perfect_ngen(2)
+        >>> next(two_gen)
+        1
+        >>> next(two_gen)
+        4
+        >>> next(two_gen)
+        9
+        >>> three_gen = perfect_ngen(3)
+        >>> next(three_gen)
+        1
+        >>> next(three_gen)
+        8
+        >>> next(three_gen)
+        27
+        """
+        gen = create_skip(____, _______)
+        while _________________:
+            n = _________________
+            gen = create_skip(____, _______)
+        return gen
+    ```
+
+感觉这题有点好玩，用到了一些数学上的结论，看了好一会才看懂题目，
+
+大概是，要实现一个能返回 自然数的 n 次方生成器 的函数，而且不能使用乘法，
+
+从给出的两个例子看，输出平方数列的方法是，将自然数列中的偶数(2的倍数)跳过，再将数列中之前的其他数加起来，和就刚好是平方，
+
+而对于立方数列，与平方类似，先是将自然数列中 3的倍数跳过，然后将之前的其他数加起来，得到一个数列，再将这个数列再进行一次同样的操作(即跳过 3的倍数，取之前数的和，看到这里会发现 **自然数列中，3的倍数刚好间隔为3，而新数列中刚好间隔为2**，这一点会在给出的代码框架中被用上)，最后得到的数列就是立方数列(感觉好神奇😲)，
+
+所以我就尝试了一下这个题目
+
+```python
+def nats():
+    """
+    A generator that yields
+    all natural numbers.
+    Might be helpful!
+    """
+    curr = 0
+    while True:
+        curr += 1
+        yield curr
+        
+def create_skip(n, gen):
+    if n == 1:
+        yield from gen
+    curr , skip = 0, 1
+    for elem in gen:
+        if skip == n:
+            skip = 1
+        else:
+            curr = curr + elem
+            skip = skip + 1
+            yield curr
+        
+def perfect_ngen(n):
+    """
+    >>> two_gen = perfect_ngen(2)
+    >>> next(two_gen)
+    1
+    >>> next(two_gen)
+    4
+    >>> next(two_gen)
+    9
+    >>> three_gen = perfect_ngen(3)
+    >>> next(three_gen)
+    1
+    >>> next(three_gen)
+    8
+    >>> next(three_gen)
+    27
+    """
+    gen = create_skip(n, nats())
+    while n != 1:
+        n = n - 1
+        gen = create_skip(n, gen)
+    return gen
+```
+
+![cs61a_124](../images/cs61a_124.png){ loading=lazy }
+
 ## Lab 09
 
 ### 1
