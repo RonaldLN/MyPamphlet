@@ -5509,6 +5509,242 @@ def perfect_ngen(n):
 
 ![cs61a_124](../images/cs61a_124.png){ loading=lazy }
 
+### 2
+
+![cs61a_128](../images/cs61a_128.png){ loading=lazy }
+
+!!! quote
+
+    ```python
+    def close(n, smallest=10, d=10):
+        """ A sequence is near increasing if each element but the last two is smaller than all elements
+        following its subsequent element. That is, element i must be smaller than elements i + 2, i + 3, i + 4 etc.
+        Implement close, which takes a non-negative integer n and returns the largest near increasing sequence
+        of digits within n as an integer. The arguments smallest and d are part of the implementation; you must
+        determine their purpose. The only values you may use are integers and booleans (True and False) (no lists, strings, etc.).
+        Return the longest sequence of near-increasing digits in n.
+        >>> close(123)
+        123
+        >>> close(153)
+        153
+        >>> close(1523)
+        153
+        >>> close(15123)
+        1123
+        >>> close(11111111)
+        11
+        >>> close(985357)
+        557
+        >>> close(14735476)
+        143576
+        >>> close(812348567)
+        1234567
+        >>> close(45671) # with a 1 is 71; without a 1 is 4567
+        4567
+        """
+        if n == 0:
+            return 0
+        no = close(n // 10, smallest, d)
+        if smallest > ______:
+            yes = ______
+            return ______(yes, no)
+        return ______
+    ```
+
+这道题有点难想，一开始看完了 John 写出答案的整个过程但还是没想明白，
+
+然后 John 换了一个简单的例子来讲解，实现获得最大的递增子序列函数
+
+![cs61a_129](../images/cs61a_129.png){ loading=lazy }
+
+!!! quote
+
+    John:
+    
+    ...let's let's solve a simpler one, more complicated than this, but less complicated than this, let's get rid of this notion of near increasing, and just, uh, look for the longest increasing sequence within n. we would need to keep track of some notion of what's the smallest thing i've done so far, um, so what does this do, return the sequence of digits within n, sorry, the largest sequence of digits within n that is increasing. so how might it work, if i call increasing on here's some digits, let's see what we got we could have two, then four, then seven and eight, that's pretty long try one more, uh we could have three four five six seven, that's pretty long. i didn't check too carefully but it's about right.
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+    ```
+    
+    how will we do this one, if n equals zero, return zero. otherwise, if um the last digit of n is less than whatever is the smallest thing i've seen so far, then i might want to include it. so i'm going to just write this as, maybe i'll use n percent 10 in the result, or maybe not.
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+        else:
+    ```
+    
+    if n if the last digit is not allowed because it's bigger, than something that i've already decided i'm going to use, then i just can't use it. so that means the best i can do, is find the biggest increasing number within n divided by 10. okay so now we're going to have this notion of no and yes. no says i ignore n percent ten.
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+            no = increasing(n // 10)
+            yes
+        else:
+            return increasing(n // 10)
+    ```
+    
+    this is the same as that, which is why this had kind of a funny structure, we'll talk about that later. it is important that when you're looking for the smallest thing within, and ignoring the last digit you still respect, how whatever digits you've decided to keep already along the way, so you have to pass in this notion of what's the smallest thing i've already decided to use. and then if you decide to use n percent 10, which is smaller than the smallest, now you can still find more digits, but they're not allowed to just be smaller than the smallest thing you had previously seen, now they have to be smaller than n percent 10. it turns out that this could be simplified, because we know that this is smaller than that, so i could trim this down, and i'd get the same result. but i'm going to leave it like this just so we can compare it with the other thing in a minute. and then here i would say, well, maybe i found the best thing without using this digit.
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+            no = increasing(n // 10, smallest)
+            yes = increasing(n // 10, min(n % 10, smallest)) * 10 + n % 10
+            return max(no, yes)
+        else:
+            return increasing(n // 10, smallest)
+    ```
+    
+    ...so uh so what now, if you can understand this, then you can eventually understand this, but i agree that like close is just a much, like a considerably more complicated version of increasing. so i would focus on understanding this first what's going on here. let's just look at the mechanics, we either use one or we don't, in the in the choice where we don't, we just kind of pretend it's not there, and then we either use six or we don't, and in the choice where we don't we just pretend it's not there, and then we either use eight or we don't, in the choice that we do now, we have to make sure that everything else that we choose from here is smaller than eight. so we're going to have eight in the end, but we make a recursive call, that is i want the longest increasing sequence within eight seven two four seven, you know everything that's left over, except for all of the digits there have to be smaller than eight, and that's how i got this number. so if that makes sense then look at the difference between this, and that the difference between this and that is that, like we're just tucking away the most recent digit, and we're gonna include it in this notion of smallest, one step later than we otherwise would. so you're allowed to ignore the five, when you're checking to make sure that one is small enough, because that's just the rules of how this works.
+    
+    ---
+    
+    John:
+    
+    ...让我们解决一个更简单的问题，比这个复杂，但比这个简单，让我们摆脱近似递增的概念，只是寻找n中最长的递增序列。我们需要保持某种关于到目前为止我做过的最小的概念，那么这个函数是干什么的，返回n中递增的最大数字序列。所以它可能是怎么工作的，如果我在这里的一些数字上调用increasing，让我们看看我们得到了什么，我们可能有2，然后4，然后7和8，这很长，再试一次，我们可能有3，4，5，6，7，这也很长。我没有仔细检查，但大致是对的。
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+    ```
+    
+    我们要如何解决这个问题，如果n等于零，返回零。否则，如果n的最后一位数字小于到目前为止我看到的最小值，那么我可能想要包含它。所以我将写成这样，也许我会在结果中使用n % 10，或者也许不会。
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+        else:
+    ```
+    
+    如果n的最后一位不允许，因为它比我已经决定要使用的某个东西要大，那么我就不能使用它。所以这意味着我能做的最好的事情是，在n除以10的范围内找到最大的递增数。好的，现在我们将有no和yes的概念。no表示我忽略n除以10的余数。
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+            no = increasing(n // 10)
+            yes
+        else:
+            return increasing(n // 10)
+    ```
+    
+    这与那个相同，这就是为什么这个有点奇怪的结构，我们稍后会讨论的原因。在查找最小值时，忽略最后一位数字时，仍然要尊重沿途已经决定要保留的任何数字的规则，因此您必须传递这个已经决定使用的最小值的概念。然后，如果决定使用n % 10，这小于最小值，现在仍然可以找到更多的数字，但它们不能仅仅小于之前已经看到的最小值，现在它们必须小于n % 10。事实证明，这可以简化，因为我们知道这小于那，所以我可以缩短这个，然后得到相同的结果。但我会保留它，只是为了在一分钟内与另一种情况进行比较。然后在这里我会说，嗯，也许我已经找到了不使用这个数字的最好的结果。
+    
+    ```python
+    def increasing(n, smallest=10):
+        """Return the largest sequence of digits within n that is increasing.
+        
+        >>> increasing(87247861)
+        2478
+        >>> increasing(367456751)
+        34567
+        """
+        if n == 0:
+            return 0
+        elif n % 10 < smallest:
+            # Maybe I'll use n % 10 in the result or maybe not
+            no = increasing(n // 10, smallest)
+            yes = increasing(n // 10, min(n % 10, smallest)) * 10 + n % 10
+            return max(no, yes)
+        else:
+            return increasing(n // 10, smallest)
+    ```
+    
+    ...所以，如果您能理解这一点，那么最终您就能理解这一点，但我同意close只是increasing的一个更复杂的版本。所以我建议先理解这个，这里发生了什么。让我们只看看机制，我们要么使用数字1，要么不使用，在我们不使用的选择中，我们只是假装它不存在，然后我们要么使用6，要么不使用，在我们不使用的选择中，我们只是假装它不存在，然后我们要么使用8，要么不使用，在我们使用的选择中，我们必须确保从这里选择的其他所有东西都小于8。所以最后我们会得到8，但是我们进行递归调用，也就是我要找到87247中最长的递增序列，你知道除了所有的数字之外，都必须小于8，这就是我得到这个数字的方式。所以如果这有意义，然后看看这个和那个之间的区别，这和那个之间的区别是，我们只是藏起了最近的数字，然后我们会在这个最小值的概念中包含它，比我们本来想的要晚一步。所以在检查1是否足够小时，您可以忽略5，因为这只是这个工作规则。
+
+所以，如果拿 `increasing` 的例子来理解，就是先判断 `n` 的个位是否比 之前(之前即当前数位右边的数位，可以通过递归的方式来理解)浏览/判断过的位数的最小值 小，小就意味着是可以构成递增序列/满足递增条件的，那么再分出是否使用这个位数的两种情况，如果打算使用，就将最小值更新( `min(n % 10, smallest)` ，但由于 `elif` 已经判断过了，确实也可以直接使用 `n % 10` )，如果不打算使用就不改变最小值。而如果不满足递增条件，就刚好跟不打算使用的情况一样。
+
+理解了 `increasing` 再去理解 `close` 就会好理解很多，除了 `d` 几乎都一样，而 `d` 的作用就是为了让位数晚传一位(满足 near increasing 的要求)
+
+### 3
+
+![cs61a_125](../images/cs61a_125.png){ loading=lazy }
+
+John 提到了一种使用 *同时赋值 Simultaneous Assignment* 的特殊情况，
+
+John 说到在使用*同时赋值*时，会先计算等号右边的结果，再**按顺序**赋值给左边的，所以在这一行代码中
+
+```python
+L.rest, L = L.rest.rest, L.rest.rest
+```
+
+会先将 `L.rest` 指向 `L.rest.rest` ，然后再将变量名 `L` 指向 `L.rest.rest` ，所以会有如下图的改变
+
+=== "前"
+
+    ![cs61a_126](../images/cs61a_126.png){ loading=lazy }
+
+=== "后"
+
+    ![cs61a_127](../images/cs61a_127.png){ loading=lazy }
+
+先是含有 `1` 的节点的 `rest` 指向含有 `3` 的节点(即 `L.rest.rest` )，再是 `L` 指向含有 `3` 的节点
+
 ## Lab 09
 
 ### 1
