@@ -250,3 +250,30 @@ pip3.10
 ```
 
 安装完之后还记得需要**换源**
+
+## 11
+
+```bash
+ImportError: No module named '_ctypes'
+```
+
+新装的 python3.10 在装好环境之后尝试运行 yolov8 ，然后显示了上面的报错信息，在网上查了一下，这好像是 python 内置的模块，所以我认为是 python 在安装时没安装好，
+
+然后参考这篇讨论
+
+[python - Python3: ImportError: No module named '_ctypes' when using Value from module multiprocessing - Stack Overflow](https://stackoverflow.com/questions/27022373/python3-importerror-no-module-named-ctypes-when-using-value-from-module-mul)
+
+的[这个回答](https://stackoverflow.com/a/48045929)，安装一下 `libffi-dev` 就可以
+
+```bash
+sudo apt install libffi-dev
+```
+
+但是我安装好之后运行还是有这个报错，然后我重新运行命令
+
+```bash
+./configure
+sudo make install
+```
+
+重新安装了一下 python3.10 ，再次去运行 yolov8 ，这个报错信息消失了
