@@ -126,3 +126,13 @@ source /e/Programs/Anaconda3/Scripts/activate
 ```
 
 然后就会启动 anaconda 的 base 环境，这时 `conda activate xxx` 就有用了
+
+## 6
+
+如果 anaconda 或 miniconda 安装好之后，(windows)在终端上运行 `conda` 命令时，显示找不到命令或者 `conda` 不是命令之类的错误信息，
+
+>   参考这篇文章
+>
+>   [解决Windows安装Anaconda或Miniconda命令行窗口提示“'conda' 不是内部或外部命令，也不是可运行的程序 或批处理文件。” - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/597908291)
+
+将 anaconda 或 miniconda 安装目录下的 `Scripts` 文件夹添加到环境变量中，并重启即可(或者注销再登陆)
