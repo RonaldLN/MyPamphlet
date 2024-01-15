@@ -191,3 +191,62 @@ echo "1111" | sudo -S bash ./scripts/install_udev_rules.sh
 echo "1111" | sudo -S udevadm control --reload-rules && echo "1111" | sudo -S udevadm trigger
 ```
 
+## 10
+
+**ubuntu 安装新版本的 python**
+
+由于 yolov8 好像要求 3.8 以上的 python ，而 ubuntu18.04 自带的 python3 是 3.6.9 的，运行命令
+
+```bash
+sudo apt install python3
+```
+
+还显示
+
+```bash
+python3 已经是最新版 (3.6.7-1~18.04)。
+```
+
+[Ubuntu 18.04 Python 3.9 源码编译安装_ubuntu18.04源码安装python-CSDN博客](https://blog.csdn.net/u010953692/article/details/131324075)
+
+按照这篇文章，先下载 `.tgz` 文件
+
+> 可以在 华为源 中下载
+>
+> [Index of python-local (huaweicloud.com)](https://mirrors.huaweicloud.com/python/)
+
+然后
+
+```bash
+tar -tvf Python-3.10.13.tgz
+tar -zxvf Python-3.10.13.tgz
+cd Python-3.10.13
+./configure
+sudo make install
+```
+
+`make` 好之后，虽然会显示
+
+```bash
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+```
+
+但其实已经安装好了，
+
+此时运行 `python3` 仍会运行自带的 python3.6.9，
+
+运行新安装的 python3.10.13 需要运行
+
+```bash
+python3.10
+```
+
+的命令，
+
+pip 也是类似
+
+```bash
+pip3.10
+```
+
+安装完之后还记得需要**换源**
