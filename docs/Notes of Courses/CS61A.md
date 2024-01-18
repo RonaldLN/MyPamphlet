@@ -6192,7 +6192,7 @@ if k.is_leaf() and k.label == key:
     return lambda v: v.label
 ```
 
-最后是 `new_lookup` 的部分(想了一会才想出来)，看到 `i` 所以想到 `i` 是用来传递路径相关的信息的，因此
+最后是 `new_lookup` 的部分(想了一会才想出来)，看到 `i` 所以想到 `i` 是用来传递路径相关的信息的(重点是需要理解传入的 `lookup` ，是子树的查找函数，所以 `new_lookup` 中需要的也是传入对应 `v` 的子树)，因此
 
 ```python
 return f(v.branches[i])
@@ -6202,8 +6202,8 @@ return f(v.branches[i])
 >
 >   ```python
 >   def lookups(k, key):
->       if k.is_leaf():
->           yield lambda v: v.label if key == k.label else None
+>       if k.is_leaf() and k.label == key:
+>           yield lambda v: v.label
 >       for i in range(len(k.branches)):
 >           for lookup in lookups(k.branches[i], key):
 >               yield new_lookup(i, lookup)
@@ -6214,3 +6214,22 @@ return f(v.branches[i])
 >       return g
 >   ```
 
+---
+
+看了John的讲解，发现 `if` 那一行正确答案应该没有 `k.is_leaf()` ，上面的代码能通过只是因为刚好测试的值都在叶子节点，所以正确的代码应该是
+
+```python
+def lookups(k, key):
+    if k.label == key:
+        yield lambda v: v.label
+    for i in range(len(k.branches)):
+        for lookup in lookups(k.branches[i], key):
+            yield new_lookup(i, lookup)
+        
+def new_lookup(i, f):
+    def g(v):
+        return f(v.branches[i])
+    return g
+```
+
+![cs61a_132](../images/cs61a_132.png){ loading=lazy }
