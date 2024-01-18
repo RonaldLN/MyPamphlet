@@ -5965,14 +5965,15 @@ Alan Kay 借助一个实验，
         for b in ______:
             ______
         return plucking_order + [redwood.label]
-    
-    
-    """B: (5 pts) Implement pluck, which takes a number tree called pine and returns
-    a function that is called repeatedly on the elements of a plucking order. If that
-    plucking order is valid, the final call returns 'success!'. Otherwise, if one of
-    the repeated calls is on a number that is not part of a valid plucking order, the
-    error string 'Hey, not valid!' is returned.
-    
+
+
+​    
+​    """B: (5 pts) Implement pluck, which takes a number tree called pine and returns
+​    a function that is called repeatedly on the elements of a plucking order. If that
+​    plucking order is valid, the final call returns 'success!'. Otherwise, if one of
+​    the repeated calls is on a number that is not part of a valid plucking order, the
+​    error string 'Hey, not valid!' is returned.
+​    
     Since pine is a number tree and the values passed to plucker form a plucking
     order, you can assume that:
     - The labels of pine are unique,
@@ -6104,4 +6105,112 @@ def pluck(pine):
         return plucker
     return plucker
 ```
+
+### 2
+
+提到了18秋第二次期中考试的一题
+
+![cs61a_131](../images/cs61a_131.png){ loading=lazy }
+
+!!! quote
+
+    **Trictionary or Treat**
+    
+    **Definition.** A *trictionary* is a pair of `Tree` instances `k` and `v` that have identical structure: each node in `k` has a corresponding node in `v` . The labels in `k` are called *keys*. Each key may be the label for multiple nodes in `k` , and the *values* for that key are the labels of all the corresponding nodes in `v` .
+    
+    A *lookup function* returns one of the values for a key. Specifically, a lookup function for a node in `k` is a function that takes `v` as an argument and returns the label for the corresponding node in `v` .
+    
+    Implement the generator function `lookups` , which takes a `Tree` instance `k` and some `key` . It yields all *lookup functions* for nodes in `k` that have `key` as their label. The `new_lookup` function is part of the implementation.
+    
+    -   `k` :
+    
+        ```txt
+                5
+              / | \
+            7   8   5
+          /   / |  / \
+        2    3  4  4  2 
+        ```
+    
+    -   `v` :
+    
+        ```txt
+                'Go'
+               / | \
+            'C' 'A' 'L'
+           /   / |  / \
+        'C'  'S' 6  1 'A' 
+        ```
+    
+    | <u>*key*</u> | <u>*values*</u> |
+    | ------------ | --------------- |
+    | 2            | 'C', 'A'        |
+    | 3            | 'S'             |
+    | 4            | 6, 1            |
+    | 5            | 'Go', 'L'       |
+    | 7            | 'C'             |
+    | 8            | 'A'             |
+    
+    ```python
+    k = Tree(5, [Tree(7, [Tree(2)]), Tree(8, [Tree(3), Tree(4)]), Tree(5, [Tree(4), Tree(2)])])
+    v = Tree('Go', [Tree('C', [Tree('C')]), Tree('A', [Tree('S'), Tree(6)]), Tree('L', [Tree(1), Tree('A')])])
+    
+    def lookups(k, key):
+        """Yield one lookup function for each node of k that has the label key.
+        
+        >>> [f(v) for f in lookups(k, 2)]
+        ['c', 'A']
+        >>> [f(v) for f in lookups(k, 3)]
+        ['S']
+        >>> [f(v) for f in lookups(k, 6)]
+        []
+        """
+        if ______:
+            yield lambda v: ______
+        for i in range(len(k.branches)):
+            ______:
+                yield new_lookup(i, lookup)
+            
+    def new_lookup(i, f):
+        def g(v):
+            return ______
+        return g
+    ```
+
+这题有点难度，首先使理解题目的意思，`lookups` 是需要生成能返回在(输入的) 树 `v` 中对应位置的值的函数。
+
+题目给的框架也不是很容易看懂，我先是看到 `yield new_lookup(i, lookup)` 这行(看到 `lookup` )，所以猜上面一行是
+
+```python
+for lookup in lookups(k.branches[i], key):
+```
+
+这一行应该是用来递归，所以进而就很容易想到上面的 `if` 语句是 **base case** 即走到了叶子节点，于是，在最简单的情况下，就直接判断 树 `k` 的值和 `key` 是否相等就行了，所以
+
+```python 
+if k.is_leaf() and k.label == key:
+    return lambda v: v.label
+```
+
+最后是 `new_lookup` 的部分(想了一会才想出来)，看到 `i` 所以想到 `i` 是用来传递路径相关的信息的，因此
+
+```python
+return f(v.branches[i])
+```
+
+>   完整代码
+>
+>   ```python
+>   def lookups(k, key):
+>       if k.is_leaf():
+>           yield lambda v: v.label if key == k.label else None
+>       for i in range(len(k.branches)):
+>           for lookup in lookups(k.branches[i], key):
+>               yield new_lookup(i, lookup)
+>           
+>   def new_lookup(i, f):
+>       def g(v):
+>           return f(v.branches[i])
+>       return g
+>   ```
 
