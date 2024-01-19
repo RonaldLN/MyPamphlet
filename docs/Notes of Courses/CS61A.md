@@ -5980,12 +5980,12 @@ Alan Kay 借助一个实验，
 ​    - All values k passed to the plucker function are unique for a given pine, and
 ​    - All values k are labels of pine.
 ​    
-    Check the doctests with: python3 ok -q b
-    """
-    def pluck(pine):
-        """Return a function that returns whether a plucking order is valid
-        for a number tree t when called repeatedly on elements of a plucking order.
-    
+​    Check the doctests with: python3 ok -q b
+​    """
+​    def pluck(pine):
+​        """Return a function that returns whether a plucking order is valid
+​        for a number tree t when called repeatedly on elements of a plucking order.
+​    
         Calling the function returned by pluck should not mutate pine.
     
                +---+
@@ -6292,3 +6292,57 @@ $$
 ---
 
 询问了同学之后，发现这就是(以前学过的)对勾函数，最后收敛于 $\sqrt{x}$ 😂
+
+### 3
+
+![cs61a_137](../images/cs61a_137.png){ loading=lazy }
+
+scheme中的 lambda 匿名函数(类比 python 中的很好理解)
+
+### 4
+
+![cs61a_138](../images/cs61a_138.png){ loading=lazy }
+
+John 演示用 scheme 画 *谢尔宾斯基三角形 Sierpinski's Triangle* ，
+
+用递归的方式画，每个大的三角形(的三条边)由(三个)小的三角形组成，因此
+
+```scheme
+(define (repeat k fn)
+  (fn)
+  (if (> k 1) (repeat (- k 1) fn)))
+(define (tri fn)
+  (repeat 3 (lambda () (fn) (lt 120))))
+(define (sier d k)
+  (tri (lambda () (if (= d 1) (fd k) (leg d k)))))
+(define (leg d k)
+  (sier (- d 1) (/ k 2))
+  (penup) (fd k) (pendown))
+```
+
+代码大概是 `sier` 和 `leg` 相互调用的递归，
+
+翻译成 python 大致是这样
+
+```python
+def repeat(k, fn):
+    fn()
+    if k > 1:
+        repeat(k - 1, fn)
+
+def tri(fn):
+    repeat(3, lambda: fn() and turn_left(120))
+
+def sier(d, k):
+    tri(lambda: (move_forward(k) if d == 1 else leg(d, k)))
+
+def leg(d, k):
+    sier(d - 1, k // 2)
+    pen_up()
+    move_forward(k)
+    pen_down()
+```
+
+>   其中 `turn_left` `move_forward` `pen_up` `pen_down` 
+>
+>   分别对应 scheme 中的内置函数 `lr` `fd` `penup` `pendown`
