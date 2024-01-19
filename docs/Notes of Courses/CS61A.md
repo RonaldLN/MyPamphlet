@@ -5974,12 +5974,12 @@ Alan Kay 借助一个实验，
 ​    the repeated calls is on a number that is not part of a valid plucking order, the
 ​    error string 'Hey, not valid!' is returned.
 ​    
-    Since pine is a number tree and the values passed to plucker form a plucking
-    order, you can assume that:
-    - The labels of pine are unique,
-    - All values k passed to the plucker function are unique for a given pine, and
-    - All values k are labels of pine.
-    
+​    Since pine is a number tree and the values passed to plucker form a plucking
+​    order, you can assume that:
+​    - The labels of pine are unique,
+​    - All values k passed to the plucker function are unique for a given pine, and
+​    - All values k are labels of pine.
+​    
     Check the doctests with: python3 ok -q b
     """
     def pluck(pine):
@@ -6233,3 +6233,62 @@ def new_lookup(i, f):
 ```
 
 ![cs61a_132](../images/cs61a_132.png){ loading=lazy }
+
+## Lecture 27 Scheme
+
+### 1
+
+![cs61a_133](../images/cs61a_133.png){ loading=lazy }
+
+感觉 scheme 这个表达式有点像逆波兰式😂
+
+---
+
+![cs61a_134](../images/cs61a_134.png){ loading=lazy }
+
+scheme 语言里的一些用法(看John的demo应该就可以看懂了)
+
+---
+
+![cs61a_135](../images/cs61a_135.png){ loading=lazy }
+
+scheme 中的一些语句
+
+>   John 说到 scheme 使用的 *环境模型 model of environments* 和 python 的一样
+
+### 2
+
+![cs61a_136](../images/cs61a_136.png){ loading=lazy }
+
+John 演示scheme中的嵌套函数时，构造了一个求平方根的递归函数，
+
+```scheme
+(define (sqrt x)
+  (define (update guess)
+    (if (= (square guess) x)
+        guess
+        (update (average guess (/ x guess)))))
+  (update 1))
+```
+
+> 翻译成 python 应该大致是这样
+>
+> ```python
+> def sqrt(x):
+>  def update(guess):
+>      if guess ^ 2 == x:
+>          return guess
+>      else:
+>          return update((x // guess + guess) // 2)
+>  return update(1)
+> ```
+
+并且其中使用了
+$$
+guess = \frac{x}{guess} + guess
+$$
+的迭代方法，感觉很厉害
+
+---
+
+询问了同学之后，发现这就是(以前学过的)对勾函数，最后收敛于 $\sqrt{x}$ 😂
