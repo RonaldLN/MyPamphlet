@@ -5986,8 +5986,8 @@ Alan Kay 借助一个实验，
 ​        """Return a function that returns whether a plucking order is valid
 ​        for a number tree t when called repeatedly on elements of a plucking order.
 ​    
-        Calling the function returned by pluck should not mutate pine.
-    
+​        Calling the function returned by pluck should not mutate pine.
+​    
                +---+
                | 1 |
                +---+
@@ -6346,3 +6346,24 @@ def leg(d, k):
 >   其中 `turn_left` `move_forward` `pen_up` `pen_down` 
 >
 >   分别对应 scheme 中的内置函数 `lr` `fd` `penup` `pendown`
+
+### 5
+
+![cs61a_139](../images/cs61a_139.png){ loading=lazy }
+
+`cond` 语句，可以类比 `if-elif-else` 语句，而且，可以理解为这个语句也可以返回值，所以可以像图中右上一样写
+
+`begin` 语句，将多个语句合成一个( `begin` )语句
+
+---
+
+![cs61a_140](../images/cs61a_140.png){ loading=lazy }
+
+`let` 可以在其中定义临时的变量，格式是 `(let ((a 1) (b 2) ...) (...))` ，`let` 后第一个括号内是若干个定义临时变量的 *对 part* ，第二个括号是要执行的语句或者要返回的值
+
+### 6
+
+![cs61a_141](../images/cs61a_141.png){ loadin=lazy }
+
+scheme 中 链表 list 相关内容
+
