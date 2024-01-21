@@ -5988,65 +5988,65 @@ Alan Kay 借助一个实验，
 ​    
 ​        Calling the function returned by pluck should not mutate pine.
 ​    
-               +---+
-               | 1 |
-               +---+
-               /   \----          /                 +---+         +---+
-           | 2 |         | 6 |
-           +---+         +---+
-             |            /          |           /          +---+      +---+ +---+
-           | 3 |      | 7 | | 8 |
-           +---+      +---+ +---+
-            / \               |
-           /   \              |
-        +---+ +---+         +---+
-        | 4 | | 5 |         | 9 |
-        +---+ +---+         +---+
-    
-        >>> b0 = Tree(2, [Tree(3, [Tree(4), Tree(5)])])
-        >>> b1 = Tree(6, [Tree(7), Tree(8, [Tree(9)])])
-        >>> t = Tree(1, [b0, b1])
-        >>> pluck(t)(9)(8)(7)(6)(5)(4)(3)(2)(1)
-        'success!'
-        >>> pluck(t)(5)(9)(4)(7)(3)(8)(6)(2)(1)
-        'success!'
-        >>> pluck(t)(2)
-        'Hey, not valid!'
-        >>> pluck(t)(5)(9)(7)(6)
-        'Hey, not valid!'
-    
-        >>> pluck(b0)(5)(2)
-        'Hey, not valid!'
-        >>> pluck(b0)(4)(5)(3)(2)
-        'success!'
-        """
-        def plucker(k):
-            def pluck_one_leaf(cyprus):
-                """Return a copy of cyprus without leaf k and check that k is a
-                leaf label, not an interior node label.
-                """
-                if ______:
-                    ______
-                plucked_branches = []
-                for b in cyprus.branches:
-                    skip_this_leaf = ______ and ______
-                    if not skip_this_leaf:
-                        plucked_branch_or_error = pluck_one_leaf(b)
-                        if isinstance(plucked_branch_or_error, str):
-                            return plucked_branch_or_error
-                        else:
-                            ______
-                return Tree(______, plucked_branches)
-            nonlocal pine
-            if pine.is_leaf():
-                assert k == pine.label, 'all k must appear in pine'
-                return 'success!'
-            ______
-            if isinstance(pine, str):
-                return pine
-            return plucker
-        return plucker
-    ```
+​               +---+
+​               | 1 |
+​               +---+
+​               /   \----          /                 +---+         +---+
+​           | 2 |         | 6 |
+​           +---+         +---+
+​             |            /          |           /          +---+      +---+ +---+
+​           | 3 |      | 7 | | 8 |
+​           +---+      +---+ +---+
+​            / \               |
+​           /   \              |
+​        +---+ +---+         +---+
+​        | 4 | | 5 |         | 9 |
+​        +---+ +---+         +---+
+​    
+​        >>> b0 = Tree(2, [Tree(3, [Tree(4), Tree(5)])])
+​        >>> b1 = Tree(6, [Tree(7), Tree(8, [Tree(9)])])
+​        >>> t = Tree(1, [b0, b1])
+​        >>> pluck(t)(9)(8)(7)(6)(5)(4)(3)(2)(1)
+​        'success!'
+​        >>> pluck(t)(5)(9)(4)(7)(3)(8)(6)(2)(1)
+​        'success!'
+​        >>> pluck(t)(2)
+​        'Hey, not valid!'
+​        >>> pluck(t)(5)(9)(7)(6)
+​        'Hey, not valid!'
+​    
+​        >>> pluck(b0)(5)(2)
+​        'Hey, not valid!'
+​        >>> pluck(b0)(4)(5)(3)(2)
+​        'success!'
+​        """
+​        def plucker(k):
+​            def pluck_one_leaf(cyprus):
+​                """Return a copy of cyprus without leaf k and check that k is a
+​                leaf label, not an interior node label.
+​                """
+​                if ______:
+​                    ______
+​                plucked_branches = []
+​                for b in cyprus.branches:
+​                    skip_this_leaf = ______ and ______
+​                    if not skip_this_leaf:
+​                        plucked_branch_or_error = pluck_one_leaf(b)
+​                        if isinstance(plucked_branch_or_error, str):
+​                            return plucked_branch_or_error
+​                        else:
+​                            ______
+​                return Tree(______, plucked_branches)
+​            nonlocal pine
+​            if pine.is_leaf():
+​                assert k == pine.label, 'all k must appear in pine'
+​                return 'success!'
+​            ______
+​            if isinstance(pine, str):
+​                return pine
+​            return plucker
+​        return plucker
+​    ```
 
 >   需要用到的 *树 Tree* 类
 >
@@ -6366,4 +6366,125 @@ def leg(d, k):
 ![cs61a_141](../images/cs61a_141.png){ loadin=lazy }
 
 scheme 中 链表 list 相关内容
+
+### 7
+
+![cs61a_142](../images/cs61a_142.png){ loading=lazy }
+
+***引用 quotation*** (感觉似乎理解了 c++ 中的引用)，可以将**符号本身**传入到表达式中
+
+>   Special form to indicate that the expression itself is the value.
+>
+>   表示表达式本身就是值的特殊形式。
+
+```scheme
+scm> '(+ a b)
+(+ a b)
+scm> '(zero? a)
+(zero? a)
+```
+
+也可以是在表达式前加 单引号 `'` ，那么表达式中的符号都会以*引用*的形式使用
+
+---
+
+John 的demo演示
+
+```scheme
+scm> '(1 2)
+(1 2)
+scm> '(1 a)
+(1 a)
+scm> (list 1 'a)
+(1 a)
+scm> (list 1 a)
+Traceback (most recent call last):
+  0     (list 1 a)
+  1     a
+Error: unknown identifier: a
+```
+
+!!! quote
+
+    John:
+    
+    When quoting a list, you get a list, but all the expressions within it are quoted as well.
+    
+    ...I can't evaluate a until I've define it, but I can refer to a before I've defined it, because it's just a symbol. It could mean something in the future, it just hasn't been defined yet.
+    
+    ---
+    
+    John:
+    
+    引用列表时，你会得到一个列表，但其中的所有表达式也会被引用。
+    
+    ...在定义a之前，我无法评估它，但在定义之前，我可以参考a，因为它只是一个符号。它可能在未来有意义，只是还没有定义。
+
+### 8
+
+![cs61a_143](../images/cs61a_143.png){ loading=lazy }
+
+scheme 的内置函数 `eval` 可以计算引用形式的表达式(可见于上图) (感觉可以理解为 反向引用，或者说 解引用)
+
+### 9
+
+John 关于符号表达式的演示(看起来感觉很厉害😲)
+
+![cs61a_144](../images/cs61a_144.png){ loading=lazy }
+
+>   ```scheme
+>   (define (fact n)
+>     (if (= n 1) 1 (* n (fact (- n 1)))))
+>   
+>   (define (fact-exp n)
+>     (if (= n 1) 1 (list '* n (fact-exp (- n 1)))))
+>   ```
+
+![cs61a_145](../images/cs61a_145.png){ loading=lazy }
+
+>   ```scheme
+>   (define (fib n)
+>     (if (<= n 1) n (+ (fib (- n 2)) (fib (- n 1)))))
+>   
+>   (define (fib-exp n)
+>     (if (<= n 1) n (list '+ (fib-exp (- n 2)) (fib-exp (- n 1)))))
+>   ```
+
+### 10
+
+![cs61a_146](../images/cs61a_146.png){ loading=lazy }
+
+*准引用 quasiquotation* ，可以被**中断**的引用
+
+反引号 <code>\`</code> 的引用效果可以被 逗号 `,` 中断，即 `,` 后的括号以及更里面的括号取消引用效果，而其他地方还是有引用效果
+
+```scheme
+scm> `(a ,(+) b)
+(a 0 b)
+scm> `(a (+) b)
+(a (+) b)
+```
+
+### 11
+
+John 关于 *准引用 quasiquotation* 引用的演示，
+
+用*准引用*构造了类似于 `while` 的(某种程度上)通用的循环结构(给我看傻了😲)
+
+![cs61a_147](../images/cs61a_147.png){ loading=lazy }
+
+>   **分号 `;` 表示注释**
+
+我的理解是，如果 `begin` 中的 `condition` `add-to-total` 等不加逗号 `,` 的话，返回的表达式中会直接就是 `condition` `add-to-total` 等**这些符号本身**，而加了逗号 `,` 之后，最后的表达式就会是 在使用 `sum-while` 时 具体传入的值，因此在使用 `sum-while` 时应该传入的是引用形式的表达式(即如 John 演示的一样，`(sum-while 1 '(< (* x x) 50) 'x '(+ x 1))` )
+
+>   ```scheme
+>   (define (sum-while initial-x condition       add-to-total update-x)
+>     ;     (sum-while 1         '(< (* x x) 50) 'x           '(+ x 1))
+>     `(begin
+>        (define (f x total)
+>          (if ,condition
+>            (f ,update-x (+ total ,add-to-total))
+>            total))
+>        (f ,initial-x 0)))
+>   ```
 
