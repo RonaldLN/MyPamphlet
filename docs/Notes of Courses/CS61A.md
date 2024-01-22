@@ -6575,6 +6575,49 @@ John之后解释道，scheme 中的 `undefined` 和 python 中的 `None` 类似�
     
     所以基本上，像这个表达式是合法的，但是是不推荐的。你永远不应该获取 "print" 的值然后用它做其他事情。
 
+## Lab 10
+
+### 1
+
+Q5中，需要将 `'YOUR-CODE-HERE` 这一行注释掉或者删去，否则会有如下报错
+
+```scheme
+Traceback (most recent call last):
+  0     (define lst (quote your-code-here) 1)
+Error: too many operands in form
+```
+
+### 2
+
+Q6 中，本来以为很简单，一开始递归的 base case 是用 `(= lst nil)` 来判断，但是报错了
+
+```bash
+Error: operand 0 (()) is not a number
+```
+
+大概应该指的是， `lst` 和 `nil` 不是数，所以不能用 `=` 比较。
+
+最后在在线终端解释器中，摸索了好一会，发现了一个函数 `length` ，能返回*链表*的长度，于是将判断条件改成
+
+```scheme
+(zero? (length lst))
+```
+
+最终解决
+
+??? note "code"
+
+    ```scheme
+    (define (remove item lst)
+      'YOUR-CODE-HERE
+      (if (zero? (length lst))
+          nil
+          (if (= item (car lst))
+              (remove item (cdr lst))
+              (cons (car lst) (remove item (cdr lst)))))
+    )
+    ```
+
 ## HW 06
 
 ### 1
