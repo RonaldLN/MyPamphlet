@@ -6575,6 +6575,48 @@ John之后解释道，scheme 中的 `undefined` 和 python 中的 `None` 类似�
     
     所以基本上，像这个表达式是合法的，但是是不推荐的。你永远不应该获取 "print" 的值然后用它做其他事情。
 
+### 2
+
+![cs61a_150](../images/cs61a_150.png){ loading=lazy }
+
+有人问道 scheme 中有没有与 python 中 `non local` 类似的操作，
+
+于是 John 演示了使用 `set!` 的一种方式
+
+```scheme
+(define (make-withdraw balance)
+  (define (withdraw amount)
+    (set! balance (- balance amount))
+    balance)
+  withdraw)
+```
+
+### 3
+
+![cs61a_151](../images/cs61a_151.png){ loading=lazy }
+
+John 提到 scheme 中的 `=` 和 `equal?`
+
+!!! quote
+
+    John:
+    
+    So anyway, there's a bunch of different equals, and no, I don't think you need to know the difference between all of them. But if you want to know, like this ( `eq?` ), it is like `is` . This ( `=` ) is like nothing that exists in Python because it only works for numbers.
+    
+    This ( `equal?` ) is a lot like the equal sign. Yeah, in Python, I think that just like this will check, okay, so yeah, this ( `equal?` ) will check whether two things are generally equal, just like in Python, 2 equals 2 is true, and also a list containing 2 and a list containing 2 is true. So, um, yeah, this ( `equal?` ) is usually the one you want.
+    
+    But if you want to check for "is", it looks like that ( `eq?` ), and this ( `=` ) is some like weird thing that only works with numbers.
+    
+    ---
+    
+    John:
+    
+    总之，有很多不同的等号，我不认为你需要了解它们之间的区别。但是如果你想知道，比如这个( `eq?` )，就像 `is` 。这个( `=` )在Python中并不存在，因为它只适用于数字。
+    
+    这个( `equal?` )很像等号。是的，在Python中，我认为就像这个会检查，好的，所以是的，这个( `equal?` )将检查两个东西是否大致相等，就像在Python中，2等于2是真的，还有一个包含2的列表和一个包含2的列表也是真的。所以，嗯，这个( `equal?` )通常是你想要的。
+    
+    但是如果你想检查“is”，它看起来像这样( `eq?` )，而这个( `=` )是一些奇怪的东西，只对数字起作用。
+
 ## Lab 10
 
 ### 1
@@ -6617,6 +6659,17 @@ Error: operand 0 (()) is not a number
               (cons (car lst) (remove item (cdr lst)))))
     )
     ```
+
+---
+
+之后发现其实还可以用 `equal?` (或 `eq?` )函数，
+
+```scheme
+scm> (equal? () nil)
+#t
+scm> (equal? '() nil)
+#t
+```
 
 ## HW 06
 
