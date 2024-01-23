@@ -6726,3 +6726,54 @@ scm> (/ 4 2)
     )
     ```
 
+## Lecture 28 Exception
+
+### 1
+
+![cs61a_152](../images/cs61a_152.png){ loading=lazy }
+
+在运行 `py` 文件时，可以使用 `-O` 选项来忽略 `assert` 语句来提高程序执行效率
+
+```bash
+python -O
+```
+
+---
+
+![cs61a_153](../images/cs61a_153.png){ loadind=lazy }
+
+`__debug__` 可以查看 `assert` 语句是否会被执行
+
+```bash
+C:\Users\Ronald>python
+Python 3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 19:43:38) [MSC v.1934 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> __debug__
+True
+>>> ^Z
+
+
+C:\Users\Ronald>python -O
+Python 3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 19:43:38) [MSC v.1934 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> __debug__
+False
+>>>
+```
+
+### 2
+
+![cs61a_154](../images/cs61a_154.png){ loading=lazy }
+
+*引发错误 raise error*
+
+`raise` 后的表达式必须是 `BaseException` 的实例或者它的子类，
+
+如上图，John 还介绍了中*错误*类型
+
+---
+
+John 的 demo 演示
+
+![cs61a_155](../images/cs61a_155.png){ loading=lazy }
+
