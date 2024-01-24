@@ -6777,3 +6777,49 @@ John 的 demo 演示
 
 ![cs61a_155](../images/cs61a_155.png){ loading=lazy }
 
+### 3
+
+![cs61a_156](../images/cs61a_156.png){ loading=lazy }
+
+`try` 语句的用法，如果在执行 `try` 之后的代码中引起了错误，并且错误是 `except` 后 `<exception class>` 的子类时，就会执行 `except` 中的语句(如果没有引起错误就不会执行)
+
+John的demo演示
+
+![cs61a_157](../images/cs61a_157.png){ loading=lazy }
+
+### 4
+
+![cs61a_158](../images/cs61a_158.png){ loading=lazy }
+
+John提到了一个 `reduce` 函数(非内置)，在之后的demo演示中，分别用迭代和递归实现了 `reduce`
+
+-   ```python
+    def reduce(f, s, initial):
+        """Combine elements of s using f starting with initial.
+        
+        >>> reduce(mul, [2, 4, 8], 1)
+        64
+        >>> reduce(add, [1, 2, 3, 4], 0)
+        10
+        """
+        for x in s:
+            initial = f(initial, x)
+        return initial
+    ```
+
+-   ```python
+    def reduce(f, s, initial):
+        """Combine elements of s using f starting with initial.
+        
+        >>> reduce(mul, [2, 4, 8], 1)
+        64
+        >>> reduce(add, [1, 2, 3, 4], 0)
+        10
+        """
+        if not s:
+            return initial
+        else:
+            first, rest = s[0], s[1:]
+            return reduce(f, rest, f(initial, first))
+    ```
+
