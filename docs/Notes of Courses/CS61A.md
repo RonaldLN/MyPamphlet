@@ -6621,6 +6621,46 @@ John 提到 scheme 中的 `=` 和 `equal?`
 
 ### 1
 
+指导网页上有写如何使用提供的 scheme 解释器以及编辑器
+
+!!! quote
+
+    **Scheme**
+    
+    Scheme is a famous functional programming language from the 1970s. It is a dialect of Lisp (which stands for LISt Processing). The first observation most people make is the unique syntax, which uses a prefix notation and (often many) nested parentheses (see http://xkcd.com/297/). Scheme features first-class functions and optimized tail-recursion, which were relatively new features at the time.
+    
+    >   Our course uses a custom version of Scheme (which you will build for Project 4) included in the starter ZIP archive. To start the interpreter, type `python3 scheme`. To run a Scheme program interactively, type `python3 scheme -i <file.scm>`. To exit the Scheme interpreter, type `(exit)`.
+    
+    You may find it useful to try [code.cs61a.org/scheme](https://code.cs61a.org/scheme) when working through problems, as it can draw environment and box-and-pointer diagrams and it lets you walk your code step-by-step (similar to Python Tutor). Don't forget to submit your code through Ok though!
+    
+    **Scheme Editor**
+    
+    As you're writing your code, you can debug using the Scheme Editor. In your `scheme` folder you will find a new editor. To run this editor, run `python3 editor`. This should pop up a window in your browser; if it does not, please navigate to [localhost:31415](localhost:31415) and you should see it.
+    
+    Make sure to run `python3 ok` in a separate tab or window so that the editor keeps running.
+    
+    If you find that your code works in the online editor but not in your own interpreter, it's possible you have a bug in code from an earlier part that you'll have to track down. Every once in a while there's a bug that our tests don't catch, and if you find one you should let us know!
+
+运行
+
+```bash
+python ./scheme [-i <file.scm>]
+```
+
+打开 scheme 解释器，以及加载文件并打开。
+
+运行
+
+```bash
+python editor
+```
+
+打开 scheme 编辑器，在线编辑和测试(网址在 [http://127.0.0.1:31415](http://127.0.0.1:31415))
+
+![cs61a_159](../images/cs61a_159.png){ loadinglazy }
+
+### 2
+
 Q5中，需要将 `'YOUR-CODE-HERE` 这一行注释掉或者删去，否则会有如下报错
 
 ```scheme
@@ -6629,7 +6669,7 @@ Traceback (most recent call last):
 Error: too many operands in form
 ```
 
-### 2
+### 3
 
 Q6 中，本来以为很简单，一开始递归的 base case 是用 `(= lst nil)` 来判断，但是报错了
 
@@ -6791,7 +6831,7 @@ John的demo演示
 
 ![cs61a_158](../images/cs61a_158.png){ loading=lazy }
 
-John提到了一个 `reduce` 函数(非内置)，在之后的demo演示中，分别用迭代和递归实现了 `reduce`
+John提到了一个 `reduce` 函数(可能内置)，在之后的demo演示中，分别用迭代和递归实现了 `reduce`
 
 -   ```python
     def reduce(f, s, initial):
@@ -6823,3 +6863,229 @@ John提到了一个 `reduce` 函数(非内置)，在之后的demo演示中，分
             return reduce(f, rest, f(initial, first))
     ```
 
+## Lecture 28 Q&A
+
+### 1
+
+![cs61a_160](../images/cs61a_160.png){ loading=lazy }
+
+`try` 语句结构中的 `finally` 语句，
+
+`finally` 中的代码无论 `try` 中是否引发错误最终都会被执行(从图上 John 的演示中可以看到)，所以 `finally` 中一般用来释放资源释放内存(如关闭在 `try` 中加载的文件，或者断开网络连接)
+
+### 2
+
+有人提问 `try` 中引发的错误是否存在于 `global` 框架中，John 进行演示
+
+```python
+>>> try:
+...     1/0
+... except ZeroDivisionError as n:
+...     print("n is", n)
+...
+n is division by zero
+>>> n
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+Nameerror: name 'n' is not defined
+```
+
+随后 John 又展示了一下错误实例
+
+```python
+def return_an_error():
+    try:
+        1/0
+    except ZeroDivisionError as n:
+        print("n is", n)
+        return n
+```
+
+```python
+>>> e = return_an_error()
+n is division by zero
+>>> e
+ZeroDivisionError('division by zero')
+>>> str(e)
+'division by zero'
+>>> repr(e)
+"ZeroDivisionError('division by zero')"
+>>> isinstance(e, Exception)
+True
+>>> isinstance(e, ZeroDivisionError)
+True
+```
+
+### 3
+
+有人提问19年秋季期末考试的这一题
+
+!!! quote
+
+    **Mull It Over**
+    
+    *Uh oh!* Someone evaluated `(define * +)` . Now `(* 3 2)` evaluates to 5 instead of 6! Let's fix it.
+    
+    **Important**: Answer all questions on this page without calling the built-in multiplication procedure.
+    
+    **(a)** Implement `mulxy` , which multiplies integers `x` and `y` . **Hint**: `(- 2)` evaluates to -2.
+    
+    ```scheme
+    ;; multiply x by y (without using the * operator).
+    ;; (mulxy 3 4) -> 12           ; 12 = 3 + 3 + 3 + 3
+    ;; (mulxy (- 3) (- 4)) -> 12   ; 12 = - ( -3 + -3 + -3 + -3 )
+    (define (mulxy x y)
+      (cond ((< y 0) (- ______ ))
+            ((= y 0) 0)
+            (else ( ______ x (mulxy x ______)))))
+    ```
+    
+    **(b)** Implement `mul-expr` , which takes an expression `e` that contains only calls to `*` and numbers. It returns the normal value of `e` under a Scheme interpreter with an unmodified `*` operator that multiplies.
+    
+    You may call the `mul` procedure defined below.
+    
+    **Important**: Fill each blank with only a single symbol.
+    
+    ```scheme
+    ;; Multiply together a list of numbers.
+    ;; (mul '(2 3 4 2)) -> 48
+    (define (mul s) (reduce mulxy s))
+    
+    ;; Evaluate an expression with only calls to * and numbers.
+    ;; (mul-expr '(* (* 1 2) (* 3 (* 4 1 1) 2))) -> 48
+    (define (mul-expr e)
+      (if (number? e) e
+          (______ (______ ______ (______ e)))))
+    ```
+    
+    **(c)** Implement `*-to-mul` , which takes any expression `e` . It returns an expression like `e` , but with all calls to `*` replaced with calls to `mul` . Note that `*` takes an arbitrary number of arguments, while `mul` always takes exactly one argument: a list of numbers. You should account for this difference.
+    
+    ```scheme
+    ;; Convert all calls to * to calls to mul in expression e.
+    ;; (eval (*-to-mul '(* 1 (+ 2 3) (+ 4 5 (* 6 1))))) -> 75
+    (define (*-to-mul e)
+      (if (not (list? e)) e
+          (let ((op ______ ) (rest ______))
+            (if (equal? op '*)
+                (list ______)
+                (cons op rest)))))
+    ```
+
+我先尝试自己做了一下，
+
+第一题很简单
+
+```scheme
+(define (mulxy x y)
+  (cond ((< y 0) (- (mulxy x (- y))))
+        ((= y 0) 0)
+        (else (+ x (mulxy x (- y 1))))))
+```
+
+第二题由于每一个空只能填一个 symbol，想了很久没想到可行的填法，感觉应该是需要使用一些特殊的函数。
+
+John 使用了scheme内置的 `map` 函数
+
+![cs61a_161](../images/cs61a_161.png){ loading=lazy }
+
+scheme 中的 `map` 和 python 中的 `map` 效果差不多，都是传入一个函数和一个链表/序列，然后将函数应用到每一个元素上，
+
+因此
+
+```scheme
+(define (mul-expr e)
+  (if (number? e) e
+      (mul (map mul-expr (cdr e)))))
+```
+
+第三题也比较难，先是根据我的理解写出了
+
+```scheme
+(define (*-to-mul e)
+  (if (not (list? e)) e
+      (let ((op (car e)) (rest (map *-to-mul (cdr e))))
+        (if (equal? op '*)
+            (list ______)
+            (cons op rest)))))
+```
+
+`(list ______)` 这一行，一开始尝试 `(list mul rest)` ，但是测试时显示
+
+```scheme
+scm> (eval (*-to-mul '(* 1 (+ 2 3) (+ 4 5 (* 6 1)))))
+Traceback (most recent call last):
+  0     (eval (*-to-mul (quote (* 1 (+ 2 3) (+ 4 5 (* 6 1))))))
+  1     ((lambda (s) (reduce mulxy s)) (1 (+ 2 3) (+ 4 5 ((lambda (s) (reduce mulxy s)) (6 1)))))
+  2     (lambda (s) (reduce mulxy s))
+Error: malformed list: (lambda (s) (reduce mulxy s))
+scm> (*-to-mul '(* 1 (+ 2 3) (+ 4 5 (* 6 1))))
+((lambda (s) (reduce mulxy s)) (1 (+ 2 3) (+ 4 5 ((lambda (s) (reduce mulxy s)) (6 1)))))
+```
+
+然后我意识到，应该把 `mul` 改成 `'mul` ，因为**需要返回的是一个表达式，表达式中的符号和函数应该是引用的形式**，
+
+修改成 `(list 'mul rest)` 之后，测试显示
+
+```scheme
+scm> (eval (*-to-mul '(* 1 (+ 2 3) (+ 4 5 (* 6 1)))))
+Traceback (most recent call last):
+  0     (eval (*-to-mul (quote (* 1 (+ 2 3) (+ 4 5 (* 6 1))))))
+  1     (mul (1 (+ 2 3) (+ 4 5 (mul (6 1)))))
+  2     (1 (+ 2 3) (+ 4 5 (mul (6 1))))
+Error: int is not callable: 1
+```
+
+>   本来看到上面的
+>
+>   ```scheme
+>   ;; (mul '(2 3 4 2)) -> 48
+>   ```
+>
+>   将代码尝试改成了
+>
+>   ```scheme
+>   (list 'mul ('quote rest))
+>   ```
+>
+>   但是测试时显示
+>
+>   ```scheme
+>   Traceback (most recent call last):
+>     ...   ...
+>     4     (list (quote mul) ((quote quote) rest))
+>     5     ((quote quote) rest)
+>   Error: str is not callable: quote
+>   ```
+
+最后想不出答案。
+
+![cs61a_162](../images/cs61a_162.png){ loading=lazy }
+
+John 利用一个例子来进行讲解，
+
+```scheme
+(*-to-mul '(* 1 2 (* 3 4)))
+```
+
+**应该得到的是**(感觉我之前做的时候是没想到这个关键的地方)
+
+```scheme
+(mul (list 1 2 (mul (list 3 4))))
+```
+
+>   Hany 期间问道为什么不是 `(mul (1 2 (mul (3 4))))`
+>
+>   John 说 因为 `1` 不是可调用的，如果这样写**就会调用 `1`**
+
+所以最后正确的答案是(John 的代码有一些问题，递归应该发生在定义 `rest` 的时候(否则如果第一个是 `+` 就会不发生替换))
+
+```scheme
+(define (*-to-mul e)
+  (if (not (list? e)) e
+      (let ((op (car e)) (rest (map *-to-mul (cdr e))))
+        (if (equal? op '*)
+            (list 'mul (cons 'list rest))
+            (cons op rest)))))
+```
+
+(这题是真的难想😱)
