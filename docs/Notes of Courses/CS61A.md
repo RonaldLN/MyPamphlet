@@ -7089,3 +7089,25 @@ John 利用一个例子来进行讲解，
 ```
 
 (这题是真的难想😱)
+
+### 4
+
+!!! quote
+
+    John:
+    
+    You can think of a list as built from a bunch of `cons` . `cons` is like the most fundamental operation, and what it does is it just adds one element to the beginning of an existing list.
+    
+    ---
+    
+    John:
+    
+    你可以将列表看作是由一堆 `cons` 构建而成的。 `cons` 就像是最基本的操作，它的作用是在现有列表的开头添加一个元素。
+
+我觉得 John 这个对 `cons` 函数的解释很好，把 `cons` 理解成 **一个在现有列表开头插入新元素的函数** 就更方便
+
+### 5
+
+![cs61a_163](../images/cs61a_163.png){ loading=lazy }
+
+John 又提到了scheme中的 `append` 函数，能将两个链表合并到一起
