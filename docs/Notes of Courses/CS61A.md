@@ -7111,3 +7111,11 @@ John 利用一个例子来进行讲解，
 ![cs61a_163](../images/cs61a_163.png){ loading=lazy }
 
 John 又提到了scheme中的 `append` 函数，能将两个链表合并到一起
+
+## Lecture 29 Calculater
+
+### 1
+
+John 讲解 *解析 parse* 一个语言的语句的过程
+
+![cs61a_164](../images/cs61a_164.png){ loading=lazy }
