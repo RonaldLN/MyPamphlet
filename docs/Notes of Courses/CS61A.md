@@ -7119,3 +7119,90 @@ John 又提到了scheme中的 `append` 函数，能将两个链表合并到一�
 John 讲解 *解析 parse* 一个语言的语句的过程
 
 ![cs61a_164](../images/cs61a_164.png){ loading=lazy }
+
+### 2
+
+![cs61a_165](../images/cs61a_165.png){ loading=lazy }
+
+scheme 中的减法和除法稍微特殊一些，如果只有一个参数，就直接取相反数或者倒数，如果有多个参数，就是拿第一个去减或除之后剩余的数
+
+### 3
+
+用 python 实现 scheme 中(适用于数学运算表达式的) `eval` 函数
+
+![cs61a_166](../images/cs61a_166.png){ loading=lazy }
+
+### 4
+
+![cs61a_167](../images/cs61a_167.png){ loading=lazy }
+
+***交互式解释器 interactive interpreter* 的工作流程 *读取-求值-输出循环 Read-Eval-Print Loop (REPL)*** 
+
+- 从用户的文本输入中读取
+- 将文本 *解析 parse* 为表达式
+- 计算表达式
+- 如果发生错误，报告错误
+- 输出表达式计算结果的值，并重复上述过程
+
+### 5
+
+John 说到 *交互式解释器 interactive interpreter* 不能因为程序的错误就中断整个程序，所以需要进行 exception 的处理
+
+!!! quote
+
+    John:
+    
+    ...So, an interactive interpreter should print information about each error. So that when those errors occur, the programmer who generated them can figure out what to change in order to get rid of the error. And a well-designed interactive interpreter should never really halt; it should stop evaluating the current expression and print out the arrow, but then give the programmer a chance to revise what they've done. So, the user should have the opportunity to try again in the current environment, instead of having the whole program crash. And that's exactly what happens here.
+    
+    So, as you can see, I'm able to continue entering expressions. The only way I can quit out of this game calculator is by pressing in my system control "d," which says this is the end of the file. Then it will say, "Calculation is complete," and finally, the program will end.
+    
+    Now, how do we control for all this? Well, we put both the parsing and evaluation within a `try` statement,
+    
+    ```python
+    @main
+    def read_eval_print_loop():
+        """Run a read-eval-print loop for Calculator."""
+        while True:
+            try:
+                src = buffer_input()
+                while src.more_on_line:
+                    expression = scheme_read(src)
+                    print(calc_eval(expression))
+            except (SyntaxError, TypeError, ValueError, ZeroDivisionError) as err:
+                print(type(err).__name__ + ':', err)
+            except (KeyboardInterrupt, EOFError):  # <Control>-D, etc.
+                print('Calculation completed.')
+                return
+    ```
+    
+    that knows to look for syntax, type, value, and zero division errors – all the things that can occur, and just prints those errors out. And then, since this is all embedded within the suite of a `while` statement, we'll go back and try again. So, the only way to stop is to reach the end of a file or a keyboard interrupt, at which point it will print "Calculation is complete."
+    
+    ---
+    
+    John:
+    
+    因此，交互式解释器应该打印有关每个错误的信息，以便当这些错误发生时，生成它们的程序员能够弄清楚要更改什么以消除错误。一个设计良好的交互式解释器实际上不应该停止；它应该停止评估当前表达式并打印出箭头，然后给程序员一个机会来修改他们所做的事情。因此，用户应该有机会在当前环境中再次尝试，而不是使整个程序崩溃。这正是这里发生的情况。
+    
+    所以，正如你所见，我能够继续输入表达式。退出这个游戏计算器的唯一方法是按下我的系统控制 “d”，这表示这是文件的结尾。然后它将显示 “Calculation is complete”，最后程序将结束。
+    
+    现在，我们如何控制所有这些呢？嗯，我们将解析和评估都放在一个 `try` 语句中， 
+    
+    ```python
+    @main
+    def read_eval_print_loop():
+        """Run a read-eval-print loop for Calculator."""
+        while True:
+            try:
+                src = buffer_input()
+                while src.more_on_line:
+                    expression = scheme_read(src)
+                    print(calc_eval(expression))
+            except (SyntaxError, TypeError, ValueError, ZeroDivisionError) as err:
+                print(type(err).__name__ + ':', err)
+            except (KeyboardInterrupt, EOFError):  # <Control>-D, etc.
+                print('Calculation completed.')
+                return
+    ```
+    
+    该语句知道如何查找语法、类型、值和零除错误，即所有可能发生的事情，并只是打印出这些错误。然后，由于所有这些都嵌套在一个 `while` 语句的套件中，我们将回到并尝试再次执行。因此，唯一停止的方式是到达文件的末尾或键盘中断，此时它将打印 “Calculation is complete”。
+
