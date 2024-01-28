@@ -6844,7 +6844,7 @@ John的demo演示
 
 ![cs61a_158](../images/cs61a_158.png){ loading=lazy }
 
-John提到了一个 `reduce` 函数(可能内置)，在之后的demo演示中，分别用迭代和递归实现了 `reduce`
+John提到了一个 `reduce` 函数(python没内置，scheme内置了)，在之后的demo演示中，分别用迭代和递归实现了 `reduce`
 
 -   ```python
     def reduce(f, s, initial):
