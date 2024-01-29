@@ -7219,6 +7219,35 @@ John 说到 *交互式解释器 interactive interpreter* 不能因为程序的�
     
     该语句知道如何查找语法、类型、值和零除错误，即所有可能发生的事情，并只是打印出这些错误。然后，由于所有这些都嵌套在一个 `while` 语句的套件中，我们将回到并尝试再次执行。因此，唯一停止的方式是到达文件的末尾或键盘中断，此时它将打印 “Calculation is complete”。
 
+## Lecture 29 Q&A
+
+### 1
+
+![cs61a_168](../images/cs61a_168.png){ loading=lazy }
+
+有人提问道(python)代码中的 `@main` 有什么作用，
+
+!!! quote
+
+    John:
+    
+    ...Yeah, so this main decorator is something that's specific to 61a. It just says if you run the file, this is the function that should be called. So if I run the whole `scalc.py` file, it's not going to call as scheme list instead, it's going to call `read_eval_print_loop` .
+    
+    ---
+    
+    John:
+    
+    ...是的，所以这个主装饰器是61a特有的东西。它只是说，如果你运行文件，这就是应该调用的函数。因此，如果我运行整个 `scalc.py` 文件，它不会调用scheme-list，而是调用 `read_eval_print_loop` 。
+
+这个和
+
+```python 
+if __name__ = '__main__':
+    ...
+```
+
+有点像，不过封装成函数再加上 `@main` 还有一点好处就是还可以再次进行调用
+
 ## HW 07
 
 ### 1
