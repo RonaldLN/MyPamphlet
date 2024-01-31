@@ -7371,3 +7371,154 @@ except (SyntaxError, NameError, TypeError, OverflowError, ZeroDivisionError) as 
 ```
 
 这一行添加了 `OverflowError` 和 `ZeroDivisionError`
+
+## Lecture 31 Declarative Programming
+
+### 1
+
+![cs61a_169](../images/cs61a_169.png){ loading=lazy }
+
+John解释什么是 *声明式语言 declarative language* ，以及和 *命令式语言 imperative language* 的区别，
+
+主要在于，***命令式语言*只会固定地执行写好的程序，而*声明式语言*会根据需要处理的情况来自己选择合适的处理方法**
+
+!!! quote
+
+    John:
+    
+    SQL is a declarative programming language. What's that? Well, in a declarative language, SQL is the most common example, but there are many others such as Prolog. A program is a description of the desired result that you want your computer to generate. The interpreter's job is to figure out how to generate that result for you. That's different from an imperative language, such as Python or Scheme. In an imperative language, when you write a program in that language, it's a description of some computational process or processes that you want to be carried out. The job of an interpreter in an imperative language is to carry out the execution and evaluation rules in order to have a correctly interpreted program, and you've done this in your project.
+    
+    So, there's more flexibility in a declarative language interpreter. We'll see what I mean by that in time, but here's a place to start: in an imperative language, if you write a quadratic time algorithm by specifying that computational process, it's probably gonna run in quadratic time. But in a declarative language, you just say what you want, and if there are multiple ways to compute that, one of which runs in quadratic time and one of which runs in linear time, well, it's up to the interpreter to choose among those options in order to compute what you want as efficiently as possible.
+    
+    So, a lot of the interesting research in declarative languages is in making decisions about how to compute the desired result, given that there are many ways to compute it correctly, but some of them are faster than others.
+    
+    ---
+    
+    John:
+    
+    SQL是一种声明式编程语言。那是什么？嗯，在声明式语言中，SQL是最常见的例子，但还有许多其他语言，比如Prolog。程序是对你想让计算机生成的期望结果的描述。解释器的任务是弄清楚如何为你生成该结果。这与命令式语言不同，比如Python或Scheme。在命令式语言中，当你在该语言中编写程序时，它是对你想执行的一些计算过程或过程的描述。命令式语言中解释器的任务是执行执行和评估规则，以确保正确解释程序，而你在项目中已经做到了这一点。
+    
+    因此，在声明式语言解释器中有更多的灵活性。我们会在后面详细讨论这一点，但这里是一个起点：在命令式语言中，如果你通过指定计算过程来编写一个二次时间复杂度的算法，它可能会运行在二次时间复杂度。但在声明式语言中，你只需说明你想要的结果，如果有多种计算该结果的方式，其中一种是二次时间复杂度，另一种是线性时间复杂度，那么由解释器来在这些选项中选择，以尽可能高效地计算出你想要的结果。
+    
+    因此，在声明式语言中，关于如何计算期望结果的有趣研究很多，鉴于有许多正确计算结果的方式，但其中一些比其他方式更快。
+
+### 2
+
+![cs61a_170](../images/cs61a_170.png){ loading=lazy }
+
+SQL语言的一些基本语句，John说(除了 `select` `create table` )其他的语句对于理解SQL的核心不太重要
+
+!!! quote
+
+    John:
+    
+    ...They're important if you're actually going to use one of these systems in a large industrial application, but they're not too important for understanding the heart of how SQL works. Most of the important action is in the SELECT statement.
+    
+    ---
+    
+    John:
+    
+    ...它们在实际应用于大型工业应用程序时非常重要，但对于理解 SQL 工作的核心并不太重要。大部分重要的操作都在 SELECT 语句中。
+
+### 3
+
+![cs61a_171](../images/cs61a_171.png){ loading=lazy }
+
+`select` 语句的基本用法
+
+```sql
+select [expression] as [name], [expression] as [name], ... ;
+```
+
+分号 `;` 表示结束， `as [name]` 部分是可选的。
+
+一个 `select` 语句只会生成一个一行的数据表，可以使用 `union` 将多个表合并，**合并要求两个表的列数是一样的**，使用第一个表的列名作为新表的列名(所以可以看到展示的代码中，之后 `select` 语句(即之后的表)都可以不用添加列名不用写 `as [name]` )
+
+!!! quote
+
+    John:
+    
+    ...If you `select` literals, which are expressions like the number `2` or the string `"Berkeley"` , that will create a one-row table. But if you want to create a multi-row table, you can union together two `select` statements. The union of two `select` statements is another table, but it contains the rows of both. You can only union together tables that have the same number of columns and the same type of information in each column. But the two `select` statements that you union together don't need to have the same names for the columns; it will just use the names of the first `select` statement in order to name the columns in the final result.
+    
+    ---
+    
+    John:
+    
+    ...如果你选择（ `select` ）字面量，这些表达式可以是像数字 `2` 或字符串 `"Berkeley"` 这样的表达式，那将创建一个一行的表。但如果你想创建一个多行的表，你可以将两个 `select` 语句联合在一起。两个 `select` 语句的联合是另一个表，但它包含了两者的行。你只能联合那些具有相同列数和每列相同类型信息的表。但你联合在一起的两个 `select` 语句的列名不需要相同；它将只使用第一个 `select` 语句的列名来命名最终结果中的列。
+
+---
+
+![cs61a_172](../images/cs61a_172.png){ loading=lazy }
+
+`select` 语句只会展示数据表，但并不会将数据表储存，所以如果需要储存数据表，可以使用 `create table` 语句(如上图)
+
+### 4
+
+**用 `select` 语句来 *投影 project* 现有数据表**
+
+>   project官方的翻译是*投影*，但我觉得这里理解为 处理 也可以
+
+![cs61a_173](../images/cs61a_173.png){ loading=lazy }
+
+可以用 `from` 来选择一个已有的表，可以用 `where` 来筛选符合条件的行(感觉有点像python列表推到式中的 `if` )，可以用 `order by` 来给新表设置排序规则
+
+---
+
+在John的demo演示中，使用 `*` 来选择所有列
+
+```sql
+select * from parents;
+```
+
+![cs61a_174](../images/cs61a_174.png){ loading=lazy }
+
+### 5
+
+![cs61a_175](../images/cs61a_175.png){ loading=lazy }
+
+`select` 语句中也可以进行数学的处理(如上图)
+
+### 6
+
+![cs61a_176](../images/cs61a_176.png){ loading=lazy }
+
+在 sql 终端中，可以使用 `-init xxx.sql` 来加载 `.sql` 文件
+
+---
+
+John提到 `select * from ints` 后，新表与原表顺序不一致的现象
+
+!!! quote
+
+    John:
+    
+    Notice something quite interesting. These rows don't appear in the order that I wrote them out in the first place. When you union together a bunch of `select` statements, you get no guarantees about the order of the result. That's up to the declarative programming engine, which tries to compute the result efficiently.
+    
+    Now, one thing that `union` does is it discards repeats, and the way that it discards repeats in some cases is to sort all the rows to look for whether there's repetition. And that's exactly what happened here. So, you can see that it's written all of these in an alphabetical order according to the word, which is not what I asked for in the first place, but that's what I got.
+    
+    And this is one of the properties of declarative programming languages. There's no particular procedure that's defined in advance that tells me how to compute the result of unioning together a bunch of `select` statements. Instead, it's up to the system to create the correct result in whatever way it chooses, and that might involve building the table in a different order than you might expect.
+    
+    ---
+    
+    John:
+    
+    请注意一些相当有趣的事情。这些行并不按照我最初写出它们的顺序出现。当你联合一堆 `select` 语句时，你无法保证结果的顺序。这由声明性编程引擎决定，它试图有效地计算结果。
+    
+    现在， `union` 的一项功能是丢弃重复项，而在某些情况下丢弃重复项的方法是对所有行进行排序，以查看是否有重复。这正是这里发生的情况。所以你可以看到，它按照单词的字母顺序写出了所有这些，这不是我最初要求的，但这就是我得到的结果。
+    
+    这是声明性编程语言的一个特性。没有预先定义的特定过程告诉我如何计算联合一堆 `select` 语句的结果。相反，这取决于系统以任何它选择的方式创建正确的结果，这可能涉及以与你期望的不同的顺序构建表。
+
+### 7
+
+![cs61a_177](../images/cs61a_177.png){ loading=lazy }
+
+问题B，最后John用了一种我没想到的方法😂，
+
+```sql
+select word from ints
+where one + two/2 + four/4 + eight/8 = 1;
+```
+
+即判断是否只有一个为正，
+
+我想到的是，将1 2 4 8加起来(算自己的值)然后取模为零(但不知道sql中有没有取模运算，有的话应该就可行)
