@@ -7299,3 +7299,75 @@ Q4 这题有点难(主要是一直想用python中的 `in` 而scheme中用不了�
     )
     ```
 
+## Lab 11
+
+### 1
+
+Q3这题需要把题目意思理解清楚， `CallExpr` 实例中的 `operator` 和 `operands` 相当于变量名，需要调用它们的 `eval` 方法并传入环境来获取对应的值或者实例，
+
+最后，操作符 `operator` 需要调用 `apply` 方法来进行使用
+
+>   **Hint:** Since the operator and operands are all instances of `Expr`, you can evaluate them by calling their `eval` methods. Also, you can apply a function (an instance of `PrimitiveFunction` or `LambdaFunction`) by calling its `apply` method, which takes in a list of arguments (`Value` instances).
+
+??? note "code"
+
+    ```python
+    class CallExpr(Expr):
+        def eval(self, env):
+            return self.operator.eval(env).apply([operand.eval(env) for operand in self.operands])
+    ```
+
+### 2
+
+Q4中，需要更新以字典形式存储的环境，结合Q3的函数说明，可以知道可以使用字典的 `update` 方法，
+
+> 在终端中试了一下
+>
+> ```python
+> >>> dict
+> <class 'dict'>
+> >>> dict.update
+> <method 'update' of 'dict' objects>
+> >>> dict.extend
+> Traceback (most recent call last):
+> File "<stdin>", line 1, in <module>
+> AttributeError: type object 'dict' has no attribute 'extend'
+> >>> dict.append
+> Traceback (most recent call last):
+> File "<stdin>", line 1, in <module>
+> AttributeError: type object 'dict' has no attribute 'append'
+> ```
+
+---
+
+`dict.update()` 没有返回值(和列表的 `append` 和 `extend` 一样)，所以一开始我用
+
+```python
+new_env = self.parent.copy().update(dict(zip(self.parameters, arguments)))
+```
+
+然后报了 `NoneType` 的错误。
+
+??? note "code"
+
+    ```python
+    class LambdaFunction(Value):
+        def apply(self, arguments):
+            if len(self.parameters) != len(arguments):
+                raise TypeError("Oof! Cannot apply number {} to arguments {}".format(
+                    comma_separated(self.parameters), comma_separated(arguments)))
+            "*** YOUR CODE HERE ***"
+            new_env = self.parent.copy()
+            new_env.update(dict(zip(self.parameters, arguments)))
+            return self.body.eval(new_env)
+    ```
+
+### 3
+
+Q5没什么明确的要求，我直接在
+
+```python
+except (SyntaxError, NameError, TypeError, OverflowError, ZeroDivisionError) as err:
+```
+
+这一行添加了 `OverflowError` 和 `ZeroDivisionError`
