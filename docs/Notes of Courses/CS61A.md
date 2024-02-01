@@ -7372,6 +7372,727 @@ except (SyntaxError, NameError, TypeError, OverflowError, ZeroDivisionError) as 
 
 这一行添加了 `OverflowError` 和 `ZeroDivisionError`
 
+## Project Scheme
+
+### 1
+
+Problem 1的前面某题我卡了一小会😅
+
+```python
+>>> from scheme_reader import *
+>>> tokens = tokenize_lines(["(+ 1 ", "(23 4)) ("])
+>>> src = Buffer(tokens)
+>>> src.current()
+? ...
+-- OK! --
+
+>>> src.pop_first()
+? ...
+-- OK! --
+
+>>> src.current()
+? ...
+-- OK! --
+
+>>> src.pop_first()
+? ...
+-- OK! --
+
+>>> src.pop_first()
+? ...
+-- OK! --
+
+>>> scheme_read(src)  # Removes the next complete expression in src and returns it as a Pair
+? 
+```
+
+最后是看了 `scheme_reader.py` 中 `scheme_read` 的函数说明中
+
+```python
+def scheme_read(src):
+    """Read the next expression from SRC, a Buffer of tokens.
+
+    ...
+    >>> scheme_read(Buffer(tokenize_lines(['(+ 1 2)'])))
+    Pair('+', Pair(1, Pair(2, nil)))
+    """
+```
+
+才明白 `returns it as a Pair` 具体返回是什么样子。
+
+然后看到了题目说明中的
+
+>   `scheme_read`:
+>
+>   -   If the current token is `(`, the expression is a pair or list. Call `read_tail` on the rest of `src` and return its result.
+>
+>   `read_tail`:
+>
+>   -   If the token is `)`, then we've reached the end of the list or pair. **Remove this token from the buffer** and return the `nil` object.
+
+所以明白只会读取到第一个右括号 `)` ，因此最后正确答案是
+
+```python
+Pair(23, Pair(4, nil))
+```
+
+>   但是有个地方感觉有点小离谱😅，少了个空格居然显示错误
+>
+>   ```python
+>   ? Pair(23, Pair(4,nil))
+>   -- Not quite. Try again! --
+>   
+>   ? Pair(23, Pair(4, nil))
+>   -- OK! --
+>   ```
+
+---
+
+在实现 `read_tail` 时，意识到题目说明中的这句话
+
+>   Both functions mutate the buffer, removing the tokens that have already been processed.
+
+就是说，(比如被 `scheme_read` 调用的) `read_tail` 中需要*突变* `src` (移除已经使用过的*令牌*)，这样在 `read_tail` 中使用过的 *令牌 tokens* ，就不会被 `scheme_read` 或者上一层 `read_tail` 再次使用
+
+---
+
+没想到Problem 1就写了半小时(算上解锁花了一小时😇)。
+
+这题主要是需要完全理解题目的意思，如果有bug就回去**重新理解题目(仔细阅读题目的说明)**就好了。
+
+一开始我写的是
+
+```python
+def scheme_read(src):
+    if src.current() is None:
+        raise EOFError
+    val = src.pop_first() # Get and remove the first token
+    if val == 'nil':
+        "*** YOUR CODE HERE ***"
+        return nil
+    elif val == '(':
+        "*** YOUR CODE HERE ***"
+        return read_tail(src)
+    ...
+def read_tail(src):
+    try:
+        if src.current() is None:
+            raise SyntaxError('unexpected end of file')
+        elif src.current() == ')':
+            "*** YOUR CODE HERE ***"
+            src.pop_first()
+            return nil
+        else:
+            "*** YOUR CODE HERE ***"
+            return Pair(src.pop_first(), read_tail(src))
+    except EOFError:
+        raise SyntaxError('unexpected end of file')
+```
+
+然后报了这样的错误
+
+```python
+>>> read_tail(Buffer(tokenize_lines(['(2)'])))
+Pair('(', Pair(2, nil))
+
+# Error: expected
+#     SyntaxError
+# but got
+#     Pair('(', Pair(2, nil))
+```
+
+然后看到了题目中的
+
+>   `read_tail`:
+>
+>   -   If none of the above cases apply, the next token is the operator in a combination, e.g. src contains `+ 2 3)`. To parse this:
+>
+>       1.  `scheme_read` the next complete expression in the buffer.
+>
+>           ...
+
+于是明白如果在 `read_tail` 中读到左括号 `(` ，就意味着读到了嵌套的表达式，需要调用 `scheme_read` 来处理这个内层的表达式，因此改成了
+
+```python
+if src.current() == '(':
+    return Pair(scheme_read(src), read_tail(src))
+return Pair(src.pop_first(), read_tail(src))
+```
+
+再次测试，原来错误的地方通过了，但是出现了新的报错
+
+```python
+>>> read_line('(a)')
+nil
+
+# Error: expected
+#     Pair('a', nil)
+# but got
+#     nil
+```
+
+进行分析，感觉上一个错误也和这个差不多，但是已经被解决，说明问题不在 `read_tail` 中，所以应该在 `scheme_read` 中，于是进行查看，发现这里已经弹出过*令牌*了
+
+```python
+val = src.pop_first() # Get and remove the first token
+```
+
+所以将之前的代码修改后，最后终于通过😭
+
+??? note "code"
+
+    ```python
+    def scheme_read(src):
+        if src.current() is None:
+            raise EOFError
+        val = src.pop_first() # Get and remove the first token
+        if val == 'nil':
+            # BEGIN PROBLEM 1
+            "*** YOUR CODE HERE ***"
+            return nil
+            # END PROBLEM 1
+        elif val == '(':
+            # BEGIN PROBLEM 1
+            "*** YOUR CODE HERE ***"
+            return read_tail(src)
+            # END PROBLEM 1
+        elif val == "'":
+            # BEGIN PROBLEM 6
+            "*** YOUR CODE HERE ***"
+            # END PROBLEM 6
+        elif val not in DELIMITERS:
+            return val
+        else:
+            raise SyntaxError('unexpected token: {0}'.format(val))
+    def read_tail(src):
+        try:
+            if src.current() is None:
+                raise SyntaxError('unexpected end of file')
+            elif src.current() == ')':
+                # BEGIN PROBLEM 1
+                "*** YOUR CODE HERE ***"
+                src.pop_first()
+                return nil
+                # END PROBLEM 1
+            else:
+                # BEGIN PROBLEM 1
+                "*** YOUR CODE HERE ***"
+                if src.current() == '(':
+                    return Pair(scheme_read(src), read_tail(src))
+                return Pair(src.pop_first(), read_tail(src))
+                # END PROBLEM 1
+        except EOFError:
+            raise SyntaxError('unexpected end of file')
+    ```
+
+---
+
+Problem 13中发现了 由于Problem 1中代码存在漏洞 而导致的错误，重新阅读题目后，将代码修改正确(具体可见于第7条Problem 13)
+
+??? note "code"
+
+    ```python
+    def scheme_read(src):
+        if src.current() is None:
+            raise EOFError
+        val = src.pop_first() # Get and remove the first token
+        if val == 'nil':
+            # BEGIN PROBLEM 1
+            "*** YOUR CODE HERE ***"
+            return nil
+            # END PROBLEM 1
+        elif val == '(':
+            # BEGIN PROBLEM 1
+            "*** YOUR CODE HERE ***"
+            return read_tail(src)
+            # END PROBLEM 1
+        elif val == "'":
+            # BEGIN PROBLEM 6
+            "*** YOUR CODE HERE ***"
+            # END PROBLEM 6
+        elif val not in DELIMITERS:
+            return val
+        else:
+            raise SyntaxError('unexpected token: {0}'.format(val))
+    def read_tail(src):
+        try:
+            if src.current() is None:
+                raise SyntaxError('unexpected end of file')
+            elif src.current() == ')':
+                # BEGIN PROBLEM 1
+                "*** YOUR CODE HERE ***"
+                src.pop_first()
+                return nil
+                # END PROBLEM 1
+            else:
+                # BEGIN PROBLEM 1
+                "*** YOUR CODE HERE ***"
+                return Pair(scheme_read(src), read_tail(src))
+                # END PROBLEM 1
+        except EOFError:
+            raise SyntaxError('unexpected end of file')
+    ```
+
+### 2
+
+Problem 4，一开始我写的是
+
+```python
+operator = env.lookup(first)
+validate_procedure(operator)
+operands = rest.map(lambda x: env.lookup(x))
+return scheme_apply(operator, operands, env)
+```
+
+但是报了这样的错误
+
+```python
+>>> from scheme_reader import *
+>>> from scheme import *
+>>> expr = read_line('(+ 2 2)')
+>>> scheme_eval(expr, create_global_frame()) # Type SchemeError if you think this errors
+Traceback (most recent call last):
+  ...
+scheme_builtins.SchemeError: unknown identifier: 2
+
+# Error: expected
+#     4
+# but got
+#     Traceback (most recent call last):
+#       ...
+#     SchemeError: unknown identifier: 2
+```
+
+然后突然想到 `2` 并不是一个 *符号 symbol* ，所以 `env.lookup(2)` 应该是会报错，然后又会想起题目中的
+
+>   You'll have to recursively call `scheme_eval` in the first two steps.
+
+所以就知道需要如何修改了，最后修改后通过了测试
+
+??? note "code"
+
+    ```python
+    def scheme_eval(expr, env, _=None): # Optional third argument is ignored
+        # Evaluate atoms
+        if scheme_symbolp(expr):
+            return env.lookup(expr)
+        elif self_evaluating(expr):
+            return expr
+    
+        # All non-atomic expressions are lists (combinations)
+        if not scheme_listp(expr):
+            raise SchemeError('malformed list: {0}'.format(repl_str(expr)))
+        first, rest = expr.first, expr.rest
+        if scheme_symbolp(first) and first in SPECIAL_FORMS:
+            return SPECIAL_FORMS[first](rest, env)
+        else:
+            # BEGIN PROBLEM 4
+            "*** YOUR CODE HERE ***"
+            operator = scheme_eval(first, env)
+            validate_procedure(operator)
+            operands = rest.map(lambda x: scheme_eval(x, env))
+            return scheme_apply(operator, operands, env)
+            # END PROBLEM 4
+    ```
+
+### 3
+
+Problem 5，注意需要区分第二个操作数需要通过*求值*将符号或表达式变成对应值
+
+??? note "code"
+
+    ```python
+    def do_define_form(expressions, env):
+        validate_form(expressions, 2) # Checks that expressions is a list of length at least 2
+        target = expressions.first
+        if scheme_symbolp(target):
+            validate_form(expressions, 2, 2) # Checks that expressions is a list of length exactly 2
+            # BEGIN PROBLEM 5
+            "*** YOUR CODE HERE ***"
+            env.define(target, scheme_eval(expressions.rest.first, env))
+            return target
+            # END PROBLEM 5
+        ...
+    ```
+
+### 4
+
+Problem 6中，一开始在 `scheme_read` 中写的是
+
+```python
+return Pair("quote", scheme_read(src))
+```
+
+但是报错了
+
+```python
+scm> ''hello
+hello str
+# Error: cdr can only be a pair, nil, or a promise but was hello
+
+# Error: expected
+#     (quote hello)
+# but got
+#     Traceback (most recent call last):
+#       ...
+#     SchemeError: cdr can only be a pair, nil, or a promise but was hello
+```
+
+经过思考，大概理解了，我感觉 `'` 可以理解为**只会有一个参数/操作数的函数**(因为引号后只会有一个最外层的括号)，因此返回的结构就会是
+
+```python
+Pair("quote", Pair(..., nil))
+```
+
+`...` 就是被引用的部分，也就是那**唯一的参数**。
+
+??? note "code"
+
+    ```python title="scheme.py"
+    def do_quote_form(expressions, env):
+        validate_form(expressions, 1, 1)
+        # BEGIN PROBLEM 6
+        "*** YOUR CODE HERE ***"
+        return expressions.first
+        # END PROBLEM 6
+    ```
+    
+    ```python title="scheme_reader.py"
+    def scheme_read(src):
+        ...
+        elif val == "'":
+            # BEGIN PROBLEM 6
+            "*** YOUR CODE HERE ***"
+            return Pair("quote", Pair(scheme_read(src), nil))
+            # END PROBLEM 6
+        ...
+    def read_tail(src):
+        try:
+            ...
+            else:
+                # BEGIN PROBLEM 1
+                "*** YOUR CODE HERE ***"
+                # if src.current() == '(':
+                if src.current() in ('(', "'"):
+                    ...
+                ...
+                # END PROBLEM 1
+        ...
+    ```
+
+### 5
+
+解锁Problem 8的这题答案(参考 `do_lambda_form` 函数说明可以得知是 `Pair(...)` 的形式)有些难敲(主要是因为太长了😅)
+
+```python
+>>> from scheme_reader import *
+>>> from scheme import *
+>>> env = create_global_frame()
+>>> lambda_line = read_line("(lambda (a b c) (+ a (* b c)))")
+>>> lambda_proc = do_lambda_form(lambda_line.rest, env)
+>>> lambda_proc.formals
+? Pair('a', Pair('b', Pair('c', nil)))
+-- OK! --
+
+>>> lambda_proc.body # Remember that the body is a *list* of expressions!
+? Pair(Pair('+', Pair('a', Pair(Pair('*', Pair('b', Pair('c', nil))), nil))), nil)
+-- OK! --
+```
+
+### 6
+
+Problem 10，这题不难，但我用循环迭代实现了之后，突然想到 `Pair` 有 `map` 方法，所以突发奇想想用 `map` 来实现(利用 `map` 来获取 `Pair` 中所有的元素)
+
+??? note "code"
+
+    === "实现一"
+    
+        ```python
+        class Frame(object):
+            ...
+            def make_child_frame(self, formals, vals):
+                if len(formals) != len(vals):
+                    raise SchemeError('Incorrect number of arguments to function call')
+                # BEGIN PROBLEM 10
+                "*** YOUR CODE HERE ***"
+                child = Frame(self)
+                while formals is not nil:
+                    child.define(formals.first, vals.first)
+                    formals, vals = formals.rest, vals.rest
+                return child
+                # END PROBLEM 10
+        ```
+    
+    === "实现二"
+    
+        ```python
+        class Frame(object):
+            ...
+            def make_child_frame(self, formals, vals):
+                if len(formals) != len(vals):
+                    raise SchemeError('Incorrect number of arguments to function call')
+                # BEGIN PROBLEM 10
+                "*** YOUR CODE HERE ***"
+                child = Frame(self)
+                formals_list, vals_list = [], []
+                formals.map(lambda x: formals_list.append(x))
+                vals.map(lambda x: vals_list.append(x))
+                for formal, val in zip(formals_list, vals_list):
+                    child.define(formal, val)
+                return child
+                # END PROBLEM 10
+        ```
+
+### 7
+
+Problem 13不算复杂，但我写出来之后，报了一个错误
+
+```python
+scm> (cond ((= 1 1) nil))
+# Error: unknown identifier: nil
+
+# Error: expected
+#     ()
+# but got
+#     Traceback (most recent call last):
+#       ...
+#     SchemeError: unknown identifier: nil
+```
+
+经过修改代码来查看错误地方的相关信息，进行到错误发生的地方前，打印 `clause.rest` 显示 `Pair('nil', nil)` ，这意味着是**在读取的时候没有读取正确**，于是回头查看Problem 1的 `scheme_read` 和 `read_tail` ，
+
+而 `scheme_read` 中是有处理 `'nil'` 的相关代码的
+
+```python
+if val == 'nil':
+    # BEGIN PROBLEM 1
+    "*** YOUR CODE HERE ***"
+    return nil
+    # END PROBLEM 1
+```
+
+尝试直接运行scheme解释器进行测试
+
+```bash
+python scheme.py
+```
+
+发现直接输入 `nil` 时，能正确输出成空链表 `()` ，而**当 `nil` 被嵌套包含时，就不能被正常转换**，所以错误发生在 `read_tail` 中，
+
+```scheme
+scm> nil
+()
+scm> (+ nil)
+Error: unknown identifier: nil
+```
+
+于是重新回去理解题目的说明
+
+!!! quote
+
+    `read_tail`:
+    
+    -   If there are no more tokens, then the list is missing a close parenthesis and we should raise an error. **(provided)**
+    -   If the token is `)`, then we've reached the end of the list or pair. **Remove this token from the buffer** and return the `nil` object.
+    -   If none of the above cases apply, the next token is the operator in a combination, e.g. src contains `+ 2 3)`. To parse this:
+        1.  `scheme_read` the next complete expression in the buffer.
+        2.  Call `read_tail` to read the rest of the combination until the matching closing parenthesis.
+        3.  Return the results as a `Pair` instance, where the first element is the next complete expression from (1) and the second element is the rest of the combination from (2).
+
+三个情况刚好对应所给的代码框架中的 `if-elif-else` 的三块代码，因此，根据题目的意思， `else` 处的代码应该为
+
+```python
+return Pair(scheme_read(src), read_tail(src))
+```
+
+测试Problem 1通过，再测试Problem 13，终于通过了😇
+
+??? note "code"
+
+    ```python
+    def do_cond_form(expressions, env):
+        while expressions is not nil:
+            clause = expressions.first
+            validate_form(clause, 1)
+            if clause.first == 'else':
+                test = True
+                if expressions.rest != nil:
+                    raise SchemeError('else must be last')
+            else:
+                test = scheme_eval(clause.first, env)
+            if is_true_primitive(test):
+                # BEGIN PROBLEM 13
+                "*** YOUR CODE HERE ***"
+                if clause.rest is nil:
+                    return test
+                return eval_all(clause.rest, env)
+                # END PROBLEM 13
+            expressions = expressions.rest
+    ```
+
+### 8
+
+Problem 14中，需要注意 有可能要被赋值的符号对应的是一个表达式，所以需要进行*求值*
+
+??? note "code"
+
+    ```python
+    def make_let_frame(bindings, env):
+        if not scheme_listp(bindings):
+            raise SchemeError('bad bindings list in let form')
+        names, values = nil, nil
+        # BEGIN PROBLEM 14
+        "*** YOUR CODE HERE ***"
+        while bindings is not nil:
+            binding = bindings.first
+            validate_form(binding, 2, 2)
+            names = Pair(binding.first, names)
+            values = Pair(scheme_eval(binding.rest.first, env), values)
+            bindings = bindings.rest
+        validate_formals(names)
+        # END PROBLEM 14
+        return env.make_child_frame(names, values)
+    ```
+
+### 9
+
+Problem 16感觉蛮有意思
+
+??? note "code"
+
+    ```scheme
+    (define (merge comp list1 list2)
+      ; BEGIN PROBLEM 16
+      'replace-this-line
+      (cond ((equal? list1 nil) list2)
+            ((equal? list2 nil) list1)
+            (else (let ((x (car list1)) (y (car list2)))
+                       (if (comp x y)
+                           (cons x (merge comp (cdr list1) list2))
+                           (cons y (merge comp list1 (cdr list2)))))))
+      )
+      ; END PROBLEM 16
+    ```
+
+---
+
+Problem 17代码有点绕(难写，debug起来也痛苦😅)
+
+??? note "code"
+
+    ```scheme
+    (define (nondecreaselist s)
+        ; BEGIN PROBLEM 17
+        'replace-this-line
+        (cond ((equal? s nil) nil)
+              ((equal? (cdr s) nil) (list s))
+              ((> (car s) (cadr s)) (cons (list (car s)) (nondecreaselist (cdr s))))
+              (else (let ((rest (nondecreaselist (cdr s))))
+                         (cons (cons (car s) (car rest)) (cdr rest)))))
+        )
+        ; END PROBLEM 17
+    ```
+
+### 10
+
+Extra Credit，这题有点难度😅(依次修改了好几次最终才全部通过)，
+
+一开始我写出来
+
+```scheme
+(define (let-to-lambda expr)
+  (cond ((atom? expr)
+         ; BEGIN PROBLEM EC
+         'replace-this-line
+         expr
+         ; END PROBLEM EC
+         )
+        ((quoted? expr)
+         ; BEGIN PROBLEM EC
+         'replace-this-line
+         (cons 'quote (cdr expr))
+         ; END PROBLEM EC
+         )
+        ((or (lambda? expr)
+             (define? expr))
+         (let ((form   (car expr))
+               (params (cadr expr))
+               (body   (cddr expr)))
+           ; BEGIN PROBLEM EC
+           'replace-this-line
+           (cons form (cons params body))
+           ; END PROBLEM EC
+           ))
+        ((let? expr)
+         (let ((values (cadr expr))
+               (body   (cddr expr)))
+           ; BEGIN PROBLEM EC
+           'replace-this-line
+           (let ((values (zip values)))
+                (cons (cons 'lambda (cons (car values) body)) (cadr values)))
+           ; END PROBLEM EC
+           ))
+        (else
+         ; BEGIN PROBLEM EC
+         'replace-this-line
+         expr
+         ; END PROBLEM EC
+         )))
+```
+
+然后根据测试用例的错误，发现还需要递归地应用表达式，依次发现4个地方需要递归：
+
+-   `(cons form (cons params body))` 的 `body` 
+-   `(cons (cons 'lambda (cons (car values) body)) (cadr values)))` 的 `body` 和 `(cadr values)` 
+-   最后的 `expr`
+
+并且由于是很多个表达式，所以需要用到 `map` 函数
+
+??? note "code"
+
+    ```scheme
+    (define (let-to-lambda expr)
+      (cond ((atom? expr)
+             ; BEGIN PROBLEM EC
+             'replace-this-line
+             expr
+             ; END PROBLEM EC
+             )
+            ((quoted? expr)
+             ; BEGIN PROBLEM EC
+             'replace-this-line
+             (cons 'quote (cdr expr))
+             ; END PROBLEM EC
+             )
+            ((or (lambda? expr)
+                 (define? expr))
+             (let ((form   (car expr))
+                   (params (cadr expr))
+                   (body   (cddr expr)))
+               ; BEGIN PROBLEM EC
+               'replace-this-line
+               (cons form (cons params (map let-to-lambda body)))
+               ; END PROBLEM EC
+               ))
+            ((let? expr)
+             (let ((values (cadr expr))
+                   (body   (cddr expr)))
+               ; BEGIN PROBLEM EC
+               'replace-this-line
+               (let ((values (zip values)))
+                    (cons (cons 'lambda (cons (car values) (map let-to-lambda body))) (map let-to-lambda (cadr values))))
+               ; END PROBLEM EC
+               ))
+            (else
+             ; BEGIN PROBLEM EC
+             'replace-this-line
+             (map let-to-lambda expr)
+             ; END PROBLEM EC
+             )))
+    ```
+
+
+
 ## Lecture 31 Declarative Programming
 
 ### 1
