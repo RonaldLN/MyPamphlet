@@ -48,3 +48,18 @@ def write_latex_md(content):
         f.write(content)
     os.system("code latex.md")
 ```
+
+## 4
+
+在VSCode中使用github copilot聊天功能时，显示
+
+```bash
+Cannot read properties of undefined (reading 'split')
+```
+
+搜索相关信息，找到
+
+["Cannot read properties of undefined (reading 'split')" after first message · community · Discussion #102408 (github.com)](https://github.com/orgs/community/discussions/102408)
+
+根据[naveen-98的回答](https://github.com/orgs/community/discussions/102408#discussioncomment-8269404)中的 `Disable and re-enable GitHub Copilot` ，禁用再重新启用github copilot插件之后，可以正常使用了
+
