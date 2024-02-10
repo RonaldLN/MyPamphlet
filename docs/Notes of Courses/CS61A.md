@@ -8284,3 +8284,35 @@ where one + two/2 + four/4 + eight/8 = 1;
 即判断是否只有一个为正，
 
 我想到的是，将1 2 4 8加起来(算自己的值)然后取模为零(但不知道sql中有没有取模运算，有的话应该就可行)
+
+## Lecture 32 Tables
+
+### 1
+
+![cs61a_178](../images/cs61a_178.png){ loading=lazy }
+
+![cs61a_179](../images/cs61a_179.png){ loading=lazy }
+
+*联接 join* 两个表的方法，使用 逗号 `,` 来*联接*，结果是得到一个每个表的每一行与其他表的每一行组合的新的表(从上图John的demo演示中可以看到)
+
+---
+
+![cs61a_180](../images/cs61a_180.png){ loading=lazy }
+
+如果遇到不同的表有相同名字的列，或者需要使用同一个表(如上图)，就需要使用 *别名 alias* ( `from [table] as [alias]` )，然后使用 点表达式 `.` 来使用不同表/别名中的相同名字的列
+
+---
+
+John展示了*联接*‘多个表的应用，
+
+![cs61a_181](../images/cs61a_181.png){ loading=lazy }
+
+筛选出祖父和孙子毛发类型一样的数据
+
+```sql
+select grandog from grandparents, dogs as c, dogs as d
+  where grandog = c.name and
+        granpup = d.name and
+        c.fur = d.fur;
+```
+
