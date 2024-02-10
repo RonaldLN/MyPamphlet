@@ -8091,7 +8091,48 @@ Extra Credit，这题有点难度😅(依次修改了好几次最终才全部通
              )))
     ```
 
+### 11
 
+Problem 11，这题题目我理解了好几遍最后才感觉算是完全理解正确
+
+!!! quote
+
+    Complete the function `optimize_tail_calls` in `scheme.py`. It returns an alternative to `scheme_eval` that is properly tail recursive. That is, the interpreter will allow an unbounded number of active [tail calls](http://en.wikipedia.org/wiki/Tail_call) in constant space.
+    
+    The `Thunk` class represents a [thunk](http://en.wikipedia.org/wiki/Thunk), an expression that needs to be evaluated in an environment. When `scheme_optimized_eval` receives a non-atomic expression in a `tail` context, then it returns an `Thunk` instance. Otherwise, it should repeatedly call `prior_eval_function` until the result is a value, rather than a `Thunk`.
+    
+    **A successful implementation will require changes to several other functions, including some functions that we provided for you.** All expressions throughout your interpreter that are in a tail context should be evaluated by calling `scheme_eval` with `True` as a third argument. Your goal is to determine which expressions are in a tail context throughout your code.
+    
+    ---
+    
+    在 `scheme.py` 中完成 `optimize_tail_calls` 函数。它返回 `scheme_eval` 的一种替代方法，可以正确处理尾递归。也就是说，解释器将允许在常量空间内有无限数量的活动[尾调用](http://en.wikipedia.org/wiki/Tail_call)。
+    
+    `Thunk` 类表示一个[thunk](http://en.wikipedia.org/wiki/Thunk)，即需要在环境中求值的表达式。当 `scheme_optimized_eval` 在 `尾` 上下文中接收到一个非原子表达式时，它将返回一个 `Thunk` 实例。否则，它应该反复调用 `prior_eval_function`，直到结果是一个值，而不是一个 `Thunk`。
+    
+    **成功的实现将需要对其他几个函数进行更改，包括一些我们为您提供的函数。** 在整个解释器中，所有在尾上下文中的表达式都应通过调用带有 `True` 作为第三个参数的 `scheme_eval` 来进行求值。您的目标是确定代码中哪些表达式在尾上下文中。
+
+这题大概意思是，需要优化处理*求值*部分，对于 *尾递归 tail recursive* 的情况。
+
+>   The `Thunk` class represents a [thunk](http://en.wikipedia.org/wiki/Thunk), an expression that needs to be evaluated in an environment. When `scheme_optimized_eval` receives a non-atomic expression in a `tail` context, then it returns an `Thunk` instance. Otherwise, it should repeatedly call `prior_eval_function` until the result is a value, rather than a `Thunk`.
+
+这一段其实上我认为对应的就是提供的代码中的这个部分(non-atomic 刚好对应 `not scheme_symbolp(expr) and not self_evaluating(expr)` )
+
+```python
+if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
+    return Thunk(expr, env)
+```
+
+>   All expressions throughout your interpreter that are in a tail context should be evaluated by calling `scheme_eval` with `True` as a third argument. Your goal is to determine which expressions are in a tail context throughout your code.
+
+这句说的是，题目的关键就是需要找到/想到判断尾递归形式/格式的方法，并进行对应的处理。
+
+最后就是这一句，
+
+>   **A successful implementation will require changes to several other functions, including some functions that we provided for you.**
+
+是说最终的实现还会需要修改一些函数，包括提供的函数，所以这意味着这题非常开放，很难，我尝试了很久也没有尝试出来。
+
+最后看到 Lecture 35 和 36 刚好就是 Tail calls 和 Macros ，刚好分别对应19和20题，然后去看了一下lecture 35，发现课上有讲解这一题，所以就先跳过这一题了。(发现20题也需要用到tail call，所以也跳过了)
 
 ## Lecture 31 Declarative Programming
 
