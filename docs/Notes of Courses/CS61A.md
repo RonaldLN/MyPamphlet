@@ -8316,3 +8316,24 @@ select grandog from grandparents, dogs as c, dogs as d
         c.fur = d.fur;
 ```
 
+### 2
+
+![cs61a_183](../images/cs61a_183.png){ loading=lazy }
+
+sql中的一些数学运算相关的表达式，
+
+其中不等号有两种 `<>` 和 `!=` ，而等号是 `=` (和python中的 `==` 不一样)
+
+### 3
+
+![cs61a_182](../images/cs61a_182.png){ loading=lazy }
+
+John展示的sql中字符串string的一些用法，
+
+-   字符串的 *连接 concatenation*，使用 `||` 可以将两个字符串*连接*，
+
+-   子字符串 `substr` ，第一个位置是字符串，第二个位置是起始字符的位置(从1开始)，第三个位置是子串长度
+
+    >   所以上图中， `substr(s, 4, 2)` 的结果是 `lo`
+
+-   字符串中字符的位置 `instr` ，第一个位置是字符串，第二个位置是要找的字符(可能子字符串也可以)，然后返回第一个对应的位置
