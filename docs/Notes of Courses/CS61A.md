@@ -9178,3 +9178,10 @@ select * from students, numbers where students.'7' = 'True';
       select a.seven from students as a, numbers as b where a.time = b.time and a.number = 7 and b.'7' = 'True';
     ```
 
+## Lecture 33 Aggregation
+
+### 1
+
+![cs61a_184](../images/cs61a_184.png){ loading=lazy }
+
+sql中的*聚合函数 Aggregation function* ，可以使用多行的数据进行处理，比如 `max` `sum` 
