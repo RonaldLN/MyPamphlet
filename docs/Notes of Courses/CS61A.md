@@ -9184,4 +9184,58 @@ select * from students, numbers where students.'7' = 'True';
 
 ![cs61a_184](../images/cs61a_184.png){ loading=lazy }
 
-sql中的*聚合函数 Aggregation function* ，可以使用多行的数据进行处理，比如 `max` `sum` 
+sql中的*聚合函数 Aggregation function* ，可以使用多行的数据进行处理，比如
+
+-   `max` `min` 取最大/最小
+-   `sum` 取所有数据的和
+-   `avg` 取所有数据的平均值
+-   `count` 获取数据的个数
+
+在传入参数(列名)时，还可以在参数前添加 `distinct` ，表示这一列中重复的元素只取用一个，可以参考下图
+
+![cs61a_185](../images/cs61a_185.png){ loading=lazy }
+
+---
+
+![cs61a_186](../images/cs61a_186.png){ loading=lazy }
+
+![cs61a_187](../images/cs61a_187.png){ loading=lazy }
+
+*聚合函数*也可以和其他普通的表达式一起混合使用，来获取其他有用的信息(同一行数据的其他信息)，如上图中John的演示，
+
+但有些*聚合函数*结果不会是某行数据中的数值，
+
+!!! quote
+
+    John:
+    
+    ...So, you have to be careful about selecting single values in conjunction with aggregations. Some aggregations give you a meaningful value, like `min` and `max` ; others don't, like `avg` .
+    
+    ---
+    
+    John:
+    
+    ...当你与聚合函数一起选择单一值时，你必须小心。有些聚合函数会给你一个有意义的值，比如 `min` 和 `max` ，而其他一些却不会，比如 `avg` 。
+
+并且，从John的demo演示中可以看到，在使用 `min` 或 `max` 时，即使有多行数据都是最小/大值，但是却只是返回了一个结果
+
+>   ```sql
+>   sqlite> select max(legs), kind from animals;
+>   4|cat
+>   ```
+
+### 2
+
+![cs61a_188](../images/cs61a_188.png){ loading=lazy }
+
+![cs61a_189](../images/cs61a_189.png){ loading=lazy }
+
+*分组 group*
+
+可以使用 `group by` 进行分组，在 `group by` 后写**(单个或多个)列名或表达式**，就会把每个相同的值对应的那一行分到同一个组，而如果使用*聚合函数*就会分别作用于每个组(而不是作用于整个表所有行的数据)，可以参考上图中John的demo演示
+
+---
+
+![cs61a_190](../images/cs61a_190.png){ loading=lazy }
+
+在*分组*时，还可以使用 `having` 来**对组进行筛选**(区别于 `where` 是对单行数据进行筛选)
