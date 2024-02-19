@@ -1783,3 +1783,16 @@ hide:
 那么在生成的网页的右侧目录中，这样的标题不会出现在目录里。
 
 但这样的写法里markdown语法(如加粗 行内代码等)无法使用
+
+## 40
+
+代码块的行号的默认字体大小是 `.85em` ，如果修改了代码块的字体大小，并需要显示行号，行号的配置也需要一并修改
+
+```css title="docs/stylesheets/custom.css"
+/* 修改代码块行号(数字)的字体大小 */
+.highlighttable .linenos {
+  /* font-size: 0.93em; */
+  font-size: .65rem;
+}
+```
+
