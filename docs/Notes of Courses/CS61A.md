@@ -9591,3 +9591,31 @@ scm> (simp '(if a (if a b c) (if a d e)))
 ```
 
 感觉这题还是挺有意思的
+
+### 3
+
+在测试scheme代码时发现，课程(之前lhw和lab中)提供的scheme解释器中内置了加载 `.scm` 文件的函数 `load` ，
+
+发现了几种加载的方式，
+
+-   ```scheme
+    (load "文件名")
+    ```
+
+-   ```scheme
+    (load '文件名)
+    ```
+
+以及，如果不添加文件后缀名，会默认认为是scm文件，即会自动添加 `.scm`
+
+```scheme
+scm> (load "a")
+Traceback (most recent call last):
+  0     (load "a")
+Error: [Errno 2] No such file or directory: 'a.scm' 
+scm> (load '../a)  
+Traceback (most recent call last):
+  0     (load (quote ../a))
+Error: [Errno 2] No such file or directory: '../a.scm' 
+```
+
