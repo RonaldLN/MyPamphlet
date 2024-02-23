@@ -9619,3 +9619,38 @@ Traceback (most recent call last):
 Error: [Errno 2] No such file or directory: '../a.scm' 
 ```
 
+## HW 09
+
+### 1
+
+Q2中，一开始想的是判断父母在不在 `parents` 中，但最后发现排序需要按照父母的身高来排序，所以发现只能判断子女在不在 `parents` 中，
+
+并且需要注意的是，是从高到矮排序，所以需要乘一个 `-1` (一开始没注意结果刚好反过来了😅)
+
+??? note "code"
+
+    ```sql
+    CREATE TABLE by_parent_height AS
+      select a.child from parents as a, dogs as b
+      where b.name = a.parent order by b.height*-1;
+    ```
+
+### 2
+
+Q3题目的提示中提到sql中连接字符串要使用 `||`
+
+>   **Hint**: In order to concatenate two strings into one, use the `||` operator.
+
+??? note "code"
+
+    ```sql
+    CREATE TABLE siblings AS
+      select a.child as first_child, b.child as second_child from parents as a, parents as b
+      where a.child < b.child and a.parent = b.parent;
+
+    CREATE TABLE sentences AS
+      select "The two siblings, "||a.first_child||" plus "||a.second_child||" have the same size: "||b.size 
+      from siblings as a, size_of_dogs as b, size_of_dogs as c 
+      where a.first_child = b.name and a.second_child = c.name and b.size = c.size;
+    ```
+
