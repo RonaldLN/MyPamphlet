@@ -9619,6 +9619,218 @@ Traceback (most recent call last):
 Error: [Errno 2] No such file or directory: '../a.scm' 
 ```
 
+## Lecture 34 Database
+
+### 1
+
+![cs61a_191](../images/cs61a_191.png){ loading=lazy }
+
+sql中创建数据表的操作，
+
+John说到，只需要掌握部分即可(图中黑色的部分)
+
+---
+
+![cs61a_192](../images/cs61a_192.png){ loading=lazy }
+
+删除表的操作
+
+---
+
+![cs61a_193](../images/cs61a_193.png){ loading=lazy }
+
+在表上的插入的操作
+
+---
+
+John的demo演示
+
+```sql
+sqlite> create table primes(n, prime);
+sqlite> drop table if exists primes;
+sqlite> select * from primes;
+Error: no such table: primes
+sqlite> create table primes(n UNIQUE, prime DEFAULT 1);
+sqlite> select * from primes;
+sqlite> INSERT INTO primes VALUES (2, 1), (3, 1);
+sqlite> select * from primes;
+2|1
+3|1
+sqlite> INSERT INTO primes(n) VALUES (4), (5), (6), (7);
+sqlite> select * from primes;
+2|1
+3|1
+4|1
+5|1
+6|1
+7|1
+sqlite> INSERT INTO primes(n) SELECT n+6 FROM primes;
+sqlite> select * from primes;
+2|1
+3|1
+4|1
+5|1
+6|1
+7|1
+8|1
+9|1
+10|1
+11|1
+12|1
+13|1
+sqlite> INSERT INTO primes(n) SELECT n+12 FROM primes;
+sqlite> select * from primes;
+2|1
+3|1
+4|1
+5|1
+6|1
+7|1
+8|1
+9|1
+10|1
+11|1
+12|1
+13|1
+14|1
+15|1
+16|1
+17|1
+18|1
+19|1
+20|1
+21|1
+22|1
+23|1
+24|1
+25|1
+```
+
+---
+
+![cs61a_194](../images/cs61a_194.png){ loading=lazy }
+
+更新表中列的数据的操作 `update`
+
+John的demo演示
+
+```sql
+sqlite> UPDATE primes SET prime=0 WHERE n>2 AND n%2=0;
+sqlite> select * from primes;
+2|1
+3|1
+4|0
+5|1
+6|0
+7|1
+8|0
+9|1
+10|0
+11|1
+12|0
+13|1
+14|0
+15|1
+16|0
+17|1
+18|0
+19|1
+20|0
+21|1
+22|0
+23|1
+24|0
+25|1
+sqlite> UPDATE primes SET prime=0 WHERE n>3 AND n%3=0;
+sqlite> UPDATE primes SET prime=0 WHERE n>5 AND n%5=0;
+sqlite> select * from primes;
+2|1
+3|1
+4|0
+5|1
+6|0
+7|1
+8|0
+9|0
+10|0
+11|1
+12|0
+13|1
+14|0
+15|0
+16|0
+17|1
+18|0
+19|1
+20|0
+21|0
+22|0
+23|1
+24|0
+25|0
+```
+
+---
+
+![cs61a_195](../images/cs61a_195.png){ loading=lazy }
+
+表中删除的操作
+
+John的demo演示
+
+```sql
+sqlite> DELETE FROM primes WHERE prime=0;
+sqlite> select * from primes;
+2|1
+3|1
+5|1
+7|1
+11|1
+13|1
+17|1
+19|1
+23|1
+```
+
+### 2
+
+John demo演示了如何在python中使用sql
+
+![cs61a_196](../images/cs61a_196.png){ loading=lazy }
+
+-   使用 `sqlite3.Connection("xxx.db")` 来加载db文件，然后会返回一个 `Connection` 类的实例
+
+    >   db文件是*数据库 database*文件
+
+-   使用 `execute` 方法可以执行sql的命令/语句
+
+    并且，可以有如上图中的这样的操作
+
+    ```python
+    db.execute("INSERT INTO nums VALUES (?), (?), (?);", range(4, 7))
+    ```
+
+-   调用 `execute` 方法，方法的返回值有 `fetchall` 方法，可以将本来应该显示的数据转换成元组，如上图中的
+
+    ```python
+    print(db.execute("SELECT * FROM nums;").fetchall())
+    ```
+
+    ```bash
+    ~/lec$ python3 ex.py
+    [(2,), (3,), (4,), (5,), (6,)]
+    ```
+
+-   使用 `commit` 方法可以将数据储存到对应的db文件中，如果没有这个文件会新建一个文件，上图John的demo演示中，运行 `python3 ex.py` 前已经运行 `rm n.db` 命令
+
+### 3
+
+![cs61a_197](../images/cs61a_197.png){ loading=lazy }
+
+John说道，为了避免在python中使用sql，插入某些特殊的名字而引发的一些错误，要(如上图)使用 `execute` 方法来插入名字，
+
+而不是使用python的字符串拼接和 `executescript` 方法( `executescript` 方法会执行多行sql语句)
+
 ## HW 09
 
 ### 1
@@ -9647,7 +9859,7 @@ Q3题目的提示中提到sql中连接字符串要使用 `||`
     CREATE TABLE siblings AS
       select a.child as first_child, b.child as second_child from parents as a, parents as b
       where a.child < b.child and a.parent = b.parent;
-
+    
     CREATE TABLE sentences AS
       select "The two siblings, "||a.first_child||" plus "||a.second_child||" have the same size: "||b.size 
       from siblings as a, size_of_dogs as b, size_of_dogs as c 
