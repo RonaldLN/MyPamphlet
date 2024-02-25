@@ -9952,3 +9952,42 @@ Q3题目的提示中提到sql中连接字符串要使用 `||`
       where a.first_child = b.name and a.second_child = c.name and b.size = c.size;
     ```
 
+## Lecture 35 Tail Calls
+
+### 1
+
+Gege介绍了一下 *函数式编程 Functional Programming*
+
+![cs61a_201](../images/cs61a_201.png){ loading=lazy }
+
+>   所有的函数都是纯函数。
+>
+>   没有重新赋值，也没有可变的数据类型。
+>
+>   名称-值的绑定是永久的。
+>
+>   函数式编程的优势：
+>
+>   -   表达式的值与子表达式求值的顺序无关。
+>   -   子表达式可以安全地并行或按需(惰性地)进行求值。
+>   -   **引用透明性**：当我们用子表达式的值替换该子表达式的值时，表达式的值不会改变。
+
+### 2
+
+John提到了区分出尾调用的一种方法，
+
+!!! quote
+
+    John:
+    
+    ...It's a distinction that figures out whether, when one procedure is calling another procedure, is there more work to do when that called procedure is finished or not. If there isn't anything else to do, besides just return the value of the expression you call, well then that's a tail call.
+    
+    ---
+    
+    John:
+    
+    ...这是一种区分的方法，用于确定当一个过程调用另一个过程时，调用的过程完成后是否还有其他工作要做。如果除了返回你调用的表达式的值之外没有其他事情要做，那么这就是一个尾调用。
+
+然后又介绍了尾调用的一些特征
+
+![cs61a_202](../images/cs61a_202.png){ loading=lazy }
