@@ -9831,6 +9831,92 @@ John说道，为了避免在python中使用sql，插入某些特殊的名字而�
 
 而不是使用python的字符串拼接和 `executescript` 方法( `executescript` 方法会执行多行sql语句)
 
+## Lecture 34 Q&A
+
+### 1
+
+![cs61a_198](../images/cs61a_198.png){ loading=lazy }
+
+John解释之前课上用python和sql模拟*赌场21点 Casino Blackjack*游戏的代码中的 `sqlite3.Connection` 类的具体作用
+
+!!! quote
+
+    John:
+    
+    The question is, here are some demos from today's lecture. There's this line that's like "build a connection" to some database,
+    
+    ```python
+    db = sqlite3.Connection('number.db')
+    ```
+    
+    and then, you know, we give it a name – give it any name you want, "db" or "n" or something like that. What would happen if you evaluated this same expression a second time? Would that give you a new database or the same database, or would it erase the old one? Like, what's the story?
+    
+    And the story is that this name, which describes the name of a file on your file system, is a database that won't ever just get erased. Instead, it's persistent. Even if you quit Python and start Python again, it will retain whatever information was in it before. If you evaluate this expression multiple times, then you just get multiple connections to the same database with the same data in it, and that's okay. Actually, databases are designed to have multiple connections.
+    
+    And what do these connections mean? That means different programs might all be changing the database or querying the database at the same time. But that doesn't mean that the database is going to get refreshed or changed or something like that. It basically just stays there and accumulates information over time. If one program changes it and then another program queries it, that second program is going to see the changes from the first program.
+    
+    So, I think within a particular Python program, there really isn't a good reason to have multiple connections. Usually, those multiple connections come from multiple Python programs, or maybe they're not all Python, but you certainly could do it, and I don't think anything would break.
+    
+    ---
+    
+    John:
+    
+    问题是，这里有今天讲座中的一些演示。有这样一行代码，类似于“建立一个连接”到某个数据库，
+    
+    ```python
+    db = sqlite3.Connection('number.db')
+    ```
+    
+    然后，你知道，我们给它一个名字 - 随便取个名字，比如“db”或“n”之类的。如果你多次评估相同的表达式会发生什么？这会给你一个新的数据库还是相同的数据库，或者会擦除旧的数据库？这是什么情况？
+    
+    故事是，这个描述你文件系统上文件名的名称是一个数据库，它不会被轻易擦除。相反，它是持久的。即使你退出 Python 并重新启动 Python，它将保留之前的所有信息。如果你多次评估这个表达式，那么你只是得到对同一个数据库的多个连接，其中包含相同的数据，这是可以的。实际上，数据库被设计为具有多个连接。
+    
+    那么这些连接意味着什么？这意味着不同的程序可能会同时更改数据库或查询数据库。但这并不意味着数据库会被刷新、更改或类似的事情。它基本上就在那里，并随着时间累积信息。如果一个程序更改了它，然后另一个程序查询它，那么第二个程序将看到第一个程序的更改。
+    
+    因此，我认为在一个特定的 Python 程序中，没有真正需要有多个连接的好理由。通常，这些多个连接来自多个 Python 程序，或者它们并非全部都是 Python，但你当然可以这样做，我认为不会有什么问题。
+
+### 2
+
+![cs61a_199](../images/cs61a_199.png){ loading=lazy }
+
+有人提问scheme中在 `let` 中的 `define` 是否会影响到全局框架，
+
+John进行演示，发现 **`let` 语句中嵌套的 `define` 语句并不会修改上一层框架，而只会修改 `let` 的框架**
+
+```scheme
+scm> (let ((x 1)) (define a x) (+ x 1))
+2
+scm> a
+Traceback (most recent call last):
+  0     a
+Error: unknown identifier: a
+scm> (let ((x 1)) (define a x) (+ x a))
+2
+```
+
+### 3
+
+![cs61a_200](../images/cs61a_200.png){ loading=lazy }
+
+有人提问sql中 `select` 能不能嵌套在 `where` 中，于是John演示了一种用法
+
+```sql
+sqlite> CREATE TABLE numbers AS SELECT 1 AS n UNION SELECT 2 UNION SELECT 3 UNION SELECT 5;
+sqlite> SELECT * FROM numbers;
+1
+2
+3
+5
+sqlite> SELECT * FROM numbers WHERE (SELECT MAX(n) FROM NUMBERS) > n;
+1
+2
+3
+```
+
+一开始还没理解这是什么意思😅，看了一会之后才明白，括号内的 `select` 语句大概是从原来的表创建了一行新的数据，然后用这行新的数据在 `where` 中进行筛选，所以这里 `MAX(n)` 最后获得的是5，而小于5的只有1 2 3
+
+但是觉得这种用法确实如同John说的一样没什么太大的作用😅
+
 ## HW 09
 
 ### 1
