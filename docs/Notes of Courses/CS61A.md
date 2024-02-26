@@ -10017,3 +10017,45 @@ John在用 `reduce` 函数讲解尾调用，说在 `reduce` 的实现中，除�
 John讲解如何将 `map` 函数改写成尾递归的形式，
 
 大致的思路是，先将应用函数到目标链表上，得到一个倒序的链表(因为要尾递归的话就只能从尾部开始)，然后再将倒序的链表的顺序转换回来( `reverse` 函数)，而这个过程也是尾递归的，所以整个 `map` 就实现了尾递归的形式
+
+## Lab 13
+
+### 1
+
+发现这个lab的zip中的 `sqlite_shell.py` 文件和lab12中一样是**空的**
+
+### 2
+
+在写Q3时，发现 `where` 放在 `group by` 之后会报错，
+
+```sql
+near "where": syntax error
+```
+
+然后调整了一下顺序之后就好了
+
+??? note "code"
+
+    ```sql
+    create table helper as
+      select a.name as name, min(a.MSRP/a.rating), b.store as store 
+      from products as a, lowest_prices as b where a.name = b.item group by category;
+    
+    CREATE TABLE shopping_list AS
+      -- SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
+      select name, store from helper;
+    ```
+
+## Lecture 36 Macros
+
+### 1
+
+![cs61a_207](../images/cs61a_207.png){ loading=lazy }
+
+关于 *宏 Macro* 的一些说明
+
+>   宏调用表达式的求值过程:
+>
+>   -   计算操作符子表达式，其结果为一个宏
+>   -   对操作数表达式进行调用，<u>*而不先对它们进行求值*</u>
+>   -   计算从宏过程返回的表达式
