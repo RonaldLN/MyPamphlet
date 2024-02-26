@@ -9956,7 +9956,7 @@ Q3题目的提示中提到sql中连接字符串要使用 `||`
 
 ### 1
 
-Gege介绍了一下 *函数式编程 Functional Programming*
+John介绍了一下 *函数式编程 Functional Programming*
 
 ![cs61a_201](../images/cs61a_201.png){ loading=lazy }
 
@@ -9991,3 +9991,29 @@ John提到了区分出尾调用的一种方法，
 然后又介绍了尾调用的一些特征
 
 ![cs61a_202](../images/cs61a_202.png){ loading=lazy }
+
+### 3
+
+![cs61a_203](../images/cs61a_203.png){ loading=lazy }
+
+John说道 是*线性递归 linear recursion*但不是/不满足尾调用格式的函数，可以被改写成尾递归/尾调用的形式，并用求链表长度的函数来说明
+
+### 4
+
+John举了几个例子说明**是尾递归**的函数是什么样的
+
+![cs61a_204](../images/cs61a_204.png){ loading=lazy }
+
+### 5
+
+![cs61a_205](../images/cs61a_205.png){ loading=lazy }
+
+John在用 `reduce` 函数讲解尾调用，说在 `reduce` 的实现中，除了 `(procedure start (car s))` 都是尾调用，而最终 `reduce` 是否只需使用固定大小的空间 取决于 `procedure` 是否使用固定大小的空间
+
+### 6
+
+![cs61a_206](../images/cs61a_206.png){ loading=lazy }
+
+John讲解如何将 `map` 函数改写成尾递归的形式，
+
+大致的思路是，先将应用函数到目标链表上，得到一个倒序的链表(因为要尾递归的话就只能从尾部开始)，然后再将倒序的链表的顺序转换回来( `reverse` 函数)，而这个过程也是尾递归的，所以整个 `map` 就实现了尾递归的形式
