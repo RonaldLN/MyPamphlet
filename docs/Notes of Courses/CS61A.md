@@ -10059,3 +10059,108 @@ near "where": syntax error
 >   -   计算操作符子表达式，其结果为一个宏
 >   -   对操作数表达式进行调用，<u>*而不先对它们进行求值*</u>
 >   -   计算从宏过程返回的表达式
+
+### 2
+
+![cs61a_208](../images/cs61a_208.png){ loading=lazy }
+
+John演示了如果不使用*宏*，就无法实现 `twice` 函数，
+
+## Lab 14
+
+### 1
+
+Q1，需要注意没有返回值(从测试文档中可以得知)
+
+??? note "code"
+
+    ```python
+    def prune_min(t):
+        "*** YOUR CODE HERE ***"
+        if t.is_leaf():
+            return
+        min_b = min(t.branches, key=lambda t: t.label)
+        prune_min(min_b)
+        t.branches = [min_b]
+    ```
+
+### 2
+
+Q2这题没有给例子，所以导致我一开始没理解准确题目的意思😅，理解准确了就不是很难了，
+
+这是两个测试的例子
+
+```scheme
+scm> (car (split-at '(1 2 3 4 5) 3))
+(1 2 3)
+scm> (cdr (split-at '(1 2 3 4 5) 3))
+(4 5)
+```
+
+??? note "code"
+
+    ```scheme
+    (define (split-at lst n)
+      'YOUR-CODE-HERE
+      (if (or (null? lst) (= n 0))
+          (cons nil lst)
+          (let ((rest (split-at (cdr lst) (- n 1))))
+               (cons (cons (car lst) (car rest)) (cdr rest))))
+    )
+    ```
+
+### 3
+
+Q3这题有点难想，我想了一会才想出代码
+
+??? note "code"
+
+    ```scheme
+    (define (compose-all funcs)
+      'YOUR-CODE-HERE
+      (if (null? funcs)
+          (lambda (x) x)
+          (lambda (x) ((compose-all (cdr funcs)) ((car funcs) x))))
+    )
+    ```
+
+### 4
+
+Q4这题挺难的，想了好久才想出来
+
+一开始以为，需要将列表中的元素一个一个递归地去除来判断(可能是scheme写多了的原因😅)，然后尝试了很久都没有思路，
+
+在重新理解这个例子时，
+
+```python
+>>> num_splits([1, 5, 4], 0)  # splits to [1, 4] and [5]
+1
+```
+
+突然想到 `1 - 5 + 4 = 0` ，然后就想到了可以**通过给数字加上正负号来判断分到哪一边**，于是写了一个辅助函数
+
+```python
+def spliter(s, d, current_diff):
+    if s == []:
+        return 1 if current_diff >= 0 and current_diff <= d else 0
+    else:
+        return spliter(s[1:], d, current_diff + s[0]) + spliter(s[1:], d, current_diff - s[0])
+```
+
+判断 `current_diff >= 0` 本来是想通过这样来去掉相反顺序/边的一半(顺序相反的话最后的差值应该刚好是相反数)，但是就在 `num_splits([1, 5, 4], 0)` 这个例子中，重复的另一半**差值也刚好是0**，于是最后得到了2
+
+然后思考了一会后，修改成了直接算出包含重复的所有的情况，再除2就好了
+
+??? note "code"
+
+    ```python
+    def num_splits(s, d):
+        "*** YOUR CODE HERE ***"
+        def spliter(s, d, current_diff):
+            if s == []:
+                return 1 if abs(current_diff) <= d else 0
+            else:
+                return spliter(s[1:], d, current_diff + s[0]) + spliter(s[1:], d, current_diff - s[0])
+        return spliter(s, d, 0) // 2
+    ```
+
