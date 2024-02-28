@@ -10066,6 +10066,14 @@ near "where": syntax error
 
 John演示了如果不使用*宏*，就无法实现 `twice` 函数，
 
+### 3
+
+John演示了使用 `define-macro` 和 `define` 应用于同样的代码的不同效果
+
+![cs61a_209](../images/cs61a_209.png){ loading=lazy }
+
+![cs61a_210](../images/cs61a_210.png){ loading=lazy }
+
 ## Lab 14
 
 ### 1
@@ -10162,5 +10170,267 @@ def spliter(s, d, current_diff):
             else:
                 return spliter(s[1:], d, current_diff + s[0]) + spliter(s[1:], d, current_diff - s[0])
         return spliter(s, d, 0) // 2
+    ```
+
+### 4
+
+Q6，这题题目看着比较复杂，但其实大概的代码框架基本上都已经写好了，需要填充的部分思路和之前的一题大致上是类似的，所以最后写起来还是比较好写的
+
+写的过程中发现，**python中字符串不能用 切片赋值**
+
+```python
+>>> align_skeleton(skeleton="i", code="i")
+Traceback (most recent call last):
+  File "C:\Courses\cs61a\lab\lab14\lab14.py", line 189, in align_skeleton
+    result, cost = helper_align(0, 0)
+  File "C:\Courses\cs61a\lab\lab14\lab14.py", line 178, in helper_align
+    match_match[0:0] = skel_char
+TypeError: 'str' object does not support item assignment
+```
+
+??? note "code"
+
+    ```python
+    def align_skeleton(skeleton, code):
+        """
+        Aligns the given skeleton with the given code, minimizing the edit distance between
+        the two. Both skeleton and code are assumed to be valid one-line strings of code. 
+    
+        >>> align_skeleton(skeleton="", code="")
+        ''
+        >>> align_skeleton(skeleton="", code="i")
+        '+[i]'
+        >>> align_skeleton(skeleton="i", code="")
+        '-[i]'
+        >>> align_skeleton(skeleton="i", code="i")
+        'i'
+        >>> align_skeleton(skeleton="i", code="j")
+        '+[j]-[i]'
+        >>> align_skeleton(skeleton="x=5", code="x=6")
+        'x=+[6]-[5]'
+        >>> align_skeleton(skeleton="return x", code="return x+1")
+        'returnx+[+]+[1]'
+        >>> align_skeleton(skeleton="while x<y", code="for x<y")
+        '+[f]+[o]+[r]-[w]-[h]-[i]-[l]-[e]x<y'
+        >>> align_skeleton(skeleton="def f(x):", code="def g(x):")
+        'def+[g]-[f](x):'
+        """
+        skeleton, code = skeleton.replace(" ", ""), code.replace(" ", "")
+    
+        def helper_align(skeleton_idx, code_idx):
+            """
+            Aligns the given skeletal segment with the code.
+            Returns (match, cost)
+                match: the sequence of corrections as a string
+                cost: the cost of the corrections, in edits
+            """
+            if skeleton_idx == len(skeleton) and code_idx == len(code):
+                return "", 0
+            if skeleton_idx < len(skeleton) and code_idx == len(code):
+                edits = "".join(["-[" + c + "]" for c in skeleton[skeleton_idx:]])
+                return edits, len(skeleton) - skeleton_idx
+            if skeleton_idx == len(skeleton) and code_idx < len(code):
+                edits = "".join(["+[" + c + "]" for c in code[code_idx:]])
+                return edits, len(code) - code_idx
+    
+            possibilities = []
+            skel_char, code_char = skeleton[skeleton_idx], code[code_idx]
+            # Match
+            if skel_char == code_char:
+                match_match, cost_match = helper_align(skeleton_idx + 1, code_idx + 1)
+                match_match = skel_char + match_match
+                possibilities .append((match_match, cost_match))
+            # Insert
+            match_insert, cost_insert = helper_align(skeleton_idx, code_idx + 1)
+            # match_insert[0:0] = "+[" + code_char + "]"
+            match_insert = "+[" + code_char + "]" + match_insert
+            possibilities.append((match_insert, cost_insert + 1))
+            # Delete
+            match_delete, cost_delete = helper_align(skeleton_idx + 1, code_idx)
+            # match_delete[0:0] = "-[" + skel_char + "]"
+            match_delete = "-[" + skel_char + "]" + match_delete
+            possibilities.append((match_delete, cost_delete + 1))
+            return min(possibilities, key=lambda x: x[1])
+        result, cost = helper_align(0, 0)
+        return result
+    ```
+
+### 5
+
+Q8，这题一开始没看见需要用 `foldl` 或者 `foldr` 来实现，所以直接写出来了
+
+```python
+def filterl(lst, pred):
+    "*** YOUR CODE HERE ***"
+    if lst is Link.empty:
+        return lst
+    elif pred(lst.first):
+        return Link(lst.first, filterl(lst.rest, pred))
+    else:
+        return filterl(lst.rest, pred)
+```
+
+之后用 `foldl` 实现了，但是感觉用了 `foldl` 的我的代码并没有比之前简单😅
+
+```python
+def filterl(lst, pred):
+    "*** YOUR CODE HERE ***"
+    def fn_pred(r, v):
+        if not pred(v):
+            return r
+        elif r is Link.empty:
+            return Link(v, r)
+        else:
+            r.rest = Link(v)
+            return r
+    return foldl(lst, fn_pred, Link.empty)
+```
+
+然后想了想，按照题目的意思，使用 `foldl` 或者 `foldr` 应该是能简化代码，又想到 `foldl` 中是将链表中的元素**从左到右**应用到 `fn` 中，所以 `foldr` 函数就应该(刚好相反)是**从右到左**应用链表中的元素，于是用代码实现了 `foldr` 
+
+```python
+def foldr(link, fn, z):
+    """ Right fold """
+    if link is Link.empty:
+        return z
+    return fn(foldr(link.rest, fn, z), link.first)
+```
+
+然后用 `foldr` 实现了这题(这样就简单多了😊)
+
+```python
+def filterl(lst, pred):
+    "*** YOUR CODE HERE ***"
+    return foldr(lst, lambda r, v: Link(v, r) if pred(v) else r, Link.empty)
+```
+
+---
+
+之后去[21年秋季学期的lab14](https://inst.eecs.berkeley.edu/~cs61a/fa21/lab/lab14/)中，看到了实现 `foldr` 函数的题目[Fold Right](https://inst.eecs.berkeley.edu/~cs61a/fa21/lab/lab14/#q12-fold-right)
+
+```python
+def foldr(link, fn, z):
+    """ Right fold
+    >>> lst = Link(3, Link(2, Link(1)))
+    >>> foldr(lst, sub, 0) # (3 - (2 - (1 - 0)))
+    2
+    >>> foldr(lst, add, 0) # (3 + (2 + (1 + 0)))
+    6
+    >>> foldr(lst, mul, 1) # (3 * (2 * (1 * 1)))
+    6
+    """
+    "*** YOUR CODE HERE ***"
+```
+
+发现就跟我刚才想的一样，
+
+不过需要注意的是， **`fn` 的两个参数的位置和我之前的实现是反过来的**，因此最后 `foldr` 和 `filterl` **正确的实现代码**应该是
+
+```python
+def foldr(link, fn, z):
+    """ Right fold """
+    if link is Link.empty:
+        return z
+    return fn(link.first, foldr(link.rest, fn, z))
+```
+
+```python
+def filterl(lst, pred):
+    "*** YOUR CODE HERE ***"
+    return foldr(lst, lambda v, r: Link(v, r) if pred(v) else r, Link.empty)
+```
+
+### 6
+
+Q9，这题有点意思，题目中说需要用到之前实现的 `foldl` 函数，并且只需要一行代码就可以实现了，
+
+一开始我写的是
+
+```python
+return foldl(lst, lambda l, r: Link(l.first, r), Link.empty)
+```
+
+然后发生了报错
+
+```python
+Traceback (most recent call last):
+  ...
+  File "C:\Courses\cs61a\lab\lab14\lab14.py", line 237, in <lambda>
+    return foldl(lst, lambda l, r: Link(l.first, r), Link.empty)
+AttributeError: 'tuple' object has no attribute 'first'
+```
+
+然后意识到传入的 `fn` 应该原始的值在第一个参数位，于是修改了一下顺序
+
+```python
+return foldl(lst, lambda r, l: Link(l.first, r), Link.empty)
+```
+
+但是还是报错了
+
+```python
+AttributeError: 'int' object has no attribute 'first'
+```
+
+然后我意识到 `foldl` 函数中拿到的应该是 `lst` 的元素，于是最后就改好了
+
+??? note "code"
+
+    ```python
+    def reverse(lst):
+        "*** YOUR CODE HERE ***"
+        return foldl(lst, lambda r, l: Link(l.first, r), Link.empty)
+    ```
+
+---
+
+写完Q10之后尝试了一下 Extra for experience，即不适用 `Link` 构造函数来实现 `reverse` (可以不使用 `foldl` 和 `foldr` )，感觉还行，写了一个辅助函数就能实现了
+
+??? note "code"
+
+    ```python
+    def reverse(lst):
+        "*** YOUR CODE HERE ***"
+        def reverse_helper(lst, rest):
+            if lst is Link.empty:
+                return rest
+            else:
+                old_rest, lst.rest = lst.rest, rest
+                return reverse_helper(old_rest, lst)
+        return reverse_helper(lst, Link.empty)
+    ```
+
+### 7
+
+Q10，这题题目不难理解，但是代码的实现思路有点绕，我想了好一会才捋清楚(因为要把顺序反过来😅)
+
+我最后是借助第一个测试用例来理解的，
+
+```python
+>>> lst = Link(3, Link(2, Link(1)))
+>>> foldr(lst, sub, 0) # (3 - (2 - (1 - 0)))
+```
+
+>   把这个测试用例中的 `-` 看成是 `fn`
+
+和
+
+```python
+>>> list = Link(3, Link(2, Link(1)))
+>>> foldl2(list, sub, 0) # (((0 - 3) - 2) - 1)
+```
+
+在 `foldr` 中，到达链表的末尾时，就会直接返回初始值 `z` ，即 `identity` 函数，然后 `step` 就会接收到 `1` 和 `identity` (分别对应 `x` 和 `g` )，而在 `foldl2` 中，是需要把 `1` **==套在最外面==**，所以这里的 `step` 是需要返回一个 `f(?) = (? - 1)` 函数的函数，
+
+而最后返回到了最开始时， `x` 对应 `3` ， `g` 就应该对应的是一个 `f(?) = ((? - 2) - 1)` 的函数，而这时会被传入 `foldl2` 的 `z` 和 `3` ，所以 `?` 对应的就是 `fn(z, x)` ，即 `step` 中应该是 `g(fn(z, x))` ，最后差不多就做出来了
+
+??? note "code"
+
+    ```python
+    def foldl2(link, fn, z):
+        def step(x, g):
+            "*** YOUR CODE HERE ***"
+            return lambda z: g(fn(z, x))
+        return foldr(link, step, identity)(z)
     ```
 
