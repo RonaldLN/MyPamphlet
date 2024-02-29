@@ -10434,3 +10434,577 @@ Q10，这题题目不难理解，但是代码的实现思路有点绕，我想�
         return foldr(link, step, identity)(z)
     ```
 
+## Lecture 36 Q&A
+
+### 1
+
+有人提问19年秋季期末考试第6题c题，
+
+!!! quote
+
+    **(20 points) Palindromes**
+    
+    **Definition.** A palindrome is a sequence that has the same elements in normal and reverse order.
+    
+    **(a) (3 pt)** Implement `pal` , which takes a positive integer `n` and returns a positive integer with the digits of `n` followed by the digits of `n` in reverse order.
+    
+    **Important:** You may not write `str` , `repr` , `list` , `tuple` , `[` , or `]` .
+    
+    ```python
+    def pal(n):
+        """Return a palindrome starting with n.
+    
+        >>> pal(12430)
+        1243003421
+        """
+        m = n
+        while m:
+            n, m = ____________________________________ , ____________________________________
+        return n
+    ```
+    
+    **(b) (4 pt)** Implement `contains` , which takes non-negative integers `a` and `b` . It returns whether all of the digits of a also appear in order among the digits of `b` .
+    
+    **Important:** You may not write `str` , `repr` , `list` , `tuple` , `[` , or `]` .
+    
+    ```python
+    def contains(a, b):
+        """Return whether the digits of a are contained in the digits of b.
+    
+        >>> contains(357, 12345678)
+        True
+        >>> contains(753, 12345678)
+        False
+        >>> contains(357, 37)
+        False
+        """
+        if a == b:
+            return True
+        if ________________________________________ > _________________________________________:
+            return False
+        if ________________________________________ == ________________________________________:
+            return contains( _______________________________ , _______________________________ )
+        else:
+            return contains( _______________________________ , _______________________________ )
+    ```
+    
+    **(c) (6 pt)** Implement `big` , a helper function for `biggest_palindrome` . The `biggest_palindrome` function takes a non-negative integer `n` and returns the largest palindrome integer with an even number of digits that appear among the digits of `n` in order. If there is no even-length palindrome among the digits of `n` , then `biggest_palindrome(n)` returns 0. You may call `pal` and `contains` . 
+    
+    **Important:** You may not write `str` , `repr` , `list` , `tuple` , `[` , or `]` .
+    
+    ```python
+    def biggest_palindrome(n):
+        """Return the largest even-length palindrome in n.
+    
+        >>> biggest_palindrome(3425534)
+        4554
+        >>> biggest_palindrome(126130450234125)
+        21300312
+        """
+        return big(n, 0)
+    
+    def big(n, k):
+        """A helper function for biggest_palindrome."""
+        if n == 0:
+            return 0
+        choices = [big( _________________ , k) , big( _________________ , _________________ )]
+        if contains(k, ______________________________________________________________________):
+            __________________________________________________________________________________
+        return max(choices)
+    ```
+    
+    **(d) (1 pt)** Circle the term that fills in the blank: the `is_palindrome` function defined below runs in \_\_\_\_ time in the length of its input.
+    
+    -   Constant
+    -   Logarithmic
+    -   Linear
+    -   Quadratic
+    -   Exponential
+    -   None of these
+    
+    ```python
+    def is_palindrome(s):
+        """Return whether a list of numbers s is a palindrome."""
+        return all([s[i] == s[len(s) - i - 1] for i in range(len(s))])
+    ```
+    
+    Assume that `len` runs in constant time and `all` runs in linear time in the length of its input. Selecting an element of a list by its index requires constant time. Constructing a `range` requires constant time.
+    
+    **(e) (6 pt)** Implement `outer` , a helper function for `palinkdrome` . The `palinkdrome` function takes a positive integer `n` and returns a one-argument function that, when called repeatedly `n` times, returns a `Link` containing the sequence of arguments to the repeated calls followed by that sequence in reverse order. The `Link` class appears on Page 2 (left column) of the Midterm 2 study guide.
+    
+    ```python
+    def palinkdrome(n):
+        """Return a function that returns a palindrome starting with the args of n repeated calls.
+        >>> print(palinkdrome(3)(5)(6)(7))
+        <5 6 7 7 6 5>
+        >>> print(palinkdrome(1)(4))
+        <4 4>
+        """
+        return outer(Link.empty, n)
+    
+    def outer(r, n):
+        def inner(k):
+            s = Link(k, ______________________________________________________________)
+            if n == 1:
+                t = __________________________________________________________________
+                while s is not Link.empty:
+                    t, s = Link(________________, ________________) , ________________
+                return t
+            else:
+                return ____________________________________________________________
+        return ________________________________________________________________________
+    ```
+
+>   ```python
+>   class Link:
+>       """A linked list.
+>   
+>       >>> s = Link(1)
+>       >>> s.first
+>       1
+>       >>> s.rest is Link.empty
+>       True
+>       >>> s = Link(2, Link(3, Link(4)))
+>       >>> s.first = 5
+>       >>> s.rest.first = 6
+>       >>> s.rest.rest = Link.empty
+>       >>> s                                    # Displays the contents of repr(s)
+>       Link(5, Link(6))
+>       >>> s.rest = Link(7, Link(Link(8, Link(9))))
+>       >>> s
+>       Link(5, Link(7, Link(Link(8, Link(9)))))
+>       >>> print(s)                             # Prints str(s)
+>       <5 7 <8 9>>
+>       """
+>       empty = ()
+>   
+>       def __init__(self, first, rest=empty):
+>           assert rest is Link.empty or isinstance(rest, Link)
+>           self.first = first
+>           self.rest = rest
+>   
+>       def __repr__(self):
+>           if self.rest is not Link.empty:
+>               rest_repr = ', ' + repr(self.rest)
+>           else:
+>               rest_repr = ''
+>           return 'Link(' + repr(self.first) + rest_repr + ')'
+>   
+>       def __str__(self):
+>           string = '<'
+>           while self.rest is not Link.empty:
+>               string += str(self.first) + ' '
+>               self = self.rest
+>           return string + str(self.first) + '>'
+>   ```
+
+于是尝试自己写一下，发现确实c题难想😅，
+
+我看到代码的时候，大概能想到他的大致想法/思路，但是不知到要如何用代码实现(跟他给的代码框架对不上)。
+
+一开始看完了代码之后，我最先猜到的是 `choices` 这行的作用
+
+```python
+choices = [big(_________________, k), big(_________________, _________________ )]
+```
+
+我想到应该是**考虑最后一位是否算入回文数中/是否取用最后一位**，
+
+>   比如 213123 这个数字，如果取用3，那么结果只能是33，如果不取用3的话，结果应是2112
+
+并且将两种情况的结果都放到 `choices` 中，最后再选其中的最大值(对应 `return max(choices)` 这行代码)，
+
+然后又注意到这是个递归的结构，所以应该是要将 `n // 10` 传入，所以大概猜测这行代码是这样
+
+```python
+choices = [big(n // 10, k), big(n // 10, k * 10 + n % 10)]
+```
+
+而在 `if` 中，感觉应该是满足一个什么条件，会把一个结果加到 `choices` 中，然后又根据之前写的代码中 `k` 只是回文的一半，所以感觉这行可能是
+
+```python
+choices += [pal(k)]
+```
+
+而由于我忽略了 `k * 10 + n % 10` 这里刚好**会 ==以倒过来的顺序== 把原始数字的数位放到 `k` 上**，所以一开始在 `if` 的判断条件中，我写的是
+
+```python
+if contains(k, pal(n)):
+```
+
+但是测试时与正确结果不对
+
+```python
+Failed example:
+    biggest_palindrome(126130450234125)
+Expected:
+    21300312
+Got:
+    2143223412
+```
+
+本来已经想不出要如何修改了，但随便尝试修改了一下
+
+```python
+if contains(k, n):
+```
+
+然后惊奇地发现通过测试了😮，于是之后就想明白了原因
+
+```python
+def biggest_palindrome(n):
+    """Return the largest even-length palindrome in n.
+
+    >>> biggest_palindrome(3425534)
+    4554
+    >>> biggest_palindrome(126130450234125)
+    21300312
+    """
+    return big(n, 0)
+
+def big(n, k):
+    """A helper function for biggest_palindrome."""
+    if n == 0:
+        return 0
+    choices = [big(n // 10, k), big(n // 10, k * 10 + n % 10)]
+    if contains(k, n):
+        choices += [pal(k)]
+    return max(choices)
+```
+
+所有的题目的代码
+
+=== "(a)"
+
+    ```python
+    def pal(n):
+        """Return a palindrome starting with n.
+    
+        >>> pal(12430)
+        1243003421
+        """
+        m = n
+        while m:
+            n, m = n * 10 + m % 10, m // 10
+        return n
+    ```
+
+=== "(b)"
+
+    ```python
+    def contains(a, b):
+        """Return whether the digits of a are contained in the digits of b.
+    
+        >>> contains(357, 12345678)
+        True
+        >>> contains(753, 12345678)
+        False
+        >>> contains(357, 37)
+        False
+        """
+        if a == b:
+            return True
+        if a > b:
+            return False
+        if a % 10 == b % 10:
+            return contains(a // 10, b // 10)
+        else:
+            return contains(a, b // 10)
+    ```
+
+=== "(c)"
+
+    ```python
+    def biggest_palindrome(n):
+        """Return the largest even-length palindrome in n.
+    
+        >>> biggest_palindrome(3425534)
+        4554
+        >>> biggest_palindrome(126130450234125)
+        21300312
+        """
+        return big(n, 0)
+    
+    def big(n, k):
+        """A helper function for biggest_palindrome."""
+        if n == 0:
+            return 0
+        choices = [big(n // 10, k), big(n // 10, k * 10 + n % 10)]
+        if contains(k, n):
+            choices += [pal(k)]
+        return max(choices)
+    ```
+
+=== "(e)"
+
+    ```python
+    def palinkdrome(n):
+        """Return a function that returns a palindrome starting with the args of n repeated calls.
+        >>> print(palinkdrome(3)(5)(6)(7))
+        <5 6 7 7 6 5>
+        >>> print(palinkdrome(1)(4))
+        <4 4>
+        """
+        return outer(Link.empty, n)
+    
+    def outer(r, n):
+        def inner(k):
+            s = Link(k, r)
+            if n == 1:
+                t = s
+                while s is not Link.empty:
+                    t, s = Link(s.first, t), s.rest
+                return t
+            else:
+                return outer(s, n - 1)
+        return inner
+    ```
+
+---
+
+有人问道John是如何处理这个问题的，下面是John的解释
+
+!!! quote
+
+    John:
+    
+    Yeah, great question. So how do you approach this problem? What are the steps? Um, one is to recognize that there's a tree recursion problem. You could do that from the syntax because there are two calls to `big` , or you could do that from the kind of nature of the problem, which is they were doing some search among all the possible subsets of digits in here. Which one's the biggest looks like a tree recursion problem. Um, so you have to look for a way to distill that into a sequence of choices.
+    
+    And, uh, a common sequence of choices that you have is to keep the last digit or you don't. I mean, we've seen that in a few different examples. Um, but and so it happens to apply here. Sometimes it's not clear what kind of sequence of choices you need to make, but that is a big part of solving a tree recursion problem. So, um, yeah, how you figure out what that choice is is to think about all the different possibilities that you need to consider. So, all the different palindromes within here, and how would I enumerate that set? Well, all the ones that have a four at the end and all the ones that don't is a way of partitioning that set using an operation that I could repeat over and over again. So, that's how you kind of figure out what choice you're going to be making.
+    
+    I guess that got us as far as thinking probably what we're going to do is call `big` where we keep the last digit and `big` where we don't. Now is the hard part, which is how are we going to represent this notion of keeping the last digit? It's not like we have a list called digits where we're appending the last digit to. Instead, what we're doing is we're effectively reassigning k. Here, k either stays the same or k includes one more digit than it was before. So, whenever you make a recursive call, a good way to think about what you're doing is that you're assigning these formal parameters to new values.
+    
+    So, I guess that starts to explain what's going on here. The last piece is very problem-specific. How would you know that you've found a palindrome and therefore you want to consider that as one of the choices? You know, these two lines wouldn't show up in any other tree recursion problems. They're really just about palindromes because it happens to be that one way of describing a palindrome is that you find some digits within half the number, and then you make sure those digits also appear in the other half of the number in reverse order. How would you discover this? I guess, um, hopefully, the definition of the palindrome would get you there. Like, how do you describe a palindrome? It's like some digits, and then those digits also have to be contained in the other half of the number in reverse order.
+    
+    ---
+    
+    John:
+    
+    是的，这是一个很好的问题。那么你如何解决这个问题？有哪些步骤？嗯，首先要认识到这是一个树递归问题。你可以从语法上看出来，因为有两次对 `big` 的调用，或者你可以从问题的性质上看出来，他们在这里进行了一些搜索，搜索所有可能的数字子集，找出其中最大的一个，看起来像一个树递归问题。那么，你必须寻找一种将其归纳为一系列选择的方法。
+    
+    而且，你通常会有一系列共同的选择，比如保留最后一位数字或者不保留。我的意思是，我们在几个不同的例子中都看到过。但是在某些情况下，不清楚需要做出什么样的选择，但这是解决树递归问题的一个重要部分。所以，嗯，你如何确定这个选择是什么，就是考虑你需要考虑的所有不同可能性。
+    
+    所以，在这里面的所有不同回文数，我该如何枚举这个集合呢？嗯，所有以四结尾的回文数和所有不以四结尾的回文数是一种划分这个集合的方法，使用一个可以一遍又一遍重复的操作。所以，这就是你如何想出你将要做出的选择的方式。
+    
+    我想，这让我们想到，我们可能要做的事情是调用保留最后一位数字的 `big` ，和不保留的 `big` 。现在，困难的部分来了，就是我们如何表示保留最后一位数字的这个概念呢？这不像我们有一个名为digits的列表，我们在其中添加最后一位数字。相反，我们正在有效地重新分配k。在这里，k要么保持不变，要么比以前多包含一位数字。所以，每当你进行递归调用时，思考你正在做的事情的一个好方法是，你正在将这些形式参数赋予新的值。
+    
+    所以，我想这开始解释这里发生了什么。最后一块是非常特定于问题的。你如何知道找到了一个回文数，因此你想把它视为选择之一？你知道，这两行不会出现在任何其他树递归问题中。它们实际上只涉及回文数，因为碰巧描述回文数的一种方式是，在数字的一半中找到一些数字，然后确保这些数字也以相反的顺序出现在数字的另一半中。你如何发现这一点呢？我想，希望回文数的定义会让你明白。就像，你如何描述一个回文数，就是一些数字，然后这些数字也必须包含在数字的另一半中，并且是相反的顺序。
+
+### 2
+
+有人提问19年夏季期末考试的第8题
+
+!!! quote
+
+    **(10 points) The Big SQL**
+    
+    The `ingredients` table describes the `dish` and `part` for each part of each dish at a restaurant. The `shops` table describes the `food` , `shop` , and `price` for each part of a dish sold at each of two shops. All ingredients (parts) are sold by both shops, and each ingredient will only appear once for each shop. Write your SQL statements so that they would still be correct if table contents changed. You can assume the shops table will only ever contain two shops ( `A` and `B` ).
+    
+    ```sql
+    CREATE TABLE ingredients AS
+      SELECT "chili" AS dish, "beans" AS part UNION
+      SELECT "chili"        , "onions"        UNION
+      SELECT "soup"         , "broth"         UNION
+      SELECT "soup"         , "onions"        UNION
+      SELECT "beans"        , "beans";
+    
+    CREATE TABLE shops AS
+      SELECT "beans" AS food, "A" AS shop, 2 AS price UNION
+      SELECT "beans"        , "B"        , 2 AS price UNION
+      SELECT "onions"       , "A"        , 3          UNION
+      SELECT "onions"       , "B"        , 2          UNION
+      SELECT "broth"        , "A"        , 3          UNION
+      SELECT "broth"        , "B"        , 5;
+    ```
+    
+    **(a) (2 pt)**  Select a two-column table with one row per food that describes the lowest price for each food.
+    
+    ```sql
+    SELECT food, _________________ FROM shops ________________________;
+    ```
+    
+    ```sql
+    beans|2
+    broth|3
+    onions|2
+    ```
+    
+    **(b) (4 pt)** Select a two-column table with one row per dish that describes the total cost of each dish if all parts are purchased from shop A.
+    
+    ```sql
+    SELECT ________________________ FROM _____________________________
+      WHERE __________________________________________________________;
+    ```
+    
+    ```sql
+    beans|2
+    chili|5
+    soup|6
+    ```
+    
+    **(c) (4 pt)** In two different ways, select a one-column table of all foods that have a different price at each store.
+    
+    ```sql
+    SELECT _________ FROM __________________________________, __________________________________
+      WHERE ____________________________________________________________________________________;
+    SELECT _________ FROM shops GROUP BY _______________________________________________________;
+    ```
+    
+    ```sql
+    onions
+    broth
+    ```
+
+自己做了一下这题，最后感觉除了c题中要实现的第二种方法，其他都不是很难
+
+>   ```bash
+>   python sqlite_shell.py -i test.sql
+>   ```
+
+=== "(a)"
+
+    ```sql
+    SELECT food, min(price) FROM shops GROUP BY food;
+    ```
+
+=== "(b)"
+
+    ```sql
+    SELECT a.dish, sum(b.price) FROM ingredients AS a, shops AS b
+      WHERE a.part = b.food AND b.shop = "A" GROUP BY a.dish;
+    ```
+
+=== "(c)"
+
+    ```sql
+    SELECT a.food FROM shops AS a, shops AS b
+      WHERE a.food = b.food AND a.shop < b.shop AND a.price != b.price;
+    SELECT food FROM shops GROUP BY food HAVING min(price) != max(price);
+    ```
+
+---
+
+看了John的解答，发现他c题的第二种写法比我更简洁一些
+
+```sql
+SELECT food FROM shops GROUP BY food HAVING MIN(price) != MAX(price);
+```
+
+## Lecture 37 Final Examples
+
+### 1
+
+![cs61a_211](../images/cs61a_211.png){ loading=lazy }
+
+尝试实现课上的这题
+
+>   ```python
+>   class Tree:
+>       """
+>       >>> t = Tree(3, [Tree(2, [Tree(5)]), Tree(4)])
+>       >>> t.label
+>       3
+>       >>> t.branches[0].label
+>       2
+>       >>> t.branches[1].is_leaf()
+>       True
+>       """
+>       def __init__(self, label, branches=[]):
+>           for b in branches:
+>               assert isinstance(b, Tree)
+>           self.label = label
+>           self.branches = list(branches)
+>   
+>       def is_leaf(self):
+>           return not self.branches
+>   
+>       def map(self, fn):
+>           """
+>           Apply a function `fn` to each node in the tree and mutate the tree.
+>   
+>           >>> t1 = Tree(1)
+>           >>> t1.map(lambda x: x + 2)
+>           >>> t1.map(lambda x : x * 4)
+>           >>> t1.label
+>           12
+>           >>> t2 = Tree(3, [Tree(2, [Tree(5)]), Tree(4)])
+>           >>> t2.map(lambda x: x * x)
+>           >>> t2
+>           Tree(9, [Tree(4, [Tree(25)]), Tree(16)])
+>           """
+>           self.label = fn(self.label)
+>           for b in self.branches:
+>               b.map(fn)
+>   
+>       def __contains__(self, e):
+>           """
+>           Determine whether an element exists in the tree.
+>   
+>           >>> t1 = Tree(1)
+>           >>> 1 in t1
+>           True
+>           >>> 8 in t1
+>           False
+>           >>> t2 = Tree(3, [Tree(2, [Tree(5)]), Tree(4)])
+>           >>> 6 in t2
+>           False
+>           >>> 5 in t2
+>           True
+>           """
+>           if self.label == e:
+>               return True
+>           for b in self.branches:
+>               if e in b:
+>                   return True
+>           return False
+>   
+>       def __repr__(self):
+>           if self.branches:
+>               branch_str = ', ' + repr(self.branches)
+>           else:
+>               branch_str = ''
+>           return 'Tree({0}{1})'.format(self.label, branch_str)
+>   
+>       def __str__(self):
+>           def print_tree(t, indent=0):
+>               tree_str = '  ' * indent + str(t.label) + "\n"
+>               for b in t.branches:
+>                   tree_str += print_tree(b, indent + 1)
+>               return tree_str
+>           return print_tree(self).rstrip()
+>   ```
+
+```python
+def bigs(t):
+    """Return the number of nodes in t that are larger than all their ancestor nodes.
+    
+    >>> a = Tree(1, [Tree(4, [Tree(4), Tree(5)], Tree(3, [Tree(0, [Tree(2)])])])
+    >>> bigs(a)
+    4
+    """
+    def f(a, x):
+        if ____________________________________________________:
+            return 1 + ________________________________________
+        else:
+            return ____________________________________________
+    return ____________________________________________________
+```
+
+感觉不算难
+
+```python
+def bigs(t):
+    def f(a, x):
+        if a.label > x:
+            return 1 + sum([f(b, a.label) for b in a.branches])
+        else:
+            return sum([f(b, x) for b in a.branches])
+    return 1 + sum([f(b, t.label) for b in t.branches])
+```
+
+---
+
+![cs61a_212](../images/cs61a_212.png){ loading=lazy }
+
+John最后展示了如何一步步得到最后的答案/代码
+
