@@ -11008,3 +11008,173 @@ def bigs(t):
 
 John最后展示了如何一步步得到最后的答案/代码
 
+---
+
+![cs61a_213](../images/cs61a_213.png){ loading=lazy }
+
+John展示了另一种使用 `nonlocal` 语句来实现的递归的方法
+
+### 2
+
+![cs61a_214](../images/cs61a_214.png){ loading=lazy }
+
+John展示了一种编写程序解决问题的步骤，他认为这虽然不是一个完美的方法，但是是一个比较有用和考虑周到的方法，可以在第一眼不知道问题如何解决时想想这样的方法
+
+>   **从问题分析到数据定义**
+>
+>   确定必须表示的信息以及在选择的编程语言中如何表示这些信息。制定数据定义并用<u>例子</u>加以说明。
+>
+>   **签名、目的语句、头部**
+>
+>   说明所需函数消耗和产生的数据类型。对问题“函数计算*什么*”提出简明的回答。定义一个符合签名的存根。
+>
+>   **功能示例**
+>
+>   通过<u>例子</u>演示函数的目的。
+>
+>   **函数模板**
+>
+>   将数据定义转化为函数的大纲。
+>
+>   **测试**
+>
+>   将<u>例子</u>表达为测试，并确保函数通过所有测试。这样做有助于发现错误。测试也可以作为例子的补充，帮助他人在需要时阅读和理解定义-而对于任何严肃的程序，这是必要的。
+>
+
+### 3
+
+![cs61a_215](../images/cs61a_215.png){ loading=lazy }
+
+尝试实现这一题
+
+```python
+def smalls(t):
+    """Return the non-leaf nodes in t that are smaller than all their descendants.
+    
+    >>> a = Tree(1, [Tree(2, [Tree(4), Tree(5)]), Tree(3, [Tree(0, [Tree(6)])])])
+    >>> sorted([t.label for t in smalls(a)])
+    [0, 2]
+    """
+    result = []
+    def process(t):
+        if t.is_leaf():
+            return __________________________________________
+        else:
+            smallest = ______________________________________
+            if ______________________________________________:
+                _____________________________________________
+            return min(smallest, t.label)
+    process(t)
+    return result
+```
+
+我的实现
+
+```python
+def smalls(t):
+    result = []
+    def process(t):
+        if t.is_leaf():
+            return t.label
+        else:
+            smallest = min([process(b) for b in t.branches])
+            if t.label < smallest:
+                result.append(t)
+            return min(smallest, t.label)
+    process(t)
+    return result
+```
+
+---
+
+![cs61a_216](../images/cs61a_216.png){ loading=lazy }
+
+## Lecture 37 Q&A
+
+### 1
+
+课上提到的18年春季期末考试的第5题
+
+**(12 points) Function As Expected**
+
+**Definition**. For $n > 1$ , an *order n function* takes one argument and returns an onder $n - 1$ function.
+
+An order 1 function is any function that takes one argument.
+
+**(a) (6 pt)** Implement `scurry` , which takes a function `f` and a positive integers `n` . `f` must be a function that takes a list as its argument. `scurry` returns an order *n* function that, when called successively *n* times on a sequence of values $x_1, x_2, ... x_n$ , returns the result of calling `f` on a list containing $x_1, x_2, ... x_n$ .
+
+```python
+def scurry(f, n):
+    """Return a function that calls f on a list of arguments after being called n times.
+    
+    >>> scurry(sum, 4)(1)(1)(3)(2)  # equivalent to sum([1, 1, 3, 2])
+    7
+    >>> scurry(len, 3)(7)([8])(-9)  # equivalent to len([7, [8], -9])
+    3
+    """
+    def h(k, args_so_far):
+        if k == 0:
+            return ________________________________________________________________________
+        return ____________________________________________________________________________
+    return ________________________________________________________________________________
+```
+
+**(b) (6 pt)** Implement `factorize` , which takes two integers `n` and `k` , both larger than 1. It returns the number of ways that `n` can be expressed as a product of non-decreasing integers greater than or equal to `k` .
+
+```python
+def factorize(n, k=2):
+    """Return the number of ways to factorize positive integer n.
+    
+    >>> factorize(7)  # 7
+    1
+    >>> factorize(12) # 2*2*3, 2*6, 3*4, 12
+    4
+    >>> factorize(36) # 2*2*3*3, 2*2*9, 2*3*6, 2*18, 3*3*4, 3*12, 4*9, 6*6, 36
+    9
+    """
+    if _____________________________________________________________________________________:
+        return 1
+    elif ___________________________________________________________________________________:
+        return 0
+    elif ___________________________________________________________________________________:
+        return factorize(_________________________________, ________________________________)
+    return _________________________________________________________________________________
+```
+
+自己尝试做了一下，感觉还蛮有意思，
+
+感觉是因为已经做过很多类似的题目，所以做b题时，很快就想到了 `if` 的几种情况，分别是 刚好相等整除得1，无法除，能整除，不能整除
+
+=== "(a)"
+
+    ```python
+    def scurry(f, n):
+        def h(k, args_so_far):
+            if k == 0:
+                return f(args_so_far)
+            return lambda x: h(k - 1, args_so_far + [x])
+        return h(n, [])
+    ```
+
+=== "(b)"
+
+    ```python
+    def factorize(n, k=2):
+        if k == n:
+            return 1
+        elif k > n:
+            return 0
+        elif n % k != 0:
+            return factorize(n, k + 1)
+        return factorize(n // k, k) + factorize(n, k + 1)
+    ```
+
+---
+
+John解答这题时说到b题第一种情况中 `n == k` 和 `n == 1` 两个判断条件都可以，然后试了一下发现真的能通过
+
+### 2
+
+John提到scheme中也有类似python中 `*args` 的传入不定个数参数的方法，在定义函数时，可以使用 `. args` 的形式来获取所有的参数(可见于下图)，然后 `args` 就会是一个链表
+
+![cs61a_217](../images/cs61a_217.png){ loading=lazy }
