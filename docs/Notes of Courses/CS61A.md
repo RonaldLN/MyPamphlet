@@ -8134,6 +8134,69 @@ if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
 
 最后看到 Lecture 35 和 36 刚好就是 Tail calls 和 Macros ，刚好分别对应19和20题，然后去看了一下lecture 35，发现课上有讲解这一题，所以就先跳过这一题了。(发现20题也需要用到tail call，所以也跳过了)
 
+### 12
+
+看完了所有课程之后继续尝试完成之前没有完成的题目，
+
+Problem 20 *宏 macro*，这题不算特别复杂，按照题目中说的，实现 `do_define_macro` 函数创建一个 `MacroProcedure` 类，再修改一下 `scheme_eval` 就行了，
+
+`do_define_macro` 中的代码基本上可以参考 `do_define_form` 的代码，
+
+`scheme_eval` 中，需要调用 `MacroProcedure` 的 `apply_macro` 方法，并不先*求值*而是直接传入参数的原始表达式，一开始我写的是
+
+```python
+return operator.apply_macro(rest, env)
+```
+
+但测试时显示这里返回的是
+
+```scheme
+scm> (for i '(1 2 3)
+....      (if (= i 1)
+....          0
+....          i))
+(map (lambda (i) (if (= i 1) 0 i)) (quote (1 2 3)))
+
+# Error: expected
+#     (0 2 3)
+# but got
+#     (map (lambda (i) (if (= i 1) 0 i)) (quote (1 2 3)))
+```
+
+所以最后再添加一个 `scheme_eval` 函数就可以了
+
+??? note "code"
+
+    ```python
+    def do_define_macro(expressions, env):
+        # BEGIN Problem 20
+        "*** YOUR CODE HERE ***"
+        validate_form(expressions, 2)
+        target = expressions.first
+        if isinstance(target, Pair) and scheme_symbolp(target.first):
+            name = target.first
+            formals = target.rest
+            validate_formals(formals)
+            value = MacroProcedure(formals, expressions.rest, env)
+            env.define(name, value)
+            return name
+        else:
+            bad_target = target.first if isinstance(target, Pair) else target
+            raise SchemeError("non-symbol: {0}".format(bad_target))
+        # END Problem 20
+    ```
+    
+    ```python
+    def scheme_eval(expr, env, _=None): # Optional third argument is ignored
+        ...
+        else:
+            ...
+            validate_procedure(operator)
+            if isinstance(operator, MacroProcedure):
+                return scheme_eval(operator.apply_macro(rest, env), env)
+            ...
+    ```
+
 ## Lecture 31 Declarative Programming
 
 ### 1
