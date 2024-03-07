@@ -8197,6 +8197,425 @@ scm> (for i '(1 2 3)
             ...
     ```
 
+### 13
+
+Problem 19，做这题花了好久时间，也尝试了好多次。
+
+>   需要注意的是，题目中有一处写的是 `prior_eval_function` ，这里可能是忘记进行修改(20年夏季的scheme project对应的代码是 `prior_eval_function` )，应该对应的是代码中的 `original_scheme_eval`
+
+刚开始是觉得需要在 `optimized_eval` 中进行是否是尾(调用)格式(in tail context)的判断，于是在函数中编写
+
+```python
+def in_tail_context(expr):
+    if isinstance(expr, Pair) and scheme_symbolp(expr.first):
+        first = expr.first
+        if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+            return True
+        elif first == "if":
+            sub_expr_2 = expr.rest.rest.first
+            sub_expr_3 = expr.rest.rest.rest.first
+            return in_tail_context(sub_expr_2) or in_tail_context(sub_expr_3)
+        else:
+            return False
+    else:
+        return False
+```
+
+因为在lecture 35 Tail Calls里，John说只需要注意 最后的表达式是调用lambda函数 和 `if` 表达式 这两种情况，
+
+![cs61a_202](../images/cs61a_202.png){ loading=lazy }
+
+所以我就只对这两种情况进行了判断。
+
+然后，我的想法是，如果不符合尾格式，就使用原始的eval函数，如果符合的话，那么就应该是会得到 `Thunk` 类实例，那么应该循环进行求值(就不会递归溢出)，于是
+
+```python
+def optimize_tail_calls(original_scheme_eval):
+    def optimized_eval(expr, env, tail=False):
+        if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
+            return Thunk(expr, env)
+
+        result = Thunk(expr, env)
+        # BEGIN PROBLEM 19
+        "*** YOUR CODE HERE ***"
+        def in_tail_context(expr):
+            ...
+        
+        if not in_tail_context(expr):
+            return original_scheme_eval(expr, env)
+            
+        while isinstance(result, Thunk):
+            result = original_scheme_eval(result.expr, result.env)
+        return result
+        # END PROBLEM 19
+    return optimized_eval
+```
+
+这里想到要用 `while` 循环，是因为原始的代码中有 `result = Thunk(expr, env)` 感觉很像是需要循环进行计算最后得到不是 `Thunk` 的 `result` 。
+
+但测试发现不行，
+
+然后捋了一下代码的流程，感觉应该是需要在**某个自定义的尾递归(或者说body符合尾格式)的函数返回body时返回 `Thunk`** (所以为了运行这个函数之前的调用的eval和apply等函数就可以返回这个 `Thunk` 因此就不会溢出)，然后这个 `Thunk` 在 `optimized_eval` 中被循环*求值*，
+
+所以觉得判断尾格式应该是在 `scheme_apply` 调用的 `eval_all` 中，于是将代码修改成了
+
+```python
+def eval_all(expressions, env):
+    def in_tail_context(expr):
+        ...
+    
+    result = None
+    while expressions.rest is not nil:
+        result = scheme_eval(expressions.first, env)
+        expressions = expressions.rest
+    result = scheme_eval(expressions.first, env, tail=in_tail_context(expressions.first))
+    return result
+```
+
+进行测试发现不行，
+
+>   ```scheme
+>   scm> (define (sum n total)
+>   ....   (if (zero? n)
+>   ....       total
+>   ....       (sum (- n 1) (+ n total))))
+>   sum
+>   scm> (sum 1001 0)
+>   ```
+
+然后想到是由于每次进入最后的 `sum` 时，都会新调用一个eval，所以就会递归溢出，
+
+于是想到了在 `optimized_eval` 中直接处理这两种情况，
+
+```python
+while isinstance(result, Thunk):
+    if result.expr.first == "if":
+        result = do_if_form(result.expr.rest, result.env, in_tail=True)
+    else:
+        result = original_scheme_eval(result.expr, result.env)
+```
+
+并且对 `do_if_form` 进行修改
+
+```python
+def do_if_form(expressions, env, in_tail=False):
+    validate_form(expressions, 2, 3)
+    if is_true_primitive(scheme_eval(expressions.first, env)):
+        return scheme_eval(expressions.rest.first, env, tail=in_tail)
+    elif len(expressions) == 3:
+        return scheme_eval(expressions.rest.rest.first, env, tail=in_tail)
+```
+
+>   添加 `in_tail` 参数是因为，需要在这里就返回 `Thunk` 类，否则还是会形成递归
+
+然后进行测试，发现竟然真的能通过几个测试用例😮，但没全部通过，
+
+但是感觉这样的思路(在 `eval_all` 中进行尾格式的判断)应该可以通过测试，于是将 `optimized_eval` 改成了
+
+```python
+def optimized_eval(expr, env, tail=False):
+    if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
+        return Thunk(expr, env)
+
+    result = Thunk(expr, env)
+    # BEGIN PROBLEM 19
+    "*** YOUR CODE HERE ***"
+    result = original_scheme_eval(expr, env)
+
+    while isinstance(result, Thunk):
+        rest_expr, env = result.expr.rest, result.env
+        if result.expr.first == "if":
+            result = do_if_form(rest_expr, env, in_tail=True)
+        else:
+            result = original_scheme_eval(result.expr, env)
+    return result
+    # END PROBLEM 19
+```
+
+然后测试发现只通过了两个例子，被卡在了第3个例子上，这个例子使用了 `cond` ，所以需要对这种情况进行处理，
+
+于是修改 `eval_all` 中的 `in_tail_context` 
+
+```python
+def in_tail_context(expr):
+    if not isinstance(expr, Pair):
+        return True
+
+    if isinstance(expr, Pair) and scheme_symbolp(expr.first):
+        first = expr.first
+        if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+            return True
+        elif first == "if":
+            sub_expr_2 = expr.rest.rest.first
+            sub_expr_3 = expr.rest.rest.rest.first
+            return in_tail_context(sub_expr_2) and in_tail_context(sub_expr_3)
+        elif first == "cond":
+            non_preds = []
+            cond_expr = expr.rest
+            while cond_expr is not nil:
+                non_pred = True
+                sub_expr = cond_expr.first
+                while sub_expr.rest is not nil:
+                    non_pred = sub_expr.rest.first
+                    sub_expr = sub_expr.rest
+                non_preds += [non_pred]
+                cond_expr = cond_expr.rest
+            return all([in_tail_context(x) for x in non_preds])
+        else:
+            return False
+    else:
+        return False
+```
+
+然后发现，可能是由于 `do_cond_form` 中最后调用的是 `eval_all` (其中有判断尾形式的代码)所以就可以使用原本的eval来处理 `cond` 的情况，
+
+然后测试被第5个例子 `let` 语句卡住，于是继续在 `in_tail_context` 中添加判断的情况，
+
+```python
+def in_tail_context(expr):
+    ...
+    if isinstance(expr, Pair) and scheme_symbolp(expr.first):
+        first = expr.first
+        if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+            ...
+        elif first == "let":
+            # return True
+            let_expr = expr.rest.rest
+            while let_expr.rest is not nil:
+                let_expr = let_expr.rest
+            return in_tail_context(let_expr.first)
+        else:
+            return False
+    else:
+        return False
+```
+
+再测试，被第6个例子 `or` 和 `and` 卡住，
+
+然后看了一下之前的ppt，`and` `or` `begin` 的情况差不多，所以就一起判断了
+
+```python
+def in_tail_context(expr):
+    ...
+    if ...:
+        ...
+        elif first in ("and", "or", "begin"):
+            return True
+        else:
+            return False
+    else:
+        return False
+```
+
+然后对应在 `do_and_form` 和 `do_or_form` 中进行修改
+
+>   `do_begin_form` 由于和之前的 `do_cond_form` 一样最后调用的是 `eval_all` 所以就不用修改
+
+```python
+def do_and_form(expressions, env, in_tail=False):
+    result = "#t"
+    while expressions is not nil:
+        if not isinstance(expressions.first, Pair):
+            result = scheme_eval(expressions.first, env)
+        elif in_tail and scheme_symbolp(expressions.first.first):
+            first = expressions.first.first
+            if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+                result = scheme_eval(expressions.first, env, tail=True)
+            else:
+                result = scheme_eval(expressions.first, env)
+        else:
+            result = scheme_eval(expressions.first, env)
+
+        if is_false_primitive(result) or isinstance(result, Thunk):
+            break
+        expressions = expressions.rest
+    return result
+
+def do_or_form(expressions, env, in_tail=False):
+    result = "#f"
+    while expressions is not nil:
+        if not isinstance(expressions.first, Pair):
+            result = scheme_eval(expressions.first, env)
+        elif in_tail and scheme_symbolp(expressions.first.first):
+            first = expressions.first.first
+            if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+                result = scheme_eval(expressions.first, env, tail=True)
+            else:
+                result = scheme_eval(expressions.first, env)
+        else:
+            result = scheme_eval(expressions.first, env)
+
+        if is_true_primitive(result) or isinstance(result, Thunk):
+            break
+        expressions = expressions.rest
+    return result
+```
+
+最后在 `optimized_eval` 中
+
+```python
+def optimized_eval(expr, env, tail=False):
+    ...
+    # BEGIN PROBLEM 19
+    "*** YOUR CODE HERE ***"
+    result = original_scheme_eval(expr, env)
+    while isinstance(result, Thunk):
+        rest_expr, env = result.expr.rest, result.env
+        if result.expr.first in ("if", "and", "or"):
+            result = SPECIAL_FORMS[result.expr.first](rest_expr, env, in_tail=True)
+        else:
+            result = original_scheme_eval(result.expr, env)
+    return result
+```
+
+最后测试，终于全部通过了😭，总算是全部完成了这个project
+
+??? note "code"
+
+    ```python
+    def optimize_tail_calls(original_scheme_eval):
+        def optimized_eval(expr, env, tail=False):
+            if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
+                return Thunk(expr, env)
+    
+            result = Thunk(expr, env)
+            # BEGIN PROBLEM 19
+            "*** YOUR CODE HERE ***"
+            result = original_scheme_eval(expr, env)
+            while isinstance(result, Thunk):
+                rest_expr, env = result.expr.rest, result.env
+                if result.expr.first in ("if", "and", "or"):
+                    result = SPECIAL_FORMS[result.expr.first](rest_expr, env, in_tail=True)
+                else:
+                    result = original_scheme_eval(result.expr, env)
+            return result
+            # END PROBLEM 19
+        return optimized_eval
+    ```
+    
+    ```python
+    def eval_all(expressions, env):
+        # BEGIN PROBLEM 7
+        # return scheme_eval(expressions.first, env) # replace this with lines of your own code
+    
+        # result = None
+        # while expressions is not nil:
+        #     result = scheme_eval(expressions.first, env)
+        #     expressions = expressions.rest
+        # return result
+    
+        def in_tail_context(expr):
+            if not isinstance(expr, Pair):
+                return True
+    
+            if isinstance(expr, Pair) and scheme_symbolp(expr.first):
+                first = expr.first
+                if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+                    return True
+                elif first == "if":
+                    sub_expr_2 = expr.rest.rest.first
+                    sub_expr_3 = expr.rest.rest.rest.first
+                    return in_tail_context(sub_expr_2) and in_tail_context(sub_expr_3)
+                elif first == "cond":
+                    non_preds = []
+                    cond_expr = expr.rest
+                    while cond_expr is not nil:
+                        non_pred = True
+                        sub_expr = cond_expr.first
+                        while sub_expr.rest is not nil:
+                            non_pred = sub_expr.rest.first
+                            sub_expr = sub_expr.rest
+                        non_preds += [non_pred]
+                        cond_expr = cond_expr.rest
+                    return all([in_tail_context(x) for x in non_preds])
+                elif first == "let":
+                    let_expr = expr.rest.rest
+                    while let_expr.rest is not nil:
+                        let_expr = let_expr.rest
+                    return in_tail_context(let_expr.first)
+                elif first in ("and", "or", "begin"):
+                    return True
+                else:
+                    return False
+            else:
+                return False
+    
+        if expressions is nil:
+            return
+        result = None
+        while expressions.rest is not nil:
+            result = scheme_eval(expressions.first, env)
+            expressions = expressions.rest
+        result = scheme_eval(expressions.first, env, tail=in_tail_context(expressions.first))
+        return result
+        # END PROBLEM 7
+    ```
+    
+    ```python
+    def do_if_form(expressions, env, in_tail=False):
+        validate_form(expressions, 2, 3)
+        if is_true_primitive(scheme_eval(expressions.first, env)):
+            return scheme_eval(expressions.rest.first, env, tail=in_tail)
+        elif len(expressions) == 3:
+            return scheme_eval(expressions.rest.rest.first, env, tail=in_tail)
+    ```
+    
+    ```python
+    def do_and_form(expressions, env, in_tail=False):
+        # BEGIN PROBLEM 12
+        "*** YOUR CODE HERE ***"
+        result = "#t"
+        while expressions is not nil:
+            # result = scheme_eval(expressions.first, env)
+            # if is_false_primitive(result):
+            #     return result
+            # expressions = expressions.rest
+    
+            if not isinstance(expressions.first, Pair):
+                result = scheme_eval(expressions.first, env)
+            elif in_tail and scheme_symbolp(expressions.first.first):
+                first = expressions.first.first
+                if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+                    result = scheme_eval(expressions.first, env, tail=True)
+                else:
+                    result = scheme_eval(expressions.first, env)
+            else:
+                result = scheme_eval(expressions.first, env)
+    
+            if is_false_primitive(result) or isinstance(result, Thunk):
+                break
+            expressions = expressions.rest
+        return result
+        # END PROBLEM 12
+    
+    def do_or_form(expressions, env, in_tail=False):
+        # BEGIN PROBLEM 12
+        "*** YOUR CODE HERE ***"
+        result = "#f"
+        while expressions is not nil:
+            # result = scheme_eval(expressions.first, env)
+            # if is_true_primitive(result):
+            #     return result
+            # expressions = expressions.rest
+    
+            if not isinstance(expressions.first, Pair):
+                result = scheme_eval(expressions.first, env)
+            elif in_tail and scheme_symbolp(expressions.first.first):
+                first = expressions.first.first
+                if first not in SPECIAL_FORMS and isinstance(env.lookup(first), LambdaProcedure):
+                    result = scheme_eval(expressions.first, env, tail=True)
+                else:
+                    result = scheme_eval(expressions.first, env)
+            else:
+                result = scheme_eval(expressions.first, env)
+    
+            if is_true_primitive(result) or isinstance(result, Thunk):
+                break
+            expressions = expressions.rest
+        return result
+        # END PROBLEM 12
+    ```
+
 ## Lecture 31 Declarative Programming
 
 ### 1
