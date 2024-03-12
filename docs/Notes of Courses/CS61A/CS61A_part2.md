@@ -601,7 +601,9 @@ class AsSeenOnTVAccount(CheckingAccount, SavingsAccount):
     **John**:
     
     well i'd say at the outset that it's often the case that tracing through, uh, tree recursion is not something that humans can tolerate, like it's, it's just really messy sometimes, um, so the right answer is to shift the way in which you approach understanding, uh, implementation to get away from tracing, and instead just treat the recursive calls as abstractions, they do the thing that they're supposed to do, but how they do them is not your problem, and then like you can put it together. but this is not, not like obvious or easy so, um, so maybe we can talk about that with a particular example. so maybe while i read this maybe hany can, uh, say whether that makes sense to him.
-    
+        
+    &nbsp;
+
     **Hany**:
     
     i i'll add one more thing to it, so john's absolutely right that tracing tree recursion is very hard, you have to hold a lot in your memory. um, so one way to fix it is as he just said, is to just think differently about it. it's not about tracing, it's about thinking about the fundamental nature of, um, the, the functions and they just do what you want them to do, and the other is to just use toy examples.
@@ -611,7 +613,9 @@ class AsSeenOnTVAccount(CheckingAccount, SavingsAccount):
     **John**：
     
     嗯，我首先要说的是，往往情况是，追踪树形递归对人类来说是无法忍受的，就像有时候非常混乱一样。所以正确的答案是改变你理解实现的方式，摆脱追踪，而是将递归调用视为抽象，它们执行它们应该执行的任务，但它们如何执行不是你的问题，然后你可以将它们组合起来。但这并不明显或容易，所以也许我们可以用一个具体的例子来讨论一下。所以也许在我阅读这个的时候，Hany可以说一下这是否有意义。
-    
+        
+    &nbsp;
+
     **Hany**：
     
     我要补充一点，John说得对，追踪树形递归非常困难，你必须记住很多东西。所以解决的一种方法就像他刚才说的那样，只是以不同的方式思考。这不是关于追踪，而是思考函数的基本性质，它们只是执行你想要它们执行的任务，另一种方法是使用简单的示例。
@@ -1612,125 +1616,125 @@ Test summary
         direction = None
         has_been_scared = False
     
-​    
-​        ...
-​    
-​        def action(self, gamestate):
-​            """A Bee's action stings the Ant that blocks its exit if it is blocked,
-​            or moves to the exit of its current place otherwise.
-​    
-​            gamestate -- The GameState, used to access game state information.
-​            """
-​            destination = self.place.exit
-​            # Extra credit: Special handling for bee direction
-​            # BEGIN EC
-​            "*** YOUR CODE HERE ***"
-​            if self.direction:
-​                destination = self.direction
-​            # END EC
-​            if self.blocked():
-​                self.sting(self.place.ant)
-​            elif self.armor > 0 and destination is not None:
-​                self.move_to(destination)
-​    
-​        ...
-​    
-​    ...
-​    
-​    ############
-​    # Statuses #
-​    ############
-​    
-​    def make_slow(action, bee):
-​        """Return a new action method that calls ACTION every other turn.
-​    
-​        action -- An action method of some Bee
-​        """
-​        # BEGIN Problem Optional 4
-​        "*** YOUR CODE HERE ***"
-​        # def new_action(gamestate):
-​        #     if gamestate.time % 2 == 1:
-​        #         action(bee, gamestate)
-​        def new_action(gamestate):
-​            if gamestate.time % 2 == 0:
-​                action(gamestate)
-​        # bee.action = new_action
-​        return new_action
-​        # END Problem Optional 4
-​    
-​    def make_scare(action, bee):
-​        """Return a new action method that makes the bee go backwards.
-​    
-​        action -- An action method of some Bee
-​        """
-​        # BEGIN Problem Optional 4
-​        "*** YOUR CODE HERE ***"
-​        # bee.direction = bee.place.exit
-​        # def new_action(gamestate):
-​        #     bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
-​        #     action(bee, gamestate)
-​        def new_action(gamestate):
-​            if not bee.has_been_scared:
-​                bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
-​            action(gamestate)
-​        # bee.action = new_action
-​        return new_action
-​        # END Problem Optional 4
-​    
-​    def apply_status(status, bee, length):
-​        """Apply a status to a BEE that lasts for LENGTH turns."""
-​        # BEGIN Problem Optional 4
-​        "*** YOUR CODE HERE ***"
-​        old_action = bee.action
-​        def new_action(gamestate):
-​            nonlocal length
-​            if length > 0:
-​                length -= 1
-​                status(old_action, bee)(gamestate)
-​                if length == 0:
-​                    # bee.action = old_action
-​                    bee.direction = None
-​                    if status is make_scare:
-​                        bee.has_been_scared = True
-​            else:
-​                old_action(gamestate)
-​        # bee.action = status(bee.action, bee)
-​        bee.action = new_action
-​        # END Problem Optional 4
     
-​    
-​    class SlowThrower(ThrowerAnt):
-​        """ThrowerAnt that causes Slow on Bees."""
-​    
-​        name = 'Slow'
-​        food_cost = 4
-​        # BEGIN Problem Optional 4
-​        # implemented = False   # Change to True to view in the GUI
-​        implemented = True
-​        # END Problem Optional 4
-​    
-​        def throw_at(self, target):
-​            if target:
-​                apply_status(make_slow, target, 3)
+        ...
+    
+        def action(self, gamestate):
+            """A Bee's action stings the Ant that blocks its exit if it is blocked,
+            or moves to the exit of its current place otherwise.
+    
+            gamestate -- The GameState, used to access game state information.
+            """
+            destination = self.place.exit
+            # Extra credit: Special handling for bee direction
+            # BEGIN EC
+            "*** YOUR CODE HERE ***"
+            if self.direction:
+                destination = self.direction
+            # END EC
+            if self.blocked():
+                self.sting(self.place.ant)
+            elif self.armor > 0 and destination is not None:
+                self.move_to(destination)
+    
+        ...
+    
+    ...
+    
+    ############
+    # Statuses #
+    ############
+    
+    def make_slow(action, bee):
+        """Return a new action method that calls ACTION every other turn.
+    
+        action -- An action method of some Bee
+        """
+        # BEGIN Problem Optional 4
+        "*** YOUR CODE HERE ***"
+        # def new_action(gamestate):
+        #     if gamestate.time % 2 == 1:
+        #         action(bee, gamestate)
+        def new_action(gamestate):
+            if gamestate.time % 2 == 0:
+                action(gamestate)
+        # bee.action = new_action
+        return new_action
+        # END Problem Optional 4
+    
+    def make_scare(action, bee):
+        """Return a new action method that makes the bee go backwards.
+    
+        action -- An action method of some Bee
+        """
+        # BEGIN Problem Optional 4
+        "*** YOUR CODE HERE ***"
+        # bee.direction = bee.place.exit
+        # def new_action(gamestate):
+        #     bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
+        #     action(bee, gamestate)
+        def new_action(gamestate):
+            if not bee.has_been_scared:
+                bee.direction = bee.place if bee.place.entrance is gamestate.beehive else bee.place.entrance
+            action(gamestate)
+        # bee.action = new_action
+        return new_action
+        # END Problem Optional 4
+    
+    def apply_status(status, bee, length):
+        """Apply a status to a BEE that lasts for LENGTH turns."""
+        # BEGIN Problem Optional 4
+        "*** YOUR CODE HERE ***"
+        old_action = bee.action
+        def new_action(gamestate):
+            nonlocal length
+            if length > 0:
+                length -= 1
+                status(old_action, bee)(gamestate)
+                if length == 0:
+                    # bee.action = old_action
+                    bee.direction = None
+                    if status is make_scare:
+                        bee.has_been_scared = True
+            else:
+                old_action(gamestate)
+        # bee.action = status(bee.action, bee)
+        bee.action = new_action
+        # END Problem Optional 4
     
     
-​    class ScaryThrower(ThrowerAnt):
-​        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
-​    
-​        name = 'Scary'
-​        food_cost = 6
-​        # BEGIN Problem Optional 4
-​        # implemented = False   # Change to True to view in the GUI
-​        implemented = True
-​        # END Problem Optional 4
-​    
-​        def throw_at(self, target):
-​            # BEGIN Problem Optional 4
-​            "*** YOUR CODE HERE ***"
-​            if target:
-​                apply_status(make_scare, target, 2)
-​            # END Problem Optional 4
-​    ```
+    class SlowThrower(ThrowerAnt):
+        """ThrowerAnt that causes Slow on Bees."""
+    
+        name = 'Slow'
+        food_cost = 4
+        # BEGIN Problem Optional 4
+        # implemented = False   # Change to True to view in the GUI
+        implemented = True
+        # END Problem Optional 4
+    
+        def throw_at(self, target):
+            if target:
+                apply_status(make_slow, target, 3)
+    
+    
+    class ScaryThrower(ThrowerAnt):
+        """ThrowerAnt that intimidates Bees, making them back away instead of advancing."""
+    
+        name = 'Scary'
+        food_cost = 6
+        # BEGIN Problem Optional 4
+        # implemented = False   # Change to True to view in the GUI
+        implemented = True
+        # END Problem Optional 4
+    
+        def throw_at(self, target):
+            # BEGIN Problem Optional 4
+            "*** YOUR CODE HERE ***"
+            if target:
+                apply_status(make_scare, target, 2)
+            # END Problem Optional 4
+    ```
 
 ## Lecture 20 Representation
 
@@ -2216,6 +2220,7 @@ def memo(f):
 ![cs61a_108](./images/cs61a_108.png){ loading=lazy }
 
 John 给出了一种利用平方来加速 幂运算 的方法：
+
 $$
 b^n = \begin{cases}
 1 & \mathrm{if} \ n = 0 \\
@@ -2413,48 +2418,48 @@ Test passed.
         else:
             return ______
     
-​    
-​    curry2 = lambda f: lambda x: lambda y: f(x, y)
-​    
-​    """B: (5 pts) Implement powers, a generator function which takes positive
-​    integers n and k. It yields all integers m that are both powers of k and whose
-​    digits appear in order in n.
-​    
-​    Assume thar is_power is implemented correctly.
-​    
-​    Note: powers may yield its results in any order. The doctests below check what
-​    is yielded, but not the order. The built-in sorted funcion used in the doctests
-​    takes in an iterable object and returns a list containing the elements of the
-​    iterable in non-decreasing order.
-​    
-​    Check the doctests with: python3 ok -q b"""
-​    def powers(n, k):
-​        """Yield all powers of k whose digits appear in order in n.
-​        
-​        >>> sorted(powers(12345, 5))
-​        [1, 5, 25, 125]
-​        >>> sorted(powers(54321, 5))  # 25 and 125 are not in order
-​        [1, 5]
-​        >>> sorted(powers(2493, 3))
-​        [3, 9, 243]
-​        
-​        >>> sorted(powers(2493, 2))
-​        [2, 4]
-​        >>> sorted(powers(164352, 2))
-​        [1, 2, 4, 16, 32, 64]
-​        """
-​        def build(seed):
-​            """Yield all non-negetive integers whose digits appear in order in seed.
-​            0 is yielded because 0 has no digits, so all its digits are in seed.
-​            """
-​            if seed == 0:
-​                yield 0
-​            else:
-​                for x in ______:
-​                    ______
-​                    ______
-​        yield from filter(curry2(______)(______), build(n))
-​    ```
+    
+    curry2 = lambda f: lambda x: lambda y: f(x, y)
+    
+    """B: (5 pts) Implement powers, a generator function which takes positive
+    integers n and k. It yields all integers m that are both powers of k and whose
+    digits appear in order in n.
+    
+    Assume thar is_power is implemented correctly.
+    
+    Note: powers may yield its results in any order. The doctests below check what
+    is yielded, but not the order. The built-in sorted funcion used in the doctests
+    takes in an iterable object and returns a list containing the elements of the
+    iterable in non-decreasing order.
+    
+    Check the doctests with: python3 ok -q b"""
+    def powers(n, k):
+        """Yield all powers of k whose digits appear in order in n.
+        
+        >>> sorted(powers(12345, 5))
+        [1, 5, 25, 125]
+        >>> sorted(powers(54321, 5))  # 25 and 125 are not in order
+        [1, 5]
+        >>> sorted(powers(2493, 3))
+        [3, 9, 243]
+        
+        >>> sorted(powers(2493, 2))
+        [2, 4]
+        >>> sorted(powers(164352, 2))
+        [1, 2, 4, 16, 32, 64]
+        """
+        def build(seed):
+            """Yield all non-negetive integers whose digits appear in order in seed.
+            0 is yielded because 0 has no digits, so all its digits are in seed.
+            """
+            if seed == 0:
+                yield 0
+            else:
+                for x in ______:
+                    ______
+                    ______
+        yield from filter(curry2(______)(______), build(n))
+    ```
 
 有人提问的一道题目，我有点想尝试一下，
 
@@ -3358,86 +3363,86 @@ Alan Kay 借助一个实验，
             ______
         return plucking_order + [redwood.label]
 
-​    
-​    """B: (5 pts) Implement pluck, which takes a number tree called pine and returns
-​    a function that is called repeatedly on the elements of a plucking order. If that
-​    plucking order is valid, the final call returns 'success!'. Otherwise, if one of
-​    the repeated calls is on a number that is not part of a valid plucking order, the
-​    error string 'Hey, not valid!' is returned.
-​    
-​    Since pine is a number tree and the values passed to plucker form a plucking
-​    order, you can assume that:
-​    - The labels of pine are unique,
-​    - All values k passed to the plucker function are unique for a given pine, and
-​    - All values k are labels of pine.
-​    
-​    Check the doctests with: python3 ok -q b
-​    """
-​    def pluck(pine):
-​        """Return a function that returns whether a plucking order is valid
-​        for a number tree t when called repeatedly on elements of a plucking order.
-​    
-​        Calling the function returned by pluck should not mutate pine.
-​    
-​               +---+
-​               | 1 |
-​               +---+
-​               /   \----          /                 +---+         +---+
-​           | 2 |         | 6 |
-​           +---+         +---+
-​             |            /          |           /          +---+      +---+ +---+
-​           | 3 |      | 7 | | 8 |
-​           +---+      +---+ +---+
-​            / \               |
-​           /   \              |
-​        +---+ +---+         +---+
-​        | 4 | | 5 |         | 9 |
-​        +---+ +---+         +---+
-​    
-​        >>> b0 = Tree(2, [Tree(3, [Tree(4), Tree(5)])])
-​        >>> b1 = Tree(6, [Tree(7), Tree(8, [Tree(9)])])
-​        >>> t = Tree(1, [b0, b1])
-​        >>> pluck(t)(9)(8)(7)(6)(5)(4)(3)(2)(1)
-​        'success!'
-​        >>> pluck(t)(5)(9)(4)(7)(3)(8)(6)(2)(1)
-​        'success!'
-​        >>> pluck(t)(2)
-​        'Hey, not valid!'
-​        >>> pluck(t)(5)(9)(7)(6)
-​        'Hey, not valid!'
-​    
-​        >>> pluck(b0)(5)(2)
-​        'Hey, not valid!'
-​        >>> pluck(b0)(4)(5)(3)(2)
-​        'success!'
-​        """
-​        def plucker(k):
-​            def pluck_one_leaf(cyprus):
-​                """Return a copy of cyprus without leaf k and check that k is a
-​                leaf label, not an interior node label.
-​                """
-​                if ______:
-​                    ______
-​                plucked_branches = []
-​                for b in cyprus.branches:
-​                    skip_this_leaf = ______ and ______
-​                    if not skip_this_leaf:
-​                        plucked_branch_or_error = pluck_one_leaf(b)
-​                        if isinstance(plucked_branch_or_error, str):
-​                            return plucked_branch_or_error
-​                        else:
-​                            ______
-​                return Tree(______, plucked_branches)
-​            nonlocal pine
-​            if pine.is_leaf():
-​                assert k == pine.label, 'all k must appear in pine'
-​                return 'success!'
-​            ______
-​            if isinstance(pine, str):
-​                return pine
-​            return plucker
-​        return plucker
-​    ```
+    
+    """B: (5 pts) Implement pluck, which takes a number tree called pine and returns
+    a function that is called repeatedly on the elements of a plucking order. If that
+    plucking order is valid, the final call returns 'success!'. Otherwise, if one of
+    the repeated calls is on a number that is not part of a valid plucking order, the
+    error string 'Hey, not valid!' is returned.
+    
+    Since pine is a number tree and the values passed to plucker form a plucking
+    order, you can assume that:
+    - The labels of pine are unique,
+    - All values k passed to the plucker function are unique for a given pine, and
+    - All values k are labels of pine.
+    
+    Check the doctests with: python3 ok -q b
+    """
+    def pluck(pine):
+        """Return a function that returns whether a plucking order is valid
+        for a number tree t when called repeatedly on elements of a plucking order.
+    
+        Calling the function returned by pluck should not mutate pine.
+    
+               +---+
+               | 1 |
+               +---+
+               /   \----          /                 +---+         +---+
+           | 2 |         | 6 |
+           +---+         +---+
+             |            /          |           /          +---+      +---+ +---+
+           | 3 |      | 7 | | 8 |
+           +---+      +---+ +---+
+            / \               |
+           /   \              |
+        +---+ +---+         +---+
+        | 4 | | 5 |         | 9 |
+        +---+ +---+         +---+
+    
+        >>> b0 = Tree(2, [Tree(3, [Tree(4), Tree(5)])])
+        >>> b1 = Tree(6, [Tree(7), Tree(8, [Tree(9)])])
+        >>> t = Tree(1, [b0, b1])
+        >>> pluck(t)(9)(8)(7)(6)(5)(4)(3)(2)(1)
+        'success!'
+        >>> pluck(t)(5)(9)(4)(7)(3)(8)(6)(2)(1)
+        'success!'
+        >>> pluck(t)(2)
+        'Hey, not valid!'
+        >>> pluck(t)(5)(9)(7)(6)
+        'Hey, not valid!'
+    
+        >>> pluck(b0)(5)(2)
+        'Hey, not valid!'
+        >>> pluck(b0)(4)(5)(3)(2)
+        'success!'
+        """
+        def plucker(k):
+            def pluck_one_leaf(cyprus):
+                """Return a copy of cyprus without leaf k and check that k is a
+                leaf label, not an interior node label.
+                """
+                if ______:
+                    ______
+                plucked_branches = []
+                for b in cyprus.branches:
+                    skip_this_leaf = ______ and ______
+                    if not skip_this_leaf:
+                        plucked_branch_or_error = pluck_one_leaf(b)
+                        if isinstance(plucked_branch_or_error, str):
+                            return plucked_branch_or_error
+                        else:
+                            ______
+                return Tree(______, plucked_branches)
+            nonlocal pine
+            if pine.is_leaf():
+                assert k == pine.label, 'all k must appear in pine'
+                return 'success!'
+            ______
+            if isinstance(pine, str):
+                return pine
+            return plucker
+        return plucker
+    ```
 
 >   需要用到的 *树 Tree* 类
 >

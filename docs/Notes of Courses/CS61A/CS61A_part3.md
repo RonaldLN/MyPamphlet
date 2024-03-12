@@ -1480,7 +1480,7 @@ scm> (simp '(if a (if a b c) (if a d e)))
 
 ### 3
 
-在测试scheme代码时发现，课程(之前lhw和lab中)提供的scheme解释器中内置了加载 `.scm` 文件的函数 `load` ，
+在测试scheme代码时发现，课程(之前hw和lab中)提供的scheme解释器中内置了加载 `.scm` 文件的函数 `load` ，
 
 发现了几种加载的方式，
 
@@ -2985,51 +2985,53 @@ def smalls(t):
 
 课上提到的18年春季期末考试的第5题
 
-**(12 points) Function As Expected**
+!!! quote
 
-**Definition**. For $n > 1$ , an *order n function* takes one argument and returns an onder $n - 1$ function.
+    **(12 points) Function As Expected**
 
-An order 1 function is any function that takes one argument.
+    **Definition**. For $n > 1$ , an *order n function* takes one argument and returns an onder $n - 1$ function.
 
-**(a) (6 pt)** Implement `scurry` , which takes a function `f` and a positive integers `n` . `f` must be a function that takes a list as its argument. `scurry` returns an order *n* function that, when called successively *n* times on a sequence of values $x_1, x_2, ... x_n$ , returns the result of calling `f` on a list containing $x_1, x_2, ... x_n$ .
+    An order 1 function is any function that takes one argument.
 
-```python
-def scurry(f, n):
-    """Return a function that calls f on a list of arguments after being called n times.
-    
-    >>> scurry(sum, 4)(1)(1)(3)(2)  # equivalent to sum([1, 1, 3, 2])
-    7
-    >>> scurry(len, 3)(7)([8])(-9)  # equivalent to len([7, [8], -9])
-    3
-    """
-    def h(k, args_so_far):
-        if k == 0:
-            return ________________________________________________________________________
-        return ____________________________________________________________________________
-    return ________________________________________________________________________________
-```
+    **(a) (6 pt)** Implement `scurry` , which takes a function `f` and a positive integers `n` . `f` must be a function that takes a list as its argument. `scurry` returns an order *n* function that, when called successively *n* times on a sequence of values $x_1, x_2, ... x_n$ , returns the result of calling `f` on a list containing $x_1, x_2, ... x_n$ .
 
-**(b) (6 pt)** Implement `factorize` , which takes two integers `n` and `k` , both larger than 1. It returns the number of ways that `n` can be expressed as a product of non-decreasing integers greater than or equal to `k` .
+    ```python
+    def scurry(f, n):
+        """Return a function that calls f on a list of arguments after being called n times.
+        
+        >>> scurry(sum, 4)(1)(1)(3)(2)  # equivalent to sum([1, 1, 3, 2])
+        7
+        >>> scurry(len, 3)(7)([8])(-9)  # equivalent to len([7, [8], -9])
+        3
+        """
+        def h(k, args_so_far):
+            if k == 0:
+                return ________________________________________________________________________
+            return ____________________________________________________________________________
+        return ________________________________________________________________________________
+    ```
 
-```python
-def factorize(n, k=2):
-    """Return the number of ways to factorize positive integer n.
-    
-    >>> factorize(7)  # 7
-    1
-    >>> factorize(12) # 2*2*3, 2*6, 3*4, 12
-    4
-    >>> factorize(36) # 2*2*3*3, 2*2*9, 2*3*6, 2*18, 3*3*4, 3*12, 4*9, 6*6, 36
-    9
-    """
-    if _____________________________________________________________________________________:
-        return 1
-    elif ___________________________________________________________________________________:
-        return 0
-    elif ___________________________________________________________________________________:
-        return factorize(_________________________________, ________________________________)
-    return _________________________________________________________________________________
-```
+    **(b) (6 pt)** Implement `factorize` , which takes two integers `n` and `k` , both larger than 1. It returns the number of ways that `n` can be expressed as a product of non-decreasing integers greater than or equal to `k` .
+
+    ```python
+    def factorize(n, k=2):
+        """Return the number of ways to factorize positive integer n.
+        
+        >>> factorize(7)  # 7
+        1
+        >>> factorize(12) # 2*2*3, 2*6, 3*4, 12
+        4
+        >>> factorize(36) # 2*2*3*3, 2*2*9, 2*3*6, 2*18, 3*3*4, 3*12, 4*9, 6*6, 36
+        9
+        """
+        if _____________________________________________________________________________________:
+            return 1
+        elif ___________________________________________________________________________________:
+            return 0
+        elif ___________________________________________________________________________________:
+            return factorize(_________________________________, ________________________________)
+        return _________________________________________________________________________________
+    ```
 
 自己尝试做了一下，感觉还蛮有意思，
 
