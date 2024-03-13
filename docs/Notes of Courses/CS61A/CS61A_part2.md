@@ -2770,33 +2770,33 @@ def merge_in_place(s, t):
     
     You have a blueprint for building a few n-gins from a natural number generator:
     
-    -   ```txt
-        A 2-gen:
-        1 2 3 4 5 6 7 8 9 ...
-        1 4 9 16 25 ...
-        ```
-    
-    -   ```txt
-        A 3-gen:
-        1 2 3 4 5 6 7 8 9 ...
-        1 3 7 12 19 27 ...
-        1 8 27 ...
-        ```
+    ```txt
+    A 2-gen:
+    1 2 3 4 5 6 7 8 9 ...
+    1 4 9 16 25 ...
+    ```
+
+    ```txt
+    A 3-gen:
+    1 2 3 4 5 6 7 8 9 ...
+    1 3 7 12 19 27 ...
+    1 8 27 ...
+    ```
     
     Hint: Here is how `yield from` works. When used inside an iterable `yield from` will issue each element from another iterable as though it was issued from the first iterable. The following code is equivalent:
     
-    -   ```python
-        def generator1 ():
-            for item in generator2 ():
-                yield item
-            # do more things in this generator
-        ```
-    
-    -   ```python
-        def generator1 ():
-            yield from generator2 ()
-            # more things on this generator
-        ```
+    ```python
+    def generator1 ():
+        for item in generator2 ():
+            yield item
+        # do more things in this generator
+    ```
+
+    ```python
+    def generator1 ():
+        yield from generator2 ()
+        # more things on this generator
+    ```
     
     Now its your job to build the perfect n-gen and power society out of the apocalypse! Good luck!
     
