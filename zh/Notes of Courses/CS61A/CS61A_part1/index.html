@@ -5260,8 +5260,8 @@ case, at which point you just have to return return return return, all the work 
 <h2 id="lecture-13-qa">Lecture 13 Q&amp;A<a class="headerlink" href="#lecture-13-qa" title="Permanent link">&para;</a></h2>
 <h3 id="1_23">1<a class="headerlink" href="#1_23" title="Permanent link">&para;</a></h3>
 <p>John关于 <code>min()</code> 和 <code>max()</code> 的 <code>key</code> 参数的一些解释和说明</p>
-<div class="admonition qoute">
-<p class="admonition-title">Qoute</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
 <p>...what's going on with the min function and its optional argument called key. sometimes what you want is to find the smallest number among a list, and min will do that for you. but <strong>sometimes what you want is to find a particular number that's extreme in another way, like it's not the smallest, it's not the largest, but it's the closest to five or it's the, it's the thing that when you square it is closest to 24, or you know you could imagine any kind of description, where there's like a some value, that would do this the best</strong>, and min allows you to find that element for any possible condition, and that's the point of that key function. <strong>so the way you do it is that, you start out with your same set of values, of which one is the one that you're looking for, and then you provide a function, and this function is going to be called on every single one of these values</strong>, and yeah, let's use that example of, uh, the square is as close as possible to 24. i don't know why you would want this, but maybe you would for some reason.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">min</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">24</span><span class="p">))</span>
 </span></code></pre></div>
@@ -6342,7 +6342,7 @@ it, think about a blueprint for a house, is the class, and the house is the thin
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-03-12T14:15:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-03-12</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-03-13T14:24:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-03-13</span>
       
         <br>
         创建日期:
