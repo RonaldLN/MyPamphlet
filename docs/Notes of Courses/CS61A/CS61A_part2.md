@@ -833,6 +833,7 @@ Problem 4 中，有一点值得注意
 
 ??? note "code"
 
+    ```python
     class ThrowerAnt(Ant):
         ...
         # ADD/OVERRIDE CLASS ATTRIBUTES HERE
@@ -883,6 +884,7 @@ Problem 4 中，有一点值得注意
         # implemented = False   # Change to True to view in the GUI
         implemented = True
         # END Problem 4
+    ```
 
 ### 2
 
