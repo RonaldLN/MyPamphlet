@@ -449,7 +449,9 @@ class <name>(<base class>):
 
 John在demo中展示了 `CheckingAccount` 的 `withdraw` 方法的两种写法：
 
--   ```python
+-   1
+
+    ```python
     class CheckingAccount(Account):
         ...
         def withdraw(self, amount):
@@ -460,7 +462,9 @@ John在demo中展示了 `CheckingAccount` 的 `withdraw` 方法的两种写法�
             return self.balance
     ```
 
--   ```python
+-   2
+
+    ```python
     class CheckingAccount(Account):
         ...
         withdraw_fee = 1
