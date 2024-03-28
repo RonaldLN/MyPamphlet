@@ -241,3 +241,148 @@ Dog[] dogs = new Dog[2];
 ### 6
 
 `static` 的函数不能调用实例的变量
+
+### 7
+
+在不是 `static` 的函数中，可以使用 `this` 来获得自身这个实例(与c中的 `this` 略有不同，c中 `this` 是指针，java中 `this` 不是指针)
+
+### 8
+
+Josh建议，对于类中的 `static` 的属性，使用类名去获取这个属性，而不要使用实例去获取这个属性
+
+### 9
+
+`static` 的函数中如果想要访问 非 `static` 的属性(即实例属性)，需要传入实例并通过实例来访问
+
+### 10
+
+Josh在课上提到了一个网站，和cs61a中的python tutor类似的网站，但是是java语言
+
+[Java Visualizer (uwaterloo.ca)](https://cscircles.cemc.uwaterloo.ca/java_visualize/)
+
+### 11
+
+Josh提到，使用helper函数来把大问题分解成小问题，
+
+并且这样做有几点好处
+
+-   more narratively clear
+-   easier to get right when you write it
+-   easier to debug
+
+---
+
+然后Josh通过一个具体例子演示，
+
+![cs61b_4](images/cs61b_4.png){ loading=lazy }
+
+Josh展示如果代码写在一个函数中，大概是这样
+
+```java
+public static Dog[] largerThanFourNeighbors(Dog[] dogs) {
+    for (int i = 0; i < dogs.length; i += 1) {
+        boolean largest = true;
+
+        for (int j = -2; j <= 2; j += 1) {
+            if (i + j < 0) {
+                continue;
+            }
+            if (i + j >= dogs.length) {
+                break;
+            }
+            if (j == 0) {
+                continue;
+            }
+
+            Dog neighbor = dogs[i + j];
+            if (neighbor.weightInPounds > dogs[i].weightInPounds) {
+                largest = false;
+            }
+        }
+        ...
+    }
+}
+```
+
+而分成不同的函数去编写，就会看起来结构更加清晰，debug也会更方便
+
+```java
+public static Dog[] largerThanFourNeighbors(Dog[] dogs) {
+    Dog[] returnDogs = new Dog[dogs.length];
+    int cnt = 0;
+
+    for (int i = 0; i < dogs.length; i += 1) {
+        if (isBiggestOfFour(dogs, i)) {
+            returnDogs[cnt] = dogs[i];
+            cnt = cnt + 1;
+        }
+    }
+
+    returnDogs = arrayWithNoNulls(returnDogs, cnt);
+    return returnDogs;
+}
+
+/** cnt is the number of non-null items */
+public static Dog[] arrayWithNoNulls(Dog[] dogs, int cnt) {
+    Dog[] noNullDogs = new Dog[cnt];
+    for (int i = 0; i < cnt; i += 1) {
+        noNullDogs[i] = dogs[i];
+    }
+    return noNullDogs;
+}
+
+/** Return true if dogs[i] is larger than its four neighbors */
+public static boolean isBiggestOfFour(Dog[] dogs, int i) {
+    boolean isBiggest = true;
+    for (int j = -2; j <= 2; j += 1) {
+        int compareIndex = i + j;
+
+        /* avoid comparing ourself to ourself */
+        if (j == 0) {
+            continue;
+        }
+
+        if (validIndex(dogs, i + j)) {
+            if (dogs[compareIndex].weightInPounds > dogs[i].weightInPounds) {
+                isBiggest = false;
+            }
+        }
+    }
+    return isBiggest;
+}
+
+public static boolean validIndex(Dog[] dogs, int i) {
+    if (i < 0) {
+        return false;
+    }
+    if (i >= dogs.length) {
+        return false;
+    }
+    return true;
+}
+```
+
+>   ```java
+>   public static void main(String[] args) {
+>       Dog[] dogs = new Dog[] {
+>           new Dog(10),
+>           new Dog(15),
+>           new Dog(20),
+>           new Dog(15),
+>           new Dog(10),
+>           new Dog(5),
+>           new Dog(10),
+>           new Dog(15),
+>           new Dog(22),
+>           new Dog(15),
+>           new Dog(20),
+>       };
+>       Dog[] bigDogs = largerThanFourNeighbors(dogs);
+>   
+>       for (int k = 0; k < bigDogs.length; k += 1) {
+>           System.out.print(bigDogs[k].weightInPounds + " ");
+>       }
+>       System.out.println();
+>   }
+>   ```
+
