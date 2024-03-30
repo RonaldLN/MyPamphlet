@@ -386,3 +386,81 @@ public static boolean validIndex(Dog[] dogs, int i) {
 >   }
 >   ```
 
+## Lecture 2 Q&A
+
+### 1
+
+![cs61b_5](images/cs61b_5.png){ loading=lazy }
+
+Josh在演示时，发现他的IDEA中装有[Java Visualizer](https://plugins.jetbrains.com/plugin/11512-java-visualizer)的插件，能直接在IDEA中在调试时看到可视化的*环境图 environment diagram*，
+
+感觉挺有用，于是也安装了这个插件
+
+---
+
+Josh调试时还用了一下*step over 步过*的操作，之前不太清楚 *步过 step over* 、 *步入 step into* 、 *步出 step out* 的具体含义，于是就去查了一下，
+
+[【pycharm调试】Pycharm 断点跳转及 Step Over/Step Into/Step Out 等的使用_pycharm中的step over和-CSDN博客](https://xhfei.blog.csdn.net/article/details/106206166)
+
+从这篇文章上了解到，
+
+-   *步过 step over* 是如果这一行有调用其他函数，那么会执行完调用的函数，然后走到下一行代码
+
+-   *步入 step into* 是如果这一行有调用其他函数，那么就会走到被调用函数的第一行代码
+
+    >   如果这一行没有调用其他函数，那么*步过step over*和*步入 step into*效果就是一样的(都是走到下一行代码)
+    
+-   *步出 step out* 是结合*步入 step into*来使用的，*步出 step out*会执行完当前整个函数，然后回到前一个函数调用这个函数的位置
+
+## Project 0
+
+### 1
+
+由于在课程网站上没有找到能下载提供的初始代码的地方(课程网站上提供的方法是课程的学生从github上 `git pull` 自己对应学号的仓库)，
+
+于是[在github上搜索 `cs61b sp21`](https://github.com/search?q=cs61b+sp21&type=repositories) 来搜索别人完成的作业仓库，看看能不能找到原始的代码，
+
+然后点击最查看多star的仓库
+
+[exuanbo/cs61b-sp21: CS 61B, Spring 2021 (github.com)](https://github.com/exuanbo/cs61b-sp21)
+
+发现在 `README.md` 中有写着cs61b sp21的官方原始代码仓库
+
+[Berkeley-CS61B/skeleton-sp21: starter code for spring 21 (github.com)](https://github.com/Berkeley-CS61B/skeleton-sp21)
+
+于是就顺便发现了cs61b的[官方github账号](https://github.com/Berkeley-CS61B)
+
+>   <h2>Public Access Resources</h2>
+>
+>   Previous course staff have made some iterations of this course available for auditors -- both Berkeley students and members of the public. While the assignment skeletons and specifications will be available for most years, some assignments have autograders that are not public. The most recent version with a public autograder is [Spring 2021](https://sp21.datastructur.es/about.html#auditing-cs61b).
+>
+>   Here's lints to the relevant materials:
+>
+>   -   [SP21 Course Website](https://sp21.datastructur.es/)
+>   -   [Skeleton code](https://github.com/Berkeley-CS61B/skeleton-sp21)
+>   -   [Java Libraries](https://github.com/Berkeley-CS61B/library-sp21)
+>   -   [Lecture Code](https://github.com/Berkeley-CS61B/lectureCode-sp21)
+>
+>   <h2>Tooling</h2>
+>
+>   61B uses some tools to run its course. These are the open-source ones that we maintain for ourselves and actively use.
+>
+>   -   [IntelliJ Plugin](https://github.com/Berkeley-CS61B/intellij-plugin) - A style checker
+>   -   [Java Visualizer](https://github.com/elipsitz/java-visualizer-intellij-plugin) - An IntelliJ plugin to visualize the data layout in Java applications. Externally maintained.
+>   -   [jh61b](https://github.com/Berkeley-CS61B/jh61b) - A JUnit executor to output test results in [Gradescope's format](https://gradescope-autograders.readthedocs.io/en/latest/specs/#output-format)
+>   -   [BSAG](https://github.com/Berkeley-CS61B/BSAG) - A Better SimpleAutograder for custom Gradescope logic
+>       -   [bsag-jh61b](https://github.com/Berkeley-CS61B/bsag-jh61b) - BSAG steps for jh61b components
+
+### 2
+
+说明中提到，框架代码使用了一种叫做 *模型-视图-控制器模式 Model-View-Controller Pattern (MVC)* 的模式
+
+>   The MVC pattern divides our problem into three parts:
+>
+>   -   The **model** represents the subject matter being represented and acted upon – in this case incorporating the state of a board game and the rules by which it may be modified. Our model resides in the `Model` , `Side` , `Board` , and `Tile` classes. The instance variables of `Model` fully determine what the state of the game is. Note: You’ll only be modifying the `Model` class.
+>   -   A **view** of the model, which displays the game state to the user. Our view resides in the `GUI` and `BoardWidget` classes.
+>   -   A **controller** for the game, which translates user actions into operations on the model. Our controller resides mainly in the `Game` class, although it also uses the GUI class to read keystrokes.
+
+### 3
+
+java中判断是否为 `null` 可以使用 `==`
