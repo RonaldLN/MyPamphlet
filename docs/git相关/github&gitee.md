@@ -273,3 +273,21 @@ origin  git@github.com:RonaldLN/Exam-for-Software-of-DRB-of-2023.git (push)
 ```
 
 因此在推送 `origin` 时就会向 github 和 gitee 一起推送
+
+## 14
+
+修改本地分支名的命令
+
+```bash
+git branch -m oldName newName
+```
+
+## 15
+
+将两个远程仓库克隆到一个本地仓库的两个分支，并且合并的方法
+
+[如何合并两个不同的 Git 仓库？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/633582071)
+
+## 16
+
+如果仓库中的某个文件夹，里面有 `.git/` 文件夹，即是另一个仓库，那么这个文件夹中的文件不会被git识别到
