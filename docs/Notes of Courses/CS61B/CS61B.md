@@ -464,3 +464,111 @@ Josh调试时还用了一下*step over 步过*的操作，之前不太清楚 *�
 ### 3
 
 java中判断是否为 `null` 可以使用 `==`
+
+### 4
+
+在尝试完成 `tilt` 函数的过程中，一共进行了3次尝试，
+
+前两次尝试大致思路都是，每一列只遍历一次，然后标记空的位置和上一个*瓷砖 tile*(第2次尝试与第1次的区别在于，将处理每一列写成了一个函数)，
+
+但是两次都是只能通过 `TestUpOnly` 而不能通过 `TestModel` 。
+
+第3次尝试打算放弃这个思路，而是将每一小步都写成一个函数，并且**由于留意到题目说明中提到 `board.move` 方法如果合并了*瓷砖*会返回 `true`** 于是打算利用这一点，最后写完并debug完后，没想到不仅通过了 `TestUpOnly` 也通过了 `TestModel` (😮很震惊，不知道为什么)
+
+??? note "code"
+
+    ```java
+    public boolean tilt(Side side) {
+        ...
+    
+        board.setViewingPerspective(side);
+        for (int i = 0; i < board.size(); i++) {
+            if (processCol(i)) {
+                changed = true;
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
+    
+        ...
+    }
+    
+    public boolean processCol(int col) {
+        boolean changed = false;
+        int size = board.size();
+    
+        boolean[] isMerged = new boolean[size];
+        for (int i = 0; i < size; i++) {
+            int row = size - i - 1;
+            isMerged[row] = false;
+    
+            if (needMove(col, row)) {
+                int target = findTarget(col, row, isMerged);
+                boolean doMerge = board.move(col, target, board.tile(col, row));
+    
+                if (doMerge) {
+                    isMerged[target] = true;
+                    score += board.tile(col, target).value();
+                }
+    
+                changed = true;
+            }
+        }
+        return changed;
+    }
+    
+    public boolean needMove(int col, int row) {
+        Tile tile = board.tile(col, row);
+        if (tile == null) {
+            return false;
+        } else if (row == board.size() - 1) {
+            return false;
+        } else {
+            Tile upTile = board.tile(col, row + 1);
+            return upTile == null || upTile.value() == tile.value();
+        }
+    }
+    
+    public int findTarget(int col, int row, boolean[] isMerge) {
+        int target = findEmptyTarget(col, row);
+    
+        if (target + 1 < board.size() && !isMerge[target + 1]
+                && board.tile(col, row).value() == board.tile(col, target + 1).value()) {
+            target += 1;
+        }
+        return target;
+    }
+    
+    public int findEmptyTarget(int col, int row) {
+        int target = row;
+        for (int i = row + 1; i < board.size(); i++) {
+            if (board.tile(col, i) != null) {
+                break;
+            }
+            target = i;
+        }
+        return target;
+    }
+    ```
+
+## Lecture 3 Testing
+
+### 1
+
+java中判断两个数组中的元素是否相等，可以使用
+
+```java
+java.util.Arrays.equals(a, b);
+```
+
+---
+
+java中有用于测试的工具junit，
+
+例如测试数组是否和预期值一样，并且如果不一样可以显示出错的元素
+
+```java
+String[] input = {"i", "have", "an", "egg"};
+String[] expected = {"an", "egg", "have", "i"};
+
+org.junit.Assert.assertArrayEquals(expected, input);
+```
