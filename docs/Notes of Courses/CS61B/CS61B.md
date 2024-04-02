@@ -550,6 +550,44 @@ java中判断是否为 `null` 可以使用 `==`
     }
     ```
 
+### 5
+
+不知道是什么原因，在我的电脑上运行后按方向键没有反应，
+
+于是启动调式模式查看问题，发现在 `Game.java:37` 中
+
+```java
+String cmnd = _source.getKey();
+```
+
+按压左键后的 `cmnd` 是 `"向左箭头"` ，于是继续追踪函数，发现源头在 `GUISource.java:36` 处，
+
+![cs61b_6](images/cs61b_6.png){ loading=lazy }
+
+所以就在 `switch` 中新加了几个 `case`
+
+```java
+switch (command) {
+    ...
+    case "向上箭头" :
+        command = "Up";
+        break;
+    case "向右箭头" :
+        command = "Right";
+        break;
+    case "向下箭头" :
+        command = "Down";
+        break;
+    case "向左箭头" :
+        command = "Left";
+        break;
+    default :
+        break;
+}
+```
+
+然后就能正常运行并玩游戏了😄
+
 ## Lecture 3 Testing
 
 ### 1
