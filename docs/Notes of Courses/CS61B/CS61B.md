@@ -610,3 +610,60 @@ String[] expected = {"an", "egg", "have", "i"};
 
 org.junit.Assert.assertArrayEquals(expected, input);
 ```
+
+### 2
+
+java中字符串不能直接比较大小，可以使用 `str1.compareTo(str2)` 的方法(使用字符串的 `compareTo` 方法)比较，
+
+-   如果小于传入的字符串，会返回 `-1`
+-   相等返回 `0`
+-   大于返回 `1`
+
+### 3
+
+![cs61b_7](images/cs61b_7.png){ loading=lazy }
+
+在Josh的演示中发现，idea(可能其他jetbrains的ide也差不多)中的断点右键**可以添加条件**
+
+### 4
+
+编写的测试的函数，可以在non-static函数声明上添加*装饰符* `@org.junit.Test` ，然后就可以不用在 `main` 中调用这个函数，可以直接运行文件就可以进行测试，例如
+
+```java
+@org.junit.Test
+public void testSort() {
+    String[] input = {"i", "have", "an", "egg"};
+    String[] expected  = {"an", "egg", "have", "i"};
+    
+    Sort.sort(input);
+    
+    org.junit.Assert.assertArrayEquals(expected, input);
+}
+```
+
+---
+
+为了方便，还可以
+
+```java
+import org.junit.Test;
+```
+
+然后就可以直接 `@Test` 既可以了
+
+---
+
+为了方便，还可以导入 `Assert`
+
+```java
+import org.junit.Assert.*;
+```
+
+### 5
+
+Josh提到了一个概念，*测试驱动开发 Test-Driven Development (TDD)*，
+
+![cs61b_8](images/cs61b_8.png){ loading=lazy }
+
+大概意思是，如果要实现一个功能，先确定特征，再根据这个特征编写测试例子，一开始运行无法通过测试，所以编写代码以通过测试，然后再改进代码，循环往复
+
