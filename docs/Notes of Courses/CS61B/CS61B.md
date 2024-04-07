@@ -721,3 +721,41 @@ java中的String字符串(创建后)不能被修改
 
 java中可以使用三目运算符(和c中一样)
 
+## Lab 2
+
+### 1
+
+在Lab 2 Setup的One-Time Setup中，需要在IDEA的主界面(没有打开项目的界面)中打开设置，
+
+windows中可以使用 ++ctrl+alt+s++ 打开设置界面，也可以在 `自定义 > 所有设置...` 中打开设置界面
+
+## Lecture 5 SLLists, Nested Classes, Sentinel Nodes
+
+### 1
+
+Josh说，如果嵌套的类，里面的类如果不需要访问外面类的属性，那么可以加上 `static` 关键字，好处是可以节省一些空间，例如
+
+```java
+public class SLList {
+    private static class IntNode {
+        public int item;
+        public IntNode next;
+        public IntNode(int i, IntNode n) {
+            item = i;
+            next = n;
+        }
+        ...
+    }
+}
+```
+
+个人理解是，如果是non-static，那么每次实例化外面的类时，都会给实例添加这个属性，如果是static，那么就不会这样
+
+### 2
+
+Josh提到，java代码中一个 `public` 的函数配一个 `private` 的同名helper函数很常见
+
+### 3
+
+如果需要创建空链表，可以给链表添加 *哨兵结点 sentinel node* (即空的头节点)，就可以在实现链表的其他功能时，避免处理空链表的特殊情况
+
