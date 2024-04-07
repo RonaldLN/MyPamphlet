@@ -690,3 +690,34 @@ System.out.println(5 + 6 + "hi" + 5 + 6);
 最后显示出来是 `11hi56` ，
 
 于是发现java是从左往右进行运算，一开始 `5 + 6` 得到 `11` ，然后 `+ "hi"` 得到 `"11hi"` ，因此最后就会得到 `"11hi56"`
+
+## Lecture 4 References, Recursion, and Lists
+
+### 1
+
+如果自定义对象实例赋值给一个新的变量，并使用新的变量来修改属性，那么修改的是原实例本身的属性，例如
+
+```java
+Walrus a = new Walrus(1000, 8.3);
+Walrus b;
+b = a;
+b.weight = 5;
+System.out.println(a);
+System.out.println(b);
+```
+
+```txt
+weight: 5, tusk size: 8.30
+weight: 5, tusk size: 8.30
+```
+
+## Lecture 4 Q&A
+
+### 1
+
+java中的String字符串(创建后)不能被修改
+
+### 2
+
+java中可以使用三目运算符(和c中一样)
+
