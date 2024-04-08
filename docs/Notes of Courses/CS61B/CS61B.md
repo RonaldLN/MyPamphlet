@@ -729,6 +729,34 @@ java中可以使用三目运算符(和c中一样)
 
 windows中可以使用 ++ctrl+alt+s++ 打开设置界面，也可以在 `自定义 > 所有设置...` 中打开设置界面
 
+### 2
+
+一开始我使用的jdk是之前安装的azul zulu的jdk，但是lab 2 setup一直无法配置好maven，
+
+于是就去装了oracel的openjdk 17，最后就可以运行了
+
+### 3
+
+>   This is because JUnit tests are short-circuiting – as soon as one of the asserts in a method fails, it will output the failure and move on to the next test.
+
+如果测试的函数(添加了 `@Test` 的函数)中，有一个 `assert` 错了，那么就会直接报错，然后进行下一个要测试的函数
+
+### 4
+
+从 `IntList.java` 的 `of` 函数中发现，java中在声明函数时，可以使用 `...` 来以数组的形式获取传入的多个参数(类似于python中的 `*args` )，例如
+
+```java
+public static int max(int ...argList) {
+    int result = 0;
+    for (int i = 0; i < argList.length; i++) {
+        if (argList[i] > result) {
+            result = argList[i];
+        }
+    }
+    return result;
+}
+```
+
 ## Lecture 5 SLLists, Nested Classes, Sentinel Nodes
 
 ### 1
