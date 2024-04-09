@@ -794,3 +794,109 @@ Josh提到，java代码中一个 `public` 的函数配一个 `private` 的同名
 有人提问关于Josh课上说的，嵌套在内部定义的类，如果把类设置成了 `private` 的属性，那么类的成员设置成 `public` 还是 `private` 都差别不大，
 
 Josh回答，因为类设置成 `private` 之后，里面的方法和属性(在外层的类之外)就都无法访问到了(应该是连构造方法也无法访问到)，所以成员的属性是 `public` 还是 `private` 都一样
+
+## Lecture 6 DLLists, Arrays
+
+### 1
+
+介绍了*双向链表 doubly linked list (DLList)* (与之对应的是*单向链表 singly linked list (SLList)* )，为了避免*双向链表*的头和尾都指向同一个*哨兵节点*的情况，
+
+>   ![cs61b_9](images/cs61b_9.png){ loading=lazy }
+
+提到了两种解决方法，
+
+-   设置两个*哨兵节点*
+
+    ![cs61b_10](images/cs61b_10.png){ loading=lazy }
+
+-   或者，设置成循环的双向链表
+
+    ![cs61b_11](images/cs61b_11.png){ loading=lazy }
+
+### 2
+
+如果想要链表结构储存不同的数据类型(而不重复实现代码)，可以在定义类时，在类名后使用 `<...>` 添加自定义名称，之后在声明对应变量的数据类型时，都使用这个名称，例如
+
+```java
+public class SLList<LochNess> {
+    private class StuffNode {
+        public LochNess item;
+        public StuffNode next;
+        
+        public StuffNode(LochNess i, StuffNode n) {
+            item = i;
+            next = n;
+        }
+    }
+    
+    private StuffNode first;
+    private int size;
+    
+    public SLList(LochNess x) {
+        first = new StuffNode(x, null);
+        size = 1;
+    }
+    
+    ...
+}
+```
+
+使用这个类时，则需要在 `<>` 中添加数据类型
+
+```java 
+SLList<String> s1 = new SLList<String>("bone");
+```
+
+也可以将构造函数的 `String` 去除
+
+```java
+SLList<String> s1 = new SLList<>("bone");
+```
+
+### 3
+
+java中创建数组的3种方法，
+
+```java
+y = new int[3];
+```
+
+```java
+x = new int[] {1, 2, 3, 4, 5};
+```
+
+```java
+int[] w = {9, 10, 11, 12, 13};
+```
+
+但需要注意第3种方法不能对**已经声明的变量**使用
+
+### 4
+
+`System.arraycopy` 的用法，
+
+>   Takes 5 parameters:
+>
+>   -   Source array
+>   -   Start position in source
+>   -   Target array
+>   -   Start position in target
+>   -   Number to copy
+
+以 `System.arraycopy(b, 0, x, 3, 2)` 为例，
+
+-   `b` 是要复制的数组
+-   `0` 是 `b` 中开始复制的下标
+-   `x` 是要粘贴复制内容的数组
+-   `3` 是 `x` 中开始粘贴的下标
+-   `2` 是复制的元素个数
+
+如果 `b` 是 `{9, 10, 11}` ，`x` 是 `{-1, 2, 5, 4, 99}` ，
+
+那么复制后 `x` 就变成 `{-1, 2, 5, 9, 10}` 
+
+### 5
+
+java中，二维数组的每个元素是一维数组的地址，所以同一个二维数组中可以存储不同长度的一维数组
+
+![cs61b_12](images/cs61b_12.png){ loading=lazy }
