@@ -900,3 +900,35 @@ int[] w = {9, 10, 11, 12, 13};
 java中，二维数组的每个元素是一维数组的地址，所以同一个二维数组中可以存储不同长度的一维数组
 
 ![cs61b_12](images/cs61b_12.png){ loading=lazy }
+
+## Lecture 7 ALists, Resizing, vs. SLists
+
+### 1
+
+课上说到 *顺序表 (基于数组的列表) array based list (AList)* 由于在存储数据个数达到数组长度时需要更换一个更大的数组，但如果每次扩展都只增加固定的长度，那么数据量大时程序就会运行比较慢，所以提到每次扩展可以扩展成之前长度的2倍
+
+### 2
+
+在把*顺序表*改造成 泛型顺序表 时，在构造数组时，
+
+```java
+public class AList<Item> {
+    private Item[] items;
+    private int size;
+    
+    public AList() {
+        items = new Item[100];
+        size = 0;
+    }
+}
+```
+
+`new Item[100]` IDEA报错(会引起generic array creation的错误)，而需要改成
+
+```java
+items = (Item[]) new Object[100];
+```
+
+### 3
+
+由于在java中，**==对象只有失去最后一个==*==指向 reference==*==时，才会被回收空间==**，所以在泛型顺序表的删除方法中，需要把数组中(需要删去的)最后一个元素指向 `null`
