@@ -932,3 +932,40 @@ items = (Item[]) new Object[100];
 ### 3
 
 由于在java中，**==对象只有失去最后一个==*==指向 reference==*==时，才会被回收空间==**，所以在泛型顺序表的删除方法中，需要把数组中(需要删去的)最后一个元素指向 `null`
+
+## Lecture 8 Inheritance, Implements
+
+### 1
+
+*接口 interface* 的使用方法，例如
+
+先实现一个*接口*(使用 `interface` 关键字)，
+
+```java
+public interface List61B<Item> {
+    public void addFirst(Item x);
+    public void addLast(Item y);
+    public Item getFirst();
+    public Item getLast();
+    public Item removeLast();
+    public Item get(int i);
+    public void insert(Item x, int position);
+    public in size();
+}
+```
+
+然后之前的SLList和AList类就可以添加上 `implements List61B<...>`
+
+```java
+public class AList<Item> implements List61B<Item> {
+    ...
+}
+```
+
+```java
+public class SLList<BLorp> implements List61B<Blorp> {
+    ...
+}
+```
+
+而再将函数传入的参数改成 `List61B<String> list` (原来是 `SLList` 或 `AList` )，那么在调用这个函数时，传入SLList或者AList实例都可以
