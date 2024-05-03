@@ -78,3 +78,12 @@ ERROR: No matching distribution found for numpy==tst
 pip install xxx --nodeps
 ```
 
+## 7
+
+如果在项目中创建了python虚拟环境 `.venv` ，那么(在终端中)激活这个环境的方法是，**在终端运行 `.venv/Scripts/activate` 文件**
+
+```bash
+.venv/Scripts/activate
+```
+
+>   参考：[Python虚拟环境（Python venv）的创建、激活、退出及删除_python .ven-CSDN博客](https://blog.csdn.net/Snailandfish/article/details/134294379)
