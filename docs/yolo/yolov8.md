@@ -344,3 +344,37 @@ if __name__ == '__main__':
     results = model.train(resume=True)
 ```
 
+## 14
+
+```bash
+NotImplementedError: Could not run 'torchvision::nms' with arguments from the 'CPU' backend. This could be because the operator doesn't exist for this backend, or was omitted during the selective/custom build process (if using custom build). If you are a Facebook employee using PyTorch on mobile, please visit https://fburl.com/ptmfixes for possible resolutions. 'torchvision::nms' is only available for these backends: [CUDA, Meta, QuantizedCUDA, BackendSelect, Python, FuncTorchDynamicLayerBackMode, Functionalize, Named, Conjugate, Negative, ZeroTensor, ADInplaceOrView, AutogradOther, AutogradCPU, AutogradCUDA, AutogradXLA, AutogradMPS, AutogradXPU, AutogradHPU, AutogradLazy, AutogradMeta, Tracer, AutocastCPU, AutocastXPU, AutocastCUDA, AutocastPrivateUse1, FuncTorchBatched, BatchedNestedTensor, FuncTorchVmapMode, Batched, VmapMode, FuncTorchGradWrapper, PythonTLSSnapshot, FuncTorchDynamicLayerFrontMode, PreDispatch, PythonDispatcher].
+```
+
+[python - Getting "NotImplementedError: Could not run 'torchvision::nms' with arguments from CUDA backend" despite having all necessary libraries and imports - Stack Overflow](https://stackoverflow.com/questions/75103127/getting-notimplementederror-could-not-run-torchvisionnms-with-arguments-fr)
+
+根据[最高赞回答](https://stackoverflow.com/a/75112644)，卸载重装torch torchvision torchaudio，再次运行无报错
+
+## 15
+
+```python
+results = model(source=...)
+```
+
+预测后返回的结果，是一个列表，里面的元素的类型是 `ultralytics.engine.results.Results` (列表应该是对应多张/帧图像的识别结果)，
+
+每个 `Results` 类中，
+
+-   `names` 属性是以类别序号和类别名字为键值对的字典，如
+
+    ```python
+    {0: 'sunglass', 1: 'hat', 2: 'jacket', 3: 'shirt', 4: 'pants', 5: 'shorts', 6: 'skirt', 7: 'dress', 8: 'bag', 9: 'shoe'}
+    ```
+
+-   `boxes` 属性为 `ultralytics.engine.results.Boxes` 类，记录着识别的结果，
+
+    `Boxes` 类中的 `cls` 属性，记录着从图像上识别出的每个物品对应的类别，类型是 `torch.Tensor` ，可以通过 `.tolist()` 方法把它转换成列表，如
+
+    ```python
+    [4.0, 4.0, 9.0, 2.0, 3.0, 9.0, 9.0, 9.0, 4.0, 9.0, 8.0, 9.0]
+    ```
+
