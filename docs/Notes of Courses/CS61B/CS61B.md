@@ -933,6 +933,24 @@ items = (Item[]) new Object[100];
 
 由于在java中，**==对象只有失去最后一个==*==指向 reference==*==时，才会被回收空间==**，所以在泛型顺序表的删除方法中，需要把数组中(需要删去的)最后一个元素指向 `null`
 
+## Lab 3
+
+### 1
+
+异常断点的使用，
+
+在 运行 --- 查看断点 中打开，或者使用 ++ctrl+shift+f8++ 打开，
+
+![cs61a_14](images/cs61a_14.png){ loading=lazy }
+
+选中(任何异常)断点，还可以在『条件』中添加判断的条件
+
+>   如
+>
+>   ```java
+>   this instanceof java.lang.ArrayIndexOutOfBoundsException
+>   ```
+
 ## Lecture 8 Inheritance, Implements
 
 ### 1
@@ -969,3 +987,40 @@ public class SLList<BLorp> implements List61B<Blorp> {
 ```
 
 而再将函数传入的参数改成 `List61B<String> list` (原来是 `SLList` 或 `AList` )，那么在调用这个函数时，传入SLList或者AList实例都可以
+
+---
+
+![cs61b_13](images/cs61b_13.png){ loading=lazy }
+
+继承*接口*的子类**必须**实现接口的所有方法
+
+### 2
+
+-   ***Override 覆写*** 指的是**子类**在类中重新重新实现父类或者接口中的方法
+-   ***Overload 重载*** 指的是同一个**函数**被重复多次实现(可以是在不同的子类中)
+
+### 3
+
+`@Override` 注释，作用是只有函数是覆写父类或接口的函数时，才会被编译
+
+>   Why use `@Override` ?
+>
+>   -   Main reason: Protects against typos.
+>       -   If you say `@Override` , but it the method isn't actually overriding anything, you'll get a compile error.
+>       -   e.g. `public void addLats(Item x)`
+>   -   Reminds programmer that method definition came from somewhere higher up in the inheritance hierarchy.
+
+### 4
+
+***Implementation Inheritance 实现继承***，使用 `default` 关键字，可以在接口中实现函数，并且子类能继承已经实现好的函数(就可以不用*覆写*)，例如
+
+```java
+default public void print() {
+    for (int i = 0; i < size(); i += 1) {
+        System.out.print(get(i) + " ");
+    }
+    System.out.println();
+}
+```
+
+>   由于是在接口中实现，所以只能使用接口中的方法
