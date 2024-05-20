@@ -1024,3 +1024,53 @@ default public void print() {
 ```
 
 >   由于是在接口中实现，所以只能使用接口中的方法
+
+### 5
+
+![cs61b_14](images/cs61b_14.png){ loading=lazy }
+
+如果声明的是父类的变量，但指向的是子类的实例，在使用这个(父类类型的)变量调用覆写的方法时，由于 *动态方法选择 Dynamic Method Selection*，最终运行时运行的会是实际子类实例的方法
+
+---
+
+![cs61b_15](images/cs61b_15.png){ loading=lazy }
+
+如果在子类中只是*重载*而没有*覆写*的方法，那么如果变量声明时是父类的类型，在调用*重载*的方法时，就会调用父类的方法，而如果是子类的类型就会调用子类的方法(如上图中，从父类和子类的方法中传入的参数不一致可以看出是*重载*，所以 `a.praise(d)` 调用的是 `Animal` 类的方法)
+
+>   教授的解释：
+>
+>   this praise method, it's overloaded, not overriden. Notice that this is not the same method signature in the dog class, it's not praise animal in the dog class, it's praise dog in the dog class. This is actually a totally new method, so it's not overriding, it's overloading. The other praise method in this dog class
+
+---
+
+Josh说道，另一种*动态方法选择*的理解是，把它当成是一个两步的处理过程，第一步在编译时发生，第二步在运行时发生
+
+>   -   At compile time: We determine the **signature S** of the method to be called.
+>       -   S is decided using **ONLY static types**.
+>   -   At runtime: The dynamic type of the **invoking object** uses its method with this exact signature S.
+
+如上图中的例子
+
+```java
+Animal a = new Dog();
+Dog d = new Dog();
+a.greet(d);  // greet(Animal a)
+a.sniff(d);  // sniff(Animal a)
+d.praise(d); // praise(Dog a)
+a.praise(d); // praise(Animal a)
+```
+
+在编译时，会变量的数据类型以及调用方法时传入的参数确定调用的函数，如 `a.praise(d)` 中 `a` 是 `Animal` ，所以会寻找 `Animal` 类中的方法，根据传入的参数 `d` 是 `Animal` (的子类)，所以确定调用的方法为 `praise(Animal a)` ，
+
+在运行时，再根据具体变量指向的实例调用对应的方法，如 `a.sniff(d)` 在编译时确定方法为 `sniff(Animal a)` ，而实例 `a` ( `Dog` 类)中有对应的方法，所以调用的就是 `Dog` 类的 `sniff` 方法
+
+---
+
+### 6
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+```
+
+可以导入java已经实现好的链表类
