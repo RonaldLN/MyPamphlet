@@ -1074,3 +1074,33 @@ import java.util.ArrayList;
 ```
 
 可以导入java已经实现好的链表类
+
+## Lecture 8 Q&A
+
+### 1
+
+有人提问关于java中*类型转换 Casting*的问题
+
+```java
+Bird bird = new Falcon();
+Falcon falcon = (Falcon) bird;
+```
+
+这两行代码(设置的变量)对应的*静态类型*和*动态类型*是这样，
+
+|          | Static Type | Dynamic Type |
+| -------- | ----------- | ------------ |
+| `bird`   | Bird        | Falcon       |
+| `falcon` | Falcon      | Falcon       |
+
+然后Josh对代码稍加修改，
+
+```java
+Bird bird = (Bird) new Falcon();
+Falcon falcon = (Falcon) bird;
+```
+
+然后说道第一行加上 `(Bird)` 也不会改变对应的*静态类型*和*动态类型*，
+
+>   in fact, a cast doesn't change anything, it never changes anything. When I think about a cast as I'll say in lecture 9 is, it tells the compiler don't do your normal type checking, I know what I'm doing. It doesn't actually change anything, it just says for the purposes of type checking pretend this is a bird.
+
