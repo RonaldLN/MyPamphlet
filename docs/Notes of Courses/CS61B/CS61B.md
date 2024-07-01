@@ -1104,3 +1104,8 @@ Falcon falcon = (Falcon) bird;
 
 >   in fact, a cast doesn't change anything, it never changes anything. When I think about a cast as I'll say in lecture 9 is, it tells the compiler don't do your normal type checking, I know what I'm doing. It doesn't actually change anything, it just says for the purposes of type checking pretend this is a bird.
 
+### 2
+
+有人向Josh提问一题，要求只修改原方阵(不创建新矩阵)使矩阵旋转90°，答案的做法大概是，因为**方阵中的每个位置旋转4次就会回到原来的位置**，所以把每个元素替换到旋转后的位置，再把新位置的旧元素换到旋转后的位置，循环4次就能换好4个元素，可以参考Josh画的图
+
+![cs61b_16](images/cs61b_16.png){ loading=lazy }
