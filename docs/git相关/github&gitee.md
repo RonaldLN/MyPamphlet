@@ -291,3 +291,12 @@ git branch -m oldName newName
 ## 16
 
 如果仓库中的某个文件夹，里面有 `.git/` 文件夹，即是另一个仓库，那么这个文件夹中的文件不会被git识别到
+
+## 17
+
+添加submodule
+
+```bash
+git submodule add xxx.git [路径]
+```
+
