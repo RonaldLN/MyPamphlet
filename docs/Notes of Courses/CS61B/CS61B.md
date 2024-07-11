@@ -1109,3 +1109,64 @@ Falcon falcon = (Falcon) bird;
 有人向Josh提问一题，要求只修改原方阵(不创建新矩阵)使矩阵旋转90°，答案的做法大概是，因为**方阵中的每个位置旋转4次就会回到原来的位置**，所以把每个元素替换到旋转后的位置，再把新位置的旧元素换到旋转后的位置，循环4次就能换好4个元素，可以参考Josh画的图
 
 ![cs61b_16](images/cs61b_16.png){ loading=lazy }
+
+## Project 1
+
+### 1
+
+>   [Java instanceof - javatpoint](https://www.javatpoint.com/downcasting-with-instanceof-operator)
+>
+>   The **java instanceof operator** is used to test whether the object is an instance of the specified type (class or subclass or interface).
+
+课程网站上说会用到 `instanceof` 关键字，然后根据课程网站上提供的链接，`instanceof` 关键字的解释如上
+
+### 2
+
+由于 `ArrayDeque` 没有测试的文件，如果要测试的话需要自己写一个测试的文件，课程网站上建议可以参考Lab 3中的测试，
+
+>   So how do you verify correctness of your data structure? You use your skills that you got from Lab 3! You are encouraged to copy and paste those tests for `SList` and `AList` and adapt them for these data structures. The tests will look very similar and only require basic changes.
+
+于是我cv了 `TestBuggyAList.java` ，然后改成了
+
+??? example "code"
+
+    ```java title="RandomizedComparisonTest.java" hl_lines="9-10 17-18 20 22 25-31"
+    package deque;
+    
+    import ...;
+    
+    public class RandomizedComparisonTest {
+        // YOUR TESTS HERE
+        @Test
+        public void testThreeAddThreeRemove() {
+            LinkedListDeque<Integer> l1 = new LinkedListDeque<>();
+            ArrayDeque<Integer> l2 = new ArrayDeque<>();
+    
+            ...
+        }
+    
+        @Test
+        public void randomizedTest() {
+            LinkedListDeque<Integer> L = new LinkedListDeque<>();
+            ArrayDeque<Integer> L2 = new ArrayDeque<>();
+    
+            int N = 100000;
+            for (int i = 0; i < N; i += 1) {
+                int operationNumber = StdRandom.uniform(0, 4);
+                if (operationNumber == 0) {
+                    ...
+                } else if (operationNumber == 3) {
+                    // addFirst
+                    int randVal = StdRandom.uniform(0, 100);
+                    L.addFirst(randVal);
+                    L2.addFirst(randVal);
+                    System.out.println("addFirst(" + randVal + ")");
+                }
+            }
+        }
+    }
+    ```
+
+### 3
+
+java中生成随机数可以使用 `Math.random()` ，会返回 `[0, 1)` 的随机数
