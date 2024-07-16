@@ -1170,3 +1170,63 @@ Falcon falcon = (Falcon) bird;
 ### 3
 
 java中生成随机数可以使用 `Math.random()` ，会返回 `[0, 1)` 的随机数
+
+## Lecture 9 Extends, Casting, Higher Order Functions
+
+### 1
+
+`extends` 关键字，能继承另一个类的所有不是 `private` 的属性(包括方法)，然后可以添加新的方法
+
+继承了之后，可以使用 `super` 来访问父类的非 `private` 的属性
+
+---
+
+子类的构造函数中，如果没有***显式*地**调用父类的构造函数(通过 `super([...]);` 调用)，那么会自动***隐式***地调用(调用 `super();` )
+
+![cs61b_17](images/cs61b_17.png){ loading=lazy }
+
+### 2
+
+Java中的*高阶函数 Higher Order Functions*
+
+Josh在课上展示了一个例子(使用*interface*)
+
+=== "Java"
+
+    ```java title="IntUnaryFunction"
+    public interface IntUnaryFunction {
+        int apply(int x);
+    }
+    ```
+    
+    ```java title="TenX"
+    public class TenX implements IntUnaryFunction {
+        public int apply(int x) {
+            return 10 * x;
+        }
+    }
+    ```
+    
+    ```java title="HoFDemo"
+    public class HoFDemo {
+        public static int do_twice(IntUnaryFunction f, int x) {
+            return f.apply(f.apply(x));
+        }
+        public static void main(String[] args) {
+            System.out.println(do_twice(new TenX(), 2));
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def tenX(x):
+        return 10 * x
+    
+    def do_twice(f, x):
+        return f(f(x))
+    
+    print(do_twice(tenX, 2))
+    ```
+
