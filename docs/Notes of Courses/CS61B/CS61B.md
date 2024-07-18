@@ -1230,3 +1230,83 @@ Josh在课上展示了一个例子(使用*interface*)
     print(do_twice(tenX, 2))
     ```
 
+## Lecture 10 Subtype Polymorphism vs. HoFs
+
+### 1
+
+Josh提到 `OurComparable` 的缺点
+
+>   ```java
+>   public interface OurComparable {
+>       public int compareTo(Object o);
+>   }
+>   ```
+
+即在运行时(如果类型不一致)会出现错误
+
+>   ```java
+>   public class Dog implements OurComparable {
+>       public int compareTo(Object obj) {
+>           /** Warning, cast can cause runtime error! */
+>           Dog uddaDog = (Dog) obj;
+>           return this.size - uddaDog.size;
+>       }
+>   }
+>   ```
+
+所以(为了避免这种情况)要换成使用 `Comparable<T>` (java内置的接口)
+
+>   ```java
+>   public interface Comparable<T> {
+>       public int compareTo(T obj);
+>   }
+>   ```
+>
+>   ```java
+>   public class Dog implements Comparable<Dog> {
+>       public int compareTo(Dog uddaDog) {
+>           return this.size - uddaDog.size;
+>       }
+>   }
+>   ```
+
+### 2
+
+Josh提到，类似于python中传入 比较函数 进行不同的比较
+
+```python title="python"
+def print_larget(x, y, compare, stringify):
+    if compare(x, y):
+        return stringify(x)
+    return stringify(y)
+```
+
+java中通常使用 `Comparator` ，他展示的示例如下
+
+```java title="java"
+import java.util.Comparator;
+
+public class Dog {
+    private String name;
+    ...
+    private static class NameComparator implements Comparator<Dog> {
+        public int compare(Dog a, Dog b) {
+            return a.name.compareTo(b.name);
+        }
+    }
+    
+    public static class Comparator<Dog> getNameComparator() {
+        return new NameComparator();
+    }
+}
+```
+
+```java
+Comparator<Dog> cd = Dog.getNameComparator();
+if (cd.compare(d1, d3) > 0) {
+    d1.bark();
+} else {
+    d3.bark();
+}
+```
+
