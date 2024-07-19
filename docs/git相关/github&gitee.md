@@ -300,3 +300,51 @@ git branch -m oldName newName
 git submodule add xxx.git [路径]
 ```
 
+## 18
+
+在windows上安装 [`git-filter-repo`](https://github.com/newren/git-filter-repo) ，
+
+参考 [python - `git filter-repo` commands output nothing on Windows - Stack Overflow](https://stackoverflow.com/questions/69355161/git-filter-repo-commands-output-nothing-on-windows) 中 [TTT的回答](https://stackoverflow.com/a/69356543)
+
+1.   运行 `git --exec-path` 查看 `git.exe` 所在的路径
+2.   下载 [`git-filter-repo`](https://github.com/newren/git-filter-repo/blob/main/git-filter-repo) 文件(注意不要有后缀，可能下载会自动添加 `.txt` 后缀)，并将 `git-filter-repo` 复制到 `git.exe` 所在的路径
+3.   在需要运行 `git filter-repo` 命令的仓库/路径下，尝试运行命令
+     -   如果命令能正常运行，会显示 `No arguments specified.` ，那么就不用执行下一步
+4.   如果没有显示的信息，或者显示类似于 `/usr/bin/env: ‘python3’: No such file or directory` 的报错信息，那么将 `git-filter-repo` 文件第一行 `#!/usr/bin/env python3` 中的 `python3` 换成 `python`
+
+## 19
+
+[将子文件夹拆分成新仓库 - GitHub 文档](https://docs.github.com/zh/get-started/using-git/splitting-a-subfolder-out-into-a-new-repository)
+
+需要安装 [`git-filter-repo`](https://github.com/newren/git-filter-repo) ，
+
+有两种拆分的形式：
+
+1.   只保留某个子文件夹到新仓库中，git的历史记录里也只会保留与这个文件夹相关的commit
+
+     ```bash
+     git filter-repo --path FOLDER-NAME/
+     ```
+
+     >   Filter the specified branch in your directory and remove empty commits
+
+2.   将某个子文件夹作为新仓库的根目录，即把该子文件夹作为一个新的仓库，并只保留相关的commit(commit中文件的路径会自动进行更改)
+
+     ```bash
+     git filter-repo --subdirectory-filter FOLDER-NAME
+     ```
+
+     >   Filter the specific branch by using a single sub-directory as the root for the new repository
+
+## 20
+
+windows升级git
+
+>   [How to upgrade Git on Windows to the latest version - Stack Overflow](https://stackoverflow.com/questions/13790592/how-to-upgrade-git-on-windows-to-the-latest-version)
+
+[Dutch Glory的回答](https://stackoverflow.com/a/48924212)提到windows中可以使用以下命令升级git
+
+```bash
+git update-git-for-windows
+```
+
