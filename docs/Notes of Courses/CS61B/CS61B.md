@@ -1310,3 +1310,37 @@ if (cd.compare(d1, d3) > 0) {
 }
 ```
 
+## Lecture 10 Q&A
+
+### 1
+
+Josh根据下面这个Lecture 10课上提到的例子，对*类型转换 Casting*进行了进一步的解释
+
+```java
+Object o2 = new ShowDog("Mortimer", "Corgi", 25, 512.2);
+
+ShowDog sdx = ((ShowDog) o2);
+sdx.bark();
+
+Dog dx = ((Dog) o2);
+dx.bark();
+
+((Dog) o2).bark();
+
+Object o3 = (Dog) o2;
+o3.bark();  // Compile error
+```
+
+类型转换**不会**改变原本变量的*静态类型*和*动态类型(即实际的类型)*，但是例如这一行代码中
+
+```java
+ShowDog sdx = ((ShowDog) o2);
+```
+
+`((ShowDog) o2)` 由于有*类型转换 Casting*，所以**这个表达式**(整体)会被认为静态类型是 `ShowDog` ，因而能赋值给静态类型同为 `ShowDog` 的 `sdx` ，而如果不加*类型转换*，
+
+```java
+ShowDog sdx = o2;
+```
+
+即使 `o2` 的*动态类型*(实际的类型)是 `ShowDog` ，但是因为 **`o2` *静态类型*是 `Object`** ， **`Object` 不能赋值给 `ShowDog`** (只有 `ShowDog` 类和 `ShowDog` 的子类才能赋值给 `ShowDog` )，所以会产生**编译错误**
