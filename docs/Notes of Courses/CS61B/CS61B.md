@@ -1344,3 +1344,15 @@ ShowDog sdx = o2;
 ```
 
 即使 `o2` 的*动态类型*(实际的类型)是 `ShowDog` ，但是因为 **`o2` *静态类型*是 `Object`** ， **`Object` 不能赋值给 `ShowDog`** (只有 `ShowDog` 类和 `ShowDog` 的子类才能赋值给 `ShowDog` )，所以会产生**编译错误**
+
+## Lab 4
+
+### 1
+
+可以通过 `git checkout` 来变更文件到某个commit的状态
+
+```bash
+git checkout ... path/to/file
+```
+
+`...` 处可以是commit的编号(例如 `47bb0877` )，或者branch(例如 `main` )或者tag(例如 `origin/main` )
