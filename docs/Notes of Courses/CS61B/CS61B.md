@@ -1,3 +1,11 @@
+# CS61B
+
+cs61b可用的gradescope课程邀请码是 ==MB7ZPY==，截止到24年底
+
+>   参考
+>
+>   [cs61b Lab0/1 setup - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/648609037)
+
 ## Lecture 0 Intro, Hello World Java
 
 ### 1
@@ -761,6 +769,10 @@ public static int max(int ...argList) {
 }
 ```
 
+### 5
+
+最后发现 `DebugExercise2.java` 中的 `max` 需要修改(改成能正确返回最大值)，否则gradescope上的 `b001) DebugExercise: Hidden Test 1` 这个测试就通过不了
+
 ## Lecture 5 SLLists, Nested Classes, Sentinel Nodes
 
 ### 1
@@ -1175,6 +1187,10 @@ Falcon falcon = (Falcon) bird;
 
 java中生成随机数可以使用 `Math.random()` ，会返回 `[0, 1)` 的随机数
 
+### 4
+
+在autograder中，`Deque` 的子类可能不止自己实现的 `LinkedListDeque` 和 `ArrayDeque` ，所以在实现 `equals` 方法时，需要考虑到这样的情况( `equals` 方法的要求是，只要是 `Deque` 并且所有元素按顺序一致，则认为相等)
+
 ## Lecture 9 Extends, Casting, Higher Order Functions
 
 ### 1
@@ -1360,3 +1376,256 @@ git checkout ... path/to/file
 ```
 
 `...` 处可以是commit的编号(例如 `47bb0877` )，或者branch(例如 `main` )或者tag(例如 `origin/main` )
+
+## Lecture 11 Exceptions, Iterators, Object Methods
+
+### 1
+
+java中的*集合 Set* `java.util.Set` 不能在一个*set*中加入两个一样的元素
+
+>   Stores a set of values with on duplicates. Has no sense of order.
+
+=== "Java"
+
+    ```java
+    Set<String> S = new HashSet<>();
+    S.add("Tokyo");
+    S.add("Beijing");
+    S.add("Lagos");
+    S.add("São Paulo");
+    System.out.println(S.contains("Tokyo"));
+    ```
+    
+    ```java title="Output"
+    true
+    ```
+
+=== "Python"
+
+    ```python
+    s = set()
+    s.add("Tokyo")
+    s.add("Beijing")
+    s.add("Lagos")
+    s.add("São Paulo")
+    print("Tokyo" in s)
+    ```
+    
+    ```python title="Output"
+    True
+    ```
+
+### 2
+
+类似在python中用 `raise` 引发错误，在java中可以使用 `throw` 抛出异常，例如
+
+```java
+public void add(T x) {
+    if (x == null) {
+        throw new IllegalArgumentException("Cannot add null!");
+    }
+}
+```
+
+### 3
+
+java中的foreach循环/*增强for循环 Enhanced For loop*，
+
+>   ```java
+>   Set<Integer> javaset = new HashSet<Integer>();
+>   ```
+
+```java title="Enhanced For / foreach"
+for (int x : javaset) {
+    System.out.println(x);
+}
+```
+
+```java title="普通for循环"
+Iterator<Integer> seer = javaset.iterator();
+
+while (seer.hasNext()) {
+    System.out.println(seer.next());
+}
+```
+
+---
+
+接口 `Iterator` 需要实现2个方法
+
+```java
+public interface Iterator<T> {
+    boolean hasNext();
+    T next();
+}
+```
+
+Josh实现的示例
+
+```java
+public class ArraySet<T> {
+    private class ArraySetIterator implements Iterator<T> {
+        private int wizPos;
+        public ArraySetIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = items[wizPos];
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+}
+```
+
+---
+
+如果想要支持*增强for循环*，那么需要让类实现 `Iterable` 接口
+
+```java
+public interface Iterable<T> {
+    Iterator<T> iterator();
+}
+```
+
+例如
+
+```java
+public class ArraySet<T> implements Iterable<T> {
+    ...
+    public Iterator<T> iterator() { ... }
+}
+```
+
+或者需要是 `Iterable` 的子类，如下面的 `Set` 类
+
+```java
+public class Collection<E> extends Iterable<E> { ... }
+```
+
+```java
+public class Set<E> extends Collection<E> { ... }
+```
+
+### 4
+
+java中所有类都是 `Object` 类的子类
+
+`Object` 中比较重要的4个方法(61b中会涉及到的)
+
+-   `String toString()`
+-   `boolean equals(Object obj)`
+-   `Class<?> getClass()`
+-   `int hashCode()`
+
+### 5
+
+java中，一个 `String` 加上另外一个东西的时候，会自动隐式地调用 `toString` 方法
+
+### 6
+
+Josh说道，java中 字符串拼接 比较耗时，所以可以使用 `StringBuilder` ，例如
+
+```java
+@Override
+public String toString() {
+    StringBuilder return SB = new StringBuilder("{");
+    for (int i = 0; i < size - 1; i += 1) {
+        returnSB.append(items[i].toString());
+        returnSB.append(", ");
+    }
+    returnSB.append(items[size - 1]);
+    returnSB.append("}");
+    return returnSB.toString();
+}
+```
+
+### 7
+
+`==` 和 `.equals` 的区别
+
+-   `==` 比较两个是不是指向同一个实例
+-   `.equals` 调用的是类内的 `.equals` 方法
+
+### 8
+
+Josh实现 `equals` 的示例
+
+```java
+@Override
+public boolean equals(Object other) {
+    if (this == other) {
+        return true;
+    }
+    if (other == null) {
+        return false;
+    }
+    if (other.getClass() != Array.class) {  // or != this.getClass()
+        return false;
+    }
+    ArraySet<T> o = (ArraySet<T>) other;
+    if (o.size() != this.size()) {
+        return false;
+    }
+    for (T item : this) {
+        if (!o.contains(item)) {
+            return false;
+        }
+    }
+    return true;
+}
+```
+
+>   注意到使用了 `.getClass` 方法
+
+### 9
+
+Josh提到了 `String.join` 函数的使用(用来简化 `.toString` 方法的实现)
+
+```java
+public String toString() {
+    List<String> listOfItems = new ArrayList<>();
+    for (T x : this) {
+        listOfItems.add(x.toString());
+    }
+    return "{" + String.join(", ", listOfItems) + "}";
+}
+```
+
+`String.join` 函数的一种用法是传入中间用于分割的字符串，和一个 `Iterable` ，然后会返回用 `Iterable` 中的元素拼接的字符串
+
+### 10
+
+Josh介绍了 `of` 静态方法的实现和用法
+
+```java
+public class ArratSet<T> implements Iterable<T> {
+    public static <Glerp> ArratSet<Glerp> of(Glerp... stuff) {
+        ArratSet<Glerp> returnSet = new ArratSet<Glerp>();
+        for (Glerp x : stuff) {
+            returnSet.add(x);
+        }
+        return returnSet;
+    }
+}
+```
+
+-   因为是**静态**方法，所以 `of` 不知道 `T` 是什么，所以需要声明一个新的 `Glerp`
+-   `Glerp...` 是一个**可变数量**的参数(类似于python中的 `*args` )，并且是 `Iterable` (可以使用foreach)
+
+Josh展示的使用的示例
+
+```java
+ArraySet<String> asetOfStrings = ArraySet.of("hi", "I'm", "here");
+System.out.println(asetOfStrings);
+```
+
+```txt title="Output"
+{hi, I'm, here}
+```
+
