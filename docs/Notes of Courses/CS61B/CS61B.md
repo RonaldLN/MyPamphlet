@@ -1629,3 +1629,52 @@ System.out.println(asetOfStrings);
 {hi, I'm, here}
 ```
 
+## Lecture 11 Q&A
+
+### 1
+
+Josh展示了使用 `Arrays.sort(T[] a, Comparator<? super T> c)` 函数，将一个数组按照自定义的排序方式进行排序的方法
+
+```java linenums="1"
+import org.junit.Test;
+import java.util.Arrays;
+import java.util.Comparator;
+import static org.junit.Assert.assertEquals;
+
+public class SevenCountComparator implements Comparator<Integer> {
+    @Test
+    public void testSevenCount() {
+        assertEquals(1, sevenCount(7));
+        assertEquals(0, sevenCount(9));
+        assertEquals(2, sevenCount(707));
+        assertEquals(6, sevenCount(77707077));
+    }
+    
+    private int sevenCount(int a) {
+        String s = Integer.toString(a);
+        int count = 0;
+        for (int i = 0; i < s.length(); i += 1) {
+            if (s.charAt(i) == '7') {
+                count += 1;
+            }
+        }
+        return count;
+    }
+    
+    public int compare(Integer a, Integer b) {
+        return sevenCount(a) - sevenCount(b);
+    }
+    
+    public static void main(String[] args) {
+        Integer[] a = {1, 3, 65, 88, 7, 126, 777, 728, 10912983, 99999999};
+        Arrays.sort(a, new SevenCountComparator());
+        
+        System.out.println(Arrays.toString(a));
+    }
+}
+```
+
+```java title="Output"
+[1, 3, 65, 88, 126, 10912983, 99999999, 7, 728, 777]
+```
+
