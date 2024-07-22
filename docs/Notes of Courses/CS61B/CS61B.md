@@ -1678,3 +1678,73 @@ public class SevenCountComparator implements Comparator<Integer> {
 [1, 3, 65, 88, 126, 10912983, 99999999, 7, 728, 777]
 ```
 
+## Lecture 12 Command Line Programming, Git, Project 2 Preview
+
+### 1
+
+Josh展示 `main` 函数 `args` 参数的作用，作用大致是用命令行运行java文件时给获取传入的参数
+
+```java title="Hello.java"
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(args[0]);
+        System.out.println(args[1]);
+        System.out.println(args[2]);
+    }
+}
+```
+
+```bash
+$ javac Hello.java
+$ java Hello.java one two three four
+one
+two
+three
+```
+
+### 2
+
+ppt中展示了可以使用 `Integer.parseInt()` 将字符串转换成对应的数字的方法
+
+### 3
+
+Josh解释git使用git-SHA1哈希值来存储文件的方式
+
+>   -   First, git computes the git-SHA1 hash:
+>
+>       -   HelloWorld.java → `66ccdc645c9d156d5c796dbe6ed768430c1562a2`
+>
+>   -   Git creates a folder called `.git/objects/66`
+>
+>       -   The `66` is the first two characters of the git-SHA1 hash.
+>
+>   -   Git stores the contents in a file called
+>
+>       `ccdc645c9d156d5c796dbe6ed768430c1562a2`.
+>
+>       -   File is stored in a compressed format (zlib) to save space.
+
+```bash
+$ cd .git
+/.git$ cd objects
+/.git/objects$ cd 66
+/.git/objects/66$ ls
+ccdc645c9d156d5c796dbe6ed768430c1562a2
+/.git/objects/66$ cat ~/Scuts/gitview.py
+import sys
+import zlib  # A compression / decompression library
+filename = sys.argv[1]
+compressed_contents = open(filename, 'rb').read()
+decompressed_contents = zlib.decompress(compressed_contents)
+try:
+    print(decompressed_contents.decode('utf-8'))
+except:
+    print(decompressed_contents)
+/.git/objects/66$ python3 ~/Scuts/gitview.py ccdc645c9d156d5c796dbe6ed768430c1562a2
+blob 115public class HelloWorld {
+        public static void main(String[] args) {
+                System.out.println("Hello World!");
+        }
+}
+```
+
