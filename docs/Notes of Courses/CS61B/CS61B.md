@@ -1748,3 +1748,29 @@ blob 115public class HelloWorld {
 }
 ```
 
+## Lecture 13 Asymptotics I
+
+### 1
+
+*Big Theta* 和 *Big O* 的区别
+
+>   Whereas Big Theta can informally be thought of as something like “equals”, Big O can be thought of as “less than or equal”.
+>
+>   Example, the following are all true:
+>
+>   -   N³ + 3N⁴ ∈ Θ(N⁴)
+>   -   N³ + 3N⁴ ∈ O(N⁴)
+>   -   N³ + 3N⁴ ∈ O(N⁶)
+>   -   N³ + 3N⁴ ∈ O(N!)
+>   -   N³ + 3N⁴ ∈ O(N^N!^)
+>
+>   ---
+>
+>   $$
+>   R(N) ∈ Θ(f(N)) ⇒ k_1 · f(N) ≤ R(N) ≤ k_2 · f(N)
+>   $$
+>
+>   $$
+>   R(N) ∈ Of(N)) ⇒ R(N) ≤ k_2 · f(N)
+>   $$
+>
