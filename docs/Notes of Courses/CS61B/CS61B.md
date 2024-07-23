@@ -1773,4 +1773,152 @@ blob 115public class HelloWorld {
 >   $$
 >   R(N) ∈ Of(N)) ⇒ R(N) ≤ k_2 · f(N)
 >   $$
+
+## Lecture 14 Disjoint Sets
+
+### 1
+
+这节课Josh讲授了 得到应用于“*动态连接 Dynamic Connectivity*”问题的“*不交集 Disjoint Sets*”数据结构的过程
+
+>   The ideas that made our implementation efficient:
 >
+>   -   Represent sets as connected components (don't track individual connections).
+>       -   **ListOfSetsDS**: Store connected components as a List of Sets (slow, complicated).
+>       -   **QuickFindDS**: Store connected components as set ids.
+>       -   **QuickUnionDS**: Store connected components as parent ids.
+>           -   **WeightedQuickUnionDS**: Also track the size of each set, and use size to decide on new tree root.
+>               -   **WeightedQuickUnionWithPathCompressionDS**: On calls to connect and isConnected, set parent id to the root for all items seen.
+>
+>   |             Implementation              |    Runtime     |
+>   | :-------------------------------------: | :------------: |
+>   |              ListOfSetsDS               |     O(NM)      |
+>   |               QuickFindDS               |     Θ(NM)      |
+>   |              QuickUnionDS               |     O(NM)      |
+>   |          WeightedQuickUnionDS           | O(N + M log N) |
+>   | WeightedQuickUnionWithPathCompressionDS | O(N + M α(N))  |
+>
+>   Runtimes are given assuming:
+>
+>   -   We have a DisjointSets object of size N.
+>   -   We perform M operations, where an operation is defined as either a call to `connected` or `isConnected`.
+
+**要点1**
+
+将*连通分量 connected components*用集合表示(忽略具体的边)，例如
+
+=== "`connect(2, 3)` 操作前"
+
+    ```mermaid
+    flowchart TD
+    0 --- 4
+    0 --- 1 --- 2
+    3 --- 5
+    6
+    ```
+    
+    ```java
+    {0, 1, 2, 4}, {3, 5}, {6}
+    ```
+
+=== "`connect(2, 3)` 操作后"
+
+    ```mermaid
+    flowchart TD
+    0 --- 4
+    0 --- 1 --- 2 --- 3
+    3 --- 5
+    6
+    ```
+    
+    ```java
+    {0, 1, 2, 4, 3, 5}, {6}
+    ```
+
+**要点2**
+
+QuickUnionDS，用一个数组标记每个节点的父节点(使得每个*连通分量*像一个树一样)，这样可以减少 `connect` 所需要做的更改/所需要的操作(相比于ListOfSetsDS)
+
+| `parent` |  -1  |  0   |  1   |  -1  |  0   |  3   |  -1  |
+| :------: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+|          |  0   |  1   |  2   |  3   |  4   |  5   |  6   |
+
+```mermaid
+flowchart TD
+0 --- 4
+0 --- 1 --- 2
+3 --- 5
+6
+```
+
+**要点3**
+
+WeightedQuickUnionDS，标记每个树的大小，每次 `connected` 时，都将小树的根连接到大树的根上，这样能使得 `connected` 后的树的层数不会太高，使得 `connect` 和 `isConnected` 的复杂度都降到 O(log N).
+
+>   ```mermaid
+>   flowchart TD
+>   0 --- 1
+>   0 --- 2
+>   0 --- 3
+>   0 --- 4
+>   0 --- 5
+>   6 --- 7
+>   6 --- 8 --- 9
+>   ```
+>
+>   Two common approaches:
+>
+>   -   Use values other than -1 in `parent` array for root nodes to track size.
+>
+>       | `parent` |  -6  |  0   |  0   |  0   |  0   |  0   |  -4  |  6   |  6   |  8   |
+>       | :------: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+>       |          |  0   |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |
+>
+>   -   Create a separate `size` array.
+>
+>       | `size` |  6   |  1   |  1   |  1   |  1   |  1   |  4   |  1   |  2   |  1   |
+>       | :----: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+>       |        |  0   |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |
+
+**要点4**
+
+WeightedQuickUnionWithPathCompressionDS，在 `isConnected` 时把经过的节点直接改为连接到根节点上
+
+=== "`isConnected(15, 10)` 前"
+
+    ```mermaid
+    flowchart TD
+    0 --- 1(["1"]) --- 5(["5"]) --- 11(["11"]) --- 15(["15"])
+    5 --- 12
+    1 --- 6 --- 13
+    1 --- 7
+    0 --- 2 --- 8 --- 14
+    2 --- 9
+    0 --- 3(["3"]) --- 10(["10"])
+    0 --- 4
+    ```
+
+=== "`isConnected(15, 10)` 后"
+
+    ```mermaid
+    flowchart TD
+    0 --- 15(["15"])
+    0 --- 11(["11"])
+    0 --- 5(["5"])
+    0 --- 1(["1"])
+    5 --- 12
+    1 --- 6 --- 13
+    1 --- 7
+    0 --- 2 --- 8 --- 14
+    2 --- 9
+    0 --- 3(["3"])
+    0 --- 10(["10"])
+    0 --- 4
+    ```
+
+使得N个节点M次操作的复杂度减少到 O(N + M lg* N)
+
+>   $2$ = lg* 1
+>
+>   $2^{2^{2^{2}}}$ = lg* 4
+>
+>   ...
