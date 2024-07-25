@@ -1922,3 +1922,76 @@ WeightedQuickUnionWithPathCompressionDS，在 `isConnected` 时把经过的节�
 >   $2^{2^{2^{2}}}$ = lg* 4
 >
 >   ...
+
+## Lec 15 Asymptotics II
+
+### 1
+
+Josh讲解加入一次*Merge*对*选择排序 Selection Sort*的具体加速过程，并进而讲解*归并排序 Merge Sort*时如何比*选择排序*更快的
+
+>   >   Runtime of selection sort is Θ(N²):
+>   >
+>   >   -   Look at all N unfixed items to find smallest.
+>   >   -   Then look at N-1 remaining unfixed.
+>   >   -   ...
+>   >   -   Look at last two unfixed items.
+>   >   -   Done, sum is 2+3+4+5+...+N = Θ(N²)
+>   >
+>   >   Given that runtime is quadratic, for N = 64, we might sat the runtime for selection sort is 2,048 arbitrary units of time (AU).
+>
+>   **Using Merge to Speed Up the Sorting Process**
+>
+>   Merging can give us an improvement over vanilla selection sort:
+>
+>   -   Selection sort the left half: Θ(N²).
+>   -   Selection sort the right half: Θ(N²).
+>   -   Merge the results: Θ(N).
+>
+>   N=64: \~1088 AU.
+>
+>   -   Merge: \~64 AU.
+>   -   Selection Sort: \~2*512 = \~1024 AU.
+>
+>   Still Θ(N²), but faster since N+2*(N/2)² < N²
+>
+>   -   \~1088 vs. \~2048 AU for N=64.
+>
+>   ---
+>
+>   **Mergesort Order of Growth**
+>
+>   Mergesort has worst case runtime = Θ(N log N).
+>
+>   -   Every level takes \~N AU.
+>       -   Top level takes \~N AU.
+>       -   Next  level takes \~N/2 + \~N/2 =  \~N.
+>       -   One more level down: \~N/4 + \~N/4 + \~N/4 + \~N/4 = \~N.
+>   -   Thus, total runtime is \~Nk, where k is the number of levels.
+>       -   How many levels? Goes until we get to size 1.
+>       -   k = log₂(N).
+>   -   Overall runtime is Θ(N log N).
+>
+>   ---
+>
+>   **Mergesort using Recurrence Relations (Extra)**
+>
+>   C(N): Number of calls to mergesort + number of array writes.
+>   $$
+>   C(N) = \begin{cases}
+>   1 & : N < 2 \\
+>   2C(N/2) + N & : N ≥ 2 \\
+>   \end{cases}
+>   $$
+>
+>   $$
+>   \begin{equation}
+>   \begin{aligned}
+>   C(N) & = 2(2C(N/4) + N/2) + N \\
+>        & = 4C(N/4) + N + N \\
+>        & = 8C(N/8) + N + N + N \\
+>        & = N \cdot 1 + N + N + \ldots + N \ (k = \lg N)\\
+>        & = N + N \lg N \in \Theta(N \lg N)
+>   \end{aligned}
+>   \end{equation}
+>   $$
+
