@@ -1995,3 +1995,104 @@ Josh讲解加入一次*Merge*对*选择排序 Selection Sort*的具体加速过�
 >   \end{equation}
 >   $$
 
+## Lecture 16 ADTs, Sets, Maps, BSTs
+
+### 1
+
+Josh课上提到的java中的map的使用示例(和python中的字典类似)
+
+=== "Java"
+
+    ```java
+    Map<String, Integer> m = new TreeMap<>();
+    String[] text = {"sumomo", "mo", "momo", "mo", "momo", "no", "uchi"};
+    
+    for (String s : text) {
+        int currentCount = m.getOrDefault(s, 0);
+        m.put(s, currentCount + 1);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    m = {}
+    text = ["sumomo", "mo", "momo", "mo", "momo", "no", "uchi"]
+    for s in text:
+        current_count = m.get(s, 0)
+        m[s] = current_count + 1
+    ```
+
+### 2
+
+Josh在讲到二分查找树的*插入 insert*方法时，
+
+```java
+static BST insert(BST T, Key ik) {
+    if (T == null)
+        return new BST(ik);
+    if (ik < T.key)
+        T.left = insert(T.left, ik);
+    else if (ik > T.key)
+        T.right = insert(T.right, ik);
+    return T;
+}
+```
+
+要使用上面这样的代码结构，避免使用下面这样的代码(比上面的要复杂，也不美观)
+
+>   ARMS LENGTH RECURSION!!!! No good.
+>
+>   A common rookie bad habit to avoid:
+
+```java
+    if (T.left == null)
+        T.left = new BST(ik);
+    else if (T.right = null)
+        T.right = new BST(ik);
+```
+
+### 3
+
+Josh讲到，在对二分查找树进行删除操作时，如果要删除的节点有两个子节点，那么需要找到**左子树中的最大节点(a.k.a *predecessor*)**或者**右子树中的最小节点(a.k.a successor)**，继续**递归地**删除这个节点，最后用这个节点的值构造一个新的节点代替被删除的节点，
+
+例如，要删除 `k`
+
+```mermaid
+flowchart TD
+k["k (to be deleted)"] --- e --- b --- a
+b --- d
+e --- g(["g"]) --- f
+g --- null1(" ")
+k --- v --- p --- m(["m"])
+p --- r
+v --- y --- x
+y --- z
+```
+
+那么 `g` 是*predecessor*，`m` 是*successor*，
+
+如果选择 `g` 代替 `k` 的位置，那么最后的结果就是
+
+```mermaid
+flowchart TD
+g --- e --- b --- a
+b --- d
+e --- f
+g --- v --- p --- m
+p --- r
+v --- y --- x
+y --- z
+```
+
+### 4
+
+Josh提到，使用二分查找树来实现之前提到的map，将key和value一起作为树的一个节点即可，查找时**按照key的值来查找**，例如
+
+```mermaid
+flowchart TD
+sumomo["sumomo | 1"] --- momo["momo | 2"] --- mo["mo | 2"]
+momo --- no["no | 1"]
+sumomo --- uchi["uchi | 1"]
+```
+
