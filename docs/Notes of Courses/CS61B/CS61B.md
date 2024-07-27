@@ -2096,3 +2096,24 @@ momo --- no["no | 1"]
 sumomo --- uchi["uchi | 1"]
 ```
 
+## Lecture 16 Q&A
+
+### 1
+
+有人提问这一题
+
+```java
+public static void f5(int N, int m) {
+    if (N < 10) { return; }
+    for (int i = 0; i <= N % 10; i++) {
+        f5(N / 10, M / 10);
+        System.out.println(M);
+    }
+}
+```
+
+题目是问这个函数的时间复杂度O是多少。
+
+最后发现，通过取最坏情况的N，999...9对应会 `println` 1+10+100+...=111...1次，所以复杂度是O(N)，
+
+所以我觉得这种题可以**直接取最坏的情况**进行分析判断
