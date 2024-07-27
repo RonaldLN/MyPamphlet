@@ -2117,3 +2117,106 @@ public static void f5(int N, int m) {
 最后发现，通过取最坏情况的N，999...9对应会 `println` 1+10+100+...=111...1次，所以复杂度是O(N)，
 
 所以我觉得这种题可以**直接取最坏的情况**进行分析判断
+
+## Lecture 17 B-Trees (2-3, 2-3-4 Trees)
+
+### 1
+
+*Big O*虽然类似于小于等于，但是**通常**用于表示最坏的情况的*Big Theta*是这样
+
+>   (Big O) Allows us to make simple blanket statements, e.g. can just say “binary search is O(log N)” instead of “binary search is Θ(log N) in the worst cast”.
+
+### 2
+
+树的*高度 Height*、*深度 Depth*的定义，以及它们和*运行时间 Runtime*的关系
+
+>   ```mermaid
+>   flowchart TD
+>   k --- e --- b --- a
+>   b --- d
+>   e --- g --- f
+>   g --- j
+>   k --- v --- p --- r --- s
+>   v --- y --- z
+>   ```
+>
+>   **Height and Depth**
+>
+>   Height and average depth are important properties of BSTs.
+>
+>   -   The **“depth” of a node** is how far it is from the root, e.g. depth(g) = 2.
+>   -   The **“height” of a tree** is the depth of its deepest leaf, e.g. height(T) = 4.
+>   -   The **“average depth”** of a tree is the average depth of a tree's nodes.
+>       -   (**0**x1 + **1**x2 + **2**x4 + **3**x6 + **4**x1)/(1+2+4+6+1) = 2.35
+>
+>   ---
+>
+>   **Height, Depth and Runtime**
+>
+>   Height and average depth determine runtimes for BST operations.
+>
+>   -   The **“height” of a tree** determines the worst case runtime to find a node.
+>       -   Example: Worst case is contains(s), requires 5 comparisons (height + 1).
+>   -   The **“average depth”** determines the average case runtime to find a node.
+>       -   Example: Average case is 3.35 comparisons (average depth + 1).
+
+### 3
+
+ppt中展示的一个3阶B树添加元素变化的过程
+
+![cs61b_19](images/cs61b_19.png){ loading=lazy }
+
+### 4
+
+特殊B树的别称
+
+>   -   B-trees of order L=3 (like we used today) are also called a 2-3-4 tree or a 2-4 tree.
+>       -   “2-3-4” refers to the number of children that a node can have, e.g. a 2-3-4 tree node may have 2, 3, or 4 children.
+>   -   B-trees of order L=2 are also called a 2-3 tree.
+
+---
+
+>   B-Trees are most popular in two specific contexts:
+>
+>   -   Small L (L=2, L=3):
+>       -   Used as a conceptually simple balanced search tree (as today).
+>   -   L is very large (say thousands).
+>       -   Used in practice for databases and filesystems (i.e. systems with very large records).
+
+---
+
+B树的两个*不变式 Invariant*
+
+>   -   All leaves must be the same distance from the source.
+>   -   A non-leaf node with k items must have exactly k+1 children.
+
+---
+
+B树的高度：在 \~log~L+1~(N) 和 \~log₂(N) 之间
+
+### 5
+
+B树的*运行时间 Runtime*
+
+>   **Runtime for `contains`**
+>
+>   Runtime for contains:
+>
+>   -   Worst case number of nodes to inspect: H + 1
+>   -   Worst case number of items to inspect per node: L
+>   -   Overall runtime: O(HL)
+>
+>   Since H = Θ(log N), overall runtime is O(L log N).
+>
+>   -   Since L is a constant, runtime is therefore O(log N).
+>
+>   ---
+>
+>   Runtime for `add`:
+>
+>   -   Worst case number of nodes to inspect: H + 1
+>   -   Worst case number of items to inspect per node: L
+>   -   Worst case number of split operations: H + 1
+>   -   Overall runtime: O(HL)
+>
+>   ... O(log N).
