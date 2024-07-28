@@ -2118,6 +2118,160 @@ public static void f5(int N, int m) {
 
 所以我觉得这种题可以**直接取最坏的情况**进行分析判断
 
+## Lab 6
+
+### 1
+
+实验说明中提到了，java中可以这样获取到运行时的路径(*当前工作目录 current working directory*)
+
+```java
+System.getProperty("user.dir")
+```
+
+>   The [current working directory](https://en.wikipedia.org/wiki/Working_directory) (CWD) of a Java program is the directory from where you execute that Java program. You can access the CWD from within a Java program by using `System.getProperty("user.dir")`.
+
+---
+
+教程中给出了IDEA中设置*当前工作目录*的方法，
+
+>   In IntelliJ, the CWD is given by the specified directory under Run > Edit Configurations > Working Directory
+
+『当前文件』下的『编辑配置』>『`+`』>『应用程序』，然后在之后的界面里就可以设置*当前工作目录*了
+
+![cs61b_20](images/cs61b_20.png){ loading=lazy }
+
+![cs61b_20](images/cs61b_21.png){ loading=lazy }
+
+![cs61b_20](images/cs61b_22.png){ loading=lazy }
+
+### 2
+
+实验说明中给出的java中关于文件和文件夹的操作
+
+>   **Files**
+>
+>   You can make a File object in Java with the File constructor and passing in the path to the file:
+>
+>   ```java
+>   File f = new File("dummy.txt");
+>   ```
+>
+>   The above path is a relative path where we are referring to the file `dummy.txt` in our Java program’s CWD. You can think of this File object as a reference to the actual file `dummy.txt` - **when we create the new File object, we aren’t actually creating the `dummy.txt` file itself**, we are just saying, “in the future, when I do operations with `f`, I want to do these operations on `dummy.txt`”. To actually create this `dummy.txt` file, we could call
+>
+>   ```java
+>   f.createNewFile();
+>   ```
+>
+>   and then the file `dummy.txt` will actually now exist (and you could see it in File Explorer / Finder).
+>
+>   You can check if the file “dummy.txt” already exists or not with the `exists` method of the File class:
+>
+>   ```java
+>   f.exists()
+>   ```
+>
+>   Actually writing to a file is pretty ugly in Java. To keep things simple, we’ve provided you with a `Utils.java`. This class will be very handy for this lab and in Gitlet. You should look at the list of available methods in `Utils.java` to get a sense of what it can do for you. See the FAQ at the bottom of this lab for hints on what to focus on.
+>
+>   As an example, if you want to write a String to a file, you can do the following:
+>
+>   ```java
+>   Utils.writeContents(f, "Hello World");
+>   ```
+>
+>   Now `dummy.txt` would now have the text “Hello World” in it.
+>
+>   **Directories**
+>
+>   Directories in Java are also represented with File objects. For example, you can make a File object that represents a directory:
+>
+>   ```java
+>   File d = new File("dummy");
+>   ```
+>
+>   Similar to files, this directory might not actually exist in your file system. To actually create the folder in your file system, you can run:
+>
+>   ```java
+>   d.mkdir();
+>   ```
+>
+>   and now there should be a folder called `dummy` in your CWD. You should also checkout the `mkdirs()` method, whose documentation can be found [here](https://docs.oracle.com/javase/7/docs/api/java/io/File.html).
+
+### 3
+
+实验说明中提到了java中**将变量保存到文件中**的方法，即让自定义的类实现 `java.io.Serializable` 这个接口，然后就可以(结合java中对文件的操作)将变量写入到指定的文件当中或从文件中读取(感觉和python中的pickle包比较类似)，例如
+
+```java
+import java.io.Serializable;
+
+public class Model implements Serializable {
+    ...
+}
+```
+
+```java title="写入"
+Model m = ....;
+File outFile = new File(saveFileName);
+try {
+    ObjectOutputStream out =
+        new ObjectOutputStream(new FileOutputStream(outFile));
+    out.writeObject(m);
+    out.close();
+} catch (IOException excp) {
+    ...
+}
+```
+
+```java title="读取"
+Model m;
+File inFile = new File(saveFileName);
+try {
+    ObjectInputStream inp =
+        new ObjectInputStream(new FileInputStream(inFile));
+    m = (Model) inp.readObject();
+    inp.close();
+} catch (IOException | ClassNotFoundException excp) {
+    ...
+    m = null;
+}
+```
+
+### 4
+
+在使用 `make` 时，需要使用git bash，使用powershell时出现了这样的报错
+
+```bash
+PS C:\Github\CS-61B-Spring-2021\hwCode\lab6> make check              
+"C:/Program Files (x86)/GnuWin32/bin/make" -C testing PYTHON=python3 TESTER_FLAGS="" check
+make[1]: Entering directory `C:/Github/CS-61B-Spring-2021/hwCode/lab6/testing'
+系统找不到指定的路径。
+'true' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+make[1]: *** [check] 错误 1
+make[1]: Leaving directory `C:/Github/CS-61B-Spring-2021/hwCode/lab6/testing'
+make: *** [check] 错误 2
+```
+
+---
+
+换成git bash之后，运行 `make check` 时出现了这样的报错
+
+```bash
+$ make check
+"C:/Program Files (x86)/GnuWin32/bin/make" -C testing PYTHON=python3 TESTER_FLAGS="" check
+make[1]: Entering directory `C:/Github/CS-61B-Spring-2021/hwCode/lab6/testing'
+Testing application capers.Main...
+python3 tester.py  --src=our-src our/*.in
+make[1]: *** [check] 错误 49
+make[1]: Leaving directory `C:/Github/CS-61B-Spring-2021/hwCode/lab6/testing'
+make: *** [check] 错误 2
+```
+
+发现按照任务说明FAQs中说的，由于windows中的运行python的命令是 `python` 而不是 `python3` ，所以加一个 `PYTHON=python` 即可
+
+```bash
+make check PYTHON=python
+```
+
 ## Lecture 17 B-Trees (2-3, 2-3-4 Trees)
 
 ### 1
