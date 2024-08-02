@@ -957,7 +957,7 @@ items = (Item[]) new Object[100];
 
 在 运行 --- 查看断点 中打开，或者使用 ++ctrl+shift+f8++ 打开，
 
-![cs61a_14](images/cs61a_14.png){ loading=lazy }
+![cs61b_24](images/cs61b_24.png){ loading=lazy }
 
 选中(任何异常)断点，还可以在『条件』中添加判断的条件
 
@@ -2374,3 +2374,41 @@ B树的*运行时间 Runtime*
 >   -   Overall runtime: O(HL)
 >
 >   ... O(log N).
+
+## Lecture 18 Red Black Trees
+
+### 1
+
+Josh介绍到红黑树和2-3 tree是一样的(数学上可以叫做*双射 bijection*)，下图ppt中展示的是*左倾 Left-Leaning*红黑树，*左倾*即代表 表示2-3tree中同一个节点上两个元素的红黑树的两个节点 之间**用连接左子树的线进行连接**
+
+![cs61b_23](images/cs61b_23.png){ loading=lazy }
+
+---
+
+>   Some handy LLRB properties:
+>
+>   -   No node has two red links [otherwise it'd be a analogous to a 4-node, which are disallowed in 2-3 trees].
+>   -   Every path from root to a leaf has same number of **black links** [because 2-3 trees have the same number of links to every leaf]. LLRBs are therefore balanced.
+
+### 2
+
+Josh通过4个例子，讲解了红黑树如何构建的过程
+
+>   -   When insering: Use a red link.
+>   -   If there is a *right leaning “3-node”*, we have a **Left Leaning Violation.**
+>       -   <u>Rotate left</u> the appropriate node to fix.
+>   -   If there are *two consecutive left links*, we have an **Incorrect 4 Node Violation.**
+>       -   <u>Rotate right</u> the appropriate node to fix.
+>   -   If there are any <u>nodes with two red children</u>, we have a **Temporary 4 Node.**
+>       -   Color flip the node to emulate the split operation.
+
+![cs61b_25](images/cs61b_25.png){ loading=lazy }
+
+![cs61b_26](images/cs61b_26.png){ loading=lazy }
+
+![cs61b_27](images/cs61b_27.png){ loading=lazy }
+
+![cs61b_28](images/cs61b_28.png){ loading=lazy }
+
+![cs61b_29](images/cs61b_29.png){ loading=lazy }
+
