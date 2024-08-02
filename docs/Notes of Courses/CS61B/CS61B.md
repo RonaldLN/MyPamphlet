@@ -2412,3 +2412,31 @@ Josh通过4个例子，讲解了红黑树如何构建的过程
 
 ![cs61b_29](images/cs61b_29.png){ loading=lazy }
 
+## Lab 7
+
+### 1
+
+任务说明中提到了*泛型 generic*也可以指定类型
+
+>   This can be enforced in Java with a [bounded type parameter](https://docs.oracle.com/javase/tutorial/java/generics/bounded.html). Consider the example below, taken from the Oracle docs:
+>
+>   ```java
+>   /*
+>    * Bounded type parameters allow you to invoke methods defined in the bounds:
+>    * The `isEven` method invokes the `intValue` method defined in the 
+>    * `Integer` class through `n`.
+>    */
+>   
+>   public class NaturalNumber<T extends Integer> {
+>   
+>   	private T n;
+>   
+>   	public NaturalNumber(T n)  { this.n = n; }
+>   
+>   	public boolean isEven() {
+>   		return n.intValue() % 2 == 0;
+>   	}
+>   
+>   	// ...
+>   }
+>   ```
