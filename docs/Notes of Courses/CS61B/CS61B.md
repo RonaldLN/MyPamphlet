@@ -2440,3 +2440,585 @@ Josh通过4个例子，讲解了红黑树如何构建的过程
 >   	// ...
 >   }
 >   ```
+
+## Lecture 19
+
+
+
+## Homework 2
+
+我的答案(好像官方没有提供参考答案)
+
+??? note "我的答案及思路"
+
+    <h1>HW2: Conceptual Review</h1>
+    
+    <h2>Q1 Asymptotic Warmup<br/><small>32 Points</small></h2>
+    
+    Give the tightest asymptotic bound on `foo(n)`.
+    
+    ```java
+    public int foo(int n) {
+       if (n == 0) {
+          return 0;
+       }
+       bloop(n);
+       return foo(n/3) + foo(n/3) + foo(n/3);
+    
+    public int bloop(int n) {
+       for (int i = 0; i < n; i += 1) {
+          System.out.println("Ah, loops too");
+       }
+       return n;
+    }
+    ```
+    
+    -   [ ] $\Omega(1)$
+    -   [ ] $\Omega(\log(n))$
+    -   [ ] $\Omega(n)$
+    -   [ ] $\Omega(n \cdot \log(n))$
+    -   [ ] $\Omega(n^2)$
+    -   [ ] $\Omega(n^3)$
+    -   [ ] $\Omega(3^n)$
+    -   [ ] $\Omega(n!)$
+    -   [ ] $\Theta(1)$
+    -   [ ] $\Theta(\log(n))$
+    -   [ ] $\Theta(n)$
+    -   [x] $\Theta(n \cdot \log(n))$
+    -   [ ] $\Theta(n^2)$
+    -   [ ] $\Theta(n^3)$
+    -   [ ] $\Theta(3^n)$
+    -   [ ] $\Theta(n!)$
+    -   [ ] $O(1)$
+    -   [ ] $O(\log(n))$
+    -   [ ] $O(n)$
+    -   [ ] $O(n \cdot \log(n))$
+    -   [ ] $O(n^2)$
+    -   [ ] $O(n^3)$
+    -   [ ] $O(3^n)$
+    -   [ ] $O(n!)$
+    
+    ??? note "思路"
+    
+        `foo` 的每一*层*递归，`foo(n/3) + foo(n/3) + foo(n/3)` 加起来刚好会 `println` n次，而一共会有 $\log_3 n$ *层*递归，所以是 $\Theta(n \cdot \log(n))$
+    
+    <h2>Q2 Asymptotic Potpourri<br/><small>32 Points</small></h2>
+    
+    **Note:** This is the hardest problem on this Homework. If you are stuck on it for a long time, move on to other problems, and post on Ed or come to Office Hours so we can help you.
+    
+    Give the runtime of the following functions in $\Theta$ notation. Your answer should be a function of N that is as simple as possible with no unnecessary leading constants or lower order terms.
+    
+    <h3>Q2.1 Mystery 1<br/><small>8 Points</small></h3>
+    
+    ```java
+    public void mystery1(int n) {
+       for (int i = n; i > 0; i = i / 2) {
+          for (int j = 0; j < 100000000; j += 2) {
+             System.out.println("Hello World");
+          }
+       }
+    }
+    ```
+    
+    -   [ ] $1$
+    -   [x] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $(\log(n))^2$
+    -   [ ] $n^2$
+    -   [ ] $n^2\cdot\log(n)$
+    -   [ ] $2^n$
+    -   [ ] $n!$
+    -   [ ] Other
+    
+    <h3>Q2.2 Mystery 2<br/><small>8 Points</small></h3>
+    
+    ```java
+    public void mystery2(int n) {
+       for (int i = 1; i < n; i += 1) {
+          for (int j = 0; j < n; j += 1) {
+             i = i * 2;
+             j = j * 2;
+          }
+       }
+    }
+    ```
+    
+    -   [ ] $1$
+    -   [x] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $(\log(n))^2$
+    -   [ ] $n^2$
+    -   [ ] $n^2\cdot\log(n)$
+    -   [ ] $2^n$
+    -   [ ] $n!$
+    -   [ ] Other
+    
+    ??? note "思路"
+    
+        当内部 `j` 的循环结束的时候( `j >= n` 时)，基本上也有 `i >= n` 了，外部 `i` 的循环大概只能循环1到2次，因此是 $\Theta(\log(n))$
+    
+    <h3>Q2.3 Mystery 3<br/><small>8 Points</small></h3>
+    
+    ```java
+    public void mystery3(int n) {
+        for (int i = n; i > 0; i = i / 2) {
+            for (int j = 1; j < i * i; j *= 2) {
+                System.out.println("Hello World");
+            }
+        }
+    }
+    ```
+    
+    What sum represents the work done by `mystery3(n)`?
+    
+    -   [ ] $1 + 2 + 3 + \cdots + n$
+    -   [ ] $1 + 2 + 3 + \cdots + \log(n)$
+    -   [ ] $2^0 + 2^1 + 2^2 + \cdots + 2^{\log(n)}$
+    -   [ ] $2^0 + 2^1 + 2^2 + \cdots + 2^n$
+    -   [ ] $2^0 + 2^1 + 2^2 + \cdots + n^2$
+    -   [x] $\log(n^2) + \log\left(\frac{n^2}{2}\right) + \log\left(\frac{n^2}{2^2}\right) + \log\left(\frac{n^2}{2^3}\right) + \cdots + 1$
+    -   [ ] $\log(n) + \log\left(\frac{n}{2}\right) + \log\left(\frac{n}{3}\right) + \cdots + 1$
+    -   [ ] Other
+    
+    <h3>Q2.4 Mystery 4<br/><small>8 Points</small></h3>
+    
+    Here, assume that the `SLList` constructor, and the `size` and `addFirst` methods take constant time.
+    
+    ```java
+    public void mystery4(int n) {
+        SLList<Integer> list = new SLList<>();
+        for (int i = 1; list.size() < n; i += 1) {
+            for (int j = 0; j < i; j += 1) {
+                list.addFirst(j);
+            }
+            System.out.print(list.size() + " + ");
+        }
+    }
+    ```
+    
+    -   [ ] $1$
+    -   [ ] $\log(n)$
+    -   [x] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $(\log(n))^2$
+    -   [ ] $n^2$
+    -   [ ] $n^2\cdot\log(n)$
+    -   [ ] $2^n$
+    -   [ ] $n!$
+    -   [ ] Other
+    
+    <h3>Q3.1 Mechanical<br/><small>8 Points</small></h3>
+    
+    Here, fill in the value in each index of the resulting underlying array of the Weighted Quick Union object.
+    
+    Value in index 0:
+    
+    ```txt
+    5
+    ```
+    
+    Value in index 1:
+    
+    ```txt
+    0
+    ```
+    
+    Value in index 2:
+    
+    ```txt
+    5
+    ```
+    
+    Value in index 3:
+    
+    ```txt
+    2
+    ```
+    
+    Value in index 4:
+    
+    ```txt
+    2
+    ```
+    
+    Value in index 5:
+    
+    ```txt
+    -5
+    ```
+    
+    Value in index 6:
+    
+    ```txt
+    -1
+    ```
+    
+    Value in index 7:
+    
+    ```txt
+    5
+    ```
+    
+    Value in index 8:
+    
+    ```txt
+    -1
+    ```
+    
+    Value in index 9:
+    
+    ```txt
+    5
+    ```
+    
+    Value in index 10:
+    
+    ```txt
+    -1
+    ```
+    
+    ??? note "思路"
+    
+        这题中关键的结束循环的判断条件是 `list.size() < n` ，所以在结束前，链表只会被添加n个左右的元素，所以是 $\Theta(n)$
+    
+    <h2>Q2 WQU<br/><small>32 Points</small></h2>
+    
+    Draw the Weighted Quick Union object on 0 through 10, that results from the following `connect` calls. Do not use path compression. Note that if we connect two sets of  equal weight, by convention we make the set whose root has a smaller number the child of the other. We use the convention that if an element is the root of the set, its array value is the weight of the set negated.
+    
+    ```java
+    connect(0, 1);
+    connect(2, 3);
+    connect(9, 5);
+    connect(5, 7);
+    connect(7, 1);
+    connect(4, 2);
+    connect(3, 1);
+    ```
+    
+    ??? note "思路"
+    
+        用表格记录数组的变化如下
+    
+        | 数组下标      | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
+        | ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+        | 初始          | -1   | -1   | -1   | -1   | -1   | -1   | -1   | -1   | -1   | -1   | -1   |
+        | connect(0, 1) | -2   | 0    |      |      |      |      |      |      |      |      |      |
+        | connect(2, 3) |      |      | -2   | 2    |      |      |      |      |      |      |      |
+        | connect(9, 5) |      |      |      |      |      | -2   |      |      |      | 5    |      |
+        | connect(5, 7) |      |      |      |      |      | -3   |      | 5    |      |      |      |
+        | connect(7, 1) | 5    |      |      |      |      | -4   |      |      |      |      |      |
+        | connect(4, 2) |      |      | -3   |      | 2    |      |      |      |      |      |      |
+        | connect(3, 1) |      |      | 5    |      |      | -5   |      |      |      |      |      |
+        | 结束          | 5    | 0    | 5    | 2    | 2    | -5   | -1   | 5    | -1   | 5    | -1   |
+    
+    <h3>Q3.2 Best and Worst Heights<br/><small>8 Points</small></h3>
+    
+    Assume that a single node has a height of 0. What are the shortest and tallest heights for a Quick Union object with 16 connected elements? What about for a Weighted Quick Union object?
+    
+    Quick Union: Shortest
+    
+    ```txt
+    1
+    ```
+    
+    Quick Union: Tallest
+    
+    ```txt
+    15
+    ```
+    
+    Weighted Quick Union: Shortest
+    
+    ```txt
+    1
+    ```
+    
+    Weighted Quick Union: Tallest
+    
+    ```txt
+    4
+    ```
+    
+    ??? note "思路"
+    
+        两者最好的情况都是所有节点都连在同一个根节点上(所以高度都是1)，Quick Union最坏的情况是变成类似链表，所以高度是n-1=15，Weighted Quick Union按照Josh ppt上的图，最坏的情况的高度是log₂n=4。
+    
+        下面两题的最好最坏情况也差不多就是这样的情况，因此答案类似。
+    
+    <h3>Q3.3 Connect Runtime<br/><small>8 Points</small></h3>
+    
+    What are the best and worst runtimes for `connect` in a Quick Union object with $n$ elements? What about in a Weighted Quick Union object?
+    
+    Quick Union: Best Case
+    
+    -   [x] $1$
+    -   [ ] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Quick Union: Worst Case
+    
+    -   [ ] $1$
+    -   [ ] $\log(n)$
+    -   [x] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Weighted Quick Union: Best Case
+    
+    -   [x] $1$
+    -   [ ] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Weighted Quick Union: Worst Case
+    
+    -   [ ] $1$
+    -   [x] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    <h3>Q3.4 isConnected Runtime<br/><small>8 Points</small></h3>
+    
+    What are the best and worst runtimes for `isConnected` in a Quick Union object with $n$ elements? What about in a Weighted Quick Union object?
+    
+    Quick Union: Best Case
+    
+    -   [x] $1$
+    -   [ ] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Quick Union: Worst Case
+    
+    -   [ ] $1$
+    -   [ ] $\log(n)$
+    -   [x] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Weighted Quick Union: Best Case
+    
+    -   [x] $1$
+    -   [ ] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    Weighted Quick Union: Worst Case
+    
+    -   [ ] $1$
+    -   [x] $\log(n)$
+    -   [ ] $n$
+    -   [ ] $n \cdot \log(n)$
+    -   [ ] $n^2$
+    -   [ ] $2^n$
+    -   [ ] Other
+    
+    <h2>Q4 Switcheroo<br/><small>32 Points</small></h2>
+    
+    Consider the following 2-3 tree:
+    
+    ![cs61b_30](images\cs61b_30.png){ loading=lazy }
+    
+    <h3>Q4.1 Balance the Tree<br/><small>20 Points</small></h3>
+    
+    Convert this 2-3 tree to an LLRB, and describe the 6 LLRB operations to balance the tree after inserting the number 11. The LLRB operations are: `rotateRight(x)`, `rotateLeft(x)`, and `colorFlip(x)`
+    
+    ```txt
+    rotateLeft(10)
+    ```
+    
+    ```txt
+    rotateRight(15)
+    ```
+    
+    ```txt
+    colorFlip(11)
+    ```
+    
+    ```txt
+    rotateLeft(9)
+    ```
+    
+    ```txt
+    rotateRight(17)
+    ```
+    
+    ```txt
+    colorFlip(11)
+    ```
+    
+    ??? note "思路"
+    
+        原始红黑树
+    
+        ![cs61b_31](images/cs61b_31.png){ loading=lazy }
+    
+        插入11
+    
+        ![cs61b_32](images/cs61b_32.png){ loading=lazy }
+    
+        `rotateLeft(10)`
+    
+        ![cs61b_33](images/cs61b_33.png){ loading=lazy }
+    
+        `rotateRight(15)`
+    
+        ![cs61b_34](images/cs61b_34.png){ loading=lazy }
+    
+        `colorFlip(11)`
+    
+        ![cs61b_35](images/cs61b_35.png){ loading=lazy }
+    
+        `rotateLeft(9)`
+    
+        ![cs61b_36](images/cs61b_36.png){ loading=lazy }
+    
+        `rotateRight(17)`
+    
+        ![cs61b_37](images/cs61b_37.png){ loading=lazy }
+    
+        `colorFlip(11)`
+    
+        ![cs61b_38](images/cs61b_38.png){ loading=lazy }
+    
+    <h3>Q4.2 LLRB Height<br/><small>6 Points</small></h3>
+    
+    After inserting 11 and balancing the LLRB, how many nodes are on along the longest path from the root to a leaf.
+    
+    ```txt
+    4
+    ```
+    
+    <h3>Q4.3 Red Links<br/><small>6 Points</small></h3>
+    
+    After inserting 11 and balancing the LLRB, how many red links are on along the longest path from the root to a leaf.
+    
+    ```txt
+    2
+    ```
+    
+    <h2>Q5 Mechanical Hashing<br/><small>32 Points</small></h2>
+    
+    Suppose we insert the following words into an initially empty hash table, in this order: **kerfuffle**, **broom**, **hroom**, **ragamuffin**, **donkey**, **brekky**, **blob**, **zenzizenzizenzic**, and **yap**. Assume that the hash code of a String is just its length (note that this is not actually the hash code for Strings in Java). Use separate chaining to resolve collisions. Assume 4 is the initial size of the hash table array, and double this array’s size when the load factor is equal to 1. Illustrate this hash table with a box-and-pointer diagram.
+    
+    For each index of the final hash table, specify what Strings are stored in it. If it is empty, write NoneNone. In your final answer, **do not wrap Strings in quotes**. 
+    
+    If an index has more than 1 String in it, separate them using a comma and a single space. For example, if index 0 stores the Strings `one` and `two`, your answer should be `one, two`.
+    
+    Elements in index 0:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 1:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 2:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 3:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 4:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 5:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 6:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 7:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 8:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 9:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 10:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 11:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 12:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 13:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 14:
+    
+    ```txt
+    
+    ```
+    
+    Elements in index 15:
+    
+    ```txt
+    
+    ```
