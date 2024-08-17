@@ -1534,7 +1534,7 @@ Josh说道，java中 字符串拼接 比较耗时，所以可以使用 `StringBu
 ```java
 @Override
 public String toString() {
-    StringBuilder return SB = new StringBuilder("{");
+    StringBuilder returnSB = new StringBuilder("{");
     for (int i = 0; i < size - 1; i += 1) {
         returnSB.append(items[i].toString());
         returnSB.append(", ");
@@ -2441,9 +2441,58 @@ Josh通过4个例子，讲解了红黑树如何构建的过程
 >   }
 >   ```
 
-## Lecture 19
+## Lecture 19 Hashing
 
+### 1
 
+Josh提到通过将哈希表从储存 `true` 或 `false` 改成储存哈希值为对应下标的对象来解决 *歧义 Ambiguity* 的问题
+
+而可以使用不同的数据结构去实现这个方法
+
+>   <big>**Resolving Ambiguity**</big>
+>
+>   Suppose N items have the same numerical representation h:
+>
+>   -   Instead of storing `true` in position h, store a “bucket” of these N items at position h.
+>
+>   How to implement a “bucket”?
+>
+>   -   Conceptually simplest way: LinkedList.
+>   -   Could also use ArrayLists.
+>   -   Could also use an ArraySet.
+>   -   Will see it doesn't really matter what you do.
+
+---
+
+还能再进一步对哈希值取模，而减少下标的总数
+
+>   -   *Data* is converted by **hash function** into an integer representation called a **hash code**.
+>   -   The **hash code** is then **reduced** to a valid *index*, usually using the modulus operators, e.g. 2348762878 % 10 = 8.
+
+---
+
+但是这样会使得每个bucket的长度为Θ(N) (则哈希表的操作的时间复杂度也是Θ(N) )，所以通过动态增加bucket的个数来使得时间复杂度变成O(1)
+
+>   One example strategy: When N/M is ≥ 1.5, then double M.
+>
+>   -   We often call this process of increasing M “resizing”.
+>   -   N/M is often called the “load factor”. It represents how full the hash table is.
+
+### 2
+
+Josh提到了两个需要注意的警告
+
+>   <big>**Two Important Warnings When Using HashMaps/HashSets**</big>
+>
+>   Warning #1: Never store objects that can change in a `HashSet` or `HashMap`!
+>
+>   -   If an object's variables changes, then its hashCode changes. May result in items getting lost.
+>
+>   Warning #2: Never override `equals` without also overriding `hashCode`.
+>
+>   -   Can also lead to items getting lost and genarally weird behavior.
+>   -   HashMaps and HashSets use equals to determine if an item exists in a particular bucket.
+>   -   See HW3 or the study guide problems.
 
 ## Homework 2
 
@@ -2923,102 +2972,102 @@ Josh通过4个例子，讲解了红黑树如何构建的过程
     
     Suppose we insert the following words into an initially empty hash table, in this order: **kerfuffle**, **broom**, **hroom**, **ragamuffin**, **donkey**, **brekky**, **blob**, **zenzizenzizenzic**, and **yap**. Assume that the hash code of a String is just its length (note that this is not actually the hash code for Strings in Java). Use separate chaining to resolve collisions. Assume 4 is the initial size of the hash table array, and double this array’s size when the load factor is equal to 1. Illustrate this hash table with a box-and-pointer diagram.
     
-    For each index of the final hash table, specify what Strings are stored in it. If it is empty, write NoneNone. In your final answer, **do not wrap Strings in quotes**. 
+    For each index of the final hash table, specify what Strings are stored in it. If it is empty, write `None`. In your final answer, **do not wrap Strings in quotes**. 
     
     If an index has more than 1 String in it, separate them using a comma and a single space. For example, if index 0 stores the Strings `one` and `two`, your answer should be `one, two`.
     
     Elements in index 0:
     
     ```txt
-    
+    zenzizenzizenzic
     ```
     
     Elements in index 1:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 2:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 3:
     
     ```txt
-    
+    yap
     ```
     
     Elements in index 4:
     
     ```txt
-    
+    blob
     ```
     
     Elements in index 5:
     
     ```txt
-    
+    broom, hroom
     ```
     
     Elements in index 6:
     
     ```txt
-    
+    donkey, brekky
     ```
     
     Elements in index 7:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 8:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 9:
     
     ```txt
-    
+    kerfuffle
     ```
     
     Elements in index 10:
     
     ```txt
-    
+    ragamuffin
     ```
     
     Elements in index 11:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 12:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 13:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 14:
     
     ```txt
-    
+    None
     ```
     
     Elements in index 15:
     
     ```txt
-    
+    None
     ```
