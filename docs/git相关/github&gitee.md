@@ -348,3 +348,29 @@ windows升级git
 git update-git-for-windows
 ```
 
+## 21
+
+如果clone下来的仓库中有submodule子模块，但对应路径只有一个空文件夹，那么可以使用 `--init` 参数来拉取对应的文件
+
+>   `--recursive` 表示递归对所有嵌套子模块进行操作
+
+```bash
+git submodule update --init --recursive
+```
+
+---
+
+如果submodule子模块中有*大文件*，那么可以使用这样的命令对所有submodule拉取大文件
+
+```bash
+git submodule foreach git lfs pull
+```
+
+## 22
+
+如果想在clone的时候就顺便把submodule一并克隆好，添加一个 `--recurse-submodules` 参数
+
+```bash
+git clone --recurse-submodules
+```
+
