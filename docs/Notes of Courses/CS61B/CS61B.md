@@ -3071,3 +3071,33 @@ Josh提到了两个需要注意的警告
     ```txt
     None
     ```
+
+## Project 2
+
+### 1
+
+在调用 `gitlet.Utils` 中的 `plainFilenamesIn` 方法，使用返回的 `List` 的过程中，发现在调用 `remove` 方法时，出现了 `UnsupportedOperationException` 的报错，
+
+最后在网上搜索，发现是这样的原因
+
+[java - Why do I get an UnsupportedOperationException when trying to remove an element from a List? - Stack Overflow](https://stackoverflow.com/questions/2965747/why-do-i-get-an-unsupportedoperationexception-when-trying-to-remove-an-element-f)
+
+(根据[这个回答](https://stackoverflow.com/a/2965808))对此可以这样进行修改
+
+```java
+List<String> list = new LinkedList<String>(Arrays.asList(split));
+```
+
+## Lecture 21 Tree and Graph Traversals
+
+### 1
+
+Josh在介绍二叉树的三种遍历方式时，提到了一个比较方便的小技巧
+
+![cs61b_39](images/cs61b_39.png){ loading=lazy }
+
+>   A Useful Visual Trick (for Humans, Not Algorithms)
+>
+>   -   Preorder traversal: We trace a path around the graph, from the top going counter-clockwise. “Visit” every time we pass the LEFT of a node.
+>   -   Inorder traversal: “Visit” when you cross the bottom of a node.
+>   -   Postorder traversal: “Visit” when you cross the right a node.
