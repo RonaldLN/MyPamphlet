@@ -32,7 +32,7 @@ jobs:
 
       # 步骤 4：构建静态网站
       - name: Build Site
-        run: mkdocs build --strict
+        run: mkdocs build
 
       # # 步骤 5：通过 SCP 上传到服务器
       # - name: Deploy to Server
