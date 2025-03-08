@@ -374,3 +374,17 @@ git submodule foreach git lfs pull
 git clone --recurse-submodules
 ```
 
+## 23
+
+可以使用 `git archive` 命令来打包(某个分支的)代码
+
+```bash
+git archive main --format=tar.gz --output=/path/to/main.tar.gz
+```
+
+或者使用zip格式打包
+
+```bash
+git archive main --format=zip --output=main.zip
+```
+
