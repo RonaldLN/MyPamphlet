@@ -2888,7 +2888,7 @@ Josh提到了两个需要注意的警告
     
     Consider the following 2-3 tree:
     
-    ![cs61b_30](images\cs61b_30.png){ loading=lazy }
+    ![cs61b_30](images/cs61b_30.png){ loading=lazy }
     
     <h3>Q4.1 Balance the Tree<br/><small>20 Points</small></h3>
     
