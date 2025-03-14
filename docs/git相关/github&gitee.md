@@ -388,3 +388,14 @@ git archive main --format=tar.gz --output=/path/to/main.tar.gz
 git archive main --format=zip --output=main.zip
 ```
 
+## 24
+
+在终端中打印git版本树(历史所有的commits)
+
+```bash
+git log --oneline --graph --decorate --all
+```
+
+>   参考
+>
+>   [gitk - Viewing full version tree in git - Stack Overflow](https://stackoverflow.com/questions/5361019/viewing-full-version-tree-in-git)
