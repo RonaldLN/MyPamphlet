@@ -1806,3 +1806,31 @@ hide:
 >   ![xxx](.../xxx.png){ loading=lazy style="zoom:33%" }
 >   ```
 
+## 42
+
+可以借助mkdocs-awesome-nav插件来(部分)覆盖导航中文件夹的标题，例如：
+
+```yaml title=".nav.yml"
+nav:
+    - index.md
+    - 模块: modules
+    - "*"
+```
+
+>   参考官方文档
+>
+>   [Custom Navigation - Awesome Nav for MkDocs](https://lukasgeiter.github.io/mkdocs-awesome-nav/features/nav/)
+
+=== "修改前"
+
+    ![mkdocs-awesome-nav_before](../images/mkdocs-awesome-nav_before.png){ loading=lazy }
+
+=== "修改后"
+
+    ![mkdocs-awesome-nav_after](../images/mkdocs-awesome-nav_after.png){ loading=lazy }
+
+>   从这个issue中
+>
+>   [Question about the automatic navigation menu · squidfunk/mkdocs-material · Discussion #4684](https://github.com/squidfunk/mkdocs-material/discussions/4684)
+>
+>   [sennewood的回复](https://github.com/squidfunk/mkdocs-material/discussions/4684#discussioncomment-4399750)中得知了这个插件
