@@ -3106,10 +3106,73 @@ Josh在介绍二叉树的三种遍历方式时，提到了一个比较方便的�
 
 ### 1
 
-A\*算法在获取 *节点 vertex* 时还需要考虑该*节点*与目的地的**距离**(相比较于Dijkstra算法中只考虑*节点*与源点的距离)
+A\*算法在获取 *顶点 vertex* 时还需要考虑该*顶点*与目的地的**距离**(相比较于Dijkstra算法中只考虑*顶点*与源点的距离)
 
 ![cs61b_40](images/cs61b_40.png){ loading=lazy }
 
 而这个**距离**通过一个 *启发 heuristic*函数 计算得到(例如直接通过经纬度计算直线距离)
 
 ![cs61b_41](images/cs61b_41.png){ loading=lazy }
+
+## Lecture 24 Minimum Spanning Trees
+
+### 1
+
+寻找 *最小生成树 Minimum Spanning Trees(MST)* 的原理是：
+
+对于给定的 *割 cut* (将图中顶点分成两个非空子集的划分)，权重最小的 *跨割边 crossing edge* 一定在最小生成树中
+
+![cs61b_42](images/cs61b_42.png){ loading=lazy }
+
+>   A Useful Tool for Finding the MST: Cut Property
+>
+>   - A ***cut*** is an assignment of a graph’s nodes to two non-empty sets.
+>   - A ***crossing edge*** is an edge which connects a node from one set to a node from the other set.
+>
+>   ***cut property:*** Given any cut, minimum weight crossing edge is in the MST.
+
+然后Josh给了一个很直观的简单证明
+
+![cs61b_43](images/cs61b_43.png){ loading=lazy }
+
+>   Cut Property Proof
+>
+>   Suppose that the minimum crossing edge *e* were not in the MST.
+>
+>   - Adding *e* to the MST creates a cycle.
+>   - Some other edge *f* must also be a crossing edge.
+>   - Removing f and adding e is a lower weight spanning tree.
+>   - Contradiction!
+
+可以发现之后介绍的Prim和Kruskal算法都是基于这样的思路
+
+### 2
+
+为了避免在过程中重复遍历*边*(以寻找下一个要添加到最小生成树中的权重最小的*边*)，Josh提到了一种类似于Dijkstra算法的优化过的Prim算法的实现方法(过程中记录的信息和Dijkstra算法很相似)
+
+![cs61b_44](images/cs61b_44.png){ loading=lazy }
+
+此处 `distTo` 记录的是**顶点到树的距离**，
+
+优化后的关键之处在于，当处理某个顶点时，只考虑它与还未处理过的顶点所相连的边(Josh提到还会有一个类似标记顶点是否被访问过的数组)，从而之前处理的顶点访问过的边就不会再被访问
+
+### 3
+
+Josh对比了三个算法的复杂度。此处的log*表示反复应用对数函数直到结果小于等于1所需要的次数，用公式表示为：
+
+$$
+\log^* n =
+\begin{cases}
+0 & \text{if } n \le 1 \\
+1 + \log^*(\log n) & \text{if } n > 1
+\end{cases}
+$$
+
+对于现实中会涉及到的几乎所有数字，log*的值不会超过5
+
+>   | Problem        | Algorithm                       | Runtime (if E > V) | Notes                            |
+>   | -------------- | ------------------------------- | ------------------ | -------------------------------- |
+>   | Shortest Paths | Dijkstra’s                      | O(E log V)         | Fails for negative weight edges. |
+>   | MST            | Prim’s                          | O(E log V)         | Analogous to Dijkstra’s.         |
+>   | MST            | Kruskal’s                       | O(E log E)         | Uses WQUPC.                      |
+>   | MST            | Kruskal’s with pre-sorted edges | O(E log* V)        | Uses WQUPC.                      |
