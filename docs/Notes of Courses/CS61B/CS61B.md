@@ -3101,3 +3101,15 @@ Josh在介绍二叉树的三种遍历方式时，提到了一个比较方便的�
 >   -   Preorder traversal: We trace a path around the graph, from the top going counter-clockwise. “Visit” every time we pass the LEFT of a node.
 >   -   Inorder traversal: “Visit” when you cross the bottom of a node.
 >   -   Postorder traversal: “Visit” when you cross the right a node.
+
+## Lecture 23 Shortest Paths
+
+### 1
+
+A\*算法在获取 *节点 vertex* 时还需要考虑该*节点*与目的地的**距离**(相比较于Dijkstra算法中只考虑*节点*与源点的距离)
+
+![cs61b_40](images/cs61b_40.png){ loading=lazy }
+
+而这个**距离**通过一个 *启发 heuristic*函数 计算得到(例如直接通过经纬度计算直线距离)
+
+![cs61b_41](images/cs61b_41.png){ loading=lazy }
