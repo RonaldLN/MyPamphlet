@@ -3176,3 +3176,55 @@ $$
 >   | MST            | Prim’s                          | O(E log V)         | Analogous to Dijkstra’s.         |
 >   | MST            | Kruskal’s                       | O(E log E)         | Uses WQUPC.                      |
 >   | MST            | Kruskal’s with pre-sorted edges | O(E log* V)        | Uses WQUPC.                      |
+
+## Lecture 25 Range Searching and Multi-Dimensional Data
+
+### 1
+
+由于搜索二叉树不能很好地支持二维数据的查找，于是Josh引入了 *四叉树 QuadTree*，即树中每个节点有四个孩子并分别代表相对于该节点的四象限之一
+
+>   -   Every Node has four children
+>       -   Top left, a.k.a. northwest.
+>       -   Top right, a.k.a. northeast.
+>       -   Bottom left, a.k.a. southwest.
+>       -   Bottom right, a.k.a. southeast.
+
+---
+
+而处理三维空间的数据要使用 *八叉树 Oct-tree/Octree*
+
+![cs61b_45](images/cs61b_45.png){ loading=lazy }
+
+### 2
+
+Josh提到*k-d树 k-d tree*，
+
+![cs61b_46](images/cs61b_46.png){ loading=lazy }
+
+对于二维空间，(与搜索二叉树类似)偶数层的节点根据x坐标判断向左还是向右，奇数层的节点根据y坐标判断向左还是向右
+
+>   k-d tree example for 2-d:
+>
+>   -   Basic idea, root node partitions entire space into left and right (by x).
+>   -   All depth 1 nodes partition subspace into up and down (by y).
+>   -   All depth 2 nodes partition subspace into left and right (by x).
+>
+>   Each point owns 2 subspaces.
+>
+>   -   Similar to a quadtree.
+>   -   Example: D owns the two subspaces shown.
+>       -   The top subspace is infinitely large.
+
+那么对于三维空间就是，第0层根据x坐标，第1层根据y坐标，第2层根据z坐标，第3层根据x坐标...依此类推
+
+### 3
+
+在k-d树的搜索过程中有一点需要注意，
+
+![cs61b_47](images/cs61b_47.png){ loading=lazy }
+
+![cs61b_48](images/cs61b_48.png){ loading=lazy }
+
+在Josh给出的这个例子中，某些节点的不朝着查询点的一边(“bad” side)也需要搜索，因为它的子空间中离查询点最近的地方与查询点的距离小于当前状态的最优点与查询点的距离
+
+部分子空间中离查询点最近的地方可能与查询点连线不是水平或垂直的，因此Josh提到在实现时可以简化成使用当前节点与查询点的x或y坐标之差来代替进行判断
