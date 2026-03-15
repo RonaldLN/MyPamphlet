@@ -3228,3 +3228,14 @@ Josh提到*k-d树 k-d tree*，
 在Josh给出的这个例子中，某些节点的不朝着查询点的一边(“bad” side)也需要搜索，因为它的子空间中离查询点最近的地方与查询点的距离小于当前状态的最优点与查询点的距离
 
 部分子空间中离查询点最近的地方可能与查询点连线不是水平或垂直的，因此Josh提到在实现时可以简化成使用当前节点与查询点的x或y坐标之差来代替进行判断
+
+## Lecture 26 Prefix Operations and Tries
+
+### 1
+
+Josh介绍了*字典树 trie*
+
+>   Trie:
+>
+>   -   Short for Re**trie**val Tree.
+>   -   Inventor Edward Fredkin suggested it should be pronounced “tree”, butalmost everyone pronounces it like “try”.
