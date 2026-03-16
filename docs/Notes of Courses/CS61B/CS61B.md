@@ -3239,3 +3239,70 @@ Josh介绍了*字典树 trie*
 >
 >   -   Short for Re**trie**val Tree.
 >   -   Inventor Edward Fredkin suggested it should be pronounced “tree”, butalmost everyone pronounces it like “try”.
+
+## Lecture 28 Reductions and Decomposition
+
+### 1
+
+Josh在介绍图的*(执行)拓扑排序 Topological Sorting*，提到了使用深度优先搜索的后序遍历能得到刚好逆序的结果
+
+>   Solution (Spoiler Alert)
+>
+>   ```mermaid
+>   graph TD
+>      2 --> 3
+>      2 --> 5
+>      0 --> 1
+>      0 --> 3
+>      3 --> 4
+>      1 --> 4
+>      5 --> 4
+>      5 --> 6
+>      4 --> 7
+>   ```
+>
+>   Perform a DFS traversal from every vertex with indegree 0, NOT clearing markings in between traversals.
+>
+>   -   Record DFS postorder in a list: [7, 4, 1, 3, 0, 6, 5, 2]
+>   -   Topological ordering is given by the reverse of that list (reverse postorder):
+>       -   [2, 5, 6, 0, 3, 1, 4, 7]
+
+---
+
+Josh提到如果有向无环图中有负权重的边，那么Dijkstra算法可能会失效
+
+>   If we allow negative edges, Dijkstra’s algorithm can fail.
+>
+>   -   For example, below we see Dijkstra’s just before vertex 2 is visited.
+>   -   Relaxation on 4 succeeds, but distance to 5 will never be updated.
+>
+>   ![cs61b_49](images/cs61b_49.svg){ loading=lazy }
+>
+>   ![cs61b_50](images/cs61b_50.svg){ loading=lazy }
+
+然后Josh说，可以按照*拓扑顺序 Topological Order*来访问节点
+
+>   One simple idea: Visit vertices in topological order.
+>
+>   -   On each visit, relax all outgoing edges.
+>   -   Each vertex is visited only when all possible info about it has been used!
+
+---
+
+对于在有向无环图中寻找最长路径，可以将所有边的权重全部取反，再使用在有负边时的求最短路径的方法
+
+>   <h2>The Longest Paths Problem on DAGs</h2>
+>
+>   DAG LPT solution for graph G:
+>
+>   -   Form a new copy of the graph G’ with signs of all edge weights flipped.
+>   -   Run DAGSPT on G’ yielding result X.
+>   -   Flip signs of all values in X.distTo. X.edgeTo is already correct.
+>
+>   ![cs61b_51](images/cs61b_51.svg){ loading=lazy }
+
+### 2
+
+Josh提到*归约 Reduction*，把大问题拆解成已知的小问题来解决，例如求有向无环图最长路径
+
+![cs61b_52](images/cs61b_52.svg){ loading=lazy }
