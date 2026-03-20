@@ -3306,3 +3306,19 @@ Josh提到如果有向无环图中有负权重的边，那么Dijkstra算法可�
 Josh提到*归约 Reduction*，把大问题拆解成已知的小问题来解决，例如求有向无环图最长路径
 
 ![cs61b_52](images/cs61b_52.svg){ loading=lazy }
+
+## Lecture 29 Basic Sorts
+
+### 1
+
+Josh提到了一种堆排序的改进，不需要额外使用N大小的空间
+
+>   <h2>In-place Heap Sort</h2>
+>
+>   Heap sorting N items:
+>
+>   -   Bottom-up heapify input array.
+>       -   Sink nodes in reverse level order: sink(k)
+>       -   After sinking, guaranteed that tree rooted at position k is a heap.
+>   -   Repeat N times:
+>       -   Delete largest item from the max heap, swapping root with last item inthe heap.
