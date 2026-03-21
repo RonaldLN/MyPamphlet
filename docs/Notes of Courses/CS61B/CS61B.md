@@ -3322,3 +3322,9 @@ Josh提到了一种堆排序的改进，不需要额外使用N大小的空间
 >       -   After sinking, guaranteed that tree rooted at position k is a heap.
 >   -   Repeat N times:
 >       -   Delete largest item from the max heap, swapping root with last item inthe heap.
+
+## Lecture 30 Quick Sort
+
+### 1
+
+Josh提到插入排序在N<15时，会比其他排序算法都快，因此现实中的归并排序、快速排序在分割到N<15时都会转换成插入排序
